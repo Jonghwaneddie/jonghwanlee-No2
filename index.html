@@ -9,13 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
     
 <style>
-    /* 💡 최종 CSS 버전: 메뉴 위치 상단으로 조금 더 이동 반영 */
+    /* 💡 최종 CSS 버전: 메뉴 텍스트 위치 상단으로 조금 더 이동 반영 */
     body {
         font-family: 'Montserrat', Arial, sans-serif;
         margin: 0;
         padding: 20px 50px; 
         color: #1a1a1a;
         font-size: 10px; 
+        position: relative; 
     }
 
     .header-top {
@@ -26,7 +27,7 @@
         margin-left: auto;
         margin-right: auto;
         
-        /* main info의 위치를 유지하는 넓은 여백 */
+        /* list-container 위치 고정 */
         margin-bottom: 250px; 
     }
     
@@ -36,27 +37,32 @@
         cursor: pointer;
     }
 
-    .header-top div { /* Jonghwan Lee 텍스트를 감싸는 div의 Flex 속성 복원 */
+    .header-top div {
         flex-grow: 1;
     }
     
     .header-top .right-info {
-        text-align: right; /* Contact 텍스트 오른쪽 정렬 복원 */
+        text-align: right;
     }
 
-    /* 💡 추가: 본문 정보 위에 들어갈 메뉴 스타일 */
+    /* 💡 메뉴 섹션 스타일: Absolute Position으로 상단에 독립적으로 배치 */
     .main-menu-above {
+        position: absolute; 
+        /* 💡 수정: top: 25px로 조정하여 메뉴를 Jonghwan Lee/Contact와 더 가깝게 올림 */
+        top: 25px; 
+        right: 50px; 
+        
         max-width: 1350px; 
-        /* 💡 수정: margin-top: -200px을 사용하여 메뉴를 위로 끌어올려 header-top에 가깝게 배치 */
-        margin: -200px auto 10px auto; 
-        padding-right: 20px; /* list-container의 왼쪽 경계선과 맞추기 위한 여백 조정 */
-        text-align: right; /* 오른쪽 정렬 */
+        text-align: right; 
+        z-index: 10; 
+        margin: 0; 
+        padding: 0;
     }
     .main-menu-above a {
         color: #1a1a1a;
         text-decoration: none;
         cursor: pointer;
-        margin-left: 15px; /* 메뉴 항목 간 간격 */
+        margin-left: 15px; 
         font-size: 10px;
     }
     
@@ -167,17 +173,17 @@
             margin-bottom: 50px; 
         }
 
-        /* 💡 모바일: 새로운 메뉴를 중앙 정렬로 */
+        /* 모바일 메뉴 위치 조정: Absolute Position 대신 기본 흐름으로 전환 */
         .main-menu-above {
+            position: static; 
             max-width: none;
-            /* 모바일에서는 음수 마진 제거하고 원래대로 복원 */
-            margin: 0 0 10px 0; 
+            margin: 0 0 10px 0;
             padding-right: 0;
             text-align: left;
         }
         .main-menu-above a {
             margin-left: 0;
-            margin-right: 15px; /* 항목 간 간격 */
+            margin-right: 15px; 
         }
         
         .list-container {
