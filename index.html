@@ -28,19 +28,64 @@
         
         margin-bottom: 250px; 
     }
+    <!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jonghwan Lee</title>
+    <link rel="stylesheet" href="style.css">
     
-    /* 💡 추가: 헤더 메뉴 항목 스타일 */
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+    
+<style>
+    /* 💡 최종 CSS 버전: 메뉴 위치 변경 반영 */
+    body {
+        font-family: 'Montserrat', Arial, sans-serif;
+        margin: 0;
+        padding: 20px 50px; 
+        color: #1a1a1a;
+        font-size: 10px; 
+    }
+
+    .header-top {
+        display: flex;
+        justify-content: space-between;
+        
+        max-width: 1350px; 
+        margin-left: auto;
+        margin-right: auto;
+        
+        margin-bottom: 250px; 
+    }
+    
     .header-top a {
         color: #1a1a1a;
-        text-decoration: none; /* 밑줄 제거 */
+        text-decoration: none;
         cursor: pointer;
     }
 
-    /* 💡 수정: right-info를 Flex 컨테이너로 설정하여 메뉴 항목들을 가로로 배치 */
+    .header-top div { /* Jonghwan Lee 텍스트를 감싸는 div의 Flex 속성 복원 */
+        flex-grow: 1;
+    }
+    
     .header-top .right-info {
-        display: flex;
-        gap: 20px; /* 메뉴 항목 간 간격 */
-        align-items: center;
+        text-align: right; /* Contact 텍스트 오른쪽 정렬 복원 */
+    }
+
+    /* 💡 추가: 본문 정보 위에 들어갈 메뉴 스타일 */
+    .main-menu-above {
+        max-width: 1350px; 
+        margin: 0 auto 10px auto; /* 중앙 정렬 및 하단 여백 */
+        padding-right: 20px; /* list-container의 왼쪽 경계선과 맞추기 위한 여백 조정 */
+        text-align: right; /* 오른쪽 정렬 */
+    }
+    .main-menu-above a {
+        color: #1a1a1a;
+        text-decoration: none;
+        cursor: pointer;
+        margin-left: 15px; /* 메뉴 항목 간 간격 */
+        font-size: 10px;
     }
     
     .list-container {
@@ -139,25 +184,27 @@
     
     /* 모바일 반응형 */
     @media (max-width: 768px) {
-        /* ... (모바일 CSS 생략 - 변경 없음) ... */
         body {
             padding: 15px 20px;
         }
-        
+
         .header-top {
             max-width: none;
             margin-left: 0;
             margin-right: 0;
             margin-bottom: 50px; 
-            /* 💡 모바일: 메뉴를 세로로 재배치 */
-            flex-direction: column; 
-            align-items: flex-start;
         }
 
-        .header-top .right-info {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 5px;
+        /* 💡 모바일: 새로운 메뉴를 중앙 정렬로 */
+        .main-menu-above {
+            max-width: none;
+            margin: 0 0 10px 0;
+            padding-right: 0;
+            text-align: left;
+        }
+        .main-menu-above a {
+            margin-left: 0;
+            margin-right: 15px; /* 항목 간 간격 */
         }
         
         .list-container {
@@ -208,89 +255,4 @@
 
     <div class="header-top">
         <div><a href="index.html">Jonghwan Lee</a></div> 
-        <div class="right-info">
-            <a href="information.html">information</a>
-            <a href="text.html">text</a>
-            <a href="note.html">note</a>
-            <a href="works.html">works</a>
-            <a href="contact.html">contact</a>
-        </div>
-    </div>
-
-    <div class="list-container">
-        <div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">UMBRA</div>
-                    <div class="show-location">Thaddeus Ropac</div>
-                    <div class="show-location">London</div>
-                    <div class="show-date">Oct 08 - Nov 20, 2025</div>
-                </div>
-                
-                <div class="show-filed-under">
-                    <div class="filed-text">
-                        Filed under:<br>
-                        Exhibitions, Solo, 2025
-                    </div>
-                    <div class="extra-text">New Text Here 1</div> 
-                </div>
-                
-            </div>
-            <div class="show-images">
-                <img src="placeholder-umbra-1.jpg" alt="UMBRA 전시 이미지 1">
-                <img src="placeholder-umbra-2.jpg" alt="UMBRA 전시 이미지 2"> 
-                <img src="placeholder-umbra-3.jpg" alt="UMBRA 전시 이미지 3"> 
-            </div>
-        </div>
-
-        <div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">Future Present</div>
-                    <div class="show-location">Andy St. Louis</div>
-                    <div class="show-date">April 16, 2024</div>
-                </div>
-                
-                <div class="show-filed-under">
-                    <div class="filed-text">
-                        Filed under:<br>
-                        Publications, 2024
-                    </div>
-                    <div class="extra-text">New Text Here 2</div> 
-                </div>
-                
-            </div>
-            <div class="show-images">
-                <img src="placeholder-future-present-1.jpg" alt="Future Present 이미지 1">
-                <img src="placeholder-future-present-2.jpg" alt="Future Present 이미지 2">
-                <img src="placeholder-future-present-3.jpg" alt="Future Present 이미지 3">
-            </div>
-        </div>
-
-        <div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">Receivers</div>
-                    <div class="show-location">Doosan Art Center</div>
-                    <div class="show-location">Seoul, Korea</div>
-                    <div class="show-date">Sep 13 - Oct 21, 2023</div>
-                </div>
-                
-                <div class="show-filed-under">
-                    <div class="filed-text">
-                        Filed under:<br>
-                        Exhibitions, Solo, 2023
-                    </div>
-                    <div class="extra-text">New Text Here 3</div> 
-                </div>
-                
-            </div>
-            <div class="show-images">
-                <img src="placeholder-receivers-1.jpg" alt="Receivers 이미지 1">
-                <img src="placeholder-receivers-2.jpg" alt="Receivers 이미지 2">
-                <img src="placeholder-receivers-3.jpg" alt="Receivers 이미지 3">
-            </div>
-        </div>
-    </div> 
-</body>
-</html>
+        <div class="right
