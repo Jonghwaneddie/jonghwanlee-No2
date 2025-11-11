@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
     
 <style>
-    /* 💡 최종 CSS 버전: 메뉴 위치 변경 반영 */
+    /* 💡 최종 CSS 버전: 메뉴 위치 상단으로 조금 더 이동 반영 */
     body {
         font-family: 'Montserrat', Arial, sans-serif;
         margin: 0;
@@ -26,6 +26,7 @@
         margin-left: auto;
         margin-right: auto;
         
+        /* main info의 위치를 유지하는 넓은 여백 */
         margin-bottom: 250px; 
     }
     
@@ -46,7 +47,8 @@
     /* 💡 추가: 본문 정보 위에 들어갈 메뉴 스타일 */
     .main-menu-above {
         max-width: 1350px; 
-        margin: 0 auto 10px auto; /* 중앙 정렬 및 하단 여백 */
+        /* 💡 수정: margin-top: -200px을 사용하여 메뉴를 위로 끌어올려 header-top에 가깝게 배치 */
+        margin: -200px auto 10px auto; 
         padding-right: 20px; /* list-container의 왼쪽 경계선과 맞추기 위한 여백 조정 */
         text-align: right; /* 오른쪽 정렬 */
     }
@@ -168,7 +170,8 @@
         /* 💡 모바일: 새로운 메뉴를 중앙 정렬로 */
         .main-menu-above {
             max-width: none;
-            margin: 0 0 10px 0;
+            /* 모바일에서는 음수 마진 제거하고 원래대로 복원 */
+            margin: 0 0 10px 0; 
             padding-right: 0;
             text-align: left;
         }
