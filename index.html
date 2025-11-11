@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
     
 <style>
-    /* 💡 최종 CSS 버전: 메뉴 위치 분리 및 상단 배치 반영 */
+    /* 💡 최종 CSS 버전: 메뉴 위치 상단 조정 반영 */
     body {
         font-family: 'Montserrat', Arial, sans-serif;
         margin: 0;
@@ -26,8 +26,8 @@
         margin-left: auto;
         margin-right: auto;
         
-        /* 💡 복원: 250px 여백을 유지하여 list-container의 위치를 고정 */
-        margin-bottom: 250px; 
+        /* 💡 수정: 하단 여백을 10px로 줄여 메뉴를 위로 끌어올림 */
+        margin-bottom: 10px; 
     }
     
     .header-top a {
@@ -44,11 +44,10 @@
         text-align: right;
     }
 
-    /* 💡 메뉴 섹션 스타일: 음수 마진을 사용하여 메뉴만 위로 끌어올림 */
+    /* 💡 본문 정보 위에 들어갈 메뉴 스타일 */
     .main-menu-above {
         max-width: 1350px; 
-        /* 💡 수정: -240px을 사용하여 header-top의 여백(250px) 안으로 메뉴를 끌어올림 */
-        margin: -240px auto 10px auto; 
+        margin: 0 auto 10px auto; /* 중앙 정렬 및 하단 여백 */
         padding-right: 20px; 
         text-align: right; 
     }
@@ -80,7 +79,7 @@
         border-left: 1px solid #1a1a1a;
         padding: 10px 0 10px 20px; 
         align-items: start; 
-        margin-bottom: 20px; 
+        margin-bottom: 250px; 
     }
 
     .show-item:last-child{
@@ -167,10 +166,9 @@
             margin-bottom: 50px; /* 모바일에서는 여백 유지 */
         }
 
-        /* 모바일 메뉴 위치 조정 */
         .main-menu-above {
             max-width: none;
-            margin: -40px 0 10px 0; /* 모바일에서는 -40px로 조정 */
+            margin: 0 0 10px 0;
             padding-right: 0;
             text-align: left;
         }
