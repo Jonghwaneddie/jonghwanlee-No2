@@ -101,7 +101,7 @@
         line-height: 1.4;
     }
     
-    /* 💡 show-title-group 내부의 p 태그 제거 */
+    /* show-title-group 내부의 p 태그 제거 */
     .show-title-group p {
         margin: 0;
         padding: 0;
@@ -121,7 +121,7 @@
         line-height: 1.4;
     }
     
-    /* 💡 extra-text CSS 수정 */
+    /* 💡 extra-text CSS 수정: margin-left: 100px 추가 */
     .extra-text {
         color: #1a1a1a; 
         line-height: 1.4;
@@ -131,6 +131,8 @@
         float: right; 
         /* 부모 요소인 .show-filed-under의 Flex 정렬을 덮어쓰지 않도록 */
         overflow: visible; 
+        /* 💡 추가: 왼쪽 마진을 추가하여 오른쪽으로 100px 이동 */
+        margin-left: 100px;
     }
     .extra-text span {
         display: block; /* 각 항목을 강제로 다음 줄로 내림 */
