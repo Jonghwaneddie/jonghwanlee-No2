@@ -9,14 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
     
 <style>
-    /* 💡 최종 CSS 버전: 메뉴 텍스트 위치 상단으로 조금 더 이동 반영 */
+    /* 💡 최종 CSS 버전: 메뉴 위치 변경 반영 */
     body {
         font-family: 'Montserrat', Arial, sans-serif;
         margin: 0;
         padding: 20px 50px; 
         color: #1a1a1a;
         font-size: 10px; 
-        position: relative; 
     }
 
     .header-top {
@@ -27,7 +26,6 @@
         margin-left: auto;
         margin-right: auto;
         
-        /* list-container 위치 고정 */
         margin-bottom: 250px; 
     }
     
@@ -37,32 +35,26 @@
         cursor: pointer;
     }
 
-    .header-top div {
+    .header-top div { /* Jonghwan Lee 텍스트를 감싸는 div의 Flex 속성 복원 */
         flex-grow: 1;
     }
     
     .header-top .right-info {
-        text-align: right;
+        text-align: right; /* Contact 텍스트 오른쪽 정렬 복원 */
     }
 
-    /* 💡 메뉴 섹션 스타일: Absolute Position으로 상단에 독립적으로 배치 */
+    /* 💡 추가: 본문 정보 위에 들어갈 메뉴 스타일 */
     .main-menu-above {
-        position: absolute; 
-        /* 💡 수정: top: 25px로 조정하여 메뉴를 Jonghwan Lee/Contact와 더 가깝게 올림 */
-        top: 25px; 
-        right: 50px; 
-        
         max-width: 1350px; 
-        text-align: right; 
-        z-index: 10; 
-        margin: 0; 
-        padding: 0;
+        margin: 0 auto 10px auto; /* 중앙 정렬 및 하단 여백 */
+        padding-right: 20px; /* list-container의 왼쪽 경계선과 맞추기 위한 여백 조정 */
+        text-align: right; /* 오른쪽 정렬 */
     }
     .main-menu-above a {
         color: #1a1a1a;
         text-decoration: none;
         cursor: pointer;
-        margin-left: 15px; 
+        margin-left: 15px; /* 메뉴 항목 간 간격 */
         font-size: 10px;
     }
     
@@ -173,9 +165,8 @@
             margin-bottom: 50px; 
         }
 
-        /* 모바일 메뉴 위치 조정: Absolute Position 대신 기본 흐름으로 전환 */
+        /* 💡 모바일: 새로운 메뉴를 중앙 정렬로 */
         .main-menu-above {
-            position: static; 
             max-width: none;
             margin: 0 0 10px 0;
             padding-right: 0;
@@ -183,7 +174,7 @@
         }
         .main-menu-above a {
             margin-left: 0;
-            margin-right: 15px; 
+            margin-right: 15px; /* 항목 간 간격 */
         }
         
         .list-container {
