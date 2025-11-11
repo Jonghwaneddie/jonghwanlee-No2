@@ -5,32 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jonghwan Lee</title>
     <link rel="stylesheet" href="style.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+    
 <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px 50px; 
-            color: #1a1a1a;
-            font-size: 14px;
-        }
+    /* CSS 수정 사항: 글꼴, 크기, 볼드 제거, 세로줄 변경 적용 */
+    body {
+        /* 💡 글꼴을 Montserrat, 크기를 10px로 변경 */
+        font-family: 'Montserrat', Arial, sans-serif;
+        margin: 0;
+        padding: 20px 50px; 
+        color: #1a1a1a;
+        font-size: 10px; 
+    }
 
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 250px; 
-        }
+    .header-top {
+        display: flex;
+        justify-content: space-between;
+        /* 넓은 여백 유지 */
+        margin-bottom: 250px; 
+    }
 
-        .header-top div {
-            flex-grow: 1;
-        }
+    .header-top div {
+        flex-grow: 1;
+    }
 
-        .header-top .right-info {
-            text-align: right;
-        }
-        
-      
-        /* 전시 목록 스타일 */
-       .show-item {
+    .header-top .right-info {
+        text-align: right;
+    }
+    
+    /* 전시 목록 스타일 */
+    .show-item {
         display: grid;
         grid-template-columns: 2fr 1fr 1fr 1fr; 
         gap: 20px;
@@ -42,85 +47,88 @@
         margin-bottom: 30px; 
     }
 
-        .show-item:last-child{
-        /* 마지막 항목의 하단 여백 제거 (선택 사항) */
-        margin-bottom: 10; 
+    .show-item:last-child{
+        /* 마지막 항목의 하단 여백 제거 (단위 px 추가) */
+        margin-bottom: 10px; 
     }
 
-        .show-title-group {
-            display: flex;
-            flex-direction: column;
-        }
+    .show-title-group {
+        display: flex;
+        flex-direction: column;
+    }
 
-        .show-title {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
+    .show-title {
+        /* ❌ 볼드체 제거 */
+        /* font-weight: bold; */
+        margin-bottom: 5px;
+    }
 
-        .show-date, .show-location {
-            color: #666;
-            line-height: 1.4;
-        }
+    .show-date, .show-location {
+        color: #666;
+        line-height: 1.4;
+    }
 
-        .show-link a {
-            color: #1a1a1a;
-            text-decoration: underline;
-        }
+    .show-link a {
+        color: #1a1a1a;
+        text-decoration: underline;
+    }
 
-        .show-filed-under {
-            color: #666;
-        }
+    .show-filed-under {
+        color: #666;
+    }
 
-        .show-images {
-            display: flex;
-            gap: 5px;
-            overflow: hidden; 
-            justify-content: flex-end; 
-        }
+    .show-images {
+        display: flex;
+        gap: 5px;
+        overflow: hidden; 
+        justify-content: flex-end; 
+    }
 
-        .show-images img {
-            width: calc(33.33% - 5px); 
-            height: auto;
-            object-fit: cover;
-            aspect-ratio: 1 / 1; 
-        }
+    .show-images img {
+        width: calc(33.33% - 5px); 
+        height: auto;
+        object-fit: cover;
+        aspect-ratio: 1 / 1; 
+    }
 
-        /* 첫 번째 항목 (UMBRA)의 특별한 이미지 레이아웃 */
-        .show-item:nth-child(1) .show-images {
-            display: block;
-            width: 100%;
-        }
+    /* 첫 번째 항목 (UMBRA)의 특별한 이미지 레이아웃 */
+    .show-item:nth-child(1) .show-images {
+        display: block;
+        width: 100%;
+    }
 
-        .show-item:nth-child(1) .show-images img {
-            width: 100%;
-            aspect-ratio: 16 / 9; 
-            object-fit: contain; 
-            margin-bottom: 5px;
+    .show-item:nth-child(1) .show-images img {
+        width: 100%;
+        aspect-ratio: 16 / 9; 
+        object-fit: contain; 
+        margin-bottom: 5px;
+    }
+    
+    /* 모바일 반응형 */
+    @media (max-width: 768px) {
+        body {
+            padding: 15px 20px;
         }
+        /* list-container가 없어졌으므로 이 스타일은 이제 적용되지 않습니다. */
+        /* .list-container { padding-left: 10px; } */ 
         
-        /* 모바일 반응형 (선택 사항) */
-        @media (max-width: 768px) {
-            body {
-                padding: 15px 20px;
-            }
-            /* 세로 줄이 있는 상태에서 여백 조정 */
-            .list-container {
-                padding-left: 10px;
-            }
-            .show-item {
-                grid-template-columns: 1fr; 
-                gap: 10px;
-            }
-            .show-images {
-                justify-content: flex-start;
-            }
+        .show-item {
+            grid-template-columns: 1fr; 
+            gap: 10px;
+            /* 모바일에서 항목 여백 조정 */
+            padding: 15px 0 15px 15px;
+            margin-bottom: 20px;
         }
-    </style>
+        .show-images {
+            justify-content: flex-start;
+        }
+    }
+</style>
 </head>
 <body>
 
     <div class="header-top">
-        <div>Jonghwan Lee</div>
+        <div>Jonghwan Lee</div> 
         <div class="right-info">Contact</div>
     </div>
 
@@ -184,5 +192,6 @@
                 <img src="placeholder-receivers-3.jpg" alt="Receivers 이미지 3">
             </div>
         </div>
-    </div> </body>
+    </div> 
+</body>
 </html>
