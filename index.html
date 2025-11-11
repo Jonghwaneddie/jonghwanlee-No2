@@ -9,11 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
     
 <style>
-    /* CSS 수정 사항: 전체 폭 복원, 2열 그리드 및 Flexbox 배치 적용 */
+    /* CSS 수정 사항: 전체 폭 다시 제한 (1200px), 분류(Filed under) 상단 정렬 */
     body {
         font-family: 'Montserrat', Arial, sans-serif;
         margin: 0;
-        /* 전체 폭을 위해 padding만 적용 */
         padding: 20px 50px; 
         color: #1a1a1a;
         font-size: 10px; 
@@ -23,10 +22,10 @@
         display: flex;
         justify-content: space-between;
         
-        /* 💡 최대 너비 제한 제거 (전체 폭 사용) */
-        /* max-width: 1000px; */ 
-        /* margin-left: auto; */
-        /* margin-right: auto; */
+        /* 💡 헤더의 최대 너비를 1200px로 제한하고 중앙 정렬 */
+        max-width: 1200px; 
+        margin-left: auto;
+        margin-right: auto;
         
         margin-bottom: 250px; 
     }
@@ -39,22 +38,22 @@
         text-align: right;
     }
     
-    /* 💡 list-container의 최대 너비 제한 제거 (전체 폭 사용) */
+    /* 💡 list-container의 최대 너비를 1200px로 제한하고 중앙 정렬 */
     .list-container {
-        /* max-width: 1000px; */ 
-        /* margin: 0 auto; */   
+        max-width: 1200px; 
+        margin: 0 auto;   
     }
 
     /* 💡 제목/정보 그룹과 분류 그룹을 가로로 배치하기 위한 flex 컨테이너 */
     .main-info-group {
         display: flex;
-        /* 항목 간의 공간 확보 */
         gap: 80px; 
+        /* 💡 추가: 내부 요소들을 상단 라인에 정렬 */
+        align-items: flex-start; 
     }
     
     /* 전시 목록 스타일 */
     .show-item {
-        /* 💡 2열 구조로 변경: (제목+분류) 4fr / (이미지) 1fr */
         grid-template-columns: 4fr 1fr; 
         display: grid;
         gap: 40px; 
@@ -70,7 +69,6 @@
     }
 
     .show-title-group {
-        /* .main-info-group이 flex 컨테이너이므로, 내부 요소는 flex-direction: column을 유지 */
         display: flex;
         flex-direction: column;
     }
@@ -92,7 +90,6 @@
         display: flex;
         gap: 5px;
         overflow: hidden; 
-        /* 이미지 정렬은 오른쪽 끝으로 유지 */
         justify-content: flex-end; 
     }
 
@@ -122,18 +119,25 @@
             padding: 15px 20px;
         }
         
-        /* 모바일에서는 모든 너비 제한 해제 */
         .header-top {
+            /* 모바일에서는 너비 제한 해제 */
+            max-width: none;
+            margin-left: 0;
+            margin-right: 0;
             margin-bottom: 50px; 
         }
         
-        /* 💡 모바일에서 main-info-group을 세로로 배치 */
+        .list-container {
+            max-width: none;
+            margin: 0;
+        }
+        
         .main-info-group {
             flex-direction: column;
             gap: 15px;
+            align-items: stretch; /* 모바일에서는 정렬 필요 없음 */
         }
         
-        /* 모바일에서 1열 구조로 변경 */
         .show-item {
             grid-template-columns: 1fr; 
             gap: 10px;
