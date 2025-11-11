@@ -11,7 +11,6 @@
 <style>
     /* CSS 수정 사항: 글꼴, 크기, 볼드 제거, 세로줄 변경 적용 */
     body {
-        /* 💡 글꼴을 Montserrat, 크기를 10px로 변경 */
         font-family: 'Montserrat', Arial, sans-serif;
         margin: 0;
         padding: 20px 50px; 
@@ -22,7 +21,6 @@
     .header-top {
         display: flex;
         justify-content: space-between;
-        /* 넓은 여백 유지 */
         margin-bottom: 250px; 
     }
 
@@ -39,17 +37,21 @@
         display: grid;
         grid-template-columns: 2fr 1fr 1fr 1fr; 
         gap: 20px;
-        /* 💡 각 항목에 세로 줄을 추가하고, 왼쪽 여백을 조정합니다. */
+        /* 세로 줄 시작/끝을 통일하기 위해 padding과 margin을 조정합니다. */
         border-left: 1px solid #1a1a1a;
-        padding: 20px 0 20px 20px; /* 위/아래 20px, 왼쪽 20px 여백 추가 */
-        align-items: start;
-        /* 항목 간의 여백 추가 */
-        margin-bottom: 30px; 
+        
+        /* 💡 위/아래 패딩을 10px로 통일 */
+        padding: 10px 0 10px 20px; 
+        
+        align-items: start; 
+        
+        /* 💡 항목 간의 여백을 20px로 통일 */
+        margin-bottom: 20px; 
     }
 
     .show-item:last-child{
-        /* 마지막 항목의 하단 여백 제거 (단위 px 추가) */
-        margin-bottom: 10px; 
+        /* 💡 마지막 항목의 하단 여백도 20px로 통일 */
+        margin-bottom: 20px; 
     }
 
     .show-title-group {
@@ -58,8 +60,6 @@
     }
 
     .show-title {
-        /* ❌ 볼드체 제거 */
-        /* font-weight: bold; */
         margin-bottom: 5px;
     }
 
@@ -109,8 +109,6 @@
         body {
             padding: 15px 20px;
         }
-        /* list-container가 없어졌으므로 이 스타일은 이제 적용되지 않습니다. */
-        /* .list-container { padding-left: 10px; } */ 
         
         .show-item {
             grid-template-columns: 1fr; 
