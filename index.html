@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heemin Chung - Information, C.V.</title>
+    <title>Jonghwan Lee</title>
     <link rel="stylesheet" href="style.css">
+
     <style>
-        /* CSS를 외부 파일(style.css)로 분리하는 것이 좋지만, 간단한 예시를 위해 여기에 포함합니다. */
+        /* CSS는 이전과 동일하며, .navigation 관련 스타일은 이제 불필요합니다. */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -18,7 +19,7 @@
         .header-top {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 50px;
+            margin-bottom: 50px; /* 'SHOW' 줄이 사라졌으므로 여백을 조정합니다. */
         }
 
         .header-top div {
@@ -27,28 +28,6 @@
 
         .header-top .right-info {
             text-align: right;
-        }
-
-        .navigation {
-            margin-bottom: 30px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .navigation a {
-            margin-right: 15px;
-            text-decoration: none;
-            color: #1a1a1a;
-            border-bottom: 1px solid transparent;
-            padding-bottom: 2px;
-        }
-
-        .navigation a:hover {
-            border-bottom: 1px solid #1a1a1a;
-        }
-
-        .navigation .active {
-            border-bottom: 1px solid #1a1a1a; /* 현재 페이지 표시 */
         }
 
         /* 전시 목록 스타일 */
@@ -92,27 +71,27 @@
         .show-images {
             display: flex;
             gap: 5px;
-            overflow: hidden; /* 이미지 컨테이너 넘치는 부분 숨김 */
-            justify-content: flex-end; /* 이미지를 오른쪽 정렬 */
+            overflow: hidden; 
+            justify-content: flex-end; 
         }
 
         .show-images img {
-            width: calc(33.33% - 5px); /* 이미지 3개 기준 */
+            width: calc(33.33% - 5px); 
             height: auto;
             object-fit: cover;
-            aspect-ratio: 1 / 1; /* 정사각형 비율 */
+            aspect-ratio: 1 / 1; 
         }
 
         /* 첫 번째 항목 (UMBRA)의 특별한 이미지 레이아웃 */
         .show-item:nth-child(1) .show-images {
-            display: block; /* Flex 해제 */
+            display: block;
             width: 100%;
         }
 
         .show-item:nth-child(1) .show-images img {
             width: 100%;
-            aspect-ratio: 16 / 9; /* 가로가 긴 이미지 비율 */
-            object-fit: contain; /* 이미지가 잘리지 않게 컨테이너에 맞춤 */
+            aspect-ratio: 16 / 9; 
+            object-fit: contain; 
             margin-bottom: 5px;
         }
         
@@ -122,7 +101,7 @@
                 padding: 15px 20px;
             }
             .show-item {
-                grid-template-columns: 1fr; /* 모바일에서는 항목을 세로로 정렬 */
+                grid-template-columns: 1fr; 
                 gap: 10px;
             }
             .show-images {
@@ -136,15 +115,6 @@
     <div class="header-top">
         <div>**Heemin Chung**</div>
         <div class="right-info">Information, Email &nbsp; &nbsp; &nbsp; C.V.</div>
-    </div>
-
-    <div class="navigation">
-        SHOW: 
-        <a href="#" class="active">ALL</a>
-        <a href="#">EXHIBITIONS</a>
-        <a href="#">TEXTS</a>
-        <a href="#">PROJECTS</a>
-        <a href="#">PUBLICATIONS</a>
     </div>
 
     <div class="show-item">
