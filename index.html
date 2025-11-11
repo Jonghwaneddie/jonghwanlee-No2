@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
     
 <style>
-    /* 💡 최종 CSS 버전: 메뉴는 고정, main info 부분만 아래로 이동 */
+    /* 💡 최종 CSS 버전: 메뉴 위치, main info 위치, extra-text 줄 바꿈/위치 조정 반영 */
     body {
         font-family: 'Montserrat', Arial, sans-serif;
         margin: 0;
@@ -44,7 +44,7 @@
         text-align: right; /* Contact 텍스트 오른쪽 정렬 복원 */
     }
 
-    /* 💡 메뉴 스타일: 이전 요청대로 -100px로 위로 끌어올린 상태 유지 */
+    /* 💡 메뉴 스타일: -70px로 조정 */
     .main-menu-above {
         max-width: 1300px; 
         margin: -70px auto 10px auto; 
@@ -61,7 +61,7 @@
     
     .list-container {
         max-width: 1300px; 
-        /* 💡 수정: 상단 마진을 추가하여 main info 부분을 아래로 50px 내립니다. */
+        /* main info는 80px 아래로 내려간 상태 유지 */
         margin: 80px auto 0 auto;   
     }
 
@@ -100,6 +100,12 @@
         color: #666;
         line-height: 1.4;
     }
+    
+    /* 💡 show-title-group 내부의 p 태그 제거 */
+    .show-title-group p {
+        margin: 0;
+        padding: 0;
+    }
 
     /* 3. 분류 영역 (Filed under) Flex 설정 */
     .show-filed-under {
@@ -115,9 +121,19 @@
         line-height: 1.4;
     }
     
+    /* 💡 extra-text CSS 수정 */
     .extra-text {
         color: #1a1a1a; 
         line-height: 1.4;
+        /* 텍스트가 한 줄로 유지되도록 설정 */
+        white-space: nowrap; 
+        /* 오른쪽 끝으로 이동 */
+        float: right; 
+        /* 부모 요소인 .show-filed-under의 Flex 정렬을 덮어쓰지 않도록 */
+        overflow: visible; 
+    }
+    .extra-text span {
+        display: block; /* 각 항목을 강제로 다음 줄로 내림 */
     }
 
     /* 4. 이미지 크기 고정 및 슬라이드 준비 */
@@ -244,10 +260,8 @@
                 <div class="show-title-group">
                     <div class="show-title">Loggia</div>
                     <div class="show-location">Hall 1</div>
-                    
-                    <p><div class="show-date">2025. 7. 31 ~ 2025. 8. 23</p>
-                        <p>8, Yangpyeong-ro 22ma-gil, Yeongdeungpo-gu, Seoul, Korea</p>
-                    </div>
+                    <div class="show-date">2025. 7. 31 ~ 2025. 8. 23</div>
+                    <div class="show-location">8, Yangpyeong-ro 22ma-gil, Yeongdeungpo-gu, Seoul, Korea</div>
                 </div>
                 
                 <div class="show-filed-under">
@@ -256,19 +270,19 @@
                     </div>
                     <div class="extra-text">
                         Supported by Seoul Foundation for Arts and Culture<br>
-                        <p>Text | Soomin Lee</p>
-                        <p>Poster | Jeongin Weon</p>
-                        <p>Installation | alwayslastdanceclub</p>
-                        <p>Photo | San Choi</p>
-                        <p>Assist | Bongkyun Kwon, Gayoon Yong, Ian Ha</p>
+                        <span>Text | Soomin Lee</span>
+                        <span>Poster | Jeongin Weon</span>
+                        <span>Installation | alwayslastdanceclub</span>
+                        <span>Photo | San Choi</span>
+                        <span>Assist | Bongkyun Kwon, Gayoon Yong, Ian Ha</span>
                     </div> 
                 </div>
                 
             </div>
             <div class="show-images">
-                <img src="placeholder-umbra-1.jpg" alt="UMBRA 전시 이미지 1">
-                <img src="placeholder-umbra-2.jpg" alt="UMBRA 전시 이미지 2"> 
-                <img src="placeholder-umbra-3.jpg" alt="UMBRA 전시 이미지 3"> 
+                <img src="placeholder-umbra-1.jpg" alt="Loggia 전시 이미지 1">
+                <img src="placeholder-umbra-2.jpg" alt="Loggia 전시 이미지 2"> 
+                <img src="placeholder-umbra-3.jpg" alt="Loggia 전시 이미지 3"> 
             </div>
         </div>
 
