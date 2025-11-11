@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
     
 <style>
-    /* 💡 최종 CSS 버전: 메뉴 위치 조정 (main info는 그대로, 메뉴만 위로) */
+    /* 💡 최종 CSS 버전: 메뉴는 고정, main info 부분만 아래로 이동 */
     body {
         font-family: 'Montserrat', Arial, sans-serif;
         margin: 0;
@@ -44,13 +44,12 @@
         text-align: right; /* Contact 텍스트 오른쪽 정렬 복원 */
     }
 
-    /* 💡 추가: 본문 정보 위에 들어갈 메뉴 스타일 */
+    /* 💡 메뉴 스타일: 이전 요청대로 -100px로 위로 끌어올린 상태 유지 */
     .main-menu-above {
         max-width: 1350px; 
-        /* 💡 수정: margin-top: -100px을 적용하여 메뉴를 list-container 위로 100px 올림 */
         margin: -100px auto 10px auto; 
-        padding-right: 20px; /* list-container의 왼쪽 경계선과 맞추기 위한 여백 조정 */
-        text-align: right; /* 오른쪽 정렬 */
+        padding-right: 20px; 
+        text-align: right; 
     }
     .main-menu-above a {
         color: #1a1a1a;
@@ -62,7 +61,8 @@
     
     .list-container {
         max-width: 1350px; 
-        margin: 0 auto;   
+        /* 💡 수정: 상단 마진을 추가하여 main info 부분을 아래로 50px 내립니다. */
+        margin: 50px auto 0 auto;   
     }
 
     /* 1. 제목-분류 그룹 설정 */
@@ -167,7 +167,7 @@
             margin-bottom: 50px; 
         }
 
-        /* 💡 모바일: 새로운 메뉴를 중앙 정렬로 (음수 마진 제거) */
+        /* 💡 모바일: 새로운 메뉴를 중앙 정렬로 (모바일에서는 음수 마진 제거) */
         .main-menu-above {
             max-width: none;
             margin: 0 0 10px 0; 
@@ -181,6 +181,7 @@
         
         .list-container {
             max-width: none;
+            /* 모바일에서는 다시 원래대로 마진 없앰 */
             margin: 0;
         }
         
