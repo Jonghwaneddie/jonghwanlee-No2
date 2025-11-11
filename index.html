@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
     
 <style>
-    /* 💡 최종 CSS 버전: 모든 요청사항 반영 */
+    /* 💡 최종 CSS 버전: 메뉴 및 링크 기능 추가 */
     body {
         font-family: 'Montserrat', Arial, sans-serif;
         margin: 0;
@@ -28,13 +28,19 @@
         
         margin-bottom: 250px; 
     }
-
-    .header-top div {
-        flex-grow: 1;
+    
+    /* 💡 추가: 헤더 메뉴 항목 스타일 */
+    .header-top a {
+        color: #1a1a1a;
+        text-decoration: none; /* 밑줄 제거 */
+        cursor: pointer;
     }
 
+    /* 💡 수정: right-info를 Flex 컨테이너로 설정하여 메뉴 항목들을 가로로 배치 */
     .header-top .right-info {
-        text-align: right;
+        display: flex;
+        gap: 20px; /* 메뉴 항목 간 간격 */
+        align-items: center;
     }
     
     .list-container {
@@ -42,16 +48,15 @@
         margin: 0 auto;   
     }
 
-    /* 1. 제목-분류 그룹 설정: 분류를 왼쪽으로 밀착(gap: 0) 및 분류 영역 확장(450px) */
+    /* 1. 제목-분류 그룹 설정 */
     .main-info-group {
         display: grid;
-        grid-template-columns: 250px 350px; /* 💡 최종 너비 450px */
+        grid-template-columns: 250px 300px; 
         gap: 0px; 
         align-items: flex-start; 
     }
     
     .show-item {
-        /* 2. 이미지 영역 너비 고정: 4fr 300px */
         grid-template-columns: 4fr 300px; 
         display: grid;
         gap: 40px; 
@@ -83,7 +88,7 @@
     .show-filed-under {
         color: #666;
         display: flex;
-        justify-content: space-between; /* 텍스트 양 끝 배치 */
+        justify-content: space-between; 
         align-items: flex-start;
         margin-left: 0; 
     }
@@ -100,27 +105,24 @@
 
     /* 4. 이미지 크기 고정 및 슬라이드 준비 */
     .show-images {
-        /* 이미지 그룹 컨테이너의 크기를 통일 */
         width: 300px; 
         height: 180px; 
         display: block; 
         position: relative; 
-        overflow: hidden; /* 슬라이드 효과를 위해 박스 바깥 영역 숨기기 */
+        overflow: hidden; 
     }
 
     .show-images img {
-        /* 이미지 크기를 컨테이너에 맞게 꽉 채우고 겹치도록 설정 */
         width: 100%; 
         height: 100%;
         object-fit: cover; 
         position: absolute;
         top: 0;
         left: 0;
-        opacity: 0; /* 기본적으로 모두 숨김 */
+        opacity: 0; 
         transition: opacity 0.5s ease-in-out; 
     }
     
-    /* 모든 항목에 대해 동일한 이미지 크기 적용 */
     .show-item:nth-child(1) .show-images {
         display: block;
         width: 300px; 
@@ -131,13 +133,13 @@
         margin-bottom: 0;
     }
     
-    /* 첫 번째 이미지만 항상 보이도록 설정 */
     .show-images img:first-child {
         opacity: 1; 
     }
     
     /* 모바일 반응형 */
     @media (max-width: 768px) {
+        /* ... (모바일 CSS 생략 - 변경 없음) ... */
         body {
             padding: 15px 20px;
         }
@@ -147,6 +149,15 @@
             margin-left: 0;
             margin-right: 0;
             margin-bottom: 50px; 
+            /* 💡 모바일: 메뉴를 세로로 재배치 */
+            flex-direction: column; 
+            align-items: flex-start;
+        }
+
+        .header-top .right-info {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px;
         }
         
         .list-container {
@@ -181,7 +192,6 @@
             margin-bottom: 20px;
         }
         
-        /* 모바일에서 이미지 크기 조정 */
         .show-images {
             width: 100%;
             height: 200px; 
@@ -197,8 +207,14 @@
 <body>
 
     <div class="header-top">
-        <div>Jonghwan Lee</div> 
-        <div class="right-info">Contact</div>
+        <div><a href="index.html">Jonghwan Lee</a></div> 
+        <div class="right-info">
+            <a href="information.html">information</a>
+            <a href="text.html">text</a>
+            <a href="note.html">note</a>
+            <a href="works.html">works</a>
+            <a href="contact.html">contact</a>
+        </div>
     </div>
 
     <div class="list-container">
