@@ -93,3 +93,139 @@
 
     .show-images {
         display: flex;
+        gap: 5px;
+        overflow: hidden; 
+        justify-content: flex-end; 
+    }
+
+    .show-images img {
+        width: calc(33.33% - 5px); 
+        height: auto;
+        object-fit: cover;
+        aspect-ratio: 1 / 1; 
+    }
+
+    /* 첫 번째 항목 (UMBRA)의 특별한 이미지 레이아웃 */
+    .show-item:nth-child(1) .show-images {
+        display: block;
+        width: 100%;
+    }
+
+    .show-item:nth-child(1) .show-images img {
+        width: 100%;
+        aspect-ratio: 16 / 9; 
+        object-fit: contain; 
+        margin-bottom: 5px;
+    }
+    
+    /* 모바일 반응형 */
+    @media (max-width: 768px) {
+        body {
+            padding: 15px 20px;
+        }
+        
+        .header-top {
+            max-width: none;
+            margin-left: 0;
+            margin-right: 0;
+            margin-bottom: 50px; 
+        }
+        
+        .list-container {
+            max-width: none;
+            margin: 0;
+        }
+        
+        /* 💡 모바일에서는 main-info-group을 다시 flex-direction: column으로 설정 */
+        .main-info-group {
+            display: flex; /* grid -> flex */
+            flex-direction: column;
+            gap: 15px;
+            align-items: stretch;
+            /* grid-template-columns도 모바일에서는 적용되지 않습니다. */
+        }
+        
+        /* 모바일에서 개별 너비 제한 해제 */
+        .show-title-group, .show-filed-under {
+             max-width: none;
+        }
+        
+        .show-item {
+            grid-template-columns: 1fr; 
+            gap: 10px;
+            padding: 15px 0 15px 15px;
+            margin-bottom: 20px;
+        }
+        .show-images {
+            justify-content: flex-start;
+        }
+    }
+</style>
+</head>
+<body>
+
+    <div class="header-top">
+        <div>Jonghwan Lee</div> 
+        <div class="right-info">Contact</div>
+    </div>
+
+    <div class="list-container">
+        <div class="show-item">
+            <div class="main-info-group">
+                <div class="show-title-group">
+                    <div class="show-title">UMBRA</div>
+                    <div class="show-location">Thaddeus Ropac</div>
+                    <div class="show-location">London</div>
+                    <div class="show-date">Oct 08 - Nov 20, 2025</div>
+                </div>
+                <div class="show-filed-under">
+                    Filed under:<br>
+                    Exhibitions, Solo, 2025
+                </div>
+            </div>
+            <div class="show-images">
+                <img src="placeholder-umbra-1.jpg" alt="UMBRA 전시 이미지 1">
+            </div>
+        </div>
+
+        <div class="show-item">
+            <div class="main-info-group">
+                <div class="show-title-group">
+                    <div class="show-title">Future Present</div>
+                    <div class="show-location">Andy St. Louis</div>
+                    <div class="show-date">April 16, 2024</div>
+                </div>
+                <div class="show-filed-under">
+                    Filed under:<br>
+                    Publications, 2024
+                </div>
+            </div>
+            <div class="show-images">
+                <img src="placeholder-future-present-1.jpg" alt="Future Present 이미지 1">
+                <img src="placeholder-future-present-2.jpg" alt="Future Present 이미지 2">
+                <img src="placeholder-future-present-3.jpg" alt="Future Present 이미지 3">
+            </div>
+        </div>
+
+        <div class="show-item">
+            <div class="main-info-group">
+                <div class="show-title-group">
+                    <div class="show-title">Receivers</div>
+                    <div class="show-location">Doosan Art Center</div>
+                    <div class="show-location">Seoul, Korea</div>
+                    <div class="show-date">Sep 13 - Oct 21, 2023</div>
+                </div>
+                <div class="show-filed-under">
+                    Filed under:<br>
+                    Exhibitions, Solo, 2023
+                </div>
+            </div>
+            <div class="show-images">
+                <img src="placeholder-receivers-1.jpg" alt="Receivers 이미지 1">
+                <img src="placeholder-receivers-2.jpg" alt="Receivers 이미지 2">
+                <img src="placeholder-receivers-3.jpg" alt="Receivers 이미지 3">
+            </div>
+        </div>
+    </div> 
+</body>
+</html>
