@@ -46,7 +46,7 @@
     .main-info-group {
         display: grid; /* flex -> grid */
         /* 💡 제목 그룹 450px, 분류 그룹 200px로 열 너비를 고정합니다. */
-        grid-template-columns: 450px 200px; 
+        grid-template-columns: 250px 200px; 
         /* gap은 그리드 열 사이의 간격으로 작동합니다. */
         gap: 0px; 
         
@@ -88,7 +88,7 @@
     .show-filed-under {
         color: #666;
         /* ❌ max-width 제거 (grid-template-columns가 너비를 제어) */
-        /* max-width: 10px; */ 
+       margin-left: 0; 
     }
 
     .show-images {
