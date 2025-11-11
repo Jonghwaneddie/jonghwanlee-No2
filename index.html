@@ -28,27 +28,24 @@
             text-align: right;
         }
         
-        /* 💡 새로운 컨테이너 스타일: 세로 줄을 생성합니다. */
-        .list-container {
-            border-left: 1px solid #1a1a1a; 
-            padding-left: 20px; 
-        }
-
+      
         /* 전시 목록 스타일 */
-        .show-item {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr; 
-            gap: 20px;
-            padding: 20px 0;
-            /* 가로 구분선 제거 */
-            /* border-top: 1px solid #ddd; */
-            align-items: start;
-        }
+       .show-item {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr; 
+        gap: 20px;
+        /* 💡 각 항목에 세로 줄을 추가하고, 왼쪽 여백을 조정합니다. */
+        border-left: 1px solid #1a1a1a;
+        padding: 20px 0 20px 20px; /* 위/아래 20px, 왼쪽 20px 여백 추가 */
+        align-items: start;
+        /* 항목 간의 여백 추가 */
+        margin-bottom: 30px; 
+    }
 
-        .show-item:last-child {
-            /* 하단 가로 구분선 제거 */
-            /* border-bottom: 1px solid #ddd; */
-        }
+        .show-item:last-child{
+        /* 마지막 항목의 하단 여백 제거 (선택 사항) */
+        margin-bottom: 10; 
+    }
 
         .show-title-group {
             display: flex;
