@@ -42,23 +42,18 @@
         margin: 0 auto;   
     }
 
-    /* 💡 main-info-group을 Grid 컨테이너로 변경하여 제목과 분류의 위치를 정확하게 고정 */
-    .main-info-group {
-        display: grid; /* flex -> grid */
-        /* 💡 제목 그룹 450px, 분류 그룹 200px로 열 너비를 고정합니다. */
-        grid-template-columns: 250px 200px; 
-        /* gap은 그리드 열 사이의 간격으로 작동합니다. */
+  .main-info-group {
+        display: grid;
+        /* 💡 수정: 분류 영역을 300px로 확장 */
+        grid-template-columns: 250px 300px; 
         gap: 0px; 
-        
-        align-items: flex-start; /* 상단 정렬 유지 */
+        align-items: flex-start; 
     }
     
-    /* 전시 목록 스타일 */
     .show-item {
         grid-template-columns: 4fr 1fr; 
         display: grid;
         gap: 40px; 
-        
         border-left: 1px solid #1a1a1a;
         padding: 10px 0 10px 20px; 
         align-items: start; 
@@ -72,8 +67,6 @@
     .show-title-group {
         display: flex;
         flex-direction: column;
-        /* ❌ max-width 제거 (grid-template-columns가 너비를 제어) */
-        /* max-width: 450px; */ 
     }
 
     .show-title {
@@ -87,8 +80,23 @@
 
     .show-filed-under {
         color: #666;
-        /* ❌ max-width 제거 (grid-template-columns가 너비를 제어) */
-       margin-left: 0; 
+        /* 💡 추가: Flexbox 적용 */
+        display: flex;
+        justify-content: space-between; /* 양쪽 끝으로 밀어냅니다. */
+        align-items: flex-start;
+        /* ❌ 제거: margin-left: 0; (이전 단계에서 제거된 것 유지) */
+        margin-left: 0; 
+    }
+
+    /* 💡 추가: 기존 분류 텍스트의 줄 간격 지정 */
+    .filed-text {
+        line-height: 1.4;
+    }
+    
+    /* 💡 추가: 새로운 텍스트 스타일 (선택 사항) */
+    .extra-text {
+        color: #1a1a1a; /* 기본 색상 유지 */
+        line-height: 1.4;
     }
 
     .show-images {
@@ -105,7 +113,6 @@
         aspect-ratio: 1 / 1; 
     }
 
-    /* 첫 번째 항목 (UMBRA)의 특별한 이미지 레이아웃 */
     .show-item:nth-child(1) .show-images {
         display: block;
         width: 100%;
@@ -136,18 +143,25 @@
             margin: 0;
         }
         
-        /* 💡 모바일에서는 main-info-group을 다시 flex-direction: column으로 설정 */
         .main-info-group {
-            display: flex; /* grid -> flex */
+            display: flex; 
             flex-direction: column;
             gap: 15px;
             align-items: stretch;
-            /* grid-template-columns도 모바일에서는 적용되지 않습니다. */
+            grid-template-columns: none; 
         }
         
-        /* 모바일에서 개별 너비 제한 해제 */
+        .show-filed-under {
+             /* 💡 모바일에서는 다시 세로 배치 */
+             flex-direction: column;
+             justify-content: flex-start;
+             gap: 5px;
+             margin-left: 0;
+        }
+        
         .show-title-group, .show-filed-under {
              max-width: none;
+             margin-left: 0; 
         }
         
         .show-item {
@@ -178,31 +192,15 @@
                     <div class="show-location">London</div>
                     <div class="show-date">Oct 08 - Nov 20, 2025</div>
                 </div>
-                <div class="show-filed-under">
-                    Filed under:<br>
-                    Exhibitions, Solo, 2025
-                </div>
-            </div>
-            <div class="show-images">
-                <img src="placeholder-umbra-1.jpg" alt="UMBRA 전시 이미지 1">
-            </div>
-        </div>
-
-       <div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">UMBRA</div>
-                    <div class="show-location">Thaddeus Ropac</div>
-                    <div class="show-location">London</div>
-                    <div class="show-date">Oct 08 - Nov 20, 2025</div>
-                </div>
+                
                 <div class="show-filed-under">
                     <div class="filed-text">
                         Filed under:<br>
                         Exhibitions, Solo, 2025
                     </div>
-                    <div class="extra-text">New Text Here 1</div> </div>
-            </div>
+                    <div class="extra-text">New Text Here 1</div>
+                </div>
+                </div>
             <div class="show-images">
                 <img src="placeholder-umbra-1.jpg" alt="UMBRA 전시 이미지 1">
             </div>
@@ -215,13 +213,15 @@
                     <div class="show-location">Andy St. Louis</div>
                     <div class="show-date">April 16, 2024</div>
                 </div>
+                
                 <div class="show-filed-under">
                     <div class="filed-text">
                         Filed under:<br>
                         Publications, 2024
                     </div>
-                    <div class="extra-text">New Text Here 2</div> </div>
-            </div>
+                    <div class="extra-text">New Text Here 2</div>
+                </div>
+                </div>
             <div class="show-images">
                 <img src="placeholder-future-present-1.jpg" alt="Future Present 이미지 1">
             </div>
@@ -235,17 +235,19 @@
                     <div class="show-location">Seoul, Korea</div>
                     <div class="show-date">Sep 13 - Oct 21, 2023</div>
                 </div>
+                
                 <div class="show-filed-under">
                     <div class="filed-text">
                         Filed under:<br>
                         Exhibitions, Solo, 2023
                     </div>
-                    <div class="extra-text">New Text Here 3</div> </div>
-            </div>
+                    <div class="extra-text">New Text Here 3</div>
+                </div>
+                </div>
             <div class="show-images">
                 <img src="placeholder-receivers-1.jpg" alt="Receivers 이미지 1">
             </div>
         </div>
-    </div>
+    </div> 
 </body>
 </html>
