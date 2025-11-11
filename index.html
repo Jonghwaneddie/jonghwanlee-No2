@@ -32,25 +32,24 @@
         text-align: right;
     }
     
+    /* 💡 list-container의 최대 너비를 800px로 제한하고 중앙 정렬 */
+    .list-container {
+        max-width: 800px; 
+        margin: 0 auto;   
+    }
+    
     /* 전시 목록 스타일 */
     .show-item {
         display: grid;
         grid-template-columns: 2fr 1fr 1fr 1fr; 
         gap: 20px;
-        /* 세로 줄 시작/끝을 통일하기 위해 padding과 margin을 조정합니다. */
         border-left: 1px solid #1a1a1a;
-        
-        /* 💡 위/아래 패딩을 10px로 통일 */
         padding: 10px 0 10px 20px; 
-        
         align-items: start; 
-        
-        /* 💡 항목 간의 여백을 20px로 통일 */
         margin-bottom: 20px; 
     }
 
     .show-item:last-child{
-        /* 💡 마지막 항목의 하단 여백도 20px로 통일 */
         margin-bottom: 20px; 
     }
 
@@ -110,10 +109,15 @@
             padding: 15px 20px;
         }
         
+        /* 768px 이하에서는 list-container의 max-width가 적용되지 않도록 margin을 초기화 */
+        .list-container {
+            max-width: none;
+            margin: 0;
+        }
+        
         .show-item {
             grid-template-columns: 1fr; 
             gap: 10px;
-            /* 모바일에서 항목 여백 조정 */
             padding: 15px 0 15px 15px;
             margin-bottom: 20px;
         }
