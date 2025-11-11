@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jonghwan Lee</title>
     <link rel="stylesheet" href="style.css">
-
-    <style>
-        /* CSS는 이전과 동일하며, .navigation 관련 스타일은 이제 불필요합니다. */
+<style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px 50px; /* 좌우 여백 */
+            padding: 20px 50px; 
             color: #1a1a1a;
             font-size: 14px;
         }
@@ -19,7 +17,7 @@
         .header-top {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 200px; /* 'SHOW' 줄이 사라졌으므로 여백을 조정합니다. */
+            margin-bottom: 250px; 
         }
 
         .header-top div {
@@ -29,19 +27,27 @@
         .header-top .right-info {
             text-align: right;
         }
+        
+        /* 💡 새로운 컨테이너 스타일: 세로 줄을 생성합니다. */
+        .list-container {
+            border-left: 1px solid #1a1a1a; 
+            padding-left: 20px; 
+        }
 
         /* 전시 목록 스타일 */
         .show-item {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr; /* 제목/날짜, 링크, 분류, 이미지 */
+            grid-template-columns: 2fr 1fr 1fr 1fr; 
             gap: 20px;
             padding: 20px 0;
-            border-top: 1px solid #ddd;
+            /* 가로 구분선 제거 */
+            /* border-top: 1px solid #ddd; */
             align-items: start;
         }
 
         .show-item:last-child {
-            border-bottom: 1px solid #ddd;
+            /* 하단 가로 구분선 제거 */
+            /* border-bottom: 1px solid #ddd; */
         }
 
         .show-title-group {
@@ -100,6 +106,10 @@
             body {
                 padding: 15px 20px;
             }
+            /* 세로 줄이 있는 상태에서 여백 조정 */
+            .list-container {
+                padding-left: 10px;
+            }
             .show-item {
                 grid-template-columns: 1fr; 
                 gap: 10px;
@@ -114,68 +124,68 @@
 
     <div class="header-top">
         <div>Jonghwan Lee</div>
-        <div class="right-info">Information</div>
+        <div class="right-info">Contact</div>
     </div>
 
-    <div class="show-item">
-        <div class="show-title-group">
-            <div class="show-title">UMBRA</div>
-            <div class="show-location">Thaddeus Ropac</div>
-            <div class="show-location">London</div>
-            <div class="show-date">Oct 08 - Nov 20, 2025</div>
+    <div class="list-container">
+        <div class="show-item">
+            <div class="show-title-group">
+                <div class="show-title">UMBRA</div>
+                <div class="show-location">Thaddeus Ropac</div>
+                <div class="show-location">London</div>
+                <div class="show-date">Oct 08 - Nov 20, 2025</div>
+            </div>
+            <div class="show-link">
+                <a href="https://ropac.net/..." target="_blank">https://ropac.net/online-exhibitions/...</a>
+            </div>
+            <div class="show-filed-under">
+                Filed under:<br>
+                Exhibitions, Solo, 2025
+            </div>
+            <div class="show-images">
+                <img src="placeholder-umbra-1.jpg" alt="UMBRA 전시 이미지 1">
+            </div>
         </div>
-        <div class="show-link">
-            <a href="https://ropac.net/..." target="_blank">https://ropac.net/online-exhibitions/...</a>
-        </div>
-        <div class="show-filed-under">
-            Filed under:<br>
-            Exhibitions, Solo, 2025
-        </div>
-        <div class="show-images">
-            <img src="placeholder-umbra-1.jpg" alt="UMBRA 전시 이미지 1">
-        </div>
-    </div>
 
-    <div class="show-item">
-        <div class="show-title-group">
-            <div class="show-title">Future Present</div>
-            <div class="show-location">Andy St. Louis</div>
-            <div class="show-date">April 16, 2024</div>
+        <div class="show-item">
+            <div class="show-title-group">
+                <div class="show-title">Future Present</div>
+                <div class="show-location">Andy St. Louis</div>
+                <div class="show-date">April 16, 2024</div>
+            </div>
+            <div class="show-link">
+                <a href="https://www.skira.net/..." target="_blank">https://www.skira.net/en/books/future-present-...</a>
+            </div>
+            <div class="show-filed-under">
+                Filed under:<br>
+                Publications, 2024
+            </div>
+            <div class="show-images">
+                <img src="placeholder-future-present-1.jpg" alt="Future Present 이미지 1">
+                <img src="placeholder-future-present-2.jpg" alt="Future Present 이미지 2">
+                <img src="placeholder-future-present-3.jpg" alt="Future Present 이미지 3">
+            </div>
         </div>
-        <div class="show-link">
-            <a href="https://www.skira.net/..." target="_blank">https://www.skira.net/en/books/future-present-...</a>
-        </div>
-        <div class="show-filed-under">
-            Filed under:<br>
-            Publications, 2024
-        </div>
-        <div class="show-images">
-            <img src="placeholder-future-present-1.jpg" alt="Future Present 이미지 1">
-            <img src="placeholder-future-present-2.jpg" alt="Future Present 이미지 2">
-            <img src="placeholder-future-present-3.jpg" alt="Future Present 이미지 3">
-        </div>
-    </div>
 
-    <div class="show-item">
-        <div class="show-title-group">
-            <div class="show-title">Receivers</div>
-            <div class="show-location">Doosan Art Center</div>
-            <div class="show-location">Seoul, Korea</div>
-            <div class="show-date">Sep 13 - Oct 21, 2023</div>
+        <div class="show-item">
+            <div class="show-title-group">
+                <div class="show-title">Receivers</div>
+                <div class="show-location">Doosan Art Center</div>
+                <div class="show-location">Seoul, Korea</div>
+                <div class="show-date">Sep 13 - Oct 21, 2023</div>
+            </div>
+            <div class="show-link">
+                Presented as part of the 13th DOOSAN Yonkang Arts Awards
+            </div>
+            <div class="show-filed-under">
+                Filed under:<br>
+                Exhibitions, Solo, 2023
+            </div>
+            <div class="show-images">
+                <img src="placeholder-receivers-1.jpg" alt="Receivers 이미지 1">
+                <img src="placeholder-receivers-2.jpg" alt="Receivers 이미지 2">
+                <img src="placeholder-receivers-3.jpg" alt="Receivers 이미지 3">
+            </div>
         </div>
-        <div class="show-link">
-            Presented as part of the 13th DOOSAN Yonkang Arts Awards
-        </div>
-        <div class="show-filed-under">
-            Filed under:<br>
-            Exhibitions, Solo, 2023
-        </div>
-        <div class="show-images">
-            <img src="placeholder-receivers-1.jpg" alt="Receivers 이미지 1">
-            <img src="placeholder-receivers-2.jpg" alt="Receivers 이미지 2">
-            <img src="placeholder-receivers-3.jpg" alt="Receivers 이미지 3">
-        </div>
-    </div>
-
-</body>
+    </div> </body>
 </html>
