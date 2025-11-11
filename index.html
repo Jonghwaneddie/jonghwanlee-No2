@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
     
 <style>
-    /* CSS 수정 사항: 전체 폭 다시 제한 (1200px), 분류(Filed under) 상단 정렬 및 너비 고정 */
+    /* CSS 수정 사항: 전체 폭 다시 제한 (1200px), 분류(Filed under) 그리드로 정렬 */
     body {
         font-family: 'Montserrat', Arial, sans-serif;
         margin: 0;
@@ -42,10 +42,15 @@
         margin: 0 auto;   
     }
 
+    /* 💡 main-info-group을 Grid 컨테이너로 변경하여 제목과 분류의 위치를 정확하게 고정 */
     .main-info-group {
-        display: flex;
+        display: grid; /* flex -> grid */
+        /* 💡 제목 그룹 450px, 분류 그룹 200px로 열 너비를 고정합니다. */
+        grid-template-columns: 450px 200px; 
+        /* gap은 그리드 열 사이의 간격으로 작동합니다. */
         gap: 80px; 
-        align-items: flex-start; 
+        
+        align-items: flex-start; /* 상단 정렬 유지 */
     }
     
     /* 전시 목록 스타일 */
@@ -67,8 +72,8 @@
     .show-title-group {
         display: flex;
         flex-direction: column;
-        /* 💡 추가/수정: 너비 고정 */
-        max-width: 450px; 
+        /* ❌ max-width 제거 (grid-template-columns가 너비를 제어) */
+        /* max-width: 450px; */ 
     }
 
     .show-title {
@@ -82,141 +87,9 @@
 
     .show-filed-under {
         color: #666;
-        /* 💡 추가/수정: 너비 고정 */
-        max-width: 200px; 
+        /* ❌ max-width 제거 (grid-template-columns가 너비를 제어) */
+        /* max-width: 200px; */ 
     }
 
     .show-images {
         display: flex;
-        gap: 5px;
-        overflow: hidden; 
-        justify-content: flex-end; 
-    }
-
-    .show-images img {
-        width: calc(33.33% - 5px); 
-        height: auto;
-        object-fit: cover;
-        aspect-ratio: 1 / 1; 
-    }
-
-    /* 첫 번째 항목 (UMBRA)의 특별한 이미지 레이아웃 */
-    .show-item:nth-child(1) .show-images {
-        display: block;
-        width: 100%;
-    }
-
-    .show-item:nth-child(1) .show-images img {
-        width: 100%;
-        aspect-ratio: 16 / 9; 
-        object-fit: contain; 
-        margin-bottom: 5px;
-    }
-    
-    /* 모바일 반응형 */
-    @media (max-width: 768px) {
-        body {
-            padding: 15px 20px;
-        }
-        
-        .header-top {
-            max-width: none;
-            margin-left: 0;
-            margin-right: 0;
-            margin-bottom: 50px; 
-        }
-        
-        .list-container {
-            max-width: none;
-            margin: 0;
-        }
-        
-        .main-info-group {
-            flex-direction: column;
-            gap: 15px;
-            align-items: stretch;
-        }
-        /* 💡 모바일에서 너비 제한 해제 */
-        .show-title-group, .show-filed-under {
-             max-width: none;
-        }
-        
-        .show-item {
-            grid-template-columns: 1fr; 
-            gap: 10px;
-            padding: 15px 0 15px 15px;
-            margin-bottom: 20px;
-        }
-        .show-images {
-            justify-content: flex-start;
-        }
-    }
-</style>
-</head>
-<body>
-
-    <div class="header-top">
-        <div>Jonghwan Lee</div> 
-        <div class="right-info">Contact</div>
-    </div>
-
-    <div class="list-container">
-        <div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">UMBRA</div>
-                    <div class="show-location">Thaddeus Ropac</div>
-                    <div class="show-location">London</div>
-                    <div class="show-date">Oct 08 - Nov 20, 2025</div>
-                </div>
-                <div class="show-filed-under">
-                    Filed under:<br>
-                    Exhibitions, Solo, 2025
-                </div>
-            </div>
-            <div class="show-images">
-                <img src="placeholder-umbra-1.jpg" alt="UMBRA 전시 이미지 1">
-            </div>
-        </div>
-
-        <div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">Future Present</div>
-                    <div class="show-location">Andy St. Louis</div>
-                    <div class="show-date">April 16, 2024</div>
-                </div>
-                <div class="show-filed-under">
-                    Filed under:<br>
-                    Publications, 2024
-                </div>
-            </div>
-            <div class="show-images">
-                <img src="placeholder-future-present-1.jpg" alt="Future Present 이미지 1">
-                <img src="placeholder-future-present-2.jpg" alt="Future Present 이미지 2">
-                <img src="placeholder-future-present-3.jpg" alt="Future Present 이미지 3">
-            </div>
-        </div>
-
-        <div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">Receivers</div>
-                    <div class="show-location">Doosan Art Center</div>
-                    <div class="show-location">Seoul, Korea</div>
-                    <div class="show-date">Sep 13 - Oct 21, 2023</div>
-                </div>
-                <div class="show-filed-under">
-                    Filed under:<br>
-                    Exhibitions, Solo, 2023
-                </div>
-            </div>
-            <div class="show-images">
-                <img src="placeholder-receivers-1.jpg" alt="Receivers 이미지 1">
-                <img src="placeholder-receivers-2.jpg" alt="Receivers 이미지 2">
-                <img src="placeholder-receivers-3.jpg" alt="Receivers 이미지 3">
-            </div>
-        </div>
-    </div> 
-</body>
-</html>
