@@ -9,10 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
     
 <style>
-    /* CSS 수정 사항: 글꼴, 크기, 볼드 제거, 세로줄 변경 및 3열 그리드 적용 */
+    /* CSS 수정 사항: 전체 폭 복원, 2열 그리드 및 Flexbox 배치 적용 */
     body {
         font-family: 'Montserrat', Arial, sans-serif;
         margin: 0;
+        /* 전체 폭을 위해 padding만 적용 */
         padding: 20px 50px; 
         color: #1a1a1a;
         font-size: 10px; 
@@ -22,12 +23,11 @@
         display: flex;
         justify-content: space-between;
         
-        /* 헤더의 최대 너비를 1000px로 제한하고 중앙 정렬 */
-        max-width: 1000px; 
-        margin-left: auto;
-        margin-right: auto;
+        /* 💡 최대 너비 제한 제거 (전체 폭 사용) */
+        /* max-width: 1000px; */ 
+        /* margin-left: auto; */
+        /* margin-right: auto; */
         
-        /* 아래쪽 여백 유지 */
         margin-bottom: 250px; 
     }
 
@@ -39,18 +39,26 @@
         text-align: right;
     }
     
-    /* list-container는 1000px로 중앙 정렬 */
+    /* 💡 list-container의 최대 너비 제한 제거 (전체 폭 사용) */
     .list-container {
-        max-width: 1000px; 
-        margin: 0 auto;   
+        /* max-width: 1000px; */ 
+        /* margin: 0 auto; */   
+    }
+
+    /* 💡 제목/정보 그룹과 분류 그룹을 가로로 배치하기 위한 flex 컨테이너 */
+    .main-info-group {
+        display: flex;
+        /* 항목 간의 공간 확보 */
+        gap: 80px; 
     }
     
     /* 전시 목록 스타일 */
     .show-item {
-        /* 💡 4열(2fr 1fr 1fr 1fr)에서 3열(3fr 1.5fr 1fr)로 변경: (제목/정보) (분류) (이미지) */
-        grid-template-columns: 3fr 1.5fr 1fr; 
+        /* 💡 2열 구조로 변경: (제목+분류) 4fr / (이미지) 1fr */
+        grid-template-columns: 4fr 1fr; 
         display: grid;
-        gap: 20px;
+        gap: 40px; 
+        
         border-left: 1px solid #1a1a1a;
         padding: 10px 0 10px 20px; 
         align-items: start; 
@@ -62,12 +70,12 @@
     }
 
     .show-title-group {
+        /* .main-info-group이 flex 컨테이너이므로, 내부 요소는 flex-direction: column을 유지 */
         display: flex;
         flex-direction: column;
     }
 
     .show-title {
-        /* 볼드 제거됨 */
         margin-bottom: 5px;
     }
 
@@ -75,8 +83,6 @@
         color: #666;
         line-height: 1.4;
     }
-
-    /* ❌ show-link 관련 스타일은 이제 사용되지 않습니다. */
 
     .show-filed-under {
         color: #666;
@@ -86,6 +92,7 @@
         display: flex;
         gap: 5px;
         overflow: hidden; 
+        /* 이미지 정렬은 오른쪽 끝으로 유지 */
         justify-content: flex-end; 
     }
 
@@ -115,19 +122,18 @@
             padding: 15px 20px;
         }
         
+        /* 모바일에서는 모든 너비 제한 해제 */
         .header-top {
-            max-width: none;
-            margin-left: 0;
-            margin-right: 0;
             margin-bottom: 50px; 
         }
         
-        .list-container {
-            max-width: none;
-            margin: 0;
+        /* 💡 모바일에서 main-info-group을 세로로 배치 */
+        .main-info-group {
+            flex-direction: column;
+            gap: 15px;
         }
         
-        /* 모바일에서는 3열 그리드 대신 다시 1열로 변경 */
+        /* 모바일에서 1열 구조로 변경 */
         .show-item {
             grid-template-columns: 1fr; 
             gap: 10px;
@@ -149,15 +155,17 @@
 
     <div class="list-container">
         <div class="show-item">
-            <div class="show-title-group">
-                <div class="show-title">UMBRA</div>
-                <div class="show-location">Thaddeus Ropac</div>
-                <div class="show-location">London</div>
-                <div class="show-date">Oct 08 - Nov 20, 2025</div>
-            </div>
-            <div class="show-filed-under">
-                Filed under:<br>
-                Exhibitions, Solo, 2025
+            <div class="main-info-group">
+                <div class="show-title-group">
+                    <div class="show-title">UMBRA</div>
+                    <div class="show-location">Thaddeus Ropac</div>
+                    <div class="show-location">London</div>
+                    <div class="show-date">Oct 08 - Nov 20, 2025</div>
+                </div>
+                <div class="show-filed-under">
+                    Filed under:<br>
+                    Exhibitions, Solo, 2025
+                </div>
             </div>
             <div class="show-images">
                 <img src="placeholder-umbra-1.jpg" alt="UMBRA 전시 이미지 1">
@@ -165,14 +173,16 @@
         </div>
 
         <div class="show-item">
-            <div class="show-title-group">
-                <div class="show-title">Future Present</div>
-                <div class="show-location">Andy St. Louis</div>
-                <div class="show-date">April 16, 2024</div>
-            </div>
-            <div class="show-filed-under">
-                Filed under:<br>
-                Publications, 2024
+            <div class="main-info-group">
+                <div class="show-title-group">
+                    <div class="show-title">Future Present</div>
+                    <div class="show-location">Andy St. Louis</div>
+                    <div class="show-date">April 16, 2024</div>
+                </div>
+                <div class="show-filed-under">
+                    Filed under:<br>
+                    Publications, 2024
+                </div>
             </div>
             <div class="show-images">
                 <img src="placeholder-future-present-1.jpg" alt="Future Present 이미지 1">
@@ -182,15 +192,17 @@
         </div>
 
         <div class="show-item">
-            <div class="show-title-group">
-                <div class="show-title">Receivers</div>
-                <div class="show-location">Doosan Art Center</div>
-                <div class="show-location">Seoul, Korea</div>
-                <div class="show-date">Sep 13 - Oct 21, 2023</div>
-            </div>
-            <div class="show-filed-under">
-                Filed under:<br>
-                Exhibitions, Solo, 2023
+            <div class="main-info-group">
+                <div class="show-title-group">
+                    <div class="show-title">Receivers</div>
+                    <div class="show-location">Doosan Art Center</div>
+                    <div class="show-location">Seoul, Korea</div>
+                    <div class="show-date">Sep 13 - Oct 21, 2023</div>
+                </div>
+                <div class="show-filed-under">
+                    Filed under:<br>
+                    Exhibitions, Solo, 2023
+                </div>
             </div>
             <div class="show-images">
                 <img src="placeholder-receivers-1.jpg" alt="Receivers 이미지 1">
