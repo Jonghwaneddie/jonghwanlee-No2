@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
     
 <style>
-    /* CSS 수정 사항: 전체 폭 다시 제한 (1200px), 분류(Filed under) 상단 정렬 */
+    /* CSS 수정 사항: 전체 폭 다시 제한 (1200px), 분류(Filed under) 상단 정렬 및 너비 고정 */
     body {
         font-family: 'Montserrat', Arial, sans-serif;
         margin: 0;
@@ -22,8 +22,7 @@
         display: flex;
         justify-content: space-between;
         
-        /* 💡 헤더의 최대 너비를 1200px로 제한하고 중앙 정렬 */
-        max-width: 1350px; 
+        max-width: 1200px; 
         margin-left: auto;
         margin-right: auto;
         
@@ -38,17 +37,14 @@
         text-align: right;
     }
     
-    /* 💡 list-container의 최대 너비를 1200px로 제한하고 중앙 정렬 */
     .list-container {
-        max-width: 1350px; 
+        max-width: 1200px; 
         margin: 0 auto;   
     }
 
-    /* 💡 제목/정보 그룹과 분류 그룹을 가로로 배치하기 위한 flex 컨테이너 */
     .main-info-group {
         display: flex;
         gap: 80px; 
-        /* 💡 추가: 내부 요소들을 상단 라인에 정렬 */
         align-items: flex-start; 
     }
     
@@ -71,6 +67,8 @@
     .show-title-group {
         display: flex;
         flex-direction: column;
+        /* 💡 추가/수정: 너비 고정 */
+        max-width: 450px; 
     }
 
     .show-title {
@@ -84,6 +82,8 @@
 
     .show-filed-under {
         color: #666;
+        /* 💡 추가/수정: 너비 고정 */
+        max-width: 200px; 
     }
 
     .show-images {
@@ -120,7 +120,6 @@
         }
         
         .header-top {
-            /* 모바일에서는 너비 제한 해제 */
             max-width: none;
             margin-left: 0;
             margin-right: 0;
@@ -135,7 +134,11 @@
         .main-info-group {
             flex-direction: column;
             gap: 15px;
-            align-items: stretch; /* 모바일에서는 정렬 필요 없음 */
+            align-items: stretch;
+        }
+        /* 💡 모바일에서 너비 제한 해제 */
+        .show-title-group, .show-filed-under {
+             max-width: none;
         }
         
         .show-item {
