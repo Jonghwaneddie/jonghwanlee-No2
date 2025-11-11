@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -9,13 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
     
 <style>
-    /* 💡 최종 CSS 버전: 메뉴 위치 상단 조정 반영 */
+    /* 💡 최종 CSS 버전: 메뉴 위치 Absolute Positioning 적용 */
     body {
         font-family: 'Montserrat', Arial, sans-serif;
         margin: 0;
+        /* 💡 수정: position: relative 추가 */
         padding: 20px 50px; 
         color: #1a1a1a;
         font-size: 10px; 
+        position: relative; 
     }
 
     .header-top {
@@ -26,8 +29,8 @@
         margin-left: auto;
         margin-right: auto;
         
-        /* 💡 수정: 하단 여백을 10px로 줄여 메뉴를 위로 끌어올림 */
-        margin-bottom: 10px; 
+        /* 💡 복원: 250px 여백을 유지하여 list-container의 위치를 고정 */
+        margin-bottom: 250px; 
     }
     
     .header-top a {
@@ -44,12 +47,19 @@
         text-align: right;
     }
 
-    /* 💡 본문 정보 위에 들어갈 메뉴 스타일 */
+    /* 💡 메뉴 섹션 스타일: Absolute Position으로 상단에 독립적으로 배치 */
     .main-menu-above {
+        /* 💡 수정: Absolute Position 적용 */
+        position: absolute; 
+        top: 40px; /* body 상단(padding 20px 포함)으로부터의 거리 */
+        right: 50px; /* body 오른쪽 padding에 맞춤 */
+        
+        /* 💡 수정: 기존의 max-width, margin, padding을 absolute에 맞게 조정 */
         max-width: 1350px; 
-        margin: 0 auto 10px auto; /* 중앙 정렬 및 하단 여백 */
-        padding-right: 20px; 
         text-align: right; 
+        z-index: 10; 
+        margin: 0; 
+        padding: 0;
     }
     .main-menu-above a {
         color: #1a1a1a;
@@ -79,7 +89,7 @@
         border-left: 1px solid #1a1a1a;
         padding: 10px 0 10px 20px; 
         align-items: start; 
-        margin-bottom: 250px; 
+        margin-bottom: 20px; 
     }
 
     .show-item:last-child{
@@ -163,10 +173,12 @@
             max-width: none;
             margin-left: 0;
             margin-right: 0;
-            margin-bottom: 50px; /* 모바일에서는 여백 유지 */
+            margin-bottom: 50px; 
         }
 
+        /* 💡 모바일 메뉴 위치 조정: 절대 위치 대신 기본 흐름으로 전환 */
         .main-menu-above {
+            position: static; /* 모바일에서 다시 원래 흐름으로 복귀 */
             max-width: none;
             margin: 0 0 10px 0;
             padding-right: 0;
