@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
     
 <style>
-    /* 💡 최종 CSS 버전: 메뉴 위치 변경 반영 */
+    /* 💡 최종 CSS 버전: 메뉴 위치 분리 및 상단 배치 반영 */
     body {
         font-family: 'Montserrat', Arial, sans-serif;
         margin: 0;
@@ -26,6 +26,7 @@
         margin-left: auto;
         margin-right: auto;
         
+        /* 💡 복원: 250px 여백을 유지하여 list-container의 위치를 고정 */
         margin-bottom: 250px; 
     }
     
@@ -35,26 +36,27 @@
         cursor: pointer;
     }
 
-    .header-top div { /* Jonghwan Lee 텍스트를 감싸는 div의 Flex 속성 복원 */
+    .header-top div {
         flex-grow: 1;
     }
     
     .header-top .right-info {
-        text-align: right; /* Contact 텍스트 오른쪽 정렬 복원 */
+        text-align: right;
     }
 
-    /* 💡 추가: 본문 정보 위에 들어갈 메뉴 스타일 */
+    /* 💡 메뉴 섹션 스타일: 음수 마진을 사용하여 메뉴만 위로 끌어올림 */
     .main-menu-above {
         max-width: 1350px; 
-        margin: 0 auto 10px auto; /* 중앙 정렬 및 하단 여백 */
-        padding-right: 20px; /* list-container의 왼쪽 경계선과 맞추기 위한 여백 조정 */
-        text-align: right; /* 오른쪽 정렬 */
+        /* 💡 수정: -240px을 사용하여 header-top의 여백(250px) 안으로 메뉴를 끌어올림 */
+        margin: -240px auto 10px auto; 
+        padding-right: 20px; 
+        text-align: right; 
     }
     .main-menu-above a {
         color: #1a1a1a;
         text-decoration: none;
         cursor: pointer;
-        margin-left: 15px; /* 메뉴 항목 간 간격 */
+        margin-left: 15px; 
         font-size: 10px;
     }
     
@@ -162,19 +164,19 @@
             max-width: none;
             margin-left: 0;
             margin-right: 0;
-            margin-bottom: 50px; 
+            margin-bottom: 50px; /* 모바일에서는 여백 유지 */
         }
 
-        /* 💡 모바일: 새로운 메뉴를 중앙 정렬로 */
+        /* 모바일 메뉴 위치 조정 */
         .main-menu-above {
             max-width: none;
-            margin: 0 0 10px 0;
+            margin: -40px 0 10px 0; /* 모바일에서는 -40px로 조정 */
             padding-right: 0;
             text-align: left;
         }
         .main-menu-above a {
             margin-left: 0;
-            margin-right: 15px; /* 항목 간 간격 */
+            margin-right: 15px; 
         }
         
         .list-container {
