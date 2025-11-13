@@ -146,31 +146,54 @@
         position: relative; 
         overflow: hidden; 
     }
+    .image-slider {
+    width: 400%; /* 이미지 4개 (100% x 4 = 400%) */
+    height: 100%;
+    display: flex;
+    /* 1. 슬라이드 애니메이션 적용 */
+    animation: slide-left 10s linear infinite; 
+}
+
+/* 💡 신규: 각 이미지의 크기 설정 */
+.image-slider img {
+    /* 부모(400%)의 25% = 전체 컨테이너(100%) 크기 */
+    width: 25%; 
+    height: 100%; 
+    object-fit: cover; 
+    /* 기존 transition 및 opacity 제거 */
+    opacity: 1; 
+    position: static; /* position: absolute를 제거합니다 */
+}
 
     .show-images img {
-        width: auto; 
-        height: 100%;
-        object-fit: cover; 
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0; 
-        transition: opacity 0.5s ease-in-out; 
-    }
-    
-    .show-item:nth-child(1) .show-images {
-        display: block;
-        width: 300px; 
-    }
+    /* 기존 속성 모두 제거 (position: absolute, opacity, transition) */
+    position: static; 
+    opacity: 1; 
+    transition: none;
+}
 
-    .show-item:nth-child(1) .show-images img {
-        object-fit: cover; 
-        margin-bottom: 0;
+@keyframes slide-left {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            /* 4개 이미지가 한 세트이므로 100%만큼 이동 */
+            transform: translateX(-100%); 
+        }
     }
     
-    .show-images img:first-child {
-        opacity: 1; 
-    }
+.show-images img:first-child {
+    opacity: 1; /* 이 부분도 이제 필요 없습니다 */
+}
+
+/* 💡 show-item 내부의 img 관련 불필요한 속성 제거 */
+.show-item:nth-child(1) .show-images {
+    /* width: 300px; 제거 */
+}
+.show-item:nth-child(1) .show-images img {
+    margin-bottom: 0;
+}
+
     
     /* 모바일 반응형 */
     @media (max-width: 768px) {
