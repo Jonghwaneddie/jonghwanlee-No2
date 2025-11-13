@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
     
 <style>
-    /* 💡 최종 CSS 버전: 슬라이드 애니메이션 및 구조 변경 반영 */
+/* 💡 CSS 전체 수정: 요소 개수별 데이터 속성 기반 슬라이드 적용 */
     body {
         font-family: 'Montserrat', Arial, sans-serif;
         margin: 0;
@@ -21,11 +21,9 @@
     .header-top {
         display: flex;
         justify-content: space-between;
-        
         max-width: 1300px; 
         margin-left: auto;
         margin-right: auto;
-        
         margin-bottom: 250px; 
     }
     
@@ -128,55 +126,69 @@
         display: block; 
     }
 
-    /* 4. 이미지 슬라이드 관련 CSS 수정 및 추가 */
-    
-    /* 기존 show-images 컨테이너 (클리핑 영역) */
+    /* 4. 이미지/비디오 슬라이드 기본 설정 */
     .show-images {
-        /* width: 300px; 💡 제거됨 */
         height: 180px; 
         display: block; 
         position: relative; 
-        overflow: hidden; /* 슬라이드 영역 밖 이미지를 숨김 */
+        overflow: hidden;
     }
 
-    /* 💡 신규: 이미지 슬라이더 (400% 너비) */
     .image-slider {
-        width: 400%; /* 이미지 4개 너비 */
         height: 100%;
         display: flex;
-        animation: slide-left 15s linear infinite; /* 15초 동안 무한 반복 슬라이드 */
-    }
-
-    /* 💡 신규: 각 이미지 (25% 너비) */
-    .image-slider img {
-        width: 25%; /* 400% 중 25% = 100% 컨테이너 너비 */
-        height: 100%; 
-        object-fit: cover; 
-        position: static; /* position: absolute 제거 */
-        opacity: 1; /* opacity: 0 제거 */
-        transition: none; /* transition 제거 */
+        /* 💡 애니메이션 설정: 멈춤(forwards) 적용, 반복(infinite) 제거 */
+        animation-fill-mode: forwards; 
+        transform: translateZ(0); 
     }
     
-    /* 💡 애니메이션 키프레임 정의 */
-    @keyframes slide-left {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            /* 4개 이미지가 한 세트이므로 100%만큼 이동 */
-            transform: translateX(-100%); 
-        }
-    }
-
-    /* 불필요해진 기존 스타일 제거 */
-    .show-images img:first-child {
+    .image-slider > * {
+        height: 100%;
+        object-fit: cover;
         opacity: 1; 
+        transition: none;
+        position: static; 
     }
-    .show-item:nth-child(1) .show-images img {
-        margin-bottom: 0;
-    }
-    /* ... (생략) ... */
     
+    .art-video {
+        object-fit: cover;
+    }
+
+    /* ========================================================= */
+    /* 💡 A. 11개 요소 슬라이드 (Loggia) */
+    /* ========================================================= */
+    .image-slider[data-count="11"] {
+        width: 1100%; /* 11개 * 100% */
+        animation: slide-11-stop 20s linear forwards; /* 20초 동안 슬라이드 후 정지 */
+    }
+    
+    .image-slider[data-count="11"] > * {
+        width: 9.090909%; /* 100% / 11 */
+    }
+    
+    @keyframes slide-11-stop {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-90.909091%); } /* (11-1) * (100/11) = 90.909091% */
+    }
+
+    /* ========================================================= */
+    /* 💡 B. 4개 요소 슬라이드 (Future Present, Receivers) */
+    /* ========================================================= */
+    .image-slider[data-count="4"] {
+        width: 400%; /* 4개 * 100% */
+        animation: slide-4-stop 5s linear forwards; /* 5초 동안 슬라이드 후 정지 */
+    }
+
+    .image-slider[data-count="4"] > * {
+        width: 25%; /* 100% / 4 */
+    }
+
+    @keyframes slide-4-stop {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-75%); } /* (4-1) * (100/4) = 75% */
+    }
+
+
     /* 모바일 반응형 */
     @media (max-width: 768px) {
         body {
@@ -237,16 +249,7 @@
             width: 100%; 
             height: 200px; 
         }
-        /* 모바일에서는 image-slider의 width와 animation만 유지 */
-        .image-slider {
-            width: 400%;
-            animation: slide-left 15s linear infinite;
-        }
-        .image-slider img {
-            width: 25%;
-            height: 100%;
-            object-fit: cover;
-        }
+        /* 모바일에서는 개수별 CSS가 적용되도록 스타일 유지 */
     }
 </style>
 </head>
@@ -290,20 +293,18 @@
                 
             </div>
             <div class="show-images">
-                <div class="image-slider">
-
-                     <video src="videos/loggiavideo.mp4" class="art-video" muted playsinline poster="videos/loggia.jpg"></video>
-      <img src="loggiaimages/loggia1.jpg" alt="Loggia 1"loading="lazy">
-      <img src="loggiaimages/loggia2.jpg" alt="Loggia 2"loading="lazy">
-      <img src="loggiaimages/loggia3.jpg" alt="Loggia 3"loading="lazy">
-      <img src="loggiaimages/loggia4.jpg" alt="Loggia 4"loading="lazy">
-      <img src="loggiaimages/loggia5.jpg" alt="Loggia 5"loading="lazy">
-      <img src="loggiaimages/loggia6.jpg" alt="Loggia 6"loading="lazy">
-      <img src="loggiaimages/loggia7.jpg" alt="Loggia 7"loading="lazy">
-      <img src="loggiaimages/loggia8.jpg" alt="Loggia 8"loading="lazy">
-      <img src="loggiaimages/loggia9.jpg" alt="Loggia 9"loading="lazy">
-      <img src="loggiaimages/loggia10.jpg" alt="Loggia 10"loading="lazy">
-                
+                <div class="image-slider" data-count="11">
+                    <video src="videos/loggiavideo.mp4" class="art-video" muted playsinline poster="videos/loggia.jpg"></video>
+                    <img src="loggiaimages/loggia1.jpg" alt="Loggia 1" loading="lazy">
+                    <img src="loggiaimages/loggia2.jpg" alt="Loggia 2" loading="lazy">
+                    <img src="loggiaimages/loggia3.jpg" alt="Loggia 3" loading="lazy">
+                    <img src="loggiaimages/loggia4.jpg" alt="Loggia 4" loading="lazy">
+                    <img src="loggiaimages/loggia5.jpg" alt="Loggia 5" loading="lazy">
+                    <img src="loggiaimages/loggia6.jpg" alt="Loggia 6" loading="lazy">
+                    <img src="loggiaimages/loggia7.jpg" alt="Loggia 7" loading="lazy">
+                    <img src="loggiaimages/loggia8.jpg" alt="Loggia 8" loading="lazy">
+                    <img src="loggiaimages/loggia9.jpg" alt="Loggia 9" loading="lazy">
+                    <img src="loggiaimages/loggia10.jpg" alt="Loggia 10" loading="lazy">
                 </div>
             </div>
         </div>
@@ -325,12 +326,12 @@
                 </div>
                 
             </div>
-             <div class="show-images">
-                <div class="image-slider">
-                    <img src="placeholder-future-present-1.jpg" alt="Future Present 이미지 1">
-                    <img src="placeholder-future-present-2.jpg" alt="Future Present 이미지 2">
-                    <img src="placeholder-future-present-3.jpg" alt="Future Present 이미지 3">
-                    <img src="placeholder-future-present-4.jpg" alt="Future Present 이미지 4">
+            <div class="show-images">
+                <div class="image-slider" data-count="4">
+                    <img src="placeholder-future-present-1.jpg" alt="Future Present 이미지 1" loading="lazy">
+                    <img src="placeholder-future-present-2.jpg" alt="Future Present 이미지 2" loading="lazy">
+                    <img src="placeholder-future-present-3.jpg" alt="Future Present 이미지 3" loading="lazy">
+                    <img src="placeholder-future-present-4.jpg" alt="Future Present 이미지 4" loading="lazy">
                 </div>
             </div>
         </div>
@@ -353,12 +354,12 @@
                 </div>
                 
             </div>
-             <div class="show-images">
-                <div class="image-slider">
-                    <img src="placeholder-receivers-1.jpg" alt="Receivers 이미지 1">
-                    <img src="placeholder-receivers-2.jpg" alt="Receivers 이미지 2">
-                    <img src="placeholder-receivers-3.jpg" alt="Receivers 이미지 3">
-                    <img src="placeholder-receivers-4.jpg" alt="Receivers 이미지 4">
+            <div class="show-images">
+                <div class="image-slider" data-count="4">
+                    <img src="placeholder-receivers-1.jpg" alt="Receivers 이미지 1" loading="lazy">
+                    <img src="placeholder-receivers-2.jpg" alt="Receivers 이미지 2" loading="lazy">
+                    <img src="placeholder-receivers-3.jpg" alt="Receivers 이미지 3" loading="lazy">
+                    <img src="placeholder-receivers-4.jpg" alt="Receivers 이미지 4" loading="lazy">
                 </div>
             </div>
         </div>
