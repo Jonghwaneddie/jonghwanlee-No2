@@ -54,7 +54,7 @@
         display: block; 
         position: relative; 
         overflow: hidden; 
-        cursor: pointer; /* 클릭 가능한 영역임을 표시 */
+        cursor: pointer; 
     }
 
     .image-slider {
@@ -107,8 +107,8 @@
         top: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 1); /* 불투명 검정 배경 */
-        overflow: hidden; /* 스크롤 방지 */
+        background-color: rgba(0, 0, 0, 1); 
+        overflow: hidden; 
     }
 
     /* 닫기 버튼 */
@@ -137,7 +137,7 @@
     .modal-slide-container {
         position: relative;
         width: 90%;
-        height: 80%; /* 이미지 영역 */
+        height: 80%; 
         display: flex;
         justify-content: center;
         align-items: center;
@@ -145,7 +145,7 @@
 
     /* 슬라이드 이미지/비디오 스타일 */
     .modal-image-item {
-        display: none; /* JS로 제어 */
+        display: none; 
         width: 100%;
         height: 100%;
         text-align: center;
@@ -159,7 +159,7 @@
         width: auto;
         height: auto;
         margin: auto;
-        object-fit: contain; /* 이미지 비율 유지, 잘리지 않게 */
+        object-fit: contain; 
         user-select: none;
     }
 
@@ -204,7 +204,6 @@
 /* ========================================================= */
     @media (max-width: 768px) {
         body { padding: 15px 20px; }
-        /* ... (기존 모바일 레이아웃 유지) ... */
         
         .prev, .next {
             font-size: 20px;
@@ -261,17 +260,17 @@
             </div>
             <div class="show-images"> 
                 <div class="image-slider">
-                    <video src="videos/loggiavideo.mp4" class="art-video" loop autoplay muted playsinline poster="videos/loggia.jpg" data-caption="Loggia Video Clip"></video>
-                    <img src="loggiaimages/loggia1.jpg" alt="Loggia 1" loading="lazy" data-caption="Loggia, 2025, Installation view 1">
-                    <img src="loggiaimages/loggia2.jpg" alt="Loggia 2" loading="lazy" data-caption="Loggia, 2025, Installation view 2">
-                    <img src="loggiaimages/loggia3.jpg" alt="Loggia 3" loading="lazy" data-caption="Loggia, 2025, Sculpture A, Steel">
-                    <img src="loggiaimages/loggia4.jpg" alt="Loggia 4" loading="lazy" data-caption="Loggia, 2025, Wall piece, Mixed media">
-                    <img src="loggiaimages/loggia5.jpg" alt="Loggia 5" loading="lazy" data-caption="Loggia, 2025, Installation view 3">
-                    <img src="loggiaimages/loggia6.jpg" alt="Loggia 6" loading="lazy" data-caption="Loggia, 2025, Detail shot A">
-                    <img src="loggiaimages/loggia7.jpg" alt="Loggia 7" loading="lazy" data-caption="Loggia, 2025, Detail shot B">
-                    <img src="loggiaimages/loggia8.jpg" alt="Loggia 8" loading="lazy" data-caption="Loggia, 2025, Painting 1">
-                    <img src="loggiaimages/loggia9.jpg" alt="Loggia 9" loading="lazy" data-caption="Loggia, 2025, Painting 2">
-                    <img src="loggiaimages/loggia10.jpg" alt="Loggia 10" loading="lazy" data-caption="Loggia, 2025, Final detail">
+                    <video src="videos/loggiavideo.mp4" class="art-video" loop autoplay muted playsinline poster="videos/loggia.jpg" data-caption="Loggia Video Clip (비디오 캡션 예시입니다.)"></video>
+                    <img src="loggiaimages/loggia1.jpg" alt="Loggia 1" loading="lazy" data-caption="Loggia, 2025, Installation view 1 (첫 번째 이미지 캡션입니다.)">
+                    <img src="loggiaimages/loggia2.jpg" alt="Loggia 2" loading="lazy" data-caption="Loggia, 2025, Installation view 2 (두 번째 이미지 캡션입니다.)">
+                    <img src="loggiaimages/loggia3.jpg" alt="Loggia 3" loading="lazy" data-caption="Loggia, 2025, Sculpture A, Steel (세 번째 이미지 캡션입니다.)">
+                    <img src="loggiaimages/loggia4.jpg" alt="Loggia 4" loading="lazy" data-caption="Loggia, 2025, Wall piece, Mixed media (네 번째 이미지 캡션입니다.)">
+                    <img src="loggiaimages/loggia5.jpg" alt="Loggia 5" loading="lazy" data-caption="Loggia, 2025, Installation view 3 (다섯 번째 이미지 캡션입니다.)">
+                    <img src="loggiaimages/loggia6.jpg" alt="Loggia 6" loading="lazy" data-caption="Loggia, 2025, Detail shot A (여섯 번째 이미지 캡션입니다.)">
+                    <img src="loggiaimages/loggia7.jpg" alt="Loggia 7" loading="lazy" data-caption="Loggia, 2025, Detail shot B (일곱 번째 이미지 캡션입니다.)">
+                    <img src="loggiaimages/loggia8.jpg" alt="Loggia 8" loading="lazy" data-caption="Loggia, 2025, Painting 1 (여덟 번째 이미지 캡션입니다.)">
+                    <img src="loggiaimages/loggia9.jpg" alt="Loggia 9" loading="lazy" data-caption="Loggia, 2025, Painting 2 (아홉 번째 이미지 캡션입니다.)">
+                    <img src="loggiaimages/loggia10.jpg" alt="Loggia 10" loading="lazy" data-caption="Loggia, 2025, Final detail (열 번째 이미지 캡션입니다.)">
                 </div>
             </div>
         </div>
@@ -355,14 +354,13 @@
             const prevBtn = modal.querySelector('.prev');
             const nextBtn = modal.querySelector('.next');
             
-            let currentImageIndex = 0; // 현재 보여지는 이미지 인덱스
-            let imageItems = []; // 현재 갤러리의 모든 이미지/비디오 노드 저장
+            let currentImageIndex = 0; 
+            let imageItems = []; 
 
             // 이미지 전환 함수
             function showSlide(n) {
                 if (imageItems.length === 0) return;
 
-                // 인덱스 조정 (무한 순환)
                 if (n >= imageItems.length) {
                     currentImageIndex = 0;
                 } else if (n < 0) {
@@ -371,21 +369,21 @@
                     currentImageIndex = n;
                 }
 
-                // 모든 슬라이드 숨기기
                 const slides = slideshowContent.querySelectorAll('.modal-image-item');
                 slides.forEach(slide => {
                     slide.style.display = 'none';
-                    // 비디오 정지
                     const video = slide.querySelector('video');
                     if (video) {
                         video.pause();
+                        // video.currentTime = 0; // 필요하다면 각 슬라이드 전환 시 비디오 처음으로
                     }
                 });
 
-                // 현재 슬라이드 표시 및 캡션 업데이트
                 if (slides[currentImageIndex]) {
                     slides[currentImageIndex].style.display = 'block';
-                    const item = imageItems[currentImageIndex];
+                    const item = imageItems[currentImageIndex]; // 원본 이미지/비디오 엘리먼트
+                    
+                    // 캡션 업데이트
                     modalCaption.textContent = item.getAttribute('data-caption') || '';
                     
                     // 비디오 재생 시작
@@ -406,17 +404,43 @@
                     const imageSlider = showImages.querySelector('.image-slider');
                     const allItems = imageSlider.querySelectorAll('img, video');
                     
-                    // 현재 갤러리의 이미지/비디오 데이터를 imageItems 배열에 저장
                     imageItems = Array.from(allItems);
                     
-                    // 모달 콘텐츠 비우기
                     slideshowContent.innerHTML = '';
                     
-                    // 현재 보여지고 있는 이미지의 인덱스를 찾습니다.
-                    // 현재는 애니메이션 방식이므로, 딜레이가 0인 첫 번째 요소를 기본으로 설정합니다.
-                    // (정확히 애니메이션 상태를 파악하려면 복잡한 계산이 필요하나, 여기서는 0번째로 가정)
-                    currentImageIndex = 0; 
+                    // 현재 슬라이드쇼가 보여주고 있는 이미지를 찾아서 모달의 시작점으로 설정합니다.
+                    // 현재 활성화된 슬라이드의 animation-delay를 기반으로 계산
+                    let activeIndex = 0;
+                    const computedStyle = window.getComputedStyle(imageSlider.querySelector('img, video'));
+                    const animationDuration = parseFloat(computedStyle.animationDuration); // 예: 30s -> 30
                     
+                    if (animationDuration > 0) {
+                        // 모든 요소의 animation-delay를 가져와서 현재 시점을 기준으로 활성화된 요소를 찾습니다.
+                        let minTimeDiff = Infinity;
+                        
+                        allItems.forEach((item, index) => {
+                            const itemDelay = parseFloat(window.getComputedStyle(item).animationDelay);
+                            // 현재 애니메이션이 시작된 시간
+                            const animationStartTime = imageSlider.getAnimations()[0] ? imageSlider.getAnimations()[0].startTime : 0;
+                            // 현재 애니메이션 경과 시간
+                            const currentTime = (performance.now() - animationStartTime) / 1000; 
+
+                            // 실제 애니메이션 시간(duration)을 초과하는 경우를 대비해 모듈로 연산
+                            const effectiveCurrentTime = currentTime % animationDuration;
+
+                            // 해당 요소가 활성화되는 시간
+                            const activationTime = itemDelay % animationDuration;
+                            
+                            // 활성화 시간이 현재 시간보다 같거나 작고, 다음 활성화 시간보다 작을 때 (3초 간격)
+                            // 또는 마지막 요소에서 첫 요소로 넘어가는 경계 처리
+                            if (effectiveCurrentTime >= activationTime && effectiveCurrentTime < (activationTime + 3)) {
+                                activeIndex = index;
+                            }
+                        });
+                    }
+                    currentImageIndex = activeIndex;
+
+
                     // imageItems를 기반으로 모달 슬라이드 DOM 생성
                     imageItems.forEach(function(item) {
                         const slideWrapper = document.createElement('div');
@@ -424,13 +448,11 @@
                         
                         const clonedItem = item.cloneNode(true);
                         
-                        // 비디오 처리: 모달에서는 컨트롤 추가
                         if (clonedItem.tagName === 'VIDEO') {
                             clonedItem.controls = true;
-                            clonedItem.muted = false;
+                            clonedItem.muted = false; // 모달에서는 소리 켜기
                         }
                         
-                        // 애니메이션 스타일 제거
                         clonedItem.style.opacity = '1';
                         clonedItem.style.animationName = 'none';
                         clonedItem.style.animationDelay = '0s';
@@ -439,10 +461,9 @@
                         slideshowContent.appendChild(slideWrapper);
                     });
 
-                    // 모달 표시 및 첫 슬라이드 표시
                     modal.style.display = 'block';
                     document.body.style.overflow = 'hidden'; 
-                    showSlide(currentImageIndex);
+                    showSlide(currentImageIndex); // 클릭 시점에 보고 있던 이미지부터 시작
                 });
             });
 
@@ -451,7 +472,6 @@
                 modal.style.display = 'none';
                 document.body.style.overflow = 'auto';
 
-                // 모달이 닫힐 때 모든 비디오 정지
                 slideshowContent.querySelectorAll('video').forEach(video => {
                     video.pause();
                     video.currentTime = 0;
@@ -466,10 +486,7 @@
                 plusSlides(1);
             });
 
-            // 3. 모달 배경 클릭 시 닫기 (화살표나 콘텐츠 영역을 제외한 곳 클릭 시)
-            // (화면 전체가 검은색이라 배경 클릭 이벤트는 사용하지 않습니다. closeBtn을 사용해주세요.)
-
-            // 키보드 이벤트 (선택 사항: ESC로 닫기, 좌우 화살표로 넘기기)
+            // 키보드 이벤트 (ESC로 닫기, 좌우 화살표로 넘기기)
             document.addEventListener('keydown', function(event) {
                 if (modal.style.display === 'block') {
                     if (event.key === 'Escape') {
