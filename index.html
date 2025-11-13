@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -9,7 +10,7 @@
     
 <style>
 /* ========================================================= */
-/* 기본 스타일 및 레이아웃 */
+/* 기본 스타일 및 레이아웃 (이전과 동일) */
 /* ========================================================= */
     body {
         font-family: 'Montserrat', Arial, sans-serif;
@@ -47,14 +48,14 @@
     .extra-text span { display: block; }
 
 /* ========================================================= */
-/* 자동 전환 갤러리 스타일 */
+/* 자동 전환 갤러리 스타일 (이전과 동일) */
 /* ========================================================= */
     .show-images {
         height: 180px; 
         display: block; 
         position: relative; 
-        overflow: hidden; /* 영역 밖 요소 숨김 */
-        /* border: 1px solid #ccc; /* 경계선 (선택적) */
+        overflow: hidden; 
+        cursor: pointer; /* 클릭 가능한 영역임을 표시 */
     }
 
     .image-slider {
@@ -64,18 +65,14 @@
     }
     
     .image-slider > * {
-        /* 💡 모든 요소를 겹치도록 절대 위치 설정 */
         position: absolute; 
         top: 0;
         left: 0;
         width: 100%; 
         height: 100%;
-        
-        /* 💡 이미지가 잘리지 않고 세로 크기에 맞춰 보이도록 */
         object-fit: contain; 
-        
-        opacity: 0; /* 초기 투명도 설정 */
-        animation-timing-function: step-end; /* 점프 전환을 위한 설정 */
+        opacity: 0; 
+        animation-timing-function: step-end;
         animation-iteration-count: infinite;
         animation-fill-mode: forwards;
     }
@@ -83,24 +80,16 @@
     .art-video {
         object-fit: contain;
     }
-
-    /* -------------------- A. Loggia (11개 요소) -------------------- */
-    /* Loggia의 모든 요소 (이미지)에 33초 애니메이션 적용 */
-    .show-item:nth-child(1) .image-slider > * {
-        animation-duration: 33s; /* 11개 * 3초 */
-        animation-name: jump-11;
+    
+    /* Loggia (10개 순환) */
+    .show-item:nth-child(1) .image-slider > *:not(.art-video) {
+        animation-duration: 30s; 
+        animation-name: jump-10; 
         z-index: 1; 
     }
-
-    /* 비디오 (첫 번째 요소) 특별 처리: 배경으로 항상 보임 */
     .show-item:nth-child(1) .art-video {
-        z-index: 0; 
-        opacity: 1 !important; 
-        animation-name: none !important; 
-        animation-delay: 0s !important;
+        z-index: 0; opacity: 1 !important; animation-name: none !important; animation-delay: 0s !important;
     }
-
-    /* 이미지들의 딜레이 설정 (비디오 제외, nth-child(2)부터 시작) */
     .show-item:nth-child(1) .image-slider > *:nth-child(2) { animation-delay: 0s; } 
     .show-item:nth-child(1) .image-slider > *:nth-child(3) { animation-delay: 3s; }
     .show-item:nth-child(1) .image-slider > *:nth-child(4) { animation-delay: 6s; } 
@@ -111,53 +100,114 @@
     .show-item:nth-child(1) .image-slider > *:nth-child(9) { animation-delay: 21s; } 
     .show-item:nth-child(1) .image-slider > *:nth-child(10) { animation-delay: 24s; } 
     .show-item:nth-child(1) .image-slider > *:nth-child(11) { animation-delay: 27s; } 
-    
-    /* 11개 요소 전환 키프레임 (3초 간격) */
-    @keyframes jump-11 {
-        0% { opacity: 1; } 
-        9.08% { opacity: 1; } /* 3초 직전까지 유지 (100/11 - 0.01%) */
-        9.09% { opacity: 0; } /* 3초에 사라짐 */
-        100% { opacity: 0; } 
+    @keyframes jump-10 {
+        0% { opacity: 1; } 9.9% { opacity: 1; } 10% { opacity: 0; } 100% { opacity: 0; } 
     }
 
-
-    /* -------------------- B. 4개 요소 전환 (Future Present, Receivers) -------------------- */
-    /* 두 번째 이후 항목에 적용 */
+    /* 4개 요소 순환 */
     .show-item:nth-child(n+2) .image-slider > * { 
-        animation-duration: 12s; /* 4개 * 3초 */
+        animation-duration: 12s; 
         animation-name: jump-4;
         z-index: 1;
     }
-    
-    /* 이미지 딜레이 설정 */
     .show-item:nth-child(n+2) .image-slider > *:nth-child(1) { animation-delay: 0s; }
     .show-item:nth-child(n+2) .image-slider > *:nth-child(2) { animation-delay: 3s; }
     .show-item:nth-child(n+2) .image-slider > *:nth-child(3) { animation-delay: 6s; }
     .show-item:nth-child(n+2) .image-slider > *:nth-child(4) { animation-delay: 9s; }
-
-
-    /* 4개 요소 전환 키프레임 (3초 간격) */
     @keyframes jump-4 {
-        0% { opacity: 1; } 
-        24.9% { opacity: 1; } /* 3초 직전까지 유지 (100/4 - 0.1%) */
-        25% { opacity: 0; } /* 3초에 사라짐 */
-        100% { opacity: 0; } 
+        0% { opacity: 1; } 24.9% { opacity: 1; } 25% { opacity: 0; } 100% { opacity: 0; } 
     }
 
 /* ========================================================= */
-/* 모바일 반응형 */
+/* 💡 이미지 뷰어 모달 (Modal) 스타일 */
+/* ========================================================= */
+
+    #image-modal {
+        display: none; /* 기본 숨김 */
+        position: fixed; /* 화면 전체 고정 */
+        z-index: 1000; 
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.9); /* 어두운 배경 */
+    }
+
+    .modal-content-wrapper {
+        position: relative;
+        margin: 5% auto; /* 상하 여백을 주어 닫기 버튼과 겹치지 않게 함 */
+        width: 90%;
+        max-width: 1200px;
+        height: 90vh; /* 화면 높이의 90% */
+        overflow-y: auto; /* 내용이 넘칠 경우 스크롤 */
+        padding: 20px;
+        background-color: #1a1a1a;
+    }
+
+    .modal-images {
+        display: flex;
+        flex-wrap: wrap; /* 이미지가 넘치면 다음 줄로 */
+        justify-content: center;
+        gap: 20px; /* 이미지 간 간격 */
+        padding: 20px 0;
+    }
+
+    .modal-images img,
+    .modal-images video {
+        width: 100%; /* 부모(modal-images) 너비의 100% */
+        max-width: 1000px; /* 최대 너비 제한 (선택 사항) */
+        height: auto; /* 높이 자동 조절 */
+        display: block;
+        
+        /* 💡 이미지가 잘리지 않도록 (contain 유지) */
+        object-fit: contain; 
+        border: 1px solid #333; /* 이미지 경계선 (선택 사항) */
+    }
+    
+    .modal-images video {
+        max-height: 80vh; /* 비디오 높이 제한 */
+    }
+
+    /* 닫기 버튼 */
+    .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+        cursor: pointer;
+        z-index: 1001; /* 다른 요소 위에 위치 */
+    }
+
+    .close-btn:hover,
+    .close-btn:focus {
+        color: #bbb;
+        text-decoration: none;
+    }
+
+/* ========================================================= */
+/* 모바일 반응형 (이전과 동일) */
 /* ========================================================= */
     @media (max-width: 768px) {
         body { padding: 15px 20px; }
-        .header-top { max-width: none; margin-left: 0; margin-right: 0; margin-bottom: 50px; }
-        .main-menu-above { max-width: none; margin: 0 0 10px 0; padding-right: 0; text-align: left; }
-        .main-menu-above a { margin-left: 0; margin-right: 15px; }
-        .list-container { max-width: none; margin: 0; }
-        .main-info-group { display: flex; flex-direction: column; gap: 15px; align-items: stretch; grid-template-columns: none; }
-        .show-filed-under { flex-direction: column; justify-content: flex-start; gap: 5px; margin-left: 0; }
-        .show-title-group, .show-filed-under { max-width: none; margin-left: 0; }
-        .show-item { grid-template-columns: 1fr; gap: 10px; padding: 15px 0 15px 15px; margin-bottom: 20px; }
-        .show-images { width: 100%; height: 200px; }
+        .header-top { margin-bottom: 50px; }
+        .main-menu-above { margin: 0 0 10px 0; text-align: left; }
+        .show-item { grid-template-columns: 1fr; gap: 10px; padding: 15px 0 15px 15px; }
+        .show-images { height: 200px; }
+        
+        /* 모바일 모달 */
+        .modal-content-wrapper {
+            margin: 10px auto; 
+            width: 95%;
+            height: 95vh;
+        }
+        .close-btn {
+            right: 15px;
+            top: 5px;
+        }
     }
 </style>
 </head>
@@ -200,7 +250,7 @@
                 </div>
                 
             </div>
-            <div class="show-images">
+            <div class="show-images" data-show-name="Loggia"> 
                 <div class="image-slider">
                     <video src="videos/loggiavideo.mp4" class="art-video" loop autoplay muted playsinline poster="videos/loggia.jpg"></video>
                     <img src="loggiaimages/loggia1.jpg" alt="Loggia 1" loading="lazy">
@@ -234,7 +284,7 @@
                 </div>
                 
             </div>
-            <div class="show-images">
+            <div class="show-images" data-show-name="Future Present">
                 <div class="image-slider">
                     <img src="placeholder-future-present-1.jpg" alt="Future Present 이미지 1" loading="lazy">
                     <img src="placeholder-future-present-2.jpg" alt="Future Present 이미지 2" loading="lazy">
@@ -262,7 +312,7 @@
                 </div>
                 
             </div>
-            <div class="show-images">
+            <div class="show-images" data-show-name="Receivers">
                 <div class="image-slider">
                     <img src="placeholder-receivers-1.jpg" alt="Receivers 이미지 1" loading="lazy">
                     <img src="placeholder-receivers-2.jpg" alt="Receivers 이미지 2" loading="lazy">
@@ -272,5 +322,82 @@
             </div>
         </div>
     </div> 
+
+    <div id="image-modal">
+        <span class="close-btn">&times;</span>
+        <div class="modal-content-wrapper">
+            <div class="modal-images"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const showImagesElements = document.querySelectorAll('.show-images');
+            const modal = document.getElementById('image-modal');
+            const modalImagesContainer = modal.querySelector('.modal-images');
+            const closeBtn = modal.querySelector('.close-btn');
+
+            // 1. 이미지 슬라이더 클릭 이벤트 리스너
+            showImagesElements.forEach(function(showImages) {
+                showImages.addEventListener('click', function() {
+                    const imageSlider = showImages.querySelector('.image-slider');
+                    const images = imageSlider.querySelectorAll('img, video');
+                    
+                    // 모달 콘텐츠 비우기
+                    modalImagesContainer.innerHTML = '';
+                    
+                    // 현재 슬라이더의 모든 이미지/비디오를 복사하여 모달에 추가
+                    images.forEach(function(item) {
+                        const clonedItem = item.cloneNode(true);
+                        
+                        // 비디오 처리: 모달에서는 재생되도록 loop/autoplay 유지하고, controls 추가
+                        if (clonedItem.tagName === 'VIDEO') {
+                            clonedItem.controls = true; // 비디오 컨트롤 추가
+                            clonedItem.muted = false; // 소리 켜기
+                            clonedItem.autoplay = true; // 모달 열릴 때 재생
+                        }
+                        
+                        // 애니메이션 관련 클래스/스타일 제거
+                        clonedItem.style.opacity = '1';
+                        clonedItem.style.animationName = 'none';
+                        clonedItem.style.animationDelay = '0s';
+                        
+                        modalImagesContainer.appendChild(clonedItem);
+                    });
+
+                    // 모달 표시
+                    modal.style.display = 'block';
+                    // 모달이 열리면 배경 스크롤 방지 (선택 사항)
+                    document.body.style.overflow = 'hidden'; 
+                });
+            });
+
+            // 2. 닫기 버튼 클릭 이벤트 리스너
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // 배경 스크롤 허용
+
+                // 비디오 정지: 모달이 닫힐 때 모든 비디오를 정지시킵니다.
+                modalImagesContainer.querySelectorAll('video').forEach(video => {
+                    video.pause();
+                    video.currentTime = 0; // 처음으로 되돌리기
+                });
+            });
+
+            // 3. 모달 배경 클릭 시 닫기
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    
+                    // 비디오 정지
+                    modalImagesContainer.querySelectorAll('video').forEach(video => {
+                        video.pause();
+                        video.currentTime = 0;
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
