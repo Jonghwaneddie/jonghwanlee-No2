@@ -26,6 +26,70 @@
     .main-menu-above { max-width: 1300px; margin: -70px auto 10px auto; padding-right: 20px; text-align: right; }
     .main-menu-above a { color: #1a1a1a; text-decoration: none; cursor: pointer; margin-left: 15px; font-size: 10px; }
     .list-container { max-width: 1300px; margin: 80px auto 0 auto; }
+
+/* ========================================================= */
+/* 💡 새로운 구분선 및 원형 메뉴 스타일 */
+/* ========================================================= */
+.separator-menu-container {
+    max-width: 1300px; 
+    margin: 50px auto 50px auto; /* Contact 아래, Main Menu 위에 여백 */
+    position: relative;
+    padding: 0 50px; /* 전체 페이지 패딩과 맞추기 */
+}
+
+.separator-line {
+    border-top: 1px solid #1a1a1a;
+    width: 100%;
+    position: absolute;
+    top: 50%; /* 원형 메뉴의 중앙에 가로선 위치 */
+    z-index: 1;
+}
+
+.circle-menu-wrapper {
+    display: flex;
+    justify-content: space-between; /* 원들을 균일하게 배치 */
+    align-items: center;
+    position: relative;
+    z-index: 2; /* 원이 가로선 위에 오도록 */
+}
+
+.circle-menu-item {
+    width: 25px;
+    height: 25px;
+    background-color: white; /* 원의 배경색 (페이지 배경과 동일하게) */
+    border: 1px solid #1a1a1a;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.circle-menu-item:hover {
+    background-color: #1a1a1a; /* 마우스 오버 시 검은색으로 채움 */
+    transform: scale(1.1); /* 약간 확대 */
+}
+
+/* 원 안의 링크 텍스트는 숨기거나 스타일링 */
+.circle-menu-item a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-indent: -9999px; /* 텍스트 숨기기 */
+    overflow: hidden;
+    /* 텍스트가 원의 색상 변경을 방해하지 않도록 처리 */
+}
+
+/* 마우스 오버 시 링크 텍스트 색상을 대비되게 변경하고 싶다면: 
+.circle-menu-item:hover a {
+    color: white;
+}
+*/
+
+
+    
     .main-info-group { display: grid; grid-template-columns: 250px 300px; gap: 0px; align-items: flex-start; }
     .show-item { 
         grid-template-columns: 4fr 300px; 
@@ -149,8 +213,8 @@
     .modal-image-item video {
         display: block;
         /* 💡 이미지 크기 조정 */
-        max-width: 80%; 
-        max-height: 80vh; 
+        max-width: 90%; 
+        max-height: 90vh; 
         width: auto;
         height: auto;
         margin: auto;
