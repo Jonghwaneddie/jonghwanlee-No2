@@ -1,49 +1,14 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jonghwan Lee</title>
-    <link rel="stylesheet" href="style.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
-    
 <style>
-/* 💡 CSS 전체 수정: 교차 페이드 방식 적용 (클론 이미지 없음) */
-    body {
-        font-family: 'Montserrat', Arial, sans-serif;
-        margin: 0;
-        padding: 20px 50px; 
-        color: #1a1a1a;
-        font-size: 10px; 
-    }
-
+/* 💡 CSS 전체 수정: 3초 자동 전환 무한 루프 (No Fade) & object-fit: contain */
     /* ... (레이아웃 관련 스타일 유지) ... */
-    .header-top { display: flex; justify-content: space-between; max-width: 1300px; margin-left: auto; margin-right: auto; margin-bottom: 250px; }
-    .header-top a { color: #1a1a1a; text-decoration: none; cursor: pointer; }
-    .header-top div { flex-grow: 1; }
-    .header-top .right-info { text-align: right; }
-    .main-menu-above { max-width: 1300px; margin: -70px auto 10px auto; padding-right: 20px; text-align: right; }
-    .main-menu-above a { color: #1a1a1a; text-decoration: none; cursor: pointer; margin-left: 15px; font-size: 10px; }
-    .list-container { max-width: 1300px; margin: 80px auto 0 auto; }
-    .main-info-group { display: grid; grid-template-columns: 250px 300px; gap: 0px; align-items: flex-start; }
-    .show-item { grid-template-columns: 4fr 300px; display: grid; gap: 40px; border-left: 1px solid #1a1a1a; padding: 10px 0 10px 20px; align-items: start; margin-bottom: 20px; }
-    .show-item:last-child{ margin-bottom: 20px; }
-    .show-title-group { display: flex; flex-direction: column; }
-    .show-title { margin-bottom: 5px; }
-    .show-date, .show-location { color: #666; line-height: 1.4; }
-    .show-title-group p { margin: 0; padding: 0; }
-    .show-filed-under { color: #666; display: flex; justify-content: space-between; align-items: flex-start; margin-left: 0; }
-    .filed-text { color: #666; line-height: 1.4; padding-left: 50px; }
-    .extra-text { color: #666; line-height: 1.6; white-space: nowrap; float: right; overflow: visible; margin-left: 150px; }
-    .extra-text span { display: block; }
     
-    /* 4. 이미지/비디오 교차 페이드 기본 설정 */
+    /* 4. 이미지/비디오 갤러리 기본 설정 (자동 전환) */
     .show-images {
         height: 180px; 
         display: block; 
         position: relative; 
-        overflow: hidden;
+        overflow: hidden; /* 스크롤바 제거 */
+        border: 1px solid #ccc; /* 경계선 제거 (선택적) */
     }
 
     .image-slider {
@@ -51,7 +16,7 @@
         height: 100%;
         position: relative; 
         animation: none; 
-        animation-fill-mode: none; 
+        transform: none; 
     }
     
     .image-slider > * {
@@ -61,86 +26,89 @@
         left: 0;
         width: 100%; 
         height: 100%;
-        object-fit: cover;
         
-        /* 💡 초기 투명도 설정 및 애니메이션 적용 */
-        opacity: 0;
-        animation-duration: 33s; /* 총 시간 (11개 * 3초) */
-        animation-timing-function: ease-in-out;
+        /* 💡 이미지가 잘리지 않고 세로 크기에 맞춰 보이도록 */
+        object-fit: contain; 
+        
+        opacity: 0; /* 초기 투명도 설정 */
+        animation-timing-function: step-end; /* 점프 전환을 위한 설정 */
         animation-iteration-count: infinite;
         animation-fill-mode: forwards;
     }
     
     .art-video {
-        object-fit: cover;
+        object-fit: contain;
     }
+
+    /* ========================================================= */
+    /* 💡 A. 11개 요소 전환 (Loggia) */
+    /* ========================================================= */
     
-    /* ---------------------------------------------------- */
-    /* 💡 Loggia 항목 (11개 요소) 페이드 애니메이션 적용 */
-    /* ---------------------------------------------------- */
-    
-    /* Loggia 항목의 비디오/이미지 스타일 */
     .show-item:nth-child(1) .image-slider > * {
+        animation-duration: 33s; /* 11개 * 3초 */
+        animation-name: jump-11;
         z-index: 1; /* 이미지들이 비디오 위에 겹치도록 */
     }
+
+    /* 비디오 처리: Loggia의 첫 번째 요소가 비디오이므로 특별 처리 */
     .show-item:nth-child(1) .art-video {
-        z-index: 0; /* 비디오는 가장 아래 */
-        opacity: 1 !important; /* 비디오는 항상 보이게 */
-        animation-name: none !important;
-        animation-delay: 0s !important;
+        z-index: 0; /* 가장 아래에 배치 */
+        opacity: 1; /* 비디오는 항상 보이게 */
+        animation-name: none; /* 비디오 자체는 애니메이션에서 제외 */
+        animation-delay: 0s;
+        /* 비디오의 자동 재생은 HTML 속성으로 제어 */
     }
 
-    /* 각 요소의 애니메이션 딜레이 설정 */
-    .image-slider > *:nth-child(1) { /* 비디오: CSS 페이드에서 제외 */
-        animation-name: none;
-    } 
-    .image-slider > *:nth-child(2) { animation-name: fade-11; animation-delay: 0s; } /* 이미지 1이 0s에 시작 */
-    .image-slider > *:nth-child(3) { animation-name: fade-11; animation-delay: 3s; } 
-    .image-slider > *:nth-child(4) { animation-name: fade-11; animation-delay: 6s; } 
-    .image-slider > *:nth-child(5) { animation-name: fade-11; animation-delay: 9s; } 
-    .image-slider > *:nth-child(6) { animation-name: fade-11; animation-delay: 12s; } 
-    .image-slider > *:nth-child(7) { animation-name: fade-11; animation-delay: 15s; } 
-    .image-slider > *:nth-child(8) { animation-name: fade-11; animation-delay: 18s; } 
-    .image-slider > *:nth-child(9) { animation-name: fade-11; animation-delay: 21s; } 
-    .image-slider > *:nth-child(10) { animation-name: fade-11; animation-delay: 24s; } 
-    .image-slider > *:nth-child(11) { animation-name: fade-11; animation-delay: 27s; } 
-
-
-    /* 💡 11개 요소 페이드 키프레임 */
-    @keyframes fade-11 {
-        0% { opacity: 0; }
-        1.5% { opacity: 1; }
-        7.5% { opacity: 1; }
-        9.09% { opacity: 0; }
-        100% { opacity: 0; }
-    }
-
-
-    /* ---------------------------------------------------- */
-    /* 💡 4개 요소 (Future Present, Receivers) 페이드 애니메이션 적용 */
-    /* ---------------------------------------------------- */
+    /* 이미지들의 딜레이 설정 (비디오 제외, 두 번째 요소부터) */
+    /* 첫 번째 이미지(nth-child(2))가 0초에 나타나고 3초 뒤에 사라짐 */
+    .show-item:nth-child(1) .image-slider > *:nth-child(2) { animation-delay: 0s; } 
+    .show-item:nth-child(1) .image-slider > *:nth-child(3) { animation-delay: 3s; }
+    .show-item:nth-child(1) .image-slider > *:nth-child(4) { animation-delay: 6s; } 
+    .show-item:nth-child(1) .image-slider > *:nth-child(5) { animation-delay: 9s; } 
+    .show-item:nth-child(1) .image-slider > *:nth-child(6) { animation-delay: 12s; } 
+    .show-item:nth-child(1) .image-slider > *:nth-child(7) { animation-delay: 15s; } 
+    .show-item:nth-child(1) .image-slider > *:nth-child(8) { animation-delay: 18s; } 
+    .show-item:nth-child(1) .image-slider > *:nth-child(9) { animation-delay: 21s; } 
+    .show-item:nth-child(1) .image-slider > *:nth-child(10) { animation-delay: 24s; } 
+    .show-item:nth-child(1) .image-slider > *:nth-child(11) { animation-delay: 27s; } 
     
-    .show-item:nth-child(n+2) .image-slider > * { /* 두 번째 이후 항목 */
-        animation-duration: 12s; /* 총 시간 (4개 * 3초) */
-        animation-name: fade-4;
+    /* 💡 11개 요소 전환 키프레임: 각 요소는 33초 중 1/11인 9.09% 구간만 활성화 */
+    @keyframes jump-11 {
+        0% { opacity: 1; } /* 0초에 나타남 */
+        9.08% { opacity: 1; } /* 3초 직전까지 유지 */
+        9.09% { opacity: 0; } /* 3초에 사라짐 (다음 요소 등장) */
+        100% { opacity: 0; } /* 나머지 시간 동안 숨김 */
+    }
+
+
+    /* ========================================================= */
+    /* 💡 B. 4개 요소 전환 (Future Present, Receivers) */
+    /* ========================================================= */
+    
+    /* 두 번째 이후 항목에 적용 */
+    .show-item:nth-child(n+2) .image-slider > * { 
+        animation-duration: 12s; /* 4개 * 3초 */
+        animation-name: jump-4;
+        z-index: 1;
     }
     
+    /* 이미지 딜레이 설정 */
     .show-item:nth-child(n+2) .image-slider > *:nth-child(1) { animation-delay: 0s; }
     .show-item:nth-child(n+2) .image-slider > *:nth-child(2) { animation-delay: 3s; }
     .show-item:nth-child(n+2) .image-slider > *:nth-child(3) { animation-delay: 6s; }
     .show-item:nth-child(n+2) .image-slider > *:nth-child(4) { animation-delay: 9s; }
 
 
-    /* 💡 4개 요소 페이드 키프레임 */
-    @keyframes fade-4 {
-        0% { opacity: 0; }
-        1% { opacity: 1; }
-        23% { opacity: 1; }
-        25% { opacity: 0; }
-        100% { opacity: 0; }
+    /* 💡 4개 요소 전환 키프레임: 각 요소는 12초 중 1/4인 25% 구간만 활성화 */
+    @keyframes jump-4 {
+        0% { opacity: 1; } /* 0초에 나타남 */
+        24.9% { opacity: 1; } /* 3초 직전까지 유지 */
+        25% { opacity: 0; } /* 3초에 사라짐 (다음 요소 등장) */
+        100% { opacity: 0; } /* 나머지 시간 동안 숨김 */
     }
-    
+
     /* ... (모바일 반응형 유지) ... */
+    
 </style>
 </head>
 <body>
