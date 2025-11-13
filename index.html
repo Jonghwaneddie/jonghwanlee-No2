@@ -72,27 +72,30 @@
     border-top: 1px solid #1a1a1a;
     width: 100%;
     position: absolute;
-    top: 70%; 
+    top: 50%; 
     z-index: 1;
 }
 
 .circle-menu-wrapper {
     display: flex;
     justify-content: space-between; 
-    align-items: flex-start;
+    align-items: center;
     position: relative;
     z-index: 2; 
+    height: 35px; /* 원(15px) + 텍스트(8px) + 간격(5px) + 여백 */
 }
 
 .circle-item-group {
     display: flex;
     flex-direction: column; /* 원과 텍스트를 수직으로 정렬 */
     align-items: center;
+    /* 💡 원형 메뉴 그룹 자체를 중앙 정렬할 필요는 없지만, 컨테이너 내에서 top: 0 위치를 잡도록 margin-top 조정 */
+    margin-top: -10px; /* 원의 상단을 가로줄의 중앙에 맞추기 위한 조정 */
 }
 
 .circle-menu-item {
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
     background-color: white; 
     border: 1px solid #1a1a1a;
     border-radius: 50%;
@@ -142,6 +145,8 @@
     line-height: 1.2;
     text-align: center;
     white-space: nowrap; 
+    /* 💡 텍스트가 원형 메뉴의 공간을 침범하지 않도록 여백 확보 */
+    margin-top: 5px;
 }
 
 /* ========================================================= */
@@ -336,30 +341,54 @@
         <div class="right-info"><a href="contact.html">Contact</a></div>
     </div>
 
-    <div class="separator-menu-container">
+<div class="separator-menu-container">
         <div class="separator-line"></div>
         <div class="circle-menu-wrapper">
-            <div class="circle-menu-item" onclick="location.href='work1.html'">
-                <a href="work1.html" title="Work 1">W1</a>
+            
+            <div class="circle-item-group">
+                <div class="circle-menu-item" onclick="location.href='work1.html'">
+                    <a href="work1.html" title="Work 1">W1</a>
+                </div>
+                <div class="circle-item-text">2021</div>
             </div>
-            <div class="circle-menu-item" onclick="location.href='work2.html'">
-                <a href="work2.html" title="Work 2">W2</a>
+            
+            <div class="circle-item-group">
+                <div class="circle-menu-item" onclick="location.href='work2.html'">
+                    <a href="work2.html" title="Work 2">W2</a>
+                </div>
+                <div class="circle-item-text">2022</div>
             </div>
-            <div class="circle-menu-item" onclick="location.href='work3.html'">
-                <a href="work3.html" title="Work 3">W3</a>
+            
+            <div class="circle-item-group">
+                <div class="circle-menu-item" onclick="location.href='work3.html'">
+                    <a href="work3.html" title="Work 3">W3</a>
+                </div>
+                <div class="circle-item-text">2023</div>
             </div>
-            <div class="circle-menu-item" onclick="location.href='archive.html'">
-                <a href="archive.html" title="Archive">Arch</a>
+            
+            <div class="circle-item-group">
+                <div class="circle-menu-item" onclick="location.href='archive.html'">
+                    <a href="archive.html" title="Archive">Arch</a>
+                </div>
+                <div class="circle-item-text">2024</div>
             </div>
-            <div class="circle-menu-item" onclick="location.href='project5.html'">
-                <a href="project5.html" title="Project 5">P5</a>
+            
+            <div class="circle-item-group">
+                <div class="circle-menu-item" onclick="location.href='project5.html'">
+                    <a href="project5.html" title="Project 5">P5</a>
+                </div>
+                <div class="circle-item-text">2025</div>
             </div>
-            <div class="circle-menu-item" onclick="location.href='project6.html'">
-                <a href="project6.html" title="Project 6">P6</a>
+            
+            <div class="circle-item-group">
+                <div class="circle-menu-item" onclick="location.href='project6.html'">
+                    <a href="project6.html" title="Project 6">P6</a>
+                </div>
+                <div class="circle-item-text">2026</div>
             </div>
+            
         </div>
     </div>
-
     <div class="main-menu-above">
         <a href="information.html">information</a>
         <a href="text.html">texts</a>
