@@ -9,7 +9,7 @@
     
 <style>
 /* ========================================================= */
-/* 기본 스타일 및 레이아웃 (이전과 동일) */
+/* 기본 스타일 및 레이아웃 */
 /* ========================================================= */
     body {
         font-family: 'Montserrat', Arial, sans-serif;
@@ -19,77 +19,25 @@
         font-size: 10px; 
     }
 
-    .header-top { display: flex; justify-content: space-between; max-width: 1300px; margin-left: auto; margin-right: auto; margin-bottom: 250px; }
+    /* 💡 A. header-top 마진 수정: 원형 메뉴 공간 확보 */
+    .header-top { 
+        display: flex; justify-content: space-between; max-width: 1300px; 
+        margin-left: auto; margin-right: auto; 
+        margin-bottom: 20px; /* 기존 250px에서 수정 */
+    }
     .header-top a { color: #1a1a1a; text-decoration: none; cursor: pointer; }
     .header-top div { flex-grow: 1; }
     .header-top .right-info { text-align: right; }
-    .main-menu-above { max-width: 1300px; margin: -70px auto 10px auto; padding-right: 20px; text-align: right; }
-    .main-menu-above a { color: #1a1a1a; text-decoration: none; cursor: pointer; margin-left: 15px; font-size: 10px; }
-    .list-container { max-width: 1300px; margin: 80px auto 0 auto; }
-
-/* ========================================================= */
-/* 💡 새로운 구분선 및 원형 메뉴 스타일 */
-/* ========================================================= */
-.separator-menu-container {
-    max-width: 1300px; 
-    margin: 50px auto 50px auto; /* Contact 아래, Main Menu 위에 여백 */
-    position: relative;
-    padding: 0 50px; /* 전체 페이지 패딩과 맞추기 */
-}
-
-.separator-line {
-    border-top: 1px solid #1a1a1a;
-    width: 100%;
-    position: absolute;
-    top: 50%; /* 원형 메뉴의 중앙에 가로선 위치 */
-    z-index: 1;
-}
-
-.circle-menu-wrapper {
-    display: flex;
-    justify-content: space-between; /* 원들을 균일하게 배치 */
-    align-items: center;
-    position: relative;
-    z-index: 2; /* 원이 가로선 위에 오도록 */
-}
-
-.circle-menu-item {
-    width: 25px;
-    height: 25px;
-    background-color: white; /* 원의 배경색 (페이지 배경과 동일하게) */
-    border: 1px solid #1a1a1a;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.circle-menu-item:hover {
-    background-color: #1a1a1a; /* 마우스 오버 시 검은색으로 채움 */
-    transform: scale(1.1); /* 약간 확대 */
-}
-
-/* 원 안의 링크 텍스트는 숨기거나 스타일링 */
-.circle-menu-item a {
-    display: block;
-    width: 100%;
-    height: 100%;
-    text-indent: -9999px; /* 텍스트 숨기기 */
-    overflow: hidden;
-    /* 텍스트가 원의 색상 변경을 방해하지 않도록 처리 */
-}
-
-/* 마우스 오버 시 링크 텍스트 색상을 대비되게 변경하고 싶다면: 
-.circle-menu-item:hover a {
-    color: white;
-}
-*/
-
-
     
+    /* 💡 B. main-menu-above 마진 수정: 원형 메뉴를 덮지 않도록 조정 */
+    .main-menu-above { 
+        max-width: 1300px; 
+        margin: 10px auto 10px auto; /* 기존 -70px에서 수정 */
+        padding-right: 20px; text-align: right; 
+    }
+    .main-menu-above a { color: #1a1a1a; text-decoration: none; cursor: pointer; margin-left: 15px; font-size: 10px; }
+    
+    .list-container { max-width: 1300px; margin: 80px auto 0 auto; }
     .main-info-group { display: grid; grid-template-columns: 250px 300px; gap: 0px; align-items: flex-start; }
     .show-item { 
         grid-template-columns: 4fr 300px; 
@@ -109,9 +57,62 @@
     .filed-text { color: #666; line-height: 1.4; padding-left: 50px; }
     .extra-text { color: #666; line-height: 1.6; white-space: nowrap; float: right; overflow: visible; margin-left: 150px; }
     .extra-text span { display: block; }
+    
+/* ========================================================= */
+/* 💡 새로운 구분선 및 원형 메뉴 스타일 */
+/* ========================================================= */
+.separator-menu-container {
+    max-width: 1300px; 
+    margin: 50px auto 50px auto; 
+    position: relative;
+    padding: 0 50px; 
+}
+
+.separator-line {
+    border-top: 1px solid #1a1a1a;
+    width: 100%;
+    position: absolute;
+    top: 50%; 
+    z-index: 1;
+}
+
+.circle-menu-wrapper {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    position: relative;
+    z-index: 2; 
+}
+
+.circle-menu-item {
+    width: 25px;
+    height: 25px;
+    background-color: white; 
+    border: 1px solid #1a1a1a;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.circle-menu-item:hover {
+    background-color: #1a1a1a; 
+    transform: scale(1.1); 
+}
+
+.circle-menu-item a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-indent: -9999px; 
+    overflow: hidden;
+}
 
 /* ========================================================= */
-/* 💡 자동 전환 갤러리 스타일 (JavaScript 제어용으로 수정) */
+/* 💡 자동 전환 갤러리 스타일 (JavaScript 제어용, 페이드 적용) */
 /* ========================================================= */
     .show-images {
         height: 180px; 
@@ -147,8 +148,6 @@
         object-fit: contain;
     }
     
-    /* 기존의 @keyframes jump-10, jump-4 부분은 모두 삭제되었습니다. */
-
 /* ========================================================= */
 /* 💡 이미지 뷰어 모달 (Slideshow Modal) 스타일 */
 /* ========================================================= */
@@ -304,6 +303,30 @@
         <div class="right-info"><a href="contact.html">Contact</a></div>
     </div>
 
+    <div class="separator-menu-container">
+        <div class="separator-line"></div>
+        <div class="circle-menu-wrapper">
+            <div class="circle-menu-item" onclick="location.href='work1.html'">
+                <a href="work1.html" title="Work 1">W1</a>
+            </div>
+            <div class="circle-menu-item" onclick="location.href='work2.html'">
+                <a href="work2.html" title="Work 2">W2</a>
+            </div>
+            <div class="circle-menu-item" onclick="location.href='work3.html'">
+                <a href="work3.html" title="Work 3">W3</a>
+            </div>
+            <div class="circle-menu-item" onclick="location.href='archive.html'">
+                <a href="archive.html" title="Archive">Arch</a>
+            </div>
+            <div class="circle-menu-item" onclick="location.href='project5.html'">
+                <a href="project5.html" title="Project 5">P5</a>
+            </div>
+            <div class="circle-menu-item" onclick="location.href='project6.html'">
+                <a href="project6.html" title="Project 6">P6</a>
+            </div>
+        </div>
+    </div>
+
     <div class="main-menu-above">
         <a href="information.html">information</a>
         <a href="text.html">texts</a>
@@ -431,7 +454,7 @@
 
                 let currentIndex = 0;
                 
-                // 초기 상태 설정: 첫 번째 요소만 보이게 하고 나머지는 숨깁니다.
+                // 초기 상태 설정: 첫 번째 요소만 보이게 설정
                 items.forEach((item, index) => {
                     item.style.opacity = index === 0 ? 1 : 0;
                     if (item.tagName === 'VIDEO' && index === 0) {
