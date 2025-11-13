@@ -47,7 +47,7 @@
     .extra-text span { display: block; }
 
 /* ========================================================= */
-/* 자동 전환 갤러리 스타일 (이전과 동일) */
+/* 💡 자동 전환 갤러리 스타일 (JavaScript 제어용으로 수정) */
 /* ========================================================= */
     .show-images {
         height: 180px; 
@@ -62,7 +62,7 @@
         height: 100%;
         position: relative; 
     }
-    
+
     .image-slider > * {
         position: absolute; 
         top: 0;
@@ -71,31 +71,19 @@
         height: 100%;
         object-fit: contain; 
         opacity: 0; 
-        animation-timing-function: step-end;
-        animation-iteration-count: infinite;
-        animation-fill-mode: forwards;
-
-        transition: opacity 1s ease-in-out;
+        /* 💡 페이드 효과를 위한 전환 시간 설정 */
+        transition: opacity 0.5s ease-in-out; 
     }
-    
+
+    .show-item .image-slider > *:first-child {
+        opacity: 1;
+    }
+
     .art-video {
         object-fit: contain;
     }
     
-    /* 애니메이션 키프레임 및 딜레이 (이전과 동일) */
-    .show-item:nth-child(1) .image-slider > *:not(.art-video) { animation-duration: 30s; animation-name: jump-10; z-index: 1; }
-    .show-item:nth-child(1) .art-video { z-index: 0; opacity: 1 !important; animation-name: none !important; animation-delay: 0s !important; }
-    .show-item:nth-child(1) .image-slider > *:nth-child(2) { animation-delay: 0s; } .show-item:nth-child(1) .image-slider > *:nth-child(3) { animation-delay: 3s; }
-    .show-item:nth-child(1) .image-slider > *:nth-child(4) { animation-delay: 6s; } .show-item:nth-child(1) .image-slider > *:nth-child(5) { animation-delay: 9s; } 
-    .show-item:nth-child(1) .image-slider > *:nth-child(6) { animation-delay: 12s; } .show-item:nth-child(1) .image-slider > *:nth-child(7) { animation-delay: 15s; } 
-    .show-item:nth-child(1) .image-slider > *:nth-child(8) { animation-delay: 18s; } .show-item:nth-child(1) .image-slider > *:nth-child(9) { animation-delay: 21s; } 
-    .show-item:nth-child(1) .image-slider > *:nth-child(10) { animation-delay: 24s; } .show-item:nth-child(1) .image-slider > *:nth-child(11) { animation-delay: 27s; } 
-    @keyframes jump-10 { 0% { opacity: 1; } 9.9% { opacity: 1; } 10% { opacity: 0; } 100% { opacity: 0; } }
-
-    .show-item:nth-child(n+2) .image-slider > * { animation-duration: 12s; animation-name: jump-4; z-index: 1; }
-    .show-item:nth-child(n+2) .image-slider > *:nth-child(1) { animation-delay: 0s; } .show-item:nth-child(n+2) .image-slider > *:nth-child(2) { animation-delay: 3s; }
-    .show-item:nth-child(n+2) .image-slider > *:nth-child(3) { animation-delay: 6s; } .show-item:nth-child(n+2) .image-slider > *:nth-child(4) { animation-delay: 9s; }
-    @keyframes jump-4 { 0% { opacity: 1; } 24.9% { opacity: 1; } 25% { opacity: 0; } 100% { opacity: 0; } }
+    /* 기존의 @keyframes jump-10, jump-4 부분은 모두 삭제되었습니다. */
 
 /* ========================================================= */
 /* 💡 이미지 뷰어 모달 (Slideshow Modal) 스타일 */
@@ -109,7 +97,8 @@
         top: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.7); 
+        /* 💡 배경 투명도 수정 (Alpha 값 0.8) */
+        background-color: rgba(0, 0, 0, 0.8); 
         overflow: hidden; 
     }
 
@@ -129,18 +118,17 @@
     .modal-content-wrapper {
         display: flex;
         flex-direction: column;
-        justify-content: center; /* 이미지를 세로 중앙 정렬 */
-        align-items: center;     /* 이미지를 가로 중앙 정렬 */
+        justify-content: center; 
+        align-items: center;     
         width: 100%;
         height: 100%;
     }
 
     /* 현재 이미지 표시 영역 */
     .modal-slide-container {
-        position: relative; /* 💡 화살표의 기준 */
+        position: relative; 
         width: 90%;
-        /* 💡 이미지와 캡션 공간 분리 */
-        height: 85%; /* 이미지 영역 비율 조정 */ 
+        height: 85%; 
         display: flex;
         justify-content: center;
         align-items: center;
@@ -152,7 +140,7 @@
         width: 100%;
         height: 100%;
         text-align: center;
-        display: flex; /* 이미지/비디오를 중앙 정렬하기 위해 flex 사용 */
+        display: flex; 
         justify-content: center;
         align-items: center;
     }
@@ -161,8 +149,8 @@
     .modal-image-item video {
         display: block;
         /* 💡 이미지 크기 조정 */
-        max-width: 90%; /* 전체 화면 너비의 80%로 제한 */
-        max-height: 90vh; /* 뷰포트 높이의 80%로 제한 */ 
+        max-width: 80%; 
+        max-height: 80vh; 
         width: auto;
         height: auto;
         margin: auto;
@@ -174,8 +162,8 @@
     .prev, .next {
         cursor: pointer;
         position: absolute;
-        top: 50%; /* 💡 이미지 중앙에 맞추기 */
-        transform: translateY(-50%); /* 💡 이미지 중앙에 맞추기 */
+        top: 50%; 
+        transform: translateY(-50%); 
         width: auto;
         padding: 16px;
         color: white;
@@ -184,17 +172,17 @@
         transition: 0.6s ease;
         user-select: none;
         z-index: 1001;
-        background-color: rgba(0, 0, 0, 0.5); /* 화살표 배경 추가로 가시성 높임 */
+        background-color: rgba(0, 0, 0, 0.5); 
         border-radius: 3px;
     }
 
     .prev {
-        left: 0; /* 💡 왼쪽 끝에 붙이기 */
+        left: 0; 
         border-radius: 0 3px 3px 0;
     }
 
     .next {
-        right: 0; /* 💡 오른쪽 끝에 붙이기 */
+        right: 0; 
         border-radius: 3px 0 0 3px;
     }
 
@@ -204,17 +192,16 @@
 
     /* 캡션 스타일 */
     .modal-caption {
-        /* 💡 캡션 글씨 색상 흰색으로 변경 */
         color: white; 
         font-size: 14px;
         padding: 10px 0;
         text-align: center;
-        height: 5%; /* 캡션 공간 확보 */
+        height: 5%; 
         margin-top: 10px;
     }
 
 /* ========================================================= */
-/* 모바일 반응형 (화살표 크기 및 위치 조정) */
+/* 모바일 반응형 */
 /* ========================================================= */
     @media (max-width: 768px) {
         body { padding: 15px 20px; }
@@ -222,7 +209,7 @@
         .prev, .next {
             font-size: 20px;
             padding: 10px;
-            transform: translateY(-50%); /* 모바일에서도 중앙 정렬 유지 */
+            transform: translateY(-50%); 
         }
         
         .close-btn {
@@ -231,18 +218,17 @@
             font-size: 30px;
         }
 
-        /* 모바일에서 이미지 크기 추가 조정 */
         .modal-image-item img,
         .modal-image-item video {
-            max-width: 95%; /* 모바일에서 더 넓게 사용 */
-            max-height: 75vh; /* 뷰포트 높이도 조정 */
+            max-width: 95%; 
+            max-height: 75vh; 
         }
 
         .modal-slide-container {
-            height: 80%; /* 모바일에서 이미지 영역 높이 조정 */
+            height: 80%; 
         }
         .modal-caption {
-            height: 10%; /* 모바일에서 캡션 공간 더 확보 */
+            height: 10%; 
         }
     }
 </style>
@@ -373,7 +359,52 @@
     </div>
 
     <script>
+        // 💡 자동 전환 슬라이드쇼 로직 (페이드 효과)
+        function startSlideshows() {
+            document.querySelectorAll('.image-slider').forEach(slider => {
+                const items = slider.querySelectorAll('img, video');
+                if (items.length <= 1) return;
+
+                let currentIndex = 0;
+                
+                // 초기 상태 설정: 첫 번째 요소만 보이게 하고 나머지는 숨깁니다.
+                items.forEach((item, index) => {
+                    item.style.opacity = index === 0 ? 1 : 0;
+                    if (item.tagName === 'VIDEO' && index === 0) {
+                        item.play();
+                    } else if (item.tagName === 'VIDEO') {
+                        item.pause();
+                    }
+                });
+
+                // 전환 로직 (3초 간격)
+                setInterval(() => {
+                    // 현재 아이템 숨김 (페이드 아웃)
+                    items[currentIndex].style.opacity = 0;
+                    
+                    // 비디오 정지
+                    if (items[currentIndex].tagName === 'VIDEO') {
+                        items[currentIndex].pause();
+                    }
+                    
+                    // 다음 인덱스 계산 (무한 순환)
+                    currentIndex = (currentIndex + 1) % items.length;
+
+                    // 다음 아이템 보임 (페이드 인)
+                    items[currentIndex].style.opacity = 1;
+
+                    // 다음 비디오 재생
+                    if (items[currentIndex].tagName === 'VIDEO') {
+                        items[currentIndex].play();
+                    }
+                }, 3000); // 3초마다 전환
+            });
+        }
+
+
         document.addEventListener('DOMContentLoaded', function() {
+            startSlideshows(); // 자동 슬라이드쇼 시작
+            
             const showImagesElements = document.querySelectorAll('.show-images');
             const modal = document.getElementById('image-modal');
             const slideshowContent = modal.querySelector('.slideshow-content');
@@ -385,7 +416,7 @@
             let currentImageIndex = 0; 
             let imageItems = []; 
 
-            // 이미지 전환 함수
+            // 이미지 전환 함수 (모달 내부)
             function showSlide(n) {
                 if (imageItems.length === 0) return;
 
@@ -407,11 +438,13 @@
                 });
 
                 if (slides[currentImageIndex]) {
-                    slides[currentImageIndex].style.display = 'flex'; // 💡 flex로 변경하여 내부 이미지 중앙 정렬
+                    slides[currentImageIndex].style.display = 'flex'; // 이미지 중앙 정렬
                     const item = imageItems[currentImageIndex]; 
                     
+                    // 캡션 업데이트
                     modalCaption.textContent = item.getAttribute('data-caption') || '';
                     
+                    // 비디오 재생 시작
                     const currentVideo = slides[currentImageIndex].querySelector('video');
                     if (currentVideo) {
                         currentVideo.play();
@@ -433,17 +466,11 @@
                     
                     slideshowContent.innerHTML = '';
                     
-                    // 현재 슬라이더에 실제로 보여지고 있는 이미지의 인덱스를 찾습니다.
-                    // (애니메이션 상태를 정확히 파악하여 클릭 시점의 이미지를 모달 시작점으로 설정)
+                    // 클릭 시점에 현재 보여지고 있는 이미지의 인덱스를 찾음
                     let activeIndex = 0;
-                    const sliderRect = imageSlider.getBoundingClientRect(); // 슬라이더의 위치 정보
-                    
                     allItems.forEach((item, index) => {
-                        const itemRect = item.getBoundingClientRect(); // 각 아이템의 위치 정보
-                        // 슬라이더 영역 내에 완전히 보이는 아이템을 찾음 (혹은 가장 잘 보이는 아이템)
-                        // 여기서는 opacity가 1인 요소를 찾는 방식으로 가정
                         const computedOpacity = parseFloat(window.getComputedStyle(item).opacity);
-                        if (computedOpacity > 0.9) { // 거의 완전히 보이는 상태 (0.9 이상)
+                        if (computedOpacity > 0.9) { 
                             activeIndex = index;
                         }
                     });
@@ -473,7 +500,7 @@
 
                     modal.style.display = 'block';
                     document.body.style.overflow = 'hidden'; 
-                    showSlide(currentImageIndex); 
+                    showSlide(currentImageIndex); // 클릭 시점에 보고 있던 이미지부터 시작
                 });
             });
 
@@ -496,7 +523,7 @@
                 plusSlides(1);
             });
 
-            // 키보드 이벤트 (ESC로 닫기, 좌우 화살표로 넘기기)
+            // 키보드 이벤트
             document.addEventListener('keydown', function(event) {
                 if (modal.style.display === 'block') {
                     if (event.key === 'Escape') {
