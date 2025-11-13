@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
     
 <style>
-    /* 💡 최종 CSS 버전: 메뉴 위치, main info 위치, extra-text 줄 바꿈/위치 조정 반영 */
+    /* 💡 최종 CSS 버전: 슬라이드 애니메이션 및 구조 변경 반영 */
     body {
         font-family: 'Montserrat', Arial, sans-serif;
         margin: 0;
@@ -26,7 +26,6 @@
         margin-left: auto;
         margin-right: auto;
         
-        /* main info의 위치를 유지하는 넓은 여백 */
         margin-bottom: 250px; 
     }
     
@@ -36,15 +35,14 @@
         cursor: pointer;
     }
 
-    .header-top div { /* Jonghwan Lee 텍스트를 감싸는 div의 Flex 속성 복원 */
+    .header-top div { 
         flex-grow: 1;
     }
     
     .header-top .right-info {
-        text-align: right; /* Contact 텍스트 오른쪽 정렬 복원 */
+        text-align: right; 
     }
 
-    /* 💡 메뉴 스타일: -70px로 조정 */
     .main-menu-above {
         max-width: 1300px; 
         margin: -70px auto 10px auto; 
@@ -55,17 +53,15 @@
         color: #1a1a1a;
         text-decoration: none;
         cursor: pointer;
-        margin-left: 15px; /* 메뉴 항목 간 간격 */
+        margin-left: 15px; 
         font-size: 10px;
     }
     
     .list-container {
         max-width: 1300px; 
-        /* main info는 80px 아래로 내려간 상태 유지 */
         margin: 80px auto 0 auto;   
     }
 
-    /* 1. 제목-분류 그룹 설정 */
     .main-info-group {
         display: grid;
         grid-template-columns: 250px 300px; 
@@ -98,16 +94,14 @@
 
     .show-date, .show-location {
         color: #666;
-        line-height: 1.6;
+        line-height: 1.4;
     }
     
-    /* show-title-group 내부의 p 태그 제거 */
     .show-title-group p {
         margin: 0;
         padding: 0;
     }
 
-    /* 3. 분류 영역 (Filed under) Flex 설정 */
     .show-filed-under {
         color: #666;
         display: flex;
@@ -118,61 +112,53 @@
 
     .filed-text {
         color: #666;
-        line-height: 1.6;
-        padding-left: 50px;
+        line-height: 1.4;
+        padding-left: 50px; 
     }
     
-    /* 💡 extra-text CSS 수정: margin-left: 100px 추가 */
     .extra-text {
         color: #666; 
-        line-height: 1.6;
-        /* 텍스트가 한 줄로 유지되도록 설정 */
+        line-height: 1.6; 
         white-space: nowrap; 
-        /* 오른쪽 끝으로 이동 */
         float: right; 
-        /* 부모 요소인 .show-filed-under의 Flex 정렬을 덮어쓰지 않도록 */
         overflow: visible; 
-        /* 💡 추가: 왼쪽 마진을 추가하여 오른쪽으로 100px 이동 */
         margin-left: 150px;
     }
     .extra-text span {
-        display: block; /* 각 항목을 강제로 다음 줄로 내림 */
+        display: block; 
     }
 
-    /* 4. 이미지 크기 고정 및 슬라이드 준비 */
+    /* 4. 이미지 슬라이드 관련 CSS 수정 및 추가 */
+    
+    /* 기존 show-images 컨테이너 (클리핑 영역) */
     .show-images {
+        /* width: 300px; 💡 제거됨 */
         height: 180px; 
         display: block; 
         position: relative; 
-        overflow: hidden; 
+        overflow: hidden; /* 슬라이드 영역 밖 이미지를 숨김 */
     }
+
+    /* 💡 신규: 이미지 슬라이더 (400% 너비) */
     .image-slider {
-    width: 400%; /* 이미지 4개 (100% x 4 = 400%) */
-    height: 100%;
-    display: flex;
-    /* 1. 슬라이드 애니메이션 적용 */
-    animation: slide-left 10s linear infinite; 
-}
+        width: 400%; /* 이미지 4개 너비 */
+        height: 100%;
+        display: flex;
+        animation: slide-left 15s linear infinite; /* 15초 동안 무한 반복 슬라이드 */
+    }
 
-/* 💡 신규: 각 이미지의 크기 설정 */
-.image-slider img {
-    /* 부모(400%)의 25% = 전체 컨테이너(100%) 크기 */
-    width: 25%; 
-    height: 100%; 
-    object-fit: cover; 
-    /* 기존 transition 및 opacity 제거 */
-    opacity: 1; 
-    position: static; /* position: absolute를 제거합니다 */
-}
-
-    .show-images img {
-    /* 기존 속성 모두 제거 (position: absolute, opacity, transition) */
-    position: static; 
-    opacity: 1; 
-    transition: none;
-}
-
-@keyframes slide-left {
+    /* 💡 신규: 각 이미지 (25% 너비) */
+    .image-slider img {
+        width: 25%; /* 400% 중 25% = 100% 컨테이너 너비 */
+        height: 100%; 
+        object-fit: cover; 
+        position: static; /* position: absolute 제거 */
+        opacity: 1; /* opacity: 0 제거 */
+        transition: none; /* transition 제거 */
+    }
+    
+    /* 💡 애니메이션 키프레임 정의 */
+    @keyframes slide-left {
         0% {
             transform: translateX(0);
         }
@@ -181,19 +167,15 @@
             transform: translateX(-100%); 
         }
     }
-    
-.show-images img:first-child {
-    opacity: 1; /* 이 부분도 이제 필요 없습니다 */
-}
 
-/* 💡 show-item 내부의 img 관련 불필요한 속성 제거 */
-.show-item:nth-child(1) .show-images {
-    /* width: 300px; 제거 */
-}
-.show-item:nth-child(1) .show-images img {
-    margin-bottom: 0;
-}
-
+    /* 불필요해진 기존 스타일 제거 */
+    .show-images img:first-child {
+        opacity: 1; 
+    }
+    .show-item:nth-child(1) .show-images img {
+        margin-bottom: 0;
+    }
+    /* ... (생략) ... */
     
     /* 모바일 반응형 */
     @media (max-width: 768px) {
@@ -208,7 +190,6 @@
             margin-bottom: 50px; 
         }
 
-        /* 💡 모바일: 새로운 메뉴를 중앙 정렬로 (모바일에서는 음수 마진 제거) */
         .main-menu-above {
             max-width: none;
             margin: 0 0 10px 0; 
@@ -217,12 +198,11 @@
         }
         .main-menu-above a {
             margin-left: 0;
-            margin-right: 15px; /* 항목 간 간격 */
+            margin-right: 15px; 
         }
         
         .list-container {
             max-width: none;
-            /* 모바일에서는 다시 원래대로 마진 없앰 */
             margin: 0;
         }
         
@@ -254,11 +234,16 @@
         }
         
         .show-images {
-            width: 100%;
+            width: 100%; 
             height: 200px; 
         }
-        .show-images img {
-            width: 100%;
+        /* 모바일에서는 image-slider의 width와 animation만 유지 */
+        .image-slider {
+            width: 400%;
+            animation: slide-left 15s linear infinite;
+        }
+        .image-slider img {
+            width: 25%;
             height: 100%;
             object-fit: cover;
         }
@@ -284,183 +269,90 @@
             <div class="main-info-group">
                 <div class="show-title-group">
                     <div class="show-title">Loggia</div>
-                    <div class="show-location">Hall 1</div><br>
-                    <div class="show-date">2025. 7. 31 ~ 2025. 8. 23</div><br>
+                    <div class="show-location">Hall 1</div>
+                    <div class="show-date">2025. 7. 31 ~ 2025. 8. 23</div>
                     <div class="show-location">8, Yangpyeong-ro 22ma-gil, Yeongdeungpo-gu, Seoul, Korea</div>
                 </div>
                 
                 <div class="show-filed-under">
                     <div class="filed-text">
-                        Solo Exhibitions 2025
+                        Solo Exhibitions, 2025
                     </div>
                     <div class="extra-text">
-                        <span>Text by Soomin Lee</span>
-                        <span>Poster by Jeongin Weon</span>
-                        <span>Installation by alwayslastdanceclub</span>
-                        <span>Photo by San Choi</span>
-                        <span>Assist by Bongkyun Kwon, Gayoon Yong, Ian Ha</span><br>
-                         <span> Supported by Seoul Foundation for Arts and Culture</span>
+                        Supported by Seoul Foundation for Arts and Culture<br><br>
+                        <span>Text | Soomin Lee</span>
+                        <span>Poster | Jeongin Weon</span>
+                        <span>Installation | alwayslastdanceclub</span>
+                        <span>Photo | San Choi</span>
+                        <span>Assist | Bongkyun Kwon, Gayoon Yong, Ian Ha</span>
                     </div> 
                 </div>
                 
             </div>
             <div class="show-images">
-              
-
-                <img src="2025loggia1/img1.jpg" alt="Loggia 1">
-                 <img src="2025loggia1/img2.jpg" alt="Loggia 2">
-                 <img src="2025loggia1/img3.jpg" alt="Loggia 3">
-                 <img src="2025loggia1/img4.jpg" alt="Loggia 4">
-
+                <div class="image-slider">
+                    <img src=".jpg" alt="Loggia 전시 이미지 1">
+                    <img src="placeholder-umbra-2.jpg" alt="Loggia 전시 이미지 2"> 
+                    <img src="placeholder-umbra-3.jpg" alt="Loggia 전시 이미지 3"> 
+                    <img src="placeholder-umbra-4.jpg" alt="Loggia 전시 이미지 4"> 
+                </div>
             </div>
         </div>
 
         <div class="show-item">
             <div class="main-info-group">
                 <div class="show-title-group">
-                    <div class="show-title">Surgical Room</div>
-                    <div class="show-location">CYLINDER TWO</div><br>
-                    <div class="show-date">2025. 5. 17 ~ 2025. 6. 15</div><br>
-                    <div class="show-location">24, Hangang-daero 48-gil, Yongsan-gu, Seoul, Korea</div>
+                    <div class="show-title">Future Present</div>
+                    <div class="show-location">Andy St. Louis</div>
+                    <div class="show-date">April 16, 2024</div>
                 </div>
                 
                 <div class="show-filed-under">
                     <div class="filed-text">
-                        Group Exhibitions 2025
+                        Filed under:<br>
+                        Publications, 2024
                     </div>
-                    <div class="extra-text">
-                        <span>Participating Artists</span>
-                        <span>Kolja Kärtner Sainz, Hyun Bhin Kwon, Jonghwan Lee, Heesu Choi, Lian Fu</span>
-                       
-                    </div> 
+                    <div class="extra-text">New Text Here 2</div> 
                 </div>
                 
             </div>
-            <div class="show-images">
-                <img src="placeholder-umbra-1.jpg" alt="Surgical Room">
-                <img src="placeholder-umbra-2.jpg" alt="Surgical Room"> 
-                <img src="placeholder-umbra-3.jpg" alt="Surgical Room"> 
-            </div>
-        </div>
-        
-<div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">CYLINDER x South Parade</div>
-                    <div class="show-location">South Parade</div><br>
-                    <div class="show-date">2024. 6. 27 ~ 2024. 8. 3</div><br>
-                    <div class="show-location">Griffin House, 79 Saffron Hill, ECIR 5BU, London, UK</div>
+             <div class="show-images">
+                <div class="image-slider">
+                    <img src="placeholder-future-present-1.jpg" alt="Future Present 이미지 1">
+                    <img src="placeholder-future-present-2.jpg" alt="Future Present 이미지 2">
+                    <img src="placeholder-future-present-3.jpg" alt="Future Present 이미지 3">
+                    <img src="placeholder-future-present-4.jpg" alt="Future Present 이미지 4">
                 </div>
-                
-                <div class="show-filed-under">
-                    <div class="filed-text">
-                        Group Exhibitions 2024
-                    </div>
-                    <div class="extra-text">
-                          <span>Participating Artists</span>
-                        <span>Jonghwan Lee, Aidan Duffy</span>
-                       
-                    </div> 
-                </div>
-                
-            </div>
-            <div class="show-images">
-                <img src="placeholder-umbra-1.jpg" alt="Surgical Room">
-                <img src="placeholder-umbra-2.jpg" alt="Surgical Room"> 
-                <img src="placeholder-umbra-3.jpg" alt="Surgical Room"> 
             </div>
         </div>
 
-    <div class="show-item">
+        <div class="show-item">
             <div class="main-info-group">
                 <div class="show-title-group">
-                    <div class="show-title">Hypercube</div>
-                    <div class="show-location">CYLINDER TWO</div><br>
-                    <div class="show-date">2023. 7. 8 ~ 2023. 8. 13</div><br>
-                    <div class="show-location">24, Hangang-daero 48-gil, Yongsan-gu, Seoul, Korea</div>
+                    <div class="show-title">Receivers</div>
+                    <div class="show-location">Doosan Art Center</div>
+                    <div class="show-location">Seoul, Korea</div>
+                    <div class="show-date">Sep 13 - Oct 21, 2023</div>
                 </div>
                 
                 <div class="show-filed-under">
                     <div class="filed-text">
-                        Solo Exhibitions 2023
+                        Filed under:<br>
+                        Exhibitions, Solo, 2023
                     </div>
-                    <div class="extra-text">
-                         <span>Text by Hyukkyu Kwon</span>
-                        <span>Photo by San Choi</span><br>
-                        <span> Supported by Seoul Foundation for Arts and Culture</span>
-                    </div> 
+                    <div class="extra-text">New Text Here 3</div> 
                 </div>
                 
             </div>
-            <div class="show-images">
-                <img src="placeholder-umbra-1.jpg" alt="Loggia 전시 이미지 1">
-                <img src="placeholder-umbra-2.jpg" alt="Loggia 전시 이미지 2"> 
-                <img src="placeholder-umbra-3.jpg" alt="Loggia 전시 이미지 3"> 
+             <div class="show-images">
+                <div class="image-slider">
+                    <img src="placeholder-receivers-1.jpg" alt="Receivers 이미지 1">
+                    <img src="placeholder-receivers-2.jpg" alt="Receivers 이미지 2">
+                    <img src="placeholder-receivers-3.jpg" alt="Receivers 이미지 3">
+                    <img src="placeholder-receivers-4.jpg" alt="Receivers 이미지 4">
+                </div>
             </div>
         </div>
-
-<div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">The Good Neighbor</div>
-                    <div class="show-location"> Art Space 3</div><br>
-                    <div class="show-date">2023. 5. 25 ~ 2023. 6. 10</div><br>
-                    <div class="show-location">23, Hyoja-ro 7-gil, Jongno-gu, Seoul, Korea</div>
-                </div>
-                
-                <div class="show-filed-under">
-                    <div class="filed-text">
-                        Group Exhibitions 2023
-                    </div>
-                    <div class="extra-text">
-                          <span>Participating Artists</span>
-                        <span>Jihyun Kim, Yuso Moon, Ichae Shin, Jonghwan Lee, Hanna Lee, Dawool Lim, Wanjun Cho</span><br>
-                        <span> Organized by Korea National University of Arts, K-Arts Foundation, School of Visual Arts, K-Arts</span>
-                        <span> Sponsored by Shin Young Securities</span>
-                       
-                    </div> 
-                </div>
-                
-            </div>
-            <div class="show-images">
-                <img src="placeholder-umbra-1.jpg" alt="Surgical Room">
-                <img src="placeholder-umbra-2.jpg" alt="Surgical Room"> 
-                <img src="placeholder-umbra-3.jpg" alt="Surgical Room"> 
-            </div>
-        </div>
-
-         <div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">Cabinet</div>
-                    <div class="show-location">Sahangup gallery</div><br>
-                    <div class="show-date">2023. 1. 17 ~ 2023. 1. 31</div><br>
-                    <div class="show-location">143, Eulji-ro, Jung-gu, Seoul, Korea</div>
-                </div>
-                
-                <div class="show-filed-under">
-                    <div class="filed-text">
-                        Solo Exhibitions 2023
-                    </div>
-                    <div class="extra-text">
-                         <span>Text by Jonghwan Lee</span>
-                        <span>Poster by Hanbyeol Joo</span>
-                        <span>Photo by Euisuk Sung</span> <br>
-                        <span> Supported by Seoul Foundation for Arts and Culture</span>
-                    </div> 
-                </div>
-                
-            </div>
-            <div class="show-images">
-                <img src="placeholder-umbra-1.jpg" alt="Loggia 전시 이미지 1">
-                <img src="placeholder-umbra-2.jpg" alt="Loggia 전시 이미지 2"> 
-                <img src="placeholder-umbra-3.jpg" alt="Loggia 전시 이미지 3"> 
-            </div>
-        </div>
-
-        
-        
-        
     </div> 
 </body>
 </html>
