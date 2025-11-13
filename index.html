@@ -14,36 +14,48 @@
     body {
         font-family: 'Montserrat', Arial, sans-serif;
         margin: 0;
+        /* body 패딩 유지 */
         padding: 20px 50px; 
         color: #1a1a1a;
         font-size: 10px; 
     }
 
-    /* 💡 A. header-top 마진 수정: 원형 메뉴 공간 확보 */
+    /* 💡 A. header-top 마진 유지 */
     .header-top { 
         display: flex; justify-content: space-between; max-width: 1300px; 
         margin-left: auto; margin-right: auto; 
-        margin-bottom: 20px; /* 기존 250px에서 수정 */
+        margin-bottom: 20px; 
     }
     .header-top a { color: #1a1a1a; text-decoration: none; cursor: pointer; }
     .header-top div { flex-grow: 1; }
     .header-top .right-info { text-align: right; }
     
-    /* 💡 B. main-menu-above 마진 수정: 원형 메뉴를 덮지 않도록 조정 */
+    /* 💡 B. main-menu-above 마진 수정: 상단 이동 */
     .main-menu-above { 
         max-width: 1300px; 
-        margin: -50px auto 10px auto; /* 기존 -70px에서 수정 */
+        /* 상단 마진을 줄여서 위로 이동 (예: -50px에서 -90px로) */
+        margin: -90px auto 10px auto; 
         padding-right: 20px; text-align: right; 
     }
     .main-menu-above a { color: #1a1a1a; text-decoration: none; cursor: pointer; margin-left: 15px; font-size: 10px; }
     
-    .list-container { max-width: 1300px; margin: 30px auto 0 auto; }
+    /* 💡 C. list-container 마진 수정: 상단 이동 및 좌우 정렬 */
+    .list-container { 
+        max-width: 1300px; 
+        /* 상단 마진을 줄여서 위로 이동 (예: 30px에서 -20px로) */
+        margin: -20px auto 0 auto; 
+        /* ⚠️ Loggia 등 콘텐츠 좌우 폭 통일 및 body와 정렬을 위해 padding 추가 */
+        padding: 0 50px; 
+    }
+    /* main-info-group 구조는 유지 */
     .main-info-group { display: grid; grid-template-columns: 250px 300px; gap: 0px; align-items: flex-start; }
+    
     .show-item { 
         grid-template-columns: 4fr 300px; 
         display: grid; 
         gap: 40px; 
         border-left: 1px solid #1a1a1a;
+        /* ⚠️ list-container에 padding을 줬으므로 show-item의 왼쪽 패딩은 제거 */
         padding: 10px 0 10px 20px; 
         align-items: start; 
         margin-bottom: 20px; 
@@ -59,7 +71,7 @@
     .extra-text span { display: block; }
     
 /* ========================================================= */
-/* 💡 새로운 구분선 및 원형 메뉴 스타일 */
+/* 💡 새로운 구분선 및 원형 메뉴 스타일 (수정 통합) */
 /* ========================================================= */
 .separator-menu-container {
     max-width: 1300px; 
@@ -69,9 +81,11 @@
 }
 
 .separator-line {
+    /* 💡 색상 흐리게 조정 */
     border-top: 1px solid #ccc;
     width: 100%;
     position: absolute;
+    /* 💡 가로선 위치 픽셀로 고정 */
     top: 120px; 
     z-index: 1;
 }
@@ -87,16 +101,17 @@
 
 .circle-item-group {
     display: flex;
-    flex-direction: column; /* 원과 텍스트를 수직으로 정렬 */
+    flex-direction: column; 
     align-items: center;
-    /* 💡 원형 메뉴 그룹 자체를 중앙 정렬할 필요는 없지만, 컨테이너 내에서 top: 0 위치를 잡도록 margin-top 조정 */
-    margin-top: 115px; /* 원의 상단을 가로줄의 중앙에 맞추기 위한 조정 */
+    /* 💡 원형 메뉴 그룹만 아래로 내리기 */
+    margin-top: 115px; 
 }
 
 .circle-menu-item {
     width: 10px;
     height: 10px;
     background-color: white; 
+    /* 💡 테두리 색상 흐리게 조정 */
     border: 1px solid #ccc;
     border-radius: 50%;
     cursor: pointer;
@@ -106,17 +121,19 @@
     text-align: center;
     transition: transform 0.3s;
     position: relative; 
-    margin-bottom: -5px; /* 텍스트와의 간격 */
+    /* 💡 원과 텍스트 간격 조정 */
+    margin-bottom: 2px; 
 }
 
-    /* 2. 마우스 오버 시 생기는 작은 점 스타일 (초기 크기 0) */
+    /* 2. 마우스 오버 시 생기는 작은 점 스타일 (색상 조정) */
 .circle-menu-item::after {
     content: '';
     position: absolute;
     width: 0px; 
     height: 0px; 
     border-radius: 50%;
-    background-color: #1a1a1a;
+    /* 💡 마우스 오버 작은 점 색상 흐리게 조정 (일반 텍스트 색상 #1a1a1a 유지) */
+    background-color: #1a1a1a; 
     transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
 }
 
@@ -140,13 +157,14 @@
 
     /* 1. 동그라미 밑 텍스트 스타일 */
 .circle-item-text {
-    font-size: 8px; /* 작은 글자 크기 */
-    color: #ccc; /* 흐린 텍스트 색상 */
+    font-size: 8px; 
+    /* 💡 텍스트 색상 흐리게 조정 */
+    color: #ccc; 
     line-height: 1.2;
     text-align: center;
     white-space: nowrap; 
-    /* 💡 텍스트가 원형 메뉴의 공간을 침범하지 않도록 여백 확보 */
-    margin-top: 10px;
+    /* 💡 원과 텍스트 간격 조정 */
+    margin-top: 5px;
 }
 
 /* ========================================================= */
@@ -189,7 +207,7 @@
 /* ========================================================= */
 /* 💡 이미지 뷰어 모달 (Slideshow Modal) 스타일 */
 /* ========================================================= */
-
+    /* (모달 스타일은 수정 사항이 없어 그대로 유지합니다.) */
     #image-modal {
         display: none; 
         position: fixed; 
@@ -220,7 +238,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center; 
-        align-items: center;     
+        align-items: center; 
         width: 100%;
         height: 100%;
     }
@@ -342,174 +360,174 @@
     </div>
 
 <div class="separator-menu-container">
-        <div class="separator-line"></div>
-        <div class="circle-menu-wrapper">
-            
-            <div class="circle-item-group">
-                <div class="circle-menu-item" onclick="location.href='work1.html'">
-                    <a href="work1.html" title="Work 1">W1</a>
-                </div>
-                <div class="circle-item-text">2021</div>
+    <div class="separator-line"></div>
+    <div class="circle-menu-wrapper">
+        
+        <div class="circle-item-group">
+            <div class="circle-menu-item" onclick="location.href='work1.html'">
+                <a href="work1.html" title="Work 1">W1</a>
+            </div>
+            <div class="circle-item-text">2021</div>
+        </div>
+        
+        <div class="circle-item-group">
+            <div class="circle-menu-item" onclick="location.href='work2.html'">
+                <a href="work2.html" title="Work 2">W2</a>
+            </div>
+            <div class="circle-item-text">2022</div>
+        </div>
+        
+        <div class="circle-item-group">
+            <div class="circle-menu-item" onclick="location.href='work3.html'">
+                <a href="work3.html" title="Work 3">W3</a>
+            </div>
+            <div class="circle-item-text">2023</div>
+        </div>
+        
+        <div class="circle-item-group">
+            <div class="circle-menu-item" onclick="location.href='archive.html'">
+                <a href="archive.html" title="Archive">Arch</a>
+            </div>
+            <div class="circle-item-text">2024</div>
+        </div>
+        
+        <div class="circle-item-group">
+            <div class="circle-menu-item" onclick="location.href='project5.html'">
+                <a href="project5.html" title="Project 5">P5</a>
+            </div>
+            <div class="circle-item-text">2025</div>
+        </div>
+        
+        <div class="circle-item-group">
+            <div class="circle-menu-item" onclick="location.href='project6.html'">
+                <a href="project6.html" title="Project 6">P6</a>
+            </div>
+            <div class="circle-item-text">2026</div>
+        </div>
+        
+    </div>
+</div>
+<div class="main-menu-above">
+    <a href="information.html">information</a>
+    <a href="text.html">texts</a>
+    <a href="note.html">notes</a>
+    <a href="works.html">works</a>
+</div>
+
+<div class="list-container">
+    <div class="show-item">
+        <div class="main-info-group">
+            <div class="show-title-group">
+                <div class="show-title">Loggia</div>
+                <div class="show-location">Hall 1</div>
+                <div class="show-date">2025. 7. 31 ~ 2025. 8. 23</div>
+                <div class="show-location">8, Yangpyeong-ro 22ma-gil, Yeongdeungpo-gu, Seoul, Korea</div>
             </div>
             
-            <div class="circle-item-group">
-                <div class="circle-menu-item" onclick="location.href='work2.html'">
-                    <a href="work2.html" title="Work 2">W2</a>
+            <div class="show-filed-under">
+                <div class="filed-text">
+                    Solo Exhibitions, 2025
                 </div>
-                <div class="circle-item-text">2022</div>
+                <div class="extra-text">
+                    Supported by Seoul Foundation for Arts and Culture<br><br>
+                    <span>Text | Soomin Lee</span>
+                    <span>Poster | Jeongin Weon</span>
+                    <span>Installation | alwayslastdanceclub</span>
+                    <span>Photo | San Choi</span>
+                    <span>Assist | Bongkyun Kwon, Gayoon Yong, Ian Ha</span>
+                </div> 
             </div>
             
-            <div class="circle-item-group">
-                <div class="circle-menu-item" onclick="location.href='work3.html'">
-                    <a href="work3.html" title="Work 3">W3</a>
-                </div>
-                <div class="circle-item-text">2023</div>
+        </div>
+        <div class="show-images"> 
+            <div class="image-slider">
+                <video src="videos/loggiavideo.mp4" class="art-video" loop autoplay muted playsinline poster="videos/loggia.jpg" data-caption="Loggia Video Clip (비디오 캡션 예시입니다.)"></video>
+                <img src="loggiaimages/loggia1.jpg" alt="Loggia 1" loading="lazy" data-caption="Loggia, 2025">
+                <img src="loggiaimages/loggia2.jpg" alt="Loggia 2" loading="lazy" data-caption="Loggia, 2025">
+                <img src="loggiaimages/loggia3.jpg" alt="Loggia 3" loading="lazy" data-caption="Loggia, 2025">
+                <img src="loggiaimages/loggia4.jpg" alt="Loggia 4" loading="lazy" data-caption="Loggia, 2025">
+                <img src="loggiaimages/loggia5.jpg" alt="Loggia 5" loading="lazy" data-caption="Loggia, 2025">
+                <img src="loggiaimages/loggia6.jpg" alt="Loggia 6" loading="lazy" data-caption="Loggia, 2025">
+                <img src="loggiaimages/loggia7.jpg" alt="Loggia 7" loading="lazy" data-caption="Loggia, 2025">
+                <img src="loggiaimages/loggia8.jpg" alt="Loggia 8" loading="lazy" data-caption="Loggia, 2025">
+                <img src="loggiaimages/loggia9.jpg" alt="Loggia 9" loading="lazy" data-caption="Loggia, 2025">
+                <img src="loggiaimages/loggia10.jpg" alt="Loggia 10" loading="lazy" data-caption="Loggia, 2025">
+                <img src="2025loggia1/img1.jpg" alt="Loggia 10" loading="lazy" data-caption="Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm">
+                <img src="2025loggia1/img2.jpg" alt="Loggia 10" loading="lazy" data-caption="Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm">
+                <img src="2025loggia1/img3.jpg" alt="Loggia 10" loading="lazy" data-caption="Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm">
+                <img src="2025loggia1/img4.jpg" alt="Loggia 10" loading="lazy" data-caption="Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm">
+                <img src="2025loggia1/img5.jpg" alt="Loggia 10" loading="lazy" data-caption="Threshold Guard, 2025, Engraving and watercolor on panel, Iron ball, 165x71cm">
+                <img src="2025loggia1/img6.jpg" alt="Loggia 10" loading="lazy" data-caption="Silent Observer, 2025, Engraving and Watercolor on Panel, Iron Ball, 165x71cm">
+                <img src="2025loggia1/img7.jpg" alt="Loggia 10" loading="lazy" data-caption="Echo Keeper, 2025, Engraving and watercolor on Panel, Iron ball, 122.5x79cm">
+                <img src="2025loggia2/img8.jpg" alt="Loggia 10" loading="lazy" data-caption="A Room Without Looking, 2025, Paper(frotage), 41x164cm">
+                <img src="2025loggia2/img9.jpg" alt="Loggia 10" loading="lazy" data-caption="A Room Without Looking, 2025, Paper(frotage), 41x164cm">
+                <img src="2025loggia2/img10.jpg" alt="Loggia 10" loading="lazy" data-caption="A Room Without Looking, 2025, Paper(frotage), 41x164cm">
+                <img src="2025loggia2/img11.jpg" alt="Loggia 10" loading="lazy" data-caption="A Room Without Looking, 2025, Paper(frotage), 41x164cm">
+                <img src="2025loggia2/img12.jpg" alt="Loggia 10" loading="lazy" data-caption="As It Sank In, 2025, Plaster, 21x15.5cm">
+                <img src="2025loggia2/img13.jpg" alt="Loggia 10" loading="lazy" data-caption="As It Sank In, 2025, Plaster, 21x15.5cm">
+                <img src="2025loggia2/img14.jpg" alt="Loggia 10" loading="lazy" data-caption="Shadowlight, 2025, Engraving and watercolor on panel, 30x30cm">
+                <img src="2025loggia2/img15.jpg" alt="Loggia 10" loading="lazy" data-caption="Where Color Hesitates, 2025, Engraving and watercolor on panel, 39x160cm">
+                <img src="2025loggia2/img16.jpg" alt="Loggia 10" loading="lazy" data-caption="Through the Quiet Veil, 2025, Engraving and watercolor on panel, Plaster, 170x60cm">
+                <img src="2025loggia2/img17.jpg" alt="Loggia 10" loading="lazy" data-caption="Beyond the Quiet Veil, 2025, Engraving and watercolor on panel, Plaster, 170x60cm">
+                
             </div>
-            
-            <div class="circle-item-group">
-                <div class="circle-menu-item" onclick="location.href='archive.html'">
-                    <a href="archive.html" title="Archive">Arch</a>
-                </div>
-                <div class="circle-item-text">2024</div>
             </div>
-            
-            <div class="circle-item-group">
-                <div class="circle-menu-item" onclick="location.href='project5.html'">
-                    <a href="project5.html" title="Project 5">P5</a>
-                </div>
-                <div class="circle-item-text">2025</div>
-            </div>
-            
-            <div class="circle-item-group">
-                <div class="circle-menu-item" onclick="location.href='project6.html'">
-                    <a href="project6.html" title="Project 6">P6</a>
-                </div>
-                <div class="circle-item-text">2026</div>
-            </div>
-            
         </div>
     </div>
-    <div class="main-menu-above">
-        <a href="information.html">information</a>
-        <a href="text.html">texts</a>
-        <a href="note.html">notes</a>
-        <a href="works.html">works</a>
+
+    <div class="show-item">
+        <div class="main-info-group">
+            <div class="show-title-group">
+                <div class="show-title">Future Present</div>
+                <div class="show-location">Andy St. Louis</div>
+                <div class="show-date">April 16, 2024</div>
+            </div>
+            
+            <div class="show-filed-under">
+                <div class="filed-text">
+                    Publications, 2024
+                </div>
+                <div class="extra-text">New Text Here 2</div> 
+            </div>
+            
+        </div>
+        <div class="show-images">
+            <div class="image-slider">
+                <img src="placeholder-future-present-1.jpg" alt="Future Present 이미지 1" loading="lazy" data-caption="Future Present, 2024, Page 1">
+                <img src="placeholder-future-present-2.jpg" alt="Future Present 이미지 2" loading="lazy" data-caption="Future Present, 2024, Page 2">
+                <img src="placeholder-future-present-3.jpg" alt="Future Present 이미지 3" loading="lazy" data-caption="Future Present, 2024, Page 3">
+                <img src="placeholder-future-present-4.jpg" alt="Future Present 이미지 4" loading="lazy" data-caption="Future Present, 2024, Cover">
+            </div>
+        </div>
     </div>
 
-    <div class="list-container">
-        <div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">Loggia</div>
-                    <div class="show-location">Hall 1</div>
-                    <div class="show-date">2025. 7. 31 ~ 2025. 8. 23</div>
-                    <div class="show-location">8, Yangpyeong-ro 22ma-gil, Yeongdeungpo-gu, Seoul, Korea</div>
-                </div>
-                
-                <div class="show-filed-under">
-                    <div class="filed-text">
-                        Solo Exhibitions, 2025
-                    </div>
-                    <div class="extra-text">
-                        Supported by Seoul Foundation for Arts and Culture<br><br>
-                        <span>Text | Soomin Lee</span>
-                        <span>Poster | Jeongin Weon</span>
-                        <span>Installation | alwayslastdanceclub</span>
-                        <span>Photo | San Choi</span>
-                        <span>Assist | Bongkyun Kwon, Gayoon Yong, Ian Ha</span>
-                    </div> 
-                </div>
-                
+    <div class="show-item">
+        <div class="main-info-group">
+            <div class="show-title-group">
+                <div class="show-title">Receivers</div>
+                <div class="show-location">Doosan Art Center</div>
+                <div class="show-location">Seoul, Korea</div>
+                <div class="show-date">Sep 13 - Oct 21, 2023</div>
             </div>
-            <div class="show-images"> 
-                <div class="image-slider">
-                    <video src="videos/loggiavideo.mp4" class="art-video" loop autoplay muted playsinline poster="videos/loggia.jpg" data-caption="Loggia Video Clip (비디오 캡션 예시입니다.)"></video>
-                    <img src="loggiaimages/loggia1.jpg" alt="Loggia 1" loading="lazy" data-caption="Loggia, 2025">
-                    <img src="loggiaimages/loggia2.jpg" alt="Loggia 2" loading="lazy" data-caption="Loggia, 2025">
-                    <img src="loggiaimages/loggia3.jpg" alt="Loggia 3" loading="lazy" data-caption="Loggia, 2025">
-                    <img src="loggiaimages/loggia4.jpg" alt="Loggia 4" loading="lazy" data-caption="Loggia, 2025">
-                    <img src="loggiaimages/loggia5.jpg" alt="Loggia 5" loading="lazy" data-caption="Loggia, 2025">
-                    <img src="loggiaimages/loggia6.jpg" alt="Loggia 6" loading="lazy" data-caption="Loggia, 2025">
-                    <img src="loggiaimages/loggia7.jpg" alt="Loggia 7" loading="lazy" data-caption="Loggia, 2025">
-                    <img src="loggiaimages/loggia8.jpg" alt="Loggia 8" loading="lazy" data-caption="Loggia, 2025">
-                    <img src="loggiaimages/loggia9.jpg" alt="Loggia 9" loading="lazy" data-caption="Loggia, 2025">
-                    <img src="loggiaimages/loggia10.jpg" alt="Loggia 10" loading="lazy" data-caption="Loggia, 2025">
-                    <img src="2025loggia1/img1.jpg" alt="Loggia 10" loading="lazy" data-caption="Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm">
-                    <img src="2025loggia1/img2.jpg" alt="Loggia 10" loading="lazy" data-caption="Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm">
-                    <img src="2025loggia1/img3.jpg" alt="Loggia 10" loading="lazy" data-caption="Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm">
-                    <img src="2025loggia1/img4.jpg" alt="Loggia 10" loading="lazy" data-caption="Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm">
-                    <img src="2025loggia1/img5.jpg" alt="Loggia 10" loading="lazy" data-caption="Threshold Guard, 2025, Engraving and watercolor on panel, Iron ball, 165x71cm">
-                    <img src="2025loggia1/img6.jpg" alt="Loggia 10" loading="lazy" data-caption="Silent Observer, 2025, Engraving and Watercolor on Panel, Iron Ball, 165x71cm">
-                    <img src="2025loggia1/img7.jpg" alt="Loggia 10" loading="lazy" data-caption="Echo Keeper, 2025, Engraving and watercolor on Panel, Iron ball, 122.5x79cm">
-                    <img src="2025loggia2/img8.jpg" alt="Loggia 10" loading="lazy" data-caption="A Room Without Looking, 2025, Paper(frotage), 41x164cm">
-                    <img src="2025loggia2/img9.jpg" alt="Loggia 10" loading="lazy" data-caption="A Room Without Looking, 2025, Paper(frotage), 41x164cm">
-                    <img src="2025loggia2/img10.jpg" alt="Loggia 10" loading="lazy" data-caption="A Room Without Looking, 2025, Paper(frotage), 41x164cm">
-                    <img src="2025loggia2/img11.jpg" alt="Loggia 10" loading="lazy" data-caption="A Room Without Looking, 2025, Paper(frotage), 41x164cm">
-                    <img src="2025loggia2/img12.jpg" alt="Loggia 10" loading="lazy" data-caption="As It Sank In, 2025, Plaster, 21x15.5cm">
-                    <img src="2025loggia2/img13.jpg" alt="Loggia 10" loading="lazy" data-caption="As It Sank In, 2025, Plaster, 21x15.5cm">
-                    <img src="2025loggia2/img14.jpg" alt="Loggia 10" loading="lazy" data-caption="Shadowlight, 2025, Engraving and watercolor on panel, 30x30cm">
-                    <img src="2025loggia2/img15.jpg" alt="Loggia 10" loading="lazy" data-caption="Where Color Hesitates, 2025, Engraving and watercolor on panel, 39x160cm">
-                    <img src="2025loggia2/img16.jpg" alt="Loggia 10" loading="lazy" data-caption="Through the Quiet Veil, 2025, Engraving and watercolor on panel, Plaster, 170x60cm">
-                    <img src="2025loggia2/img17.jpg" alt="Loggia 10" loading="lazy" data-caption="Beyond the Quiet Veil, 2025, Engraving and Watercolor on Panel, Plaster, 170x60cm">
-                    
+            
+            <div class="show-filed-under">
+                <div class="filed-text">
+                    Exhibitions, Solo, 2023
                 </div>
-                </div>
+                <div class="extra-text">New Text Here 3</div> 
+            </div>
+            
+        </div>
+        <div class="show-images">
+            <div class="image-slider">
+                <img src="placeholder-receivers-1.jpg" alt="Receivers 이미지 1" loading="lazy" data-caption="Receivers, 2023, Installation view A">
+                <img src="placeholder-receivers-2.jpg" alt="Receivers 이미지 2" loading="lazy" data-caption="Receivers, 2023, Sculpture in light">
+                <img src="placeholder-receivers-3.jpg" alt="Receivers 이미지 3" loading="lazy" data-caption="Receivers, 2023, Installation view B">
+                <img src="placeholder-receivers-4.jpg" alt="Receivers 이미지 4" loading="lazy" data-caption="Receivers, 2023, Detail, Object">
             </div>
         </div>
-
-        <div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">Future Present</div>
-                    <div class="show-location">Andy St. Louis</div>
-                    <div class="show-date">April 16, 2024</div>
-                </div>
-                
-                <div class="show-filed-under">
-                    <div class="filed-text">
-                        Publications, 2024
-                    </div>
-                    <div class="extra-text">New Text Here 2</div> 
-                </div>
-                
-            </div>
-            <div class="show-images">
-                <div class="image-slider">
-                    <img src="placeholder-future-present-1.jpg" alt="Future Present 이미지 1" loading="lazy" data-caption="Future Present, 2024, Page 1">
-                    <img src="placeholder-future-present-2.jpg" alt="Future Present 이미지 2" loading="lazy" data-caption="Future Present, 2024, Page 2">
-                    <img src="placeholder-future-present-3.jpg" alt="Future Present 이미지 3" loading="lazy" data-caption="Future Present, 2024, Page 3">
-                    <img src="placeholder-future-present-4.jpg" alt="Future Present 이미지 4" loading="lazy" data-caption="Future Present, 2024, Cover">
-                </div>
-            </div>
-        </div>
-
-        <div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">Receivers</div>
-                    <div class="show-location">Doosan Art Center</div>
-                    <div class="show-location">Seoul, Korea</div>
-                    <div class="show-date">Sep 13 - Oct 21, 2023</div>
-                </div>
-                
-                <div class="show-filed-under">
-                    <div class="filed-text">
-                        Exhibitions, Solo, 2023
-                    </div>
-                    <div class="extra-text">New Text Here 3</div> 
-                </div>
-                
-            </div>
-            <div class="show-images">
-                <div class="image-slider">
-                    <img src="placeholder-receivers-1.jpg" alt="Receivers 이미지 1" loading="lazy" data-caption="Receivers, 2023, Installation view A">
-                    <img src="placeholder-receivers-2.jpg" alt="Receivers 이미지 2" loading="lazy" data-caption="Receivers, 2023, Sculpture in light">
-                    <img src="placeholder-receivers-3.jpg" alt="Receivers 이미지 3" loading="lazy" data-caption="Receivers, 2023, Installation view B">
-                    <img src="placeholder-receivers-4.jpg" alt="Receivers 이미지 4" loading="lazy" data-caption="Receivers, 2023, Detail, Object">
-                </div>
-            </div>
-        </div>
-    </div> 
+    </div>
+</div> 
 
     <div id="image-modal">
         <span class="close-btn">&times;</span>
