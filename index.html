@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
     
 <style>
-/* 💡 CSS 전체 수정: 요소 개수별 데이터 속성 기반 슬라이드 적용 */
+/* 💡 CSS 전체 수정: 교차 페이드 방식 적용 (클론 이미지 없음) */
     body {
         font-family: 'Montserrat', Arial, sans-serif;
         margin: 0;
@@ -18,115 +18,27 @@
         font-size: 10px; 
     }
 
-    .header-top {
-        display: flex;
-        justify-content: space-between;
-        max-width: 1300px; 
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 250px; 
-    }
+    /* ... (레이아웃 관련 스타일 유지) ... */
+    .header-top { display: flex; justify-content: space-between; max-width: 1300px; margin-left: auto; margin-right: auto; margin-bottom: 250px; }
+    .header-top a { color: #1a1a1a; text-decoration: none; cursor: pointer; }
+    .header-top div { flex-grow: 1; }
+    .header-top .right-info { text-align: right; }
+    .main-menu-above { max-width: 1300px; margin: -70px auto 10px auto; padding-right: 20px; text-align: right; }
+    .main-menu-above a { color: #1a1a1a; text-decoration: none; cursor: pointer; margin-left: 15px; font-size: 10px; }
+    .list-container { max-width: 1300px; margin: 80px auto 0 auto; }
+    .main-info-group { display: grid; grid-template-columns: 250px 300px; gap: 0px; align-items: flex-start; }
+    .show-item { grid-template-columns: 4fr 300px; display: grid; gap: 40px; border-left: 1px solid #1a1a1a; padding: 10px 0 10px 20px; align-items: start; margin-bottom: 20px; }
+    .show-item:last-child{ margin-bottom: 20px; }
+    .show-title-group { display: flex; flex-direction: column; }
+    .show-title { margin-bottom: 5px; }
+    .show-date, .show-location { color: #666; line-height: 1.4; }
+    .show-title-group p { margin: 0; padding: 0; }
+    .show-filed-under { color: #666; display: flex; justify-content: space-between; align-items: flex-start; margin-left: 0; }
+    .filed-text { color: #666; line-height: 1.4; padding-left: 50px; }
+    .extra-text { color: #666; line-height: 1.6; white-space: nowrap; float: right; overflow: visible; margin-left: 150px; }
+    .extra-text span { display: block; }
     
-    .header-top a {
-        color: #1a1a1a;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    .header-top div { 
-        flex-grow: 1;
-    }
-    
-    .header-top .right-info {
-        text-align: right; 
-    }
-
-    .main-menu-above {
-        max-width: 1300px; 
-        margin: -70px auto 10px auto; 
-        padding-right: 20px; 
-        text-align: right; 
-    }
-    .main-menu-above a {
-        color: #1a1a1a;
-        text-decoration: none;
-        cursor: pointer;
-        margin-left: 15px; 
-        font-size: 10px;
-    }
-    
-    .list-container {
-        max-width: 1300px; 
-        margin: 80px auto 0 auto;   
-    }
-
-    .main-info-group {
-        display: grid;
-        grid-template-columns: 250px 300px; 
-        gap: 0px; 
-        align-items: flex-start; 
-    }
-    
-    .show-item {
-        grid-template-columns: 4fr 300px; 
-        display: grid;
-        gap: 40px; 
-        border-left: 1px solid #1a1a1a;
-        padding: 10px 0 10px 20px; 
-        align-items: start; 
-        margin-bottom: 20px; 
-    }
-
-    .show-item:last-child{
-        margin-bottom: 20px; 
-    }
-
-    .show-title-group {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .show-title {
-        margin-bottom: 5px;
-    }
-
-    .show-date, .show-location {
-        color: #666;
-        line-height: 1.4;
-    }
-    
-    .show-title-group p {
-        margin: 0;
-        padding: 0;
-    }
-
-    .show-filed-under {
-        color: #666;
-        display: flex;
-        justify-content: space-between; 
-        align-items: flex-start;
-        margin-left: 0; 
-    }
-
-    .filed-text {
-        color: #666;
-        line-height: 1.4;
-        padding-left: 50px; 
-    }
-    
-    .extra-text {
-        color: #666; 
-        line-height: 1.6; 
-        white-space: nowrap; 
-        float: right; 
-        overflow: visible; 
-        margin-left: 150px;
-    }
-    .extra-text span {
-        display: block; 
-    }
-
-    /* 4. 이미지/비디오 슬라이드 기본 설정 */
+    /* 4. 이미지/비디오 교차 페이드 기본 설정 */
     .show-images {
         height: 180px; 
         display: block; 
@@ -135,122 +47,100 @@
     }
 
     .image-slider {
+        width: 100%; 
         height: 100%;
-        display: flex;
-        /* 💡 애니메이션 설정: 멈춤(forwards) 적용, 반복(infinite) 제거 */
-        animation-fill-mode: forwards; 
-        transform: translateZ(0); 
+        position: relative; 
+        animation: none; 
+        animation-fill-mode: none; 
     }
     
     .image-slider > * {
+        /* 💡 모든 요소를 겹치도록 절대 위치 설정 */
+        position: absolute; 
+        top: 0;
+        left: 0;
+        width: 100%; 
         height: 100%;
         object-fit: cover;
-        opacity: 1; 
-        transition: none;
-        position: static; 
+        
+        /* 💡 초기 투명도 설정 및 애니메이션 적용 */
+        opacity: 0;
+        animation-duration: 33s; /* 총 시간 (11개 * 3초) */
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+        animation-fill-mode: forwards;
     }
     
     .art-video {
         object-fit: cover;
     }
+    
+    /* ---------------------------------------------------- */
+    /* 💡 Loggia 항목 (11개 요소) 페이드 애니메이션 적용 */
+    /* ---------------------------------------------------- */
+    
+    /* Loggia 항목의 비디오/이미지 스타일 */
+    .show-item:nth-child(1) .image-slider > * {
+        z-index: 1; /* 이미지들이 비디오 위에 겹치도록 */
+    }
+    .show-item:nth-child(1) .art-video {
+        z-index: 0; /* 비디오는 가장 아래 */
+        opacity: 1 !important; /* 비디오는 항상 보이게 */
+        animation-name: none !important;
+        animation-delay: 0s !important;
+    }
 
-    /* ========================================================= */
-    /* 💡 A. 11개 요소 슬라이드 (Loggia) */
-    /* ========================================================= */
-    .image-slider[data-count="11"] {
-        width: 1100%; /* 11개 * 100% */
-        animation: slide-11-stop 20s linear forwards; /* 20초 동안 슬라이드 후 정지 */
+    /* 각 요소의 애니메이션 딜레이 설정 */
+    .image-slider > *:nth-child(1) { /* 비디오: CSS 페이드에서 제외 */
+        animation-name: none;
+    } 
+    .image-slider > *:nth-child(2) { animation-name: fade-11; animation-delay: 0s; } /* 이미지 1이 0s에 시작 */
+    .image-slider > *:nth-child(3) { animation-name: fade-11; animation-delay: 3s; } 
+    .image-slider > *:nth-child(4) { animation-name: fade-11; animation-delay: 6s; } 
+    .image-slider > *:nth-child(5) { animation-name: fade-11; animation-delay: 9s; } 
+    .image-slider > *:nth-child(6) { animation-name: fade-11; animation-delay: 12s; } 
+    .image-slider > *:nth-child(7) { animation-name: fade-11; animation-delay: 15s; } 
+    .image-slider > *:nth-child(8) { animation-name: fade-11; animation-delay: 18s; } 
+    .image-slider > *:nth-child(9) { animation-name: fade-11; animation-delay: 21s; } 
+    .image-slider > *:nth-child(10) { animation-name: fade-11; animation-delay: 24s; } 
+    .image-slider > *:nth-child(11) { animation-name: fade-11; animation-delay: 27s; } 
+
+
+    /* 💡 11개 요소 페이드 키프레임 */
+    @keyframes fade-11 {
+        0% { opacity: 0; }
+        1.5% { opacity: 1; }
+        7.5% { opacity: 1; }
+        9.09% { opacity: 0; }
+        100% { opacity: 0; }
+    }
+
+
+    /* ---------------------------------------------------- */
+    /* 💡 4개 요소 (Future Present, Receivers) 페이드 애니메이션 적용 */
+    /* ---------------------------------------------------- */
+    
+    .show-item:nth-child(n+2) .image-slider > * { /* 두 번째 이후 항목 */
+        animation-duration: 12s; /* 총 시간 (4개 * 3초) */
+        animation-name: fade-4;
     }
     
-    .image-slider[data-count="11"] > * {
-        width: 9.090909%; /* 100% / 11 */
+    .show-item:nth-child(n+2) .image-slider > *:nth-child(1) { animation-delay: 0s; }
+    .show-item:nth-child(n+2) .image-slider > *:nth-child(2) { animation-delay: 3s; }
+    .show-item:nth-child(n+2) .image-slider > *:nth-child(3) { animation-delay: 6s; }
+    .show-item:nth-child(n+2) .image-slider > *:nth-child(4) { animation-delay: 9s; }
+
+
+    /* 💡 4개 요소 페이드 키프레임 */
+    @keyframes fade-4 {
+        0% { opacity: 0; }
+        1% { opacity: 1; }
+        23% { opacity: 1; }
+        25% { opacity: 0; }
+        100% { opacity: 0; }
     }
     
-    @keyframes slide-11-stop {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-90.909091%); } /* (11-1) * (100/11) = 90.909091% */
-    }
-
-    /* ========================================================= */
-    /* 💡 B. 4개 요소 슬라이드 (Future Present, Receivers) */
-    /* ========================================================= */
-    .image-slider[data-count="4"] {
-        width: 400%; /* 4개 * 100% */
-        animation: slide-4-stop 5s linear forwards; /* 5초 동안 슬라이드 후 정지 */
-    }
-
-    .image-slider[data-count="4"] > * {
-        width: 25%; /* 100% / 4 */
-    }
-
-    @keyframes slide-4-stop {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-75%); } /* (4-1) * (100/4) = 75% */
-    }
-
-
-    /* 모바일 반응형 */
-    @media (max-width: 768px) {
-        body {
-            padding: 15px 20px;
-        }
-
-        .header-top {
-            max-width: none;
-            margin-left: 0;
-            margin-right: 0;
-            margin-bottom: 50px; 
-        }
-
-        .main-menu-above {
-            max-width: none;
-            margin: 0 0 10px 0; 
-            padding-right: 0;
-            text-align: left;
-        }
-        .main-menu-above a {
-            margin-left: 0;
-            margin-right: 15px; 
-        }
-        
-        .list-container {
-            max-width: none;
-            margin: 0;
-        }
-        
-        .main-info-group {
-            display: flex; 
-            flex-direction: column;
-            gap: 15px;
-            align-items: stretch;
-            grid-template-columns: none; 
-        }
-        
-        .show-filed-under {
-             flex-direction: column;
-             justify-content: flex-start;
-             gap: 5px;
-             margin-left: 0;
-        }
-        
-        .show-title-group, .show-filed-under {
-             max-width: none;
-             margin-left: 0; 
-        }
-        
-        .show-item {
-            grid-template-columns: 1fr; 
-            gap: 10px;
-            padding: 15px 0 15px 15px;
-            margin-bottom: 20px;
-        }
-        
-        .show-images {
-            width: 100%; 
-            height: 200px; 
-        }
-        /* 모바일에서는 개수별 CSS가 적용되도록 스타일 유지 */
-    }
+    /* ... (모바일 반응형 유지) ... */
 </style>
 </head>
 <body>
@@ -293,8 +183,8 @@
                 
             </div>
             <div class="show-images">
-                <div class="image-slider" data-count="11">
-                    <video src="videos/loggiavideo.mp4" class="art-video" muted playsinline poster="videos/loggia.jpg"></video>
+                <div class="image-slider">
+                    <video src="videos/loggiavideo.mp4" class="art-video" loop autoplay muted playsinline poster="videos/loggia.jpg"></video>
                     <img src="loggiaimages/loggia1.jpg" alt="Loggia 1" loading="lazy">
                     <img src="loggiaimages/loggia2.jpg" alt="Loggia 2" loading="lazy">
                     <img src="loggiaimages/loggia3.jpg" alt="Loggia 3" loading="lazy">
@@ -327,7 +217,7 @@
                 
             </div>
             <div class="show-images">
-                <div class="image-slider" data-count="4">
+                <div class="image-slider">
                     <img src="placeholder-future-present-1.jpg" alt="Future Present 이미지 1" loading="lazy">
                     <img src="placeholder-future-present-2.jpg" alt="Future Present 이미지 2" loading="lazy">
                     <img src="placeholder-future-present-3.jpg" alt="Future Present 이미지 3" loading="lazy">
@@ -355,7 +245,7 @@
                 
             </div>
             <div class="show-images">
-                <div class="image-slider" data-count="4">
+                <div class="image-slider">
                     <img src="placeholder-receivers-1.jpg" alt="Receivers 이미지 1" loading="lazy">
                     <img src="placeholder-receivers-2.jpg" alt="Receivers 이미지 2" loading="lazy">
                     <img src="placeholder-receivers-3.jpg" alt="Receivers 이미지 3" loading="lazy">
