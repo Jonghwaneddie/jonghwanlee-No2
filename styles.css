@@ -77,7 +77,7 @@ body {
 
 /* information 글 들여쓰기 */
 .cv-info .deep-indent {
-    margin-left: 180px;
+    margin-left: 160px;
     padding-left: 0;
     line-height: 1.4;
     text-align: justify;
