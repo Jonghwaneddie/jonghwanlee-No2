@@ -51,8 +51,8 @@ body {
 }
 
 .top-jhl { left: 20px; }
-.top-info { left: 200px; } 
-.top-cv { left: 440px; } 
+.top-info { left: 180px; } 
+.top-cv { left: 540px; } 
 .top-works { left: calc(40% + 20px); } /* 50% -> 40%로 변경하여 오른쪽 패널 시작점에 맞춤 */
 
 /* 2. 메인 콘텐츠 래퍼 (좌우 40:60 레이아웃) */
