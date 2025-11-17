@@ -114,20 +114,22 @@ body {
     padding: 15px;
 }
 
-/* ⭐ 작업물 헤더 (텍스트) 스타일 수정 ⭐ */
+/* ⭐ 작업물 헤더 (텍스트): 한 줄 중앙 정렬 ⭐ */
 .work-header {
-    /* 기존 flex 제거 */
-    display: block; 
-    text-align: center; /* 텍스트 중앙 정렬 */
+    display: flex; /* 한 줄로 나열 */
+    justify-content: center; /* ⭐ 중앙 정렬 ⭐ */
     font-size: 14px;
-    font-weight: bold;
+    /*font-weight: bold;*/
     margin-top: 10px; /* 이미지와의 간격 */
+    flex-wrap: nowrap; /* 줄바꿈 방지 */
 }
 
-/* ⭐ 헤더 내부의 텍스트 요소들을 세로로 쌓고 중앙 정렬 ⭐ */
+/* ⭐ 헤더 내부의 텍스트 요소들: 한 줄 유지 및 간격 부여 ⭐ */
 .work-header span {
-    display: block; 
+    display: inline; /* 기본값으로 유지 */
+    margin: 0 5px; /* 항목 사이에 간격 추가 */
     line-height: 1.2;
+    white-space: nowrap; /* 내부 텍스트 줄바꿈 방지 */
 }
 
 .work-visual {
