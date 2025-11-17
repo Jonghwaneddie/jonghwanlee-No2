@@ -51,7 +51,7 @@ body {
 
 /* 3. CV: Year 열 위치 (약 350px 지점) */
 .top-cv {
-    left: 650px; /* Project 열 끝 지점 근처 */
+    left: 600px; /* Project 열 끝 지점 근처 */
 }
 
 /* 4. Works: 오른쪽 패널 시작 경계 */
