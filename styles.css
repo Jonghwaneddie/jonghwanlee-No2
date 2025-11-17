@@ -14,61 +14,70 @@ body {
     min-height: 100vh;
 }
 
-/* 1. 헤더/내비게이션 스타일링 및 정렬 */
+/* 1. 헤더/내비게이션 스타일링 및 정렬 (Grid 사용) */
 .main-header {
-    padding: 10px 0; /* 좌우 padding은 내부 요소에서 처리 */
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+    /* 전체 헤더를 2xN Grid로 설정: 1열은 Jonghwan Lee/Logo, 2열은 Information/CV/Works */
+    display: grid;
+    /* 왼쪽 패널 50% / 오른쪽 패널 50% */
+    grid-template-columns: 50% 50%; 
+    padding: 10px 0;
     border-bottom: 1px solid #ccc;
     font-weight: 500;
 }
 
-.main-nav {
-    /* 전체 너비에서 로고 영역을 제외한 나머지 공간 사용 */
-    width: 100%; 
+/* 1. Jonghwan Lee와 Cargo Demo Site 정렬 */
+.main-header .top-left-info {
+    grid-column: 1; /* 1열에 위치 */
+    padding-left: 20px; /* 왼쪽 패널 padding과 일치 */
+    font-weight: bold;
+    align-self: flex-end; /* 아래쪽으로 정렬 */
 }
-.main-nav ul {
+
+.main-header .logo {
+    grid-column: 2; /* 2열에 위치 */
+    padding-right: 20px; /* 오른쪽 패널 padding과 일치 */
+    text-align: right;
+    align-self: flex-end; /* 아래쪽으로 정렬 */
+    font-size: 12px;
+}
+
+/* 2, 3, 4. Information, CV, Works 정렬 */
+.main-nav-top {
+    grid-column: 1 / span 2; /* 두 열에 걸쳐 위치 */
+    grid-row: 1; /* 첫 번째 행에 위치 (Jonghwan Lee/Logo와 같은 행) */
+    display: contents; /* Grid 레이아웃에 참여시키지 않고 자식만 배치 */
+}
+
+.main-nav-top ul {
     list-style: none;
-    display: grid;
-    /* * 그리드 컬럼 정의:
-     * - 첫 번째 20px: 왼쪽 패널의 padding-left
-     * - 1fr: Client 열 너비
-     * - 2fr: Project 열 너비
-     * - 0.5fr: Year 열 너비
-     * - 다음 20px: 왼쪽 패널의 padding-right
-     * - 다음 20px: 오른쪽 패널의 padding-left (Selected Work 정렬용)
-     * - 1fr: Selected Work 텍스트가 차지할 최소 공간 (유연하게)
-     * - 마지막 20px: 오른쪽 패널의 padding-right
-     */
-    grid-template-columns: 20px 1fr 2fr 0.5fr 20px 20px 1fr 20px; 
     padding: 0;
     margin: 0;
-}
-.main-header .logo {
-    padding-left: 20px;
+    /* 상단 네비게이션을 위해 9개의 Grid 컬럼 생성 (좌우 패널 콘텐츠의 경계에 맞춤) */
+    grid-column: 1 / span 2; 
+    grid-row: 1;
+    display: grid;
+    /* 20px(padding) 1fr(Client) 2fr(Project) 0.5fr(Year) 20px(경계) 20px(Works 시작) 1fr(Works 공간) 20px(끝) */
+    grid-template-columns: 20px 1fr 2fr 0.5fr 20px 20px 1fr 20px;
+    
+    font-size: 14px;
+    position: relative;
+    bottom: -10px; /* 아래로 살짝 내려서 굵은 선과 겹치지 않게 조정 */
 }
 
-.main-nav li {
+.main-nav-top li {
     cursor: pointer;
-    text-align: left;
-    white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 */
+    white-space: nowrap;
+    font-weight: bold;
 }
 
-/* 정렬 클래스 지정 */
-.main-nav .align-information {
-    grid-column: 2; /* Information을 Client 열 시작점에 위치 (두 번째 그리드 컬럼) */
+.main-nav-top .align-project {
+    grid-column: 3; /* Project 열 시작점에 맞춰 정렬 */
 }
-.main-nav .align-cv {
-    grid-column: 4; /* CV를 Year 열 시작점에 위치 (네 번째 그리드 컬럼) */
-    text-align: right; /* Year 텍스트처럼 오른쪽 정렬 */
+.main-nav-top .align-year-col {
+    grid-column: 4; /* Year 열 시작점에 맞춰 정렬 */
 }
-.main-nav .align-selected-work {
-    grid-column: 6; /* Selected Work을 오른쪽 패널 콘텐츠 시작점에 위치 (여섯 번째 그리드 컬럼) */
-}
-
-.main-nav .active {
-    border-bottom: 2px solid #000;
+.main-nav-top .align-works {
+    grid-column: 6; /* 오른쪽 패널 시작 경계에 맞춰 정렬 (20px padding 시작점) */
 }
 
 
@@ -76,28 +85,30 @@ body {
 .main-content-wrapper {
     display: flex; 
     flex: 1; 
-    height: calc(100vh - 40px);
+    /* 헤더 높이 조정: Jonghwan Lee와 Logo가 차지하는 높이를 제외 */
+    height: calc(100vh - 50px); 
 }
 
 /* 3. 왼쪽 패널 (정보 및 인덱스) */
 .left-panel {
-    width: 50%; /* 50% */
+    width: 50%;
     padding: 20px;
     border-right: 1px solid #ccc; 
     overflow-y: auto;
 }
 
 .cv-info {
+    margin-top: 5px; /* 상단 텍스트와 약간 간격 */
     margin-bottom: 30px;
 }
 
-/* 3. information 글을 더 깊게 들여쓰기 */
+/* information 글 들여쓰기: Project 열 시작점까지 */
 .cv-info .deep-indent {
-    /* Project 열 시작점까지 들여쓰기 (Client 열 너비만큼) */
-    /* table-row의 grid-template-columns와 맞춰 1fr의 너비만큼 마진을 줍니다. */
-    margin-left: calc(20px + (100% - 40px) * (1 / (1 + 2 + 0.5))); /* 20px(padding) + Client 열 너비 */
+    /* Project 열 시작점까지 들여쓰기 (1fr 너비만큼) */
+    margin-left: calc((1fr) / (1fr + 2fr + 0.5fr) * (100% - 40px));
     padding-left: 0;
     line-height: 1.4;
+    text-align: justify;
 }
 
 
@@ -108,7 +119,6 @@ body {
 
 .table-row {
     display: grid;
-    /* Client(1fr) + Project(2fr) + Year(0.5fr) */
     grid-template-columns: 1fr 2fr 0.5fr; 
     padding: 5px 0;
     border-bottom: 1px solid #eee;
@@ -123,7 +133,7 @@ body {
 
 /* 4. 오른쪽 패널 (스크롤 가능한 영역) */
 .right-panel {
-    width: 50%; /* 50% */
+    width: 50%;
     height: 100%; 
     overflow-y: scroll; 
     padding: 20px;
@@ -154,4 +164,3 @@ body {
     font-style: italic;
     border: 1px dashed #ccc;
 }
-```http://googleusercontent.com/image_generation_content/0
