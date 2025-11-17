@@ -234,9 +234,8 @@ body {
     text-align: center;
     font-size: 14px;
     padding: 10px;
-    background-color: rgba(0, 0, 0, 0.4); /* 캡션 배경 */
-    border-radius: 5px;
-    z-index: 1010; 
+    
+        z-index: 1010; 
 }
 
 /* 캡션 내부의 work-header 스타일 재정의 */
