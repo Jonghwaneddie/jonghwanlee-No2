@@ -164,8 +164,8 @@ body {
 }
 
 #modal-image-container { /* id로 변경하여 더 명확하게 타겟팅 */
-    max-width: 90%;
-    max-height: 90%;
+    max-width: 80%;
+    max-height: 80%;
     display: flex;
     justify-content: center;
     align-items: center;
