@@ -50,7 +50,7 @@
                 <div class="table-row item">
                     <span class="exhibition">Solo</span>
                     <span class="tilte"><a href="#" data-project-id="R/CXX-500">R/CXX-500</a></span>
-                    <span class="year">2047</span>
+                    <span class="year">2047
                 </div>
                 <div class="table-row item">
                     <span class="exhibition">Solo</span>
@@ -101,6 +101,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const projectLinks = document.querySelectorAll('.project-table .tilte a');
             const workItems = document.querySelectorAll('.right-panel .work-item');
+            let activeFilterId = null; // 현재 활성화된 필터 ID
 
             // 초기 상태: 모든 항목 보이기
             workItems.forEach(item => item.classList.remove('hidden'));
@@ -110,18 +111,34 @@
                     event.preventDefault(); // 링크 이동 방지
                     const projectId = event.currentTarget.dataset.projectId;
 
-                    // 모든 work item 숨기기
-                    workItems.forEach(item => {
-                        item.classList.add('hidden');
-                    });
+                    if (projectId === activeFilterId) {
+                        // 현재 활성화된 항목을 다시 클릭하면 필터 초기화
+                        workItems.forEach(item => item.classList.remove('hidden'));
+                        activeFilterId = null;
+                        
+                        // 왼쪽 테이블에서 활성화 표시 제거
+                        projectLinks.forEach(l => l.style.fontWeight = 'normal');
 
-                    // 선택된 work item만 보이기
-                    const selectedItem = document.querySelector(`.work-item[data-project-id="${projectId}"]`);
-                    if (selectedItem) {
-                        selectedItem.classList.remove('hidden');
+                    } else {
+                        // 새 항목 선택
+                        workItems.forEach(item => {
+                            item.classList.add('hidden');
+                        });
+
+                        const selectedItem = document.querySelector(`.work-item[data-project-id="${projectId}"]`);
+                        if (selectedItem) {
+                            selectedItem.classList.remove('hidden');
+                        }
+                        
+                        // 현재 필터 ID 업데이트
+                        activeFilterId = projectId;
+
+                        // 왼쪽 테이블에서 활성화 표시
+                        projectLinks.forEach(l => l.style.fontWeight = 'normal');
+                        event.currentTarget.style.fontWeight = 'bold';
                     }
                     
-                    // 오른쪽 패널 최상단으로 스크롤 (필터링 후 내용 확인 용이)
+                    // 오른쪽 패널 최상단으로 스크롤
                     document.querySelector('.right-panel').scrollTop = 0;
                 });
             });
