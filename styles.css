@@ -5,7 +5,7 @@
     padding: 0;
 }
 
-/* ⭐ 파란 밑줄 제거 및 색상 상속 ⭐ */
+/* 파란 밑줄 제거 및 색상 상속 */
 a {
     color: inherit; /* 부모 요소의 색상 (검정색)을 상속 */
     text-decoration: none; /* 밑줄 제거 */
@@ -26,7 +26,6 @@ body {
 .main-header {
     position: relative; /* 자식 요소의 absolute 위치 기준점 */
     padding: 10px 0;
-    /* 경계선 제거됨 */
     height: 40px; /* 고정 높이 지정 */
 }
 
@@ -41,7 +40,6 @@ body {
 /* 공통: 상단 텍스트 스타일 */
 .top-text {
     position: absolute;
-    /* 굵은 글씨 제거됨 */
     font-size: 14px;
     top: 10px; /* 로고와 같은 수직 위치 */
     white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 강제 */
@@ -79,7 +77,6 @@ body {
 .left-panel {
     width: 50%; /* 50% */
     padding: 20px;
-    /* 경계선 제거됨 */
     overflow-y: auto;
 }
 
@@ -107,13 +104,11 @@ body {
     /* 3열 레이아웃: Exhibition (1fr), Title (2fr), Year (0.5fr) */
     grid-template-columns: 1fr 2fr 0.5fr; 
     padding: 5px 0;
-    /* 경계선 제거됨 */
 }
 
 /* 테이블 헤더 스타일 */
 .table-row.header {
     font-weight: bold;
-    /* 경계선 제거됨 */
     margin-bottom: 5px;
 }
 
@@ -128,7 +123,6 @@ body {
 /* 작업물 항목 스타일링 */
 .work-item {
     margin-bottom: 50px;
-    /* 경계선 제거됨 */
     padding: 15px;
 }
 
@@ -148,10 +142,9 @@ body {
     align-items: center;
     color: #bbb;
     font-style: italic;
-    /* 경계선 제거됨 */
 }
 
-/* ⭐ JS 상호작용을 위한 숨김 클래스 ⭐ */
+/* JS 상호작용을 위한 숨김 클래스 */
 .work-item.hidden {
     display: none;
 }
