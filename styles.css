@@ -70,6 +70,12 @@ body {
     overflow-y: auto; /* 내용이 길어지면 왼쪽 패널만 스크롤 */
 }
 
+.cv-info {
+    margin-top: 5px; 
+    margin-bottom: 30px;
+}
+
+/* information 글 들여쓰기 */
 .cv-info .deep-indent {
     margin-left: 205px;
     padding-left: 0;
@@ -146,8 +152,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.95); /* 어두운 배경 */
-    display: none; /* JS로 'show' 클래스 추가 시 표시됨 */
+    background-color: rgba(0, 0, 0, 0.7); /* ⭐ 반투명 배경 ⭐ */
+    display: none; 
     justify-content: center;
     align-items: center;
     z-index: 1000;
@@ -157,23 +163,21 @@ body {
     display: flex;
 }
 
-.modal-content {
+#modal-image-container { /* id로 변경하여 더 명확하게 타겟팅 */
     max-width: 90%;
     max-height: 90%;
-    /* 모달 내부 콘텐츠 스타일: 이미지처럼 보이도록 */
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fcfcfc; /* 이미지 배경색과 유사하게 설정 */
+    background-color: #fcfcfc; 
     padding: 20px;
-    color: #bbb; /* Placeholder 텍스트 색상 */
+    color: #bbb; 
     font-size: 24px;
     font-style: italic;
     
-    /* 모달 컨텐츠가 이미지를 포함할 경우를 대비하여 크기 조정 */
     width: 100%; 
     height: 100%;
-    object-fit: contain; /* 이미지가 잘리지 않도록 */
+    object-fit: contain; 
 }
 
 .modal-close {
@@ -190,6 +194,33 @@ body {
 
 .modal-close:hover {
     opacity: 1;
+}
+
+/* ⭐ 이전/다음 버튼 스타일 ⭐ */
+.modal-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px;
+    user-select: none; /* 텍스트 드래그 방지 */
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.modal-nav-btn:hover {
+    opacity: 1;
+}
+
+.prev-btn {
+    left: 20px;
+}
+
+.next-btn {
+    right: 20px;
 }
 
 /* JS 상호작용을 위한 숨김 클래스 */
