@@ -51,8 +51,8 @@ body {
 }
 
 .top-jhl { left: 20px; }
-.top-info { left: 180px; } 
-.top-cv { left: 510px; } 
+.top-info { left: 225px; } 
+.top-cv { left: 640px; } 
 .top-works { left: calc(40% + 20px); } /* 50% -> 40%로 변경하여 오른쪽 패널 시작점에 맞춤 */
 
 /* 2. 메인 콘텐츠 래퍼 (좌우 40:60 레이아웃) */
@@ -222,6 +222,36 @@ body {
 .next-btn {
     right: 20px;
 }
+
+/* ⭐ 모달 캡션/푸터 스타일 ⭐ */
+.modal-caption {
+    position: absolute;
+    bottom: 20px; /* 화면 하단에서 띄우기 */
+    left: 50%; 
+    transform: translateX(-50%); 
+    max-width: 80%; /* 이미지 컨테이너와 동일한 너비 제한 */
+    color: white; 
+    text-align: center;
+    font-size: 14px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.4); /* 캡션 배경 */
+    border-radius: 5px;
+    z-index: 1010; 
+}
+
+/* 캡션 내부의 work-header 스타일 재정의 */
+.modal-caption .work-header {
+    display: flex; 
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0; 
+    flex-wrap: nowrap; 
+}
+.modal-caption .work-header span {
+    margin: 0 10px; /* 간격 확보 */
+}
+
 
 /* JS 상호작용을 위한 숨김 클래스 */
 .work-item.hidden {
