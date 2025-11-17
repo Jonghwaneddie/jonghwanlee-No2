@@ -52,7 +52,7 @@ body {
 
 .top-jhl { left: 20px; }
 .top-info { left: 180px; } 
-.top-note { left: 350px; } /* ⭐ Note 위치 추가 (Information과 CV 사이) ⭐ */
+.top-note { left: 360px; } /* ⭐ Note 위치 추가 (Information과 CV 사이) ⭐ */
 .top-cv { left: 510px; } 
 .top-works { left: calc(40% + 20px); } /* 50% -> 40%로 변경하여 오른쪽 패널 시작점에 맞춤 */
 
