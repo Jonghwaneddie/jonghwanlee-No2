@@ -1,15 +1,18 @@
-/* 기본 리셋 */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
+
+/* ⭐ 파란 밑줄 제거 및 색상 상속 ⭐ */
 a {
     color: inherit; /* 부모 요소의 색상 (검정색)을 상속 */
     text-decoration: none; /* 밑줄 제거 */
 }
+
 body {
-    font-family: Pretendard, sans-serif;
+    /* Pretendard 폰트 적용 */
+    font-family: 'Pretendard', sans-serif; 
     font-size: 13px;
     color: #000;
     display: flex;
@@ -21,7 +24,7 @@ body {
 .main-header {
     position: relative; /* 자식 요소의 absolute 위치 기준점 */
     padding: 10px 0;
-    border-bottom: 1px solid #ccc;
+    /* border-bottom: 1px solid #ccc; <-- 경계선 제거 */
     height: 40px; /* 고정 높이 지정 */
 }
 
@@ -36,9 +39,10 @@ body {
 /* 공통: 상단 텍스트 스타일 */
 .top-text {
     position: absolute;
-    
+    /* 굵은 글씨 제거됨 */
     font-size: 14px;
     top: 10px; /* 로고와 같은 수직 위치 */
+    white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 강제 */
 }
 
 /* 1. Jonghwan Lee: 제일 왼쪽 상단 */
@@ -46,15 +50,14 @@ body {
     left: 20px;
 }
 
-/* 2. Information: Project 열 위치 (약 150px 지점) */
+/* 2. Information: Project 열 위치 (px 값 유지) */
 .top-info {
-    left: 225px; /* (20px padding) + (Client 열 약 150px) */
-    
+    left: 225px; 
 }
 
-/* 3. CV: Year 열 위치 (약 350px 지점) */
+/* 3. CV: Year 열 위치 (px 값 유지) */
 .top-cv {
-    left: 640px; /* Project 열 끝 지점 근처 */
+    left: 640px; 
 }
 
 /* 4. Works: 오른쪽 패널 시작 경계 */
@@ -74,7 +77,7 @@ body {
 .left-panel {
     width: 50%; /* 50% */
     padding: 20px;
-    border-right: 1px solid #ccc; 
+    /* border-right: 1px solid #ccc; <-- 경계선 제거 */
     overflow-y: auto;
 }
 
@@ -85,7 +88,7 @@ body {
 
 /* information 글 들여쓰기: Project 열 시작점까지 */
 .cv-info .deep-indent {
-    margin-left: 205px; /* Project 열 시작 위치와 유사하게 px 값으로 조정 */
+    margin-left: 205px; /* 들여쓰기 값 유지 */
     padding-left: 0;
     line-height: 1.4;
     text-align: justify;
@@ -99,16 +102,15 @@ body {
 
 .table-row {
     display: grid;
-    /* 픽셀 위치와 맞추기 위해 Grid 대신 px 기반 레이아웃을 사용하거나, Grid를 유지합니다. (Grid를 유지하는 것이 테이블 정렬에 유리합니다.) */
     grid-template-columns: 1fr 2fr 0.5fr; 
     padding: 5px 0;
-    border-bottom: 1px solid #eee;
+    /* border-bottom: 1px solid #eee; <-- 경계선 제거 */
 }
 
 /* 테이블 헤더 스타일 */
 .table-row.header {
     font-weight: bold;
-    border-bottom: 1px solid #000;
+    /* border-bottom: 1px solid #000; <-- 경계선 제거 */
     margin-bottom: 5px;
 }
 
@@ -123,7 +125,7 @@ body {
 /* 작업물 항목 스타일링 (이전과 동일) */
 .work-item {
     margin-bottom: 50px;
-    border: 1px solid #ddd;
+    /* border: 1px solid #ddd; <-- 경계선 제거 */
     padding: 15px;
 }
 
@@ -143,5 +145,5 @@ body {
     align-items: center;
     color: #bbb;
     font-style: italic;
-    border: 1px dashed #ccc;
+    /* border: 1px dashed #ccc; <-- 경계선 제거 */
 }
