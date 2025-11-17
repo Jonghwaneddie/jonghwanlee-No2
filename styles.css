@@ -82,7 +82,7 @@ body {
 
 /* information 글 들여쓰기: Project 열 시작점까지 */
 .cv-info .deep-indent {
-    margin-left: 200px; /* Project 열 시작 위치와 유사하게 px 값으로 조정 */
+    margin-left: 210px; /* Project 열 시작 위치와 유사하게 px 값으로 조정 */
     padding-left: 0;
     line-height: 1.4;
     text-align: justify;
