@@ -3,941 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jonghwan Lee</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
-    
-<style>
-/* ========================================================= */
-/* 기본 스타일 및 레이아웃 */
-/* ========================================================= */
-    body {
-        font-family: 'Montserrat', Arial, sans-serif;
-        margin: 0;
-        padding: 20px 50px; 
-        color: #1a1a1a;
-        font-size: 10px; 
-    }
-
-    /* 💡 A. header-top 마진 수정: 원형 메뉴 공간 확보 */
-    .header-top { 
-        display: flex; justify-content: space-between; max-width: 1300px; 
-        margin-left: auto; margin-right: auto; 
-        margin-bottom: 20px; /* 기존 250px에서 수정 */
-    }
-    .header-top a { color: #1a1a1a; text-decoration: none; cursor: pointer; }
-    .header-top div { flex-grow: 1; }
-    .header-top .right-info { text-align: right; }
-    
-    /* 💡 B. main-menu-above 마진 수정: 원형 메뉴를 덮지 않도록 조정 */
-    .main-menu-above { 
-        max-width: 1300px; 
-        margin: -50px auto 10px auto; /* 기존 -70px에서 수정 */
-        padding-right: 20px; text-align: right; 
-    }
-    .main-menu-above a { color: #1a1a1a; text-decoration: none; cursor: pointer; margin-left: 15px; font-size: 10px; }
-    
-    .list-container { max-width: 1300px; margin: 30px auto 0 auto; }
-    .main-info-group { display: grid; grid-template-columns: 250px 300px; gap: 0px; align-items: flex-start; }
-    .show-item { 
-        grid-template-columns: 4fr 300px; 
-        display: grid; 
-        gap: 40px; 
-        border-left: 1px solid #1a1a1a;
-        padding: 10px 0 10px 20px; 
-        align-items: start; 
-        margin-bottom: 20px; 
-    }
-    .show-item:last-child{ margin-bottom: 20px; }
-    .show-title-group { display: flex; flex-direction: column; }
-    .show-title { margin-bottom: 5px; }
-    .show-date, .show-location { color: #666; line-height: 1.4; }
-    .show-title-group p { margin: 0; padding: 0; }
-    .show-filed-under { color: #666; display: flex; justify-content: space-between; align-items: flex-start; margin-left: 0; }
-    .filed-text { color: #666; line-height: 1.4; padding-left: 50px; }
-    .extra-text { color: #666; line-height: 1.6; white-space: nowrap; float: right; overflow: visible; margin-left: 150px; }
-    .extra-text span { display: block; }
-    
-/* ========================================================= */
-/* 💡 새로운 구분선 및 원형 메뉴 스타일 */
-/* ========================================================= */
-.separator-menu-container {
-    max-width: 1300px; 
-    margin: 150px auto 75px auto; 
-    position: relative;
-    padding: 0 50px; 
-}
-
-.separator-line {
-    border-top: 1px solid #ccc;
-    width: 100%;
-    position: absolute;
-    top: 120px; 
-    z-index: 1;
-}
-
-.circle-menu-wrapper {
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;
-    position: relative;
-    z-index: 2; 
-    padding-bottom: 5px;
-}
-
-.circle-item-group {
-    display: flex;
-    flex-direction: column; /* 원과 텍스트를 수직으로 정렬 */
-    align-items: center;
-    /* 💡 원형 메뉴 그룹 자체를 중앙 정렬할 필요는 없지만, 컨테이너 내에서 top: 0 위치를 잡도록 margin-top 조정 */
-    margin-top: 115px; /* 원의 상단을 가로줄의 중앙에 맞추기 위한 조정 */
-}
-
-.circle-menu-item {
-    width: 10px;
-    height: 10px;
-    background-color: white; 
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    transition: transform 0.3s;
-    position: relative; 
-    margin-bottom: -5px; /* 텍스트와의 간격 */
-}
-
-    /* 2. 마우스 오버 시 생기는 작은 점 스타일 (초기 크기 0) */
-.circle-menu-item::after {
-    content: '';
-    position: absolute;
-    width: 0px; 
-    height: 0px; 
-    border-radius: 50%;
-    background-color: #1a1a1a;
-    transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
-}
-
-.circle-menu-item:hover {
-
-    transform: scale(1.1); 
-}
-/* 2. 마우스 오버 시 작은 점 크기 확대 (7px) */
-.circle-menu-item:hover::after {
-    width: 7px; 
-    height: 7px; 
-}
-    
-.circle-menu-item a {
-    display: block;
-    width: 100%;
-    height: 100%;
-    text-indent: -9999px; 
-    overflow: hidden;
-}
-
-    /* 1. 동그라미 밑 텍스트 스타일 */
-.circle-item-text {
-    font-size: 8px; /* 작은 글자 크기 */
-    color: #ccc; /* 흐린 텍스트 색상 */
-    line-height: 1.2;
-    text-align: center;
-    white-space: nowrap; 
-    /* 💡 텍스트가 원형 메뉴의 공간을 침범하지 않도록 여백 확보 */
-    margin-top: 10px;
-}
-
-/* ========================================================= */
-/* 💡 자동 전환 갤러리 스타일 (JavaScript 제어용, 페이드 적용) */
-/* ========================================================= */
-    .show-images {
-        height: 180px; 
-        display: block; 
-        position: relative; 
-        overflow: hidden; 
-        cursor: pointer; 
-    }
-
-    .image-slider {
-        width: 100%; 
-        height: 100%;
-        position: relative; 
-    }
-
-    .image-slider > * {
-        position: absolute; 
-        top: 0;
-        left: 0;
-        width: 100%; 
-        height: 100%;
-        object-fit: contain; 
-        opacity: 0; 
-        /* 💡 페이드 효과를 위한 전환 시간 설정 */
-        transition: opacity 0.5s ease-in-out; 
-    }
-
-    .show-item .image-slider > *:first-child {
-        opacity: 1;
-    }
-
-    .art-video {
-        object-fit: contain;
-    }
-    
-/* ========================================================= */
-/* 💡 이미지 뷰어 모달 (Slideshow Modal) 스타일 */
-/* ========================================================= */
-
-    #image-modal {
-        display: none; 
-        position: fixed; 
-        z-index: 1000; 
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        /* 💡 배경 투명도 수정 (Alpha 값 0.8) */
-        background-color: rgba(0, 0, 0, 0.8); 
-        overflow: hidden; 
-    }
-
-    /* 닫기 버튼 */
-    .close-btn {
-        position: absolute;
-        top: 20px;
-        right: 35px;
-        color: #fff;
-        font-size: 40px;
-        font-weight: bold;
-        cursor: pointer;
-        z-index: 1002; 
-    }
-
-    /* 메인 슬라이드 컨테이너 */
-    .modal-content-wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: center; 
-        align-items: center;     
-        width: 100%;
-        height: 100%;
-    }
-
-    /* 현재 이미지 표시 영역 */
-    .modal-slide-container {
-        position: relative; 
-        width: 90%;
-        height: 85%; 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    /* 슬라이드 이미지/비디오 스타일 */
-    .modal-image-item {
-        display: none; 
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        display: flex; 
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .modal-image-item img,
-    .modal-image-item video {
-        display: block;
-        /* 💡 이미지 크기 조정 */
-        max-width: 90%; 
-        max-height: 90vh; 
-        width: auto;
-        height: auto;
-        margin: auto;
-        object-fit: contain; 
-        user-select: none;
-    }
-
-    /* 좌우 화살표 스타일 */
-    .prev, .next {
-        cursor: pointer;
-        position: absolute;
-        top: 50%; 
-        transform: translateY(-50%); 
-        width: auto;
-        padding: 16px;
-        color: white;
-        font-weight: bold;
-        font-size: 30px;
-        transition: 0.6s ease;
-        user-select: none;
-        z-index: 1001;
-        background-color: rgba(0, 0, 0, 0.5); 
-        border-radius: 3px;
-    }
-
-    .prev {
-        left: 0; 
-        border-radius: 0 3px 3px 0;
-    }
-
-    .next {
-        right: 0; 
-        border-radius: 3px 0 0 3px;
-    }
-
-    .prev:hover, .next:hover {
-        background-color: rgba(0, 0, 0, 0.8);
-    }
-
-    /* 캡션 스타일 */
-    .modal-caption {
-        color: white; 
-        font-size: 14px;
-        padding: 10px 0;
-        text-align: center;
-        height: 5%; 
-        margin-top: 10px;
-    }
-
-/* ========================================================= */
-/* 모바일 반응형 */
-/* ========================================================= */
-    @media (max-width: 768px) {
-        body { padding: 15px 20px; }
-        
-        .prev, .next {
-            font-size: 20px;
-            padding: 10px;
-            transform: translateY(-50%); 
-        }
-        
-        .close-btn {
-            right: 15px;
-            top: 5px;
-            font-size: 30px;
-        }
-
-        .modal-image-item img,
-        .modal-image-item video {
-            max-width: 95%; 
-            max-height: 75vh; 
-        }
-
-        .modal-slide-container {
-            height: 80%; 
-        }
-        .modal-caption {
-            height: 10%; 
-        }
-    }
-</style>
-</head>
+    <title>Cargo Demo Site Index</title>
+    <link rel="stylesheet" href="styles.css"> </head>
 <body>
 
-    <div class="header-top">
-        <div><a href="index.html">Jonghwan Lee</a></div> 
-        <div class="right-info"><a href="contact.html">Contact</a></div>
+    <header class="main-header">
+        <div class="logo">Cargo Demo Site</div>
+        <nav class="main-nav">
+            <ul>
+                <li>Information</li>
+                <li>CV</li>
+                <li class="active">Selected Work</li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content-wrapper">
+
+        <section class="left-panel">
+            
+            <div class="cv-info">
+                <h3>Information</h3>
+                <p>Vestibulum et dignissim magna. Nullam et ultrices felis. Suspendisse facilisis sagittis sit amet sem tempor. Nam sit amet nibh et enim laoreet porta sit amet vel purus. Maecenas augue velit, feugiat in maximus id, auctor vel ex.</p>
+            </div>
+
+            <div class="project-table">
+                <h3>Project Index</h3>
+                <div class="table-row header">
+                    <span class="client">Client</span>
+                    <span class="project">Project</span>
+                    <span class="year">Year</span>
+                </div>
+                
+                <div class="table-row item" data-ref="ref-xtr-082">
+                    <span class="client">SED_DO</span>
+                    <span class="project">Ref. R/XTR-082</span>
+                    <span class="year">2049</span>
+                </div>
+                <div class="table-row item">
+                    <span class="client">SED_DO</span>
+                    <span class="project">Ref. R/PRT-017</span>
+                    <span class="year">2048-9</span>
+                </div>
+                <div class="table-row item">
+                    <span class="client">SED_DO</span>
+                    <span class="project">R/CXX-500</span>
+                    <span class="year">2047</span>
+                </div>
+                <div class="table-row item">
+                    <span class="client">SED_DO</span>
+                    <span class="project">Ref. X/QOR-809</span>
+                    <span class="year">2042</span>
+                </div>
+                <div class="table-row item">
+                    <span class="client">SED_DO</span>
+                    <span class="project">X/TSL-203</span>
+                    <span class="year">2039</span>
+                </div>
+                <div class="table-row item">
+                    <span class="client">SED_DO</span>
+                    <span class="project">V/TUR-444</span>
+                    <span class="year">2033</span>
+                </div>
+            </div>
+            
+        </section>
+
+        <section class="right-panel">
+            
+            <div class="selected-work-list">
+                
+                <article class="work-item" id="ref-xtr-082">
+                    <div class="work-header">
+                        <span class="client">SED_DO</span>
+                        <span class="ref">Ref. R/XTR-082</span>
+                        <span class="year">2049</span>
+                    </div>
+                    <div class="work-visual"></div>
+                </article>
+
+                <article class="work-item">
+                    <div class="work-header">
+                        <span class="client">SED_DO</span>
+                        <span class="ref">Ref. R/PRT-017</span>
+                        <span class="year">2048-9</span>
+                    </div>
+                    <div class="work-visual"></div>
+                </article>
+
+                <article class="work-item">
+                    <div class="work-header">
+                        <span class="client">SED_DO</span>
+                        <span class="ref">Another Project Example</span>
+                        <span class="year">2045</span>
+                    </div>
+                    <div class="work-visual"></div>
+                </article>
+                <article class="work-item">
+                    <div class="work-header">
+                        <span class="client">SED_DO</span>
+                        <span class="ref">Final Project Example</span>
+                        <span class="year">2040</span>
+                    </div>
+                    <div class="work-visual"></div>
+                </article>
+
+            </div>
+        </section>
+
     </div>
 
-<div class="separator-menu-container">
-        <div class="separator-line"></div>
-        <div class="circle-menu-wrapper">
-            
-            <div class="circle-item-group">
-                <div class="circle-menu-item" onclick="location.href='work1.html'">
-                    <a href="work1.html" title="Work 1">W1</a>
-                </div>
-                <div class="circle-item-text">2021</div>
-            </div>
-            
-            <div class="circle-item-group">
-                <div class="circle-menu-item" onclick="location.href='work2.html'">
-                    <a href="work2.html" title="Work 2">W2</a>
-                </div>
-                <div class="circle-item-text">2022</div>
-            </div>
-            
-            <div class="circle-item-group">
-                <div class="circle-menu-item" onclick="location.href='work3.html'">
-                    <a href="work3.html" title="Work 3">W3</a>
-                </div>
-                <div class="circle-item-text">2023</div>
-            </div>
-            
-            <div class="circle-item-group">
-                <div class="circle-menu-item" onclick="location.href='archive.html'">
-                    <a href="archive.html" title="Archive">Arch</a>
-                </div>
-                <div class="circle-item-text">2024</div>
-            </div>
-            
-            <div class="circle-item-group">
-                <div class="circle-menu-item" onclick="location.href='project5.html'">
-                    <a href="project5.html" title="Project 5">P5</a>
-                </div>
-                <div class="circle-item-text">2025</div>
-            </div>
-            
-            <div class="circle-item-group">
-                <div class="circle-menu-item" onclick="location.href='project6.html'">
-                    <a href="project6.html" title="Project 6">P6</a>
-                </div>
-                <div class="circle-item-text">2026</div>
-            </div>
-            
-        </div>
-    </div>
-    <div class="main-menu-above">
-        <a href="information.html">information</a>
-        <a href="text.html">texts</a>
-        <a href="note.html">notes</a>
-        <a href="works.html">works</a>
-    </div>
-
-    <div class="list-container">
-        <div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">Loggia</div>
-                    <div class="show-location">Hall 1</div>
-                    <div class="show-date">2025. 7. 31 ~ 2025. 8. 23</div>
-                    <div class="show-location">8, Yangpyeong-ro 22ma-gil, Yeongdeungpo-gu, Seoul, Korea</div>
-                </div>
-                
-                <div class="show-filed-under">
-                    <div class="filed-text">
-                        Solo Exhibitions 2025
-                    </div>
-                    <div class="extra-text">
-                        Supported by Seoul Foundation for Arts and Culture<br><br>
-                        <span>Text by Soomin Lee</span>
-                        <span>Poster by Jeongin Weon</span>
-                        <span>Installation by alwayslastdanceclub</span>
-                        <span>Photo by San Choi</span>
-                        <span>Assist by Bongkyun Kwon, Gayoon Yong, Ian Ha</span>
-                    </div> 
-                </div>
-                
-            </div>
-            <div class="show-images"> 
-                <div class="image-slider">
-                    <video src="videos/loggiavideo.mp4" class="art-video" loop autoplay muted playsinline poster="videos/loggia.jpg" data-caption="Loggia Video Clip (비디오 캡션 예시입니다.)"></video>
-                    <img src="loggiaimages/loggia1.jpg" alt="Loggia 1" loading="lazy" data-caption="Loggia, 2025">
-                    <img src="loggiaimages/loggia2.jpg" alt="Loggia 2" loading="lazy" data-caption="Loggia, 2025">
-                    <img src="loggiaimages/loggia3.jpg" alt="Loggia 3" loading="lazy" data-caption="Loggia, 2025">
-                    <img src="loggiaimages/loggia4.jpg" alt="Loggia 4" loading="lazy" data-caption="Loggia, 2025">
-                    <img src="loggiaimages/loggia5.jpg" alt="Loggia 5" loading="lazy" data-caption="Loggia, 2025">
-                    <img src="loggiaimages/loggia6.jpg" alt="Loggia 6" loading="lazy" data-caption="Loggia, 2025">
-                    <img src="loggiaimages/loggia7.jpg" alt="Loggia 7" loading="lazy" data-caption="Loggia, 2025">
-                    <img src="loggiaimages/loggia8.jpg" alt="Loggia 8" loading="lazy" data-caption="Loggia, 2025">
-                    <img src="loggiaimages/loggia9.jpg" alt="Loggia 9" loading="lazy" data-caption="Loggia, 2025">
-                    <img src="loggiaimages/loggia10.jpg" alt="Loggia 10" loading="lazy" data-caption="Loggia, 2025">
-                    <img src="2025loggia1/img1.jpg" alt="Loggia 10" loading="lazy" data-caption="Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm">
-                    <img src="2025loggia1/img2.jpg" alt="Loggia 10" loading="lazy" data-caption="Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm">
-                    <img src="2025loggia1/img3.jpg" alt="Loggia 10" loading="lazy" data-caption="Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm">
-                    <img src="2025loggia1/img4.jpg" alt="Loggia 10" loading="lazy" data-caption="Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm">
-                    <img src="2025loggia1/img5.jpg" alt="Loggia 10" loading="lazy" data-caption="Threshold Guard, 2025, Engraving and watercolor on panel, Iron ball, 165x71cm">
-                    <img src="2025loggia1/img6.jpg" alt="Loggia 10" loading="lazy" data-caption="Silent Observer, 2025, Engraving and Watercolor on Panel, Iron Ball, 165x71cm">
-                    <img src="2025loggia1/img7.jpg" alt="Loggia 10" loading="lazy" data-caption="Echo Keeper, 2025, Engraving and watercolor on Panel, Iron ball, 122.5x79cm">
-                    <img src="2025loggia2/img8.jpg" alt="Loggia 10" loading="lazy" data-caption="A Room Without Looking, 2025, Paper(frotage), 41x164cm">
-                    <img src="2025loggia2/img9.jpg" alt="Loggia 10" loading="lazy" data-caption="A Room Without Looking, 2025, Paper(frotage), 41x164cm">
-                    <img src="2025loggia2/img10.jpg" alt="Loggia 10" loading="lazy" data-caption="A Room Without Looking, 2025, Paper(frotage), 41x164cm">
-                    <img src="2025loggia2/img11.jpg" alt="Loggia 10" loading="lazy" data-caption="A Room Without Looking, 2025, Paper(frotage), 41x164cm">
-                    <img src="2025loggia2/img12.jpg" alt="Loggia 10" loading="lazy" data-caption="As It Sank In, 2025, Plaster, 21x15.5cm">
-                    <img src="2025loggia2/img13.jpg" alt="Loggia 10" loading="lazy" data-caption="As It Sank In, 2025, Plaster, 21x15.5cm">
-                    <img src="2025loggia2/img14.jpg" alt="Loggia 10" loading="lazy" data-caption="Shadowlight, 2025, Engraving and watercolor on panel, 30x30cm">
-                    <img src="2025loggia2/img15.jpg" alt="Loggia 10" loading="lazy" data-caption="Where Color Hesitates, 2025, Engraving and watercolor on panel, 39x160cm">
-                    <img src="2025loggia2/img16.jpg" alt="Loggia 10" loading="lazy" data-caption="Through the Quiet Veil, 2025, Engraving and watercolor on panel, Plaster, 170x60cm">
-                    <img src="2025loggia2/img17.jpg" alt="Loggia 10" loading="lazy" data-caption="Beyond the Quiet Veil, 2025, Engraving and Watercolor on Panel, Plaster, 170x60cm">
-                    
-                </div>
-                </div>
-            </div>
-        </div>
-
-
-    <div class="list-container">
-        <div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">Surgical Room</div>
-                    <div class="show-location">CYLINDER TWO</div>
-                    <div class="show-date">2025. 5. 17 ~ 2025. 6. 15</div>
-                    <div class="show-location">24, Hangang-daero 48-gil, Yongsan-gu, Seoul, Korea</div>
-                </div>
-                
-                <div class="show-filed-under">
-                    <div class="filed-text">
-                        Group Exhibitions  2025
-                    </div>
-                    <div class="extra-text">
-                        Participating Artists<br>
-                        <span>Kolja Kärtner Sainz, Hyun Bhin Kwon, Jonghwan Lee, Heesu Choi, Lian Fu</span>
-                    
-                    </div> 
-                </div>
-                
-            </div>
-            <div class="show-images"> 
-                <div class="image-slider">
-
-                    <img src="2025loggia1/img1.jpg" alt="Loggia 10" loading="lazy" data-caption="Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm">
-                    
-                    
-                </div>
-                </div>
-            </div>
-        </div>
-
-
-    <div class="list-container">
-        <div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">CYLINDER x South Parade</div>
-                    <div class="show-location">South Parade</div>
-                    <div class="show-date">2024. 6. 27 ~ 2024. 8. 3</div>
-                    <div class="show-location">Griffin House, 79 Saffron Hill, ECIR 5BU, London, UK</div>
-                </div>
-                
-                <div class="show-filed-under">
-                    <div class="filed-text">
-                        Group Exhibitions  2024
-                    </div>
-                    <div class="extra-text">
-                        Participating Artists<br>
-                        <span>Jonghwan Lee, Aidan Duffy</span>
-                    
-                    </div> 
-                </div>
-                
-            </div>
-            <div class="show-images"> 
-                <div class="image-slider">
-
-                    <img src="2025loggia1/img1.jpg" alt="Loggia 10" loading="lazy" data-caption="Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm">
-                    
-                    
-                </div>
-                </div>
-            </div>
-        </div>
-
-
-    <div class="list-container">
-        <div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">Hypercube</div>
-                    <div class="show-location">CYLINDER TWO</div>
-                    <div class="show-date">2023. 7. 8 ~ 2023. 8. 13</div>
-                    <div class="show-location">24, Hangang-daero 48-gil, Yongsan-gu, Seoul, Korea</div>
-                </div>
-                
-                <div class="show-filed-under">
-                    <div class="filed-text">
-                        Solo Exhibitions  2023
-                    </div>
-                    <div class="extra-text">
-                        Supported by Seoul Foundation for Arts and Culture<br><br>
-                        <span>Text by Hyukkyu Kwon </span>
-                        <span>Photo by San Choi</span>
-                        
-                        
-                    </div> 
-                </div>
-                
-            </div>
-            <div class="show-images"> 
-                <div class="image-slider">
-
-                    <img src="2025loggia1/img1.jpg" alt="Loggia 10" loading="lazy" data-caption="Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm">
-                    
-                    
-                </div>
-                </div>
-            </div>
-        </div>
-
-
-            <div class="list-container">
-        <div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">좋은 이웃 The Good Neighbor</div>
-                    <div class="show-location">Art Space 3</div>
-                    <div class="show-date">2023. 5. 25 ~ 2023. 6. 1</div>
-                    <div class="show-location">Hyoja-ro 7-gil, Jongno-gu, Seoul, Korea</div>
-                </div>
-                
-                <div class="show-filed-under">
-                    <div class="filed-text">
-                        Group Exhibitions  2023
-                    </div>
-                    <div class="extra-text">
-                       Participating Artists<br>
-                        <span>Jihyun Kim, Yuso Moon, Ichae Shin, Jonghwan Lee, Hanna Lee, Dawool Lim, Wanjun Cho</span><br>
-                        <span>Curated by Minhye Ahn</span>
-                        <span>Coordinated by Dayoung Lee</span>
-                        <span>Assisted by Yeonyong Kim</span>
-                        <span>Graphic Design by Eunju Hong and Hyungjae Kim</span><br>
-                        <span>Organized by Korea National University of Arts, K-Arts Foundation, School of Visual Arts, K-Arts</span>
-                        <span>Sponsored by Shin Young Securities</span>
-
-                        
-                    
-                    </div> 
-                </div>
-                
-            </div>
-            <div class="show-images"> 
-                <div class="image-slider">
-
-                    <img src="2025loggia1/img1.jpg" alt="Loggia 10" loading="lazy" data-caption="Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm">
-                    
-                    
-                </div>
-                </div>
-            </div>
-        </div>
-
-
-            <div class="list-container">
-        <div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">Cabinet </div>
-                    <div class="show-location">Sahangup gallery</div>
-                    <div class="show-date">2023. 1. 17 ~ 2023. 1. 31</div>
-                    <div class="show-location">143, Eulji-ro, Jung-gu, Seoul, Korea</div>
-                </div>
-                
-                <div class="show-filed-under">
-                    <div class="filed-text">
-                        Solo Exhibitions  2023
-                    </div>
-                    <div class="extra-text">
-                       
-                        <span>Poster by Hanbyeol Joo</span>
-                        <span>Installation by alwayslastdanceclub</span>
-                        <span>Photo by Euisuk Sung</span>
-                      
-                    
-                    </div> 
-                </div>
-                
-            </div>
-            <div class="show-images"> 
-                <div class="image-slider">
-
-                    <img src="2025loggia1/img1.jpg" alt="Loggia 10" loading="lazy" data-caption="Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm">
-                    
-                    
-                </div>
-                </div>
-            </div>
-        </div>
-
-
-            <div class="list-container">
-        <div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">Surgical Room</div>
-                    <div class="show-location">CYLINDER TWO</div>
-                    <div class="show-date">2025. 5. 17 ~ 2025. 6. 15</div>
-                    <div class="show-location">24, Hangang-daero 48-gil, Yongsan-gu, Seoul, Korea</div>
-                </div>
-                
-                <div class="show-filed-under">
-                    <div class="filed-text">
-                        Group Exhibitions  2025
-                    </div>
-                    <div class="extra-text">
-                        Participating Artists<br>
-                        <span>Kolja Kärtner Sainz, Hyun Bhin Kwon, Jonghwan Lee, Heesu Choi, Lian Fu</span>
-                    
-                    </div> 
-                </div>
-                
-            </div>
-            <div class="show-images"> 
-                <div class="image-slider">
-
-                    <img src="2025loggia1/img1.jpg" alt="Loggia 10" loading="lazy" data-caption="Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm">
-                    
-                    
-                </div>
-                </div>
-            </div>
-        </div>
-
-
-            <div class="list-container">
-        <div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">Surgical Room</div>
-                    <div class="show-location">CYLINDER TWO</div>
-                    <div class="show-date">2025. 5. 17 ~ 2025. 6. 15</div>
-                    <div class="show-location">24, Hangang-daero 48-gil, Yongsan-gu, Seoul, Korea</div>
-                </div>
-                
-                <div class="show-filed-under">
-                    <div class="filed-text">
-                        Group Exhibitions  2025
-                    </div>
-                    <div class="extra-text">
-                        Participating Artists<br>
-                        <span>Kolja Kärtner Sainz, Hyun Bhin Kwon, Jonghwan Lee, Heesu Choi, Lian Fu</span>
-                    
-                    </div> 
-                </div>
-                
-            </div>
-            <div class="show-images"> 
-                <div class="image-slider">
-
-                    <img src="2025loggia1/img1.jpg" alt="Loggia 10" loading="lazy" data-caption="Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm">
-                    
-                    
-                </div>
-                </div>
-            </div>
-        </div>
-
-
-            <div class="list-container">
-        <div class="show-item">
-            <div class="main-info-group">
-                <div class="show-title-group">
-                    <div class="show-title">Surgical Room</div>
-                    <div class="show-location">CYLINDER TWO</div>
-                    <div class="show-date">2025. 5. 17 ~ 2025. 6. 15</div>
-                    <div class="show-location">24, Hangang-daero 48-gil, Yongsan-gu, Seoul, Korea</div>
-                </div>
-                
-                <div class="show-filed-under">
-                    <div class="filed-text">
-                        Group Exhibitions  2025
-                    </div>
-                    <div class="extra-text">
-                        Participating Artists<br>
-                        <span>Kolja Kärtner Sainz, Hyun Bhin Kwon, Jonghwan Lee, Heesu Choi, Lian Fu</span>
-                    
-                    </div> 
-                </div>
-                
-            </div>
-            <div class="show-images"> 
-                <div class="image-slider">
-
-                    <img src="2025loggia1/img1.jpg" alt="Loggia 10" loading="lazy" data-caption="Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm">
-                    
-                    
-                </div>
-                </div>
-            </div>
-        </div>
-
-
-    
-
-    <div id="image-modal">
-        <span class="close-btn">&times;</span>
-        <div class="modal-content-wrapper">
-            
-            <div class="modal-slide-container">
-                <div class="slideshow-content"></div> 
-                
-                <a class="prev">&#10094;</a>
-                <a class="next">&#10095;</a>
-            </div>
-
-            <div class="modal-caption"></div>
-        </div>
-    </div>
-
-    <script>
-        // 💡 자동 전환 슬라이드쇼 로직 (페이드 효과)
-        function startSlideshows() {
-            document.querySelectorAll('.image-slider').forEach(slider => {
-                const items = slider.querySelectorAll('img, video');
-                if (items.length <= 1) return;
-
-                let currentIndex = 0;
-                
-                // 초기 상태 설정: 첫 번째 요소만 보이게 설정
-                items.forEach((item, index) => {
-                    item.style.opacity = index === 0 ? 1 : 0;
-                    if (item.tagName === 'VIDEO' && index === 0) {
-                        item.play();
-                    } else if (item.tagName === 'VIDEO') {
-                        item.pause();
-                    }
-                });
-
-                // 전환 로직 (3초 간격)
-                setInterval(() => {
-                    // 현재 아이템 숨김 (페이드 아웃)
-                    items[currentIndex].style.opacity = 0;
-                    
-                    // 비디오 정지
-                    if (items[currentIndex].tagName === 'VIDEO') {
-                        items[currentIndex].pause();
-                    }
-                    
-                    // 다음 인덱스 계산 (무한 순환)
-                    currentIndex = (currentIndex + 1) % items.length;
-
-                    // 다음 아이템 보임 (페이드 인)
-                    items[currentIndex].style.opacity = 1;
-
-                    // 다음 비디오 재생
-                    if (items[currentIndex].tagName === 'VIDEO') {
-                        items[currentIndex].play();
-                    }
-                }, 3000); // 3초마다 전환
-            });
-        }
-
-
-        document.addEventListener('DOMContentLoaded', function() {
-            startSlideshows(); // 자동 슬라이드쇼 시작
-            
-            const showImagesElements = document.querySelectorAll('.show-images');
-            const modal = document.getElementById('image-modal');
-            const slideshowContent = modal.querySelector('.slideshow-content');
-            const modalCaption = modal.querySelector('.modal-caption');
-            const closeBtn = modal.querySelector('.close-btn');
-            const prevBtn = modal.querySelector('.prev');
-            const nextBtn = modal.querySelector('.next');
-            
-            let currentImageIndex = 0; 
-            let imageItems = []; 
-
-            // 이미지 전환 함수 (모달 내부)
-            function showSlide(n) {
-                if (imageItems.length === 0) return;
-
-                if (n >= imageItems.length) {
-                    currentImageIndex = 0;
-                } else if (n < 0) {
-                    currentImageIndex = imageItems.length - 1;
-                } else {
-                    currentImageIndex = n;
-                }
-
-                const slides = slideshowContent.querySelectorAll('.modal-image-item');
-                slides.forEach(slide => {
-                    slide.style.display = 'none';
-                    const video = slide.querySelector('video');
-                    if (video) {
-                        video.pause();
-                    }
-                });
-
-                if (slides[currentImageIndex]) {
-                    slides[currentImageIndex].style.display = 'flex'; // 이미지 중앙 정렬
-                    const item = imageItems[currentImageIndex]; 
-                    
-                    // 캡션 업데이트
-                    modalCaption.textContent = item.getAttribute('data-caption') || '';
-                    
-                    // 비디오 재생 시작
-                    const currentVideo = slides[currentImageIndex].querySelector('video');
-                    if (currentVideo) {
-                        currentVideo.play();
-                    }
-                }
-            }
-
-            function plusSlides(n) {
-                showSlide(currentImageIndex + n);
-            }
-
-            // 1. 이미지 슬라이더 클릭 이벤트 리스너
-            showImagesElements.forEach(function(showImages) {
-                showImages.addEventListener('click', function() {
-                    const imageSlider = showImages.querySelector('.image-slider');
-                    const allItems = imageSlider.querySelectorAll('img, video');
-                    
-                    imageItems = Array.from(allItems);
-                    
-                    slideshowContent.innerHTML = '';
-                    
-                    // 클릭 시점에 현재 보여지고 있는 이미지의 인덱스를 찾음
-                    let activeIndex = 0;
-                    allItems.forEach((item, index) => {
-                        const computedOpacity = parseFloat(window.getComputedStyle(item).opacity);
-                        if (computedOpacity > 0.9) { 
-                            activeIndex = index;
-                        }
-                    });
-
-                    currentImageIndex = activeIndex;
-
-
-                    // imageItems를 기반으로 모달 슬라이드 DOM 생성
-                    imageItems.forEach(function(item) {
-                        const slideWrapper = document.createElement('div');
-                        slideWrapper.className = 'modal-image-item';
-                        
-                        const clonedItem = item.cloneNode(true);
-                        
-                        if (clonedItem.tagName === 'VIDEO') {
-                            clonedItem.controls = true;
-                            clonedItem.muted = false; 
-                        }
-                        
-                        clonedItem.style.opacity = '1';
-                        clonedItem.style.animationName = 'none';
-                        clonedItem.style.animationDelay = '0s';
-                        
-                        slideWrapper.appendChild(clonedItem);
-                        slideshowContent.appendChild(slideWrapper);
-                    });
-
-                    modal.style.display = 'block';
-                    document.body.style.overflow = 'hidden'; 
-                    showSlide(currentImageIndex); // 클릭 시점에 보고 있던 이미지부터 시작
-                });
-            });
-
-            // 2. 닫기, 이전/다음 버튼 이벤트 리스너
-            closeBtn.addEventListener('click', function() {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-
-                slideshowContent.querySelectorAll('video').forEach(video => {
-                    video.pause();
-                    video.currentTime = 0;
-                });
-            });
-            
-            prevBtn.addEventListener('click', function() {
-                plusSlides(-1);
-            });
-            
-            nextBtn.addEventListener('click', function() {
-                plusSlides(1);
-            });
-
-            // 키보드 이벤트
-            document.addEventListener('keydown', function(event) {
-                if (modal.style.display === 'block') {
-                    if (event.key === 'Escape') {
-                        closeBtn.click();
-                    } else if (event.key === 'ArrowLeft') {
-                        plusSlides(-1);
-                    } else if (event.key === 'ArrowRight') {
-                        plusSlides(1);
-                    }
-                }
-            });
-        });
-    </script>
 </body>
 </html>
