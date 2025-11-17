@@ -28,43 +28,58 @@ body {
     list-style: none;
     display: flex;
     padding-left: 0;
+    /* 'information'과 'CV'를 왼쪽, 'Selected Work'를 오른쪽으로 정렬하기 위해 space-between 사용 */
+    justify-content: space-between; 
+    width: 100%; 
+    max-width: 500px; /* 네비게이션 항목 최대 너비 지정 */
+}
+.main-nav {
+    width: 50%; /* 오른쪽 패널 너비에 맞게 조정 */
+    margin-right: 20px; /* 오른쪽 패널 padding 만큼 조정 */
 }
 .main-nav li {
-    padding-left: 30px;
     cursor: pointer;
 }
+/* 'information'과 'CV'를 왼쪽 경계에 맞추기 위해 마진 제거 */
+.main-nav .left-align {
+    margin-right: 30px; 
+}
+/* 'Selected Work'를 오른쪽 경계에 맞추기 위해 마진 제거 */
+.main-nav .right-align {
+    margin-left: auto;
+}
+.main-nav .active {
+    border-bottom: 2px solid #000;
+}
 
-/* 2. 메인 콘텐츠 래퍼 (좌우 2단 레이아웃의 핵심) */
+
+/* 2. 메인 콘텐츠 래퍼 (좌우 50:50 레이아웃의 핵심) */
 .main-content-wrapper {
-    display: flex; /* ⭐ 좌우 분할 핵심 ⭐ */
+    display: flex; 
     flex: 1; 
     height: calc(100vh - 40px);
 }
 
 /* 3. 왼쪽 패널 (정보 및 인덱스) */
 .left-panel {
-    width: 40%; 
+    width: 50%; /* ⭐ 50%로 변경 ⭐ */
     padding: 20px;
     border-right: 1px solid #ccc; /* 세로 구분선 */
     overflow-y: auto;
 }
 
-/* 3-1. Information & Jonghwan Lee 정렬 */
-.info-cv-wrapper {
+/* 3-1. information 글 들여쓰기 */
+.cv-info {
     margin-bottom: 30px;
 }
-
-.info-header {
-    /* Information과 Jonghwan Lee를 flex로 한 줄에 배치 */
-    display: flex; 
-    justify-content: space-between; 
-    font-weight: bold;
-    margin-bottom: 15px;
+.indented-text {
+    /* 들여쓰기 적용: 원본 이미지의 텍스트 시작 위치에 맞추기 위해 패딩 또는 마진을 사용합니다. */
+    padding-left: 0; 
+    margin-left: 0; /* 기존 마진 초기화 */
 }
-
-.cv-description p {
-    font-size: 13px;
-    line-height: 1.4;
+/* 프로젝트 테이블의 'Client' 열과 텍스트를 정렬하기 위한 들여쓰기 */
+.cv-info .indented-text {
+    padding-left: 10px; /* 들여쓰기 효과 */
 }
 
 /* 3-2. 프로젝트 인덱스 테이블 스타일 (Grid 사용) */
@@ -85,39 +100,17 @@ body {
     font-weight: bold;
     border-bottom: 1px solid #000; /* 굵은 가로선 */
     margin-bottom: 5px;
-    position: relative;
-}
-
-/* CV 텍스트를 Year 열 위에 추가 (가상 요소 사용) */
-.table-row.header .year::before {
-    content: "CV"; /* Year 위에 "CV" 텍스트 삽입 */
-    position: absolute;
-    top: -20px; /* Year 열 위로 위치 조정 */
-    right: 0;
-    font-weight: bold;
-}
-
-.table-row.item:hover {
-    background-color: #f7f7f7;
-    cursor: pointer;
 }
 
 /* 4. 오른쪽 패널 (스크롤 가능한 영역의 핵심) */
 .right-panel {
-    width: 60%; 
+    width: 50%; /* ⭐ 50%로 변경 ⭐ */
     height: 100%; 
     overflow-y: scroll; /* ⭐ 세로 스크롤 활성화! ⭐ */
     padding: 20px;
 }
 
-/* 4-1. Works 텍스트 스타일 */
-.selected-work-header {
-    margin-bottom: 30px;
-    font-weight: bold;
-    text-transform: uppercase; /* 대문자로 표시 */
-}
-
-/* 4-2. 작업물 항목 스타일링 */
+/* 4-1. 작업물 항목 스타일링 */
 .work-item {
     margin-bottom: 50px;
     border: 1px solid #ddd;
