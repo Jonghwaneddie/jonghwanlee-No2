@@ -31,35 +31,101 @@
 
             <div class="project-table">
                 <div class="table-row header">
-                    <span class="client">Client</span>
-                    <span class="project">Project</span>
+                    <span class="exhibition">Exhibition</span>
+                    <span class="tilte">Title</span>
                     <span class="year">Year</span>
                 </div>
                 
-                <!-- 테이블 내용 -->
-                <div class="table-row item"><span class="client">SED_DO</span><span class="project">Ref. R/XTR-082</span><span class="year">2049</span></div>
-                <div class="table-row item"><span class="client">SED_DO</span><span class="project">Ref. R/PRT-017</span><span class="year">2048-9</span></div>
-                <div class="table-row item"><span class="client">SED_DO</span><span class="project">R/CXX-500</span><span class="year">2047</span></div>
-                <div class="table-row item"><span class="client">SED_DO</span><span class="project">Ref. X/QOR-809</span><span class="year">2042</span></div>
-                <div class="table-row item"><span class="client">SED_DO</span><span class="project">X/TSL-203</span><span class="year">2039</span></div>
-                <div class="table-row item"><span class="client">SED_DO</span><span class="project">V/TUR-444</span><span class="year">2033</span></div>
-                <div class="table-row item"><span class="client">SED_DO</span><span class="project">Ref. X/QOR-809</span><span class="year">2042</span></div>
-                <div class="table-row item"><span class="client">SED_DO</span><span class="project">X/TSL-203</span><span class="year">2039</span></div>
+                <!-- 테이블 내용 (Title에 data-project-id와 클릭 이벤트 추가) -->
+                <div class="table-row item">
+                    <span class="exhibition">Solo</span>
+                    <span class="tilte"><a href="#" data-project-id="R/XTR-082">Ref. R/XTR-082</a></span>
+                    <span class="year">2049</span>
+                </div>
+                <div class="table-row item">
+                    <span class="exhibition">Solo</span>
+                    <span class="tilte"><a href="#" data-project-id="R/PRT-017">Ref. R/PRT-017</a></span>
+                    <span class="year">2048-9</span>
+                </div>
+                <div class="table-row item">
+                    <span class="exhibition">Solo</span>
+                    <span class="tilte"><a href="#" data-project-id="R/CXX-500">R/CXX-500</a></span>
+                    <span class="year">2047</span>
+                </div>
+                <div class="table-row item">
+                    <span class="exhibition">Solo</span>
+                    <span class="tilte"><a href="#" data-project-id="X/QOR-809-1">Ref. X/QOR-809</a></span>
+                    <span class="year">2042</span>
+                </div>
+                <div class="table-row item">
+                    <span class="exhibition">Group</span>
+                    <span class="tilte"><a href="#" data-project-id="X/TSL-203-1">X/TSL-203</a></span>
+                    <span class="year">2039</span>
+                </div>
+                <div class="table-row item">
+                    <span class="exhibition">Group</span>
+                    <span class="tilte"><a href="#" data-project-id="V/TUR-444">V/TUR-444</a></span>
+                    <span class="year">2033</span>
+                </div>
+                <div class="table-row item">
+                    <span class="exhibition">Group</span>
+                    <span class="tilte"><a href="#" data-project-id="X/QOR-809-2">Ref. X/QOR-809</a></span>
+                    <span class="year">2042</span>
+                </div>
+                <div class="table-row item">
+                    <span class="exhibition">Group</span>
+                    <span class="tilte"><a href="#" data-project-id="X/TSL-203-2">X/TSL-203</a></span>
+                    <span class="year">2039</span>
+                </div>
             </div>
             
         </section>
 
         <section class="right-panel">
             <div class="selected-work-list">
-                <!-- 작업물 항목 (생략) -->
-                <article class="work-item"><div class="work-header"><span class="client">SED_DO</span><span class="ref">Ref. R/XTR-082</span><span class="year">2049</span></div><div class="work-visual">[Image Placeholder 1]</div></article>
-                <article class="work-item"><div class="work-header"><span class="client">SED_DO</span><span class="ref">Ref. R/PRT-017</span><span class="year">2048-9</span></div><div class="work-visual">[Image Placeholder 2]</div></article>
-                <article class="work-item"><div class="work-header"><span class="client">SED_DO</span><span class="ref">R/CXX-500</span><span class="year">2047</span></div><div class="work-visual">[Image Placeholder 3]</div></article>
-                <article class="work-item"><div class="work-header"><span class="client">SED_DO</span><span class="ref">Final Project Example</span><span class="year">2040</span></div><div class="work-visual">[Image Placeholder 5]</div></article>
+                <!-- 작업물 항목 (필터링을 위해 data-project-id 추가) -->
+                <article class="work-item" data-project-id="R/XTR-082"><div class="work-header"><span class="client">SED_DO</span><span class="ref">Ref. R/XTR-082</span><span class="year">2049</span></div><div class="work-visual">[Image Placeholder 1]</div></article>
+                <article class="work-item" data-project-id="R/PRT-017"><div class="work-header"><span class="client">SED_DO</span><span class="ref">Ref. R/PRT-017</span><span class="year">2048-9</span></div><div class="work-visual">[Image Placeholder 2]</div></article>
+                <article class="work-item" data-project-id="R/CXX-500"><div class="work-header"><span class="client">SED_DO</span><span class="ref">R/CXX-500</span><span class="year">2047</span></div><div class="work-visual">[Image Placeholder 3]</div></article>
+                <article class="work-item" data-project-id="X/QOR-809-1"><div class="work-header"><span class="client">SED_DO</span><span class="ref">Ref. X/QOR-809 (Solo)</span><span class="year">2042</span></div><div class="work-visual">[Image Placeholder 4]</div></article>
+                <article class="work-item" data-project-id="X/TSL-203-1"><div class="work-header"><span class="client">SED_DO</span><span class="ref">X/TSL-203 (Group)</span><span class="year">2039</span></div><div class="work-visual">[Image Placeholder 5]</div></article>
+                <article class="work-item" data-project-id="V/TUR-444"><div class="work-header"><span class="client">SED_DO</span><span class="ref">V/TUR-444</span><span class="year">2033</span></div><div class="work-visual">[Image Placeholder 6]</div></article>
+                <article class="work-item" data-project-id="X/QOR-809-2"><div class="work-header"><span class="client">SED_DO</span><span class="ref">Ref. X/QOR-809 (Group)</span><span class="year">2042</span></div><div class="work-visual">[Image Placeholder 7]</div></article>
+                <article class="work-item" data-project-id="X/TSL-203-2"><div class="work-header"><span class="client">SED_DO</span><span class="ref">X/TSL-203 (Group 2)</span><span class="year">2039</span></div><div class="work-visual">[Image Placeholder 8]</div></article>
             </div>
         </section>
 
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const projectLinks = document.querySelectorAll('.project-table .tilte a');
+            const workItems = document.querySelectorAll('.right-panel .work-item');
+
+            // 초기 상태: 모든 항목 보이기
+            workItems.forEach(item => item.classList.remove('hidden'));
+
+            projectLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault(); // 링크 이동 방지
+                    const projectId = event.currentTarget.dataset.projectId;
+
+                    // 모든 work item 숨기기
+                    workItems.forEach(item => {
+                        item.classList.add('hidden');
+                    });
+
+                    // 선택된 work item만 보이기
+                    const selectedItem = document.querySelector(`.work-item[data-project-id="${projectId}"]`);
+                    if (selectedItem) {
+                        selectedItem.classList.remove('hidden');
+                    }
+                    
+                    // 오른쪽 패널 최상단으로 스크롤 (필터링 후 내용 확인 용이)
+                    document.querySelector('.right-panel').scrollTop = 0;
+                });
+            });
+        });
+    </script>
 </body>
 </html>
