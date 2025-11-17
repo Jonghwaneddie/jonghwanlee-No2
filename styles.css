@@ -45,7 +45,7 @@ body {
 
 /* 2. Information: Project 열 위치 (약 150px 지점) */
 .top-info {
-    left: 170px; /* (20px padding) + (Client 열 약 150px) */
+    left: 270px; /* (20px padding) + (Client 열 약 150px) */
     
 }
 
