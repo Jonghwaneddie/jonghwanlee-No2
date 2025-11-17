@@ -4,7 +4,10 @@
     margin: 0;
     padding: 0;
 }
-
+a {
+    color: inherit; /* 부모 요소의 색상 (검정색)을 상속 */
+    text-decoration: none; /* 밑줄 제거 */
+}
 body {
     font-family: Pretendard, sans-serif;
     font-size: 13px;
