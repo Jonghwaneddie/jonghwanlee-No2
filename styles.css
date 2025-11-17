@@ -5,7 +5,7 @@
     padding: 0;
 }
 
-/* ⭐ 스크롤 고정 핵심 수정 ⭐ */
+/* ⭐ 스크롤 고정 핵심 ⭐ */
 html, body {
     height: 100%; /* 뷰포트 높이 전체 차지 */
 }
@@ -31,7 +31,7 @@ body {
     position: relative;
     padding: 10px 0;
     height: 40px; /* 고정 높이 */
-    flex-shrink: 0; /* 내용이 넘쳐도 줄어들지 않음 */
+    flex-shrink: 0;
 }
 
 /* 로고 위치 */
@@ -59,13 +59,13 @@ body {
 .main-content-wrapper {
     display: flex; 
     flex: 1; /* 남은 모든 수직 공간을 차지 */
-    overflow: hidden; /* 자식 패널에서 스크롤이 발생하도록 보장 */
+    overflow: hidden;
 }
 
 /* 3. 왼쪽 패널 (정보 및 인덱스) */
 .left-panel {
     width: 50%;
-    height: 100%; /* 부모(main-content-wrapper) 높이 상속 */
+    height: 100%;
     padding: 20px;
     overflow-y: auto; /* 내용이 길어지면 왼쪽 패널만 스크롤 */
 }
@@ -103,23 +103,31 @@ body {
 /* 4. 오른쪽 패널 (스크롤 가능한 영역) */
 .right-panel {
     width: 50%;
-    height: 100%; /* 부모(main-content-wrapper) 높이 상속 */
-    overflow-y: scroll; /* ⭐ 오른쪽 패널만 스크롤 ⭐ */
+    height: 100%;
+    overflow-y: scroll; /* 오른쪽 패널만 스크롤 */
     padding: 20px;
 }
 
 /* 작업물 항목 스타일링 */
 .work-item {
-    margin-bottom: 50px;
+    margin-bottom: 30px; /* 항목 간 간격 */
     padding: 15px;
 }
 
+/* ⭐ 작업물 헤더 (텍스트) 스타일 수정 ⭐ */
 .work-header {
-    display: flex;
-    justify-content: space-between;
+    /* 기존 flex 제거 */
+    display: block; 
+    text-align: center; /* 텍스트 중앙 정렬 */
     font-size: 14px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-top: 10px; /* 이미지와의 간격 */
+}
+
+/* ⭐ 헤더 내부의 텍스트 요소들을 세로로 쌓고 중앙 정렬 ⭐ */
+.work-header span {
+    display: block; 
+    line-height: 1.2;
 }
 
 .work-visual {
