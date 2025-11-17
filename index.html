@@ -106,6 +106,7 @@
         <div id="modal-image-container" class="modal-content">
             <!-- 이미지 내용이 여기에 삽입됩니다. --></div>
         <div id="next-btn" class="modal-nav-btn next-btn">&#10095;</div>
+        <div id="modal-caption" class="modal-caption"></div> <!-- ⭐ 캡션 영역 추가 ⭐ -->
     </div>
 
     <script>
@@ -121,6 +122,7 @@
             const modalClose = modal.querySelector('.modal-close');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
+            const modalCaption = document.getElementById('modal-caption'); // ⭐ 캡션 요소 참조 ⭐
 
             let currentModalIndex = 0;
             let currentModalProjectId = null;
@@ -136,10 +138,24 @@
                 const targetVisual = filteredWorkVisuals.find(v => 
                     v.dataset.index == index && v.dataset.projectId == projectId
                 );
+                
                 if (targetVisual) {
                     modalImageContainer.innerHTML = targetVisual.innerHTML;
                     currentModalIndex = parseInt(targetVisual.dataset.index);
                     currentModalProjectId = targetVisual.dataset.projectId;
+                    
+                    // 1. targetVisual이 속한 부모 work-item을 찾습니다.
+                    const correspondingWorkItem = targetVisual.closest('.work-item');
+                    
+                    // 2. 부모 work-item에서 work-header의 내용을 추출합니다.
+                    if (correspondingWorkItem) {
+                        const headerContent = correspondingWorkItem.querySelector('.work-header').innerHTML;
+                        // 캡션 영역에 내용을 삽입하고, 캡션 내에서 중앙 정렬을 위해 래핑합니다.
+                        modalCaption.innerHTML = `<div class="work-header">${headerContent}</div>`;
+                    } else {
+                        modalCaption.innerHTML = '';
+                    }
+
                 }
                 updateNavButtons();
             };
