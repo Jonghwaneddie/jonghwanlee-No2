@@ -33,7 +33,7 @@ body {
 /* 공통: 상단 텍스트 스타일 */
 .top-text {
     position: absolute;
-    font-weight: bold;
+    
     font-size: 14px;
     top: 10px; /* 로고와 같은 수직 위치 */
 }
