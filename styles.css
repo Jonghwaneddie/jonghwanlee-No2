@@ -23,7 +23,7 @@ body {
     color: #000;
     display: flex;
     flex-direction: column; /* 세로로 배치 */
-    overflow: hidden; /* 화면 전체 스크롤 방지 */
+    overflow: hidden; /* 화면 전체 스크롤 방지 (데스크톱) */
 }
 
 /* 1. 헤더 */
@@ -51,15 +51,15 @@ body {
 }
 
 .top-jhl { left: 20px; }
-.top-info { left: 180px; } 
-.top-cv { left: 510px; } 
+.top-info { left: 225px; } 
+.top-cv { left: 640px; } 
 .top-works { left: calc(40% + 20px); } /* 50% -> 40%로 변경하여 오른쪽 패널 시작점에 맞춤 */
 
 /* 2. 메인 콘텐츠 래퍼 (좌우 40:60 레이아웃) */
 .main-content-wrapper {
     display: flex; 
     flex: 1; /* 남은 모든 수직 공간을 차지 */
-    overflow: hidden;
+    overflow: hidden; /* 데스크톱에서 좌우 패널만 스크롤되도록 설정 */
 }
 
 /* 3. 왼쪽 패널 (정보 및 인덱스) */
@@ -234,8 +234,7 @@ body {
     text-align: center;
     font-size: 14px;
     padding: 10px;
-    
-        z-index: 1010; 
+    z-index: 1010; 
 }
 
 /* 캡션 내부의 work-header 스타일 재정의 */
@@ -255,4 +254,111 @@ body {
 /* JS 상호작용을 위한 숨김 클래스 */
 .work-item.hidden {
     display: none;
+}
+
+
+/* 6. 모바일 레이아웃 (최대 768px) */
+@media (max-width: 768px) {
+    /* 기본 스크롤 동작 복원 */
+    body {
+        overflow-y: visible; /* 전체 페이지 스크롤 허용 */
+        height: auto;
+    }
+    
+    /* 1. 헤더 재배치 및 간소화 */
+    .main-header {
+        height: auto;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    
+    /* 기존 absolute 포지션 제거 */
+    .top-text {
+        position: static;
+        font-size: 13px;
+    }
+    
+    /* 'Jonghwan Lee'를 왼쪽 상단에 배치 */
+    .top-jhl { order: 1; font-weight: bold; }
+    
+    /* 오른쪽 상단 링크들을 flex로 묶어서 배치 */
+    .main-header .top-links-mobile {
+        order: 2;
+        display: flex;
+        gap: 10px;
+    }
+
+    /* 'Works' 메뉴와 'Contact' 로고 숨김/재배치 */
+    .top-works, .main-header .logo { 
+        display: none; 
+    }
+    
+    /* Information, CV를 오른쪽 그룹으로 묶기 위해 임시 래퍼 사용 */
+    .top-info, .top-cv {
+        margin-left: 0;
+    }
+    
+    /* 2. 메인 콘텐츠를 수직으로 쌓기 */
+    .main-content-wrapper {
+        flex-direction: column;
+        overflow-y: visible; 
+        flex: none; /* 높이 유동적으로 변경 */
+        height: auto;
+    }
+
+    /* 3. 좌우 패널 너비 100%로 설정 및 스크롤 관리 해제 */
+    .left-panel, .right-panel {
+        width: 100%;
+        height: auto; 
+        overflow-y: visible; /* 스크롤 관리 해제 */
+        flex-shrink: 0;
+        padding: 20px;
+    }
+    
+    .right-panel {
+        padding-top: 0; /* 좌우 패널이 붙을 때 상단 패딩 제거 */
+        padding-bottom: 80px; /* 모바일 하단 여백 확보 */
+    }
+
+    /* 4. 정보 텍스트 들여쓰기 조정 */
+    .cv-info .deep-indent {
+        margin-left: 0; /* 들여쓰기 제거 */
+    }
+    
+    /* 5. 프로젝트 인덱스 테이블 숨김 */
+    .project-table {
+        display: none;
+    }
+    
+    /* 6. Work Header 스타일 조정 (왼쪽 정렬) */
+    .work-header {
+        justify-content: flex-start; 
+        font-size: 13px;
+        font-weight: normal; 
+        flex-wrap: wrap; 
+        text-align: left;
+    }
+    
+    .work-header span {
+        margin: 0 10px 0 0; 
+        line-height: 1.5;
+        white-space: normal; 
+    }
+    
+    /* 7. 모달 내비게이션 버튼 크기 조정 */
+    .modal-nav-btn {
+        font-size: 30px; 
+    }
+    
+    /* 8. 모달 캡션 조정 */
+    .modal-caption {
+        bottom: 10px;
+        padding: 5px 10px;
+    }
+    
+    .modal-caption .work-header {
+        justify-content: center; /* 모달 캡션은 중앙 정렬 유지 */
+    }
 }
