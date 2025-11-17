@@ -16,7 +16,7 @@ body {
 
 /* 1. 헤더/내비게이션 스타일링 및 정렬 */
 .main-header {
-    padding: 10px 0; /* 좌우 padding은 내부 요소에서 처리 */
+    padding: 10px 0;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -25,34 +25,49 @@ body {
 }
 
 .main-nav {
-    /* 내비게이션 전체를 오른쪽 패널 너비만큼 확보 */
-    width: 50%; 
-    margin-right: 0;
+    /* 왼쪽과 오른쪽 패널의 너비(50%)에 맞게 분할 */
+    width: 100%; 
+    max-width: calc(100% - 20px); /* 로고 패딩 제외 */
 }
 .main-nav ul {
     list-style: none;
-    display: flex;
+    display: grid;
+    /* Information, CV, Selected Work의 위치를 정확히 맞추기 위한 Grid 설정 */
+    /* 좌우 패널의 padding-left: 20px이 적용된 상태를 시뮬레이션 */
+    grid-template-columns: 
+        /* 왼쪽 패널 (50%) */
+        20px 
+        1fr /* Client 영역 */
+        2fr /* Project 영역 */
+        0.5fr /* Year/CV 영역 */
+        20px /* 왼쪽 패널의 padding-right */
+        
+        /* 오른쪽 패널 (50%) */
+        20px /* 오른쪽 패널의 padding-left */
+        1fr /* Selected Work 영역 */
+        20px; /* 오른쪽 패널의 padding-right */
     padding: 0;
-    height: 100%;
-    /* 내비게이션 항목들을 왼쪽(Information, CV)과 오른쪽(Selected Work)으로 분리 */
-    justify-content: flex-start; 
+    margin: 0;
+}
+.main-nav .logo {
+    padding-left: 20px;
 }
 
-/* 내비게이션 항목: 왼쪽 패널의 그리드 구조와 동기화 */
+.main-nav li {
+    cursor: pointer;
+    text-align: left;
+    white-space: nowrap;
+}
+
+/* 정렬 클래스 지정 */
 .main-nav .align-client {
-    /* Information: 왼쪽 패널 padding(20px) + Client 열 너비(약 20%)에 맞춰 마진 설정 */
-    margin-left: 20px; /* 왼쪽 패널의 padding-left와 일치 */
-    padding-right: 15px;
+    grid-column: 2; /* Information을 Client 열 시작점에 위치 */
 }
 .main-nav .align-year {
-    /* CV: Year 열 위치에 맞추기 위해 마진 조정 */
-    margin-left: auto; /* Client와 Year 사이에 공간 확보 */
-    margin-right: calc(50% - 20px); /* 50% 폭에서 padding을 뺀 값으로 위치 조정 */
+    grid-column: 4; /* CV를 Year 열 시작점에 위치 */
 }
-/* 2. Selected Work: 오른쪽 패널 시작 위치에 맞춤 */
 .main-nav .align-right {
-    margin-left: 0; 
-    margin-right: 20px; /* 오른쪽 패널의 padding-right와 일치 */
+    grid-column: 7; /* Selected Work을 오른쪽 패널 콘텐츠 시작점에 위치 */
 }
 
 .main-nav .active {
@@ -60,7 +75,7 @@ body {
 }
 
 
-/* 2. 메인 콘텐츠 래퍼 (좌우 50:50 레이아웃의 핵심) */
+/* 2. 메인 콘텐츠 래퍼 (좌우 50:50 레이아웃) */
 .main-content-wrapper {
     display: flex; 
     flex: 1; 
@@ -71,7 +86,7 @@ body {
 .left-panel {
     width: 50%; /* 50% */
     padding: 20px;
-    border-right: 1px solid #ccc; /* 세로 구분선 */
+    border-right: 1px solid #ccc; 
     overflow-y: auto;
 }
 
@@ -79,13 +94,14 @@ body {
     margin-bottom: 30px;
 }
 
-/* 3. information 글 들여쓰기: Project 열 시작 위치(Client 열 폭)까지 들여씁니다. */
-.cv-info .indented-text {
-    /* Project 열이 시작하는 위치(약 20% 지점)까지 마진을 줍니다. */
+/* 2. information 글을 더 깊게 들여쓰기 */
+.cv-info .deep-indent {
+    /* Client (1fr) + Project (2fr) 중 일부를 포함하는 위치까지 마진을 줍니다. */
+    /* 약 1fr + 1/3fr (총 3.5fr 중) 정도의 비율로 설정 */
+    margin-left: calc(1fr + 10%); /* 이 값은 table-row의 그리드 구조와 맞춰야 합니다. */
+    margin-left: 30%; /* 비율을 직접 계산하기 어려우므로, 30% 정도로 깊게 들여쓰기 */
     padding-left: 0;
-    margin-left: calc(20%); /* 대략적인 Client 열 너비에 맞춘 값 (20%는 1fr/4.5fr) */
 }
-
 
 /* 3-2. 프로젝트 인덱스 테이블 스타일 (Grid 사용) */
 .project-table {
@@ -94,7 +110,7 @@ body {
 
 .table-row {
     display: grid;
-    /* 열 너비 비율: Client(1fr) + Project(2fr) + Year(0.5fr) = 총 3.5fr. 비율로 약 28.5% 57% 14.2% */
+    /* Client(1fr) + Project(2fr) + Year(0.5fr) */
     grid-template-columns: 1fr 2fr 0.5fr; 
     padding: 5px 0;
     border-bottom: 1px solid #eee;
@@ -103,15 +119,15 @@ body {
 /* 테이블 헤더 스타일 */
 .table-row.header {
     font-weight: bold;
-    border-bottom: 1px solid #000; /* 굵은 가로선 */
+    border-bottom: 1px solid #000;
     margin-bottom: 5px;
 }
 
-/* 4. 오른쪽 패널 (스크롤 가능한 영역의 핵심) */
+/* 4. 오른쪽 패널 (스크롤 가능한 영역) */
 .right-panel {
     width: 50%; /* 50% */
     height: 100%; 
-    overflow-y: scroll; /* 세로 스크롤 활성화 */
+    overflow-y: scroll; 
     padding: 20px;
 }
 
