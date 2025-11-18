@@ -51,9 +51,9 @@ body {
 }
 
 .top-jhl { left: 20px; }
-.top-info { left: 225px; } 
-.top-note { left: 470px; } /* ⭐ Note 위치 추가 (Information과 CV 사이) ⭐ */
-.top-cv { left: 640px; } 
+.top-info { left: 180px; } /* ⭐ 수정됨: 225px -> 180px ⭐ */
+.top-note { left: 360px; } /* ⭐ 수정됨: 470px -> 360px ⭐ */
+.top-cv { left: 510px; } /* ⭐ 수정됨: 640px -> 510px ⭐ */
 .top-works { left: calc(40% + 20px); } /* 50% -> 40%로 변경하여 오른쪽 패널 시작점에 맞춤 */
 
 /* 2. 메인 콘텐츠 래퍼 (좌우 40:60 레이아웃) */
@@ -78,7 +78,7 @@ body {
 
 /* information 글 들여쓰기 */
 .cv-info .deep-indent {
-    margin-left: 205px;
+    margin-left: 160px; /* ⭐ 수정됨: 205px -> 160px ⭐ */
     padding-left: 0;
     line-height: 1.4;
     text-align: justify;
@@ -293,11 +293,11 @@ body {
 
     /* 'Works' 메뉴와 'Contact' 로고 숨김/재배치 */
     .top-works, .main-header .logo { 
-        display: none; 
+        display: none; /* 데스크톱용 로고 숨김 */
     }
     
     /* Information, Note, CV를 오른쪽 그룹으로 묶기 위해 임시 래퍼 사용 */
-    .top-info, .top-note, .top-cv { 
+    .top-info, .top-note, .top-cv, .top-contact { /* Contact 포함 */
         margin-left: 0;
     }
     
@@ -317,7 +317,7 @@ body {
         overflow-y: visible; /* 스크롤 관리 해제 */
         flex-shrink: 0;
         padding: 20px;
-        /* ⭐ left-panel을 Flex 컨테이너로 만들어 내부 요소 순서 조정 ⭐ */
+        /* left-panel을 Flex 컨테이너로 만들어 내부 요소 순서 조정 */
         display: flex;
         flex-direction: column;
     }
@@ -335,7 +335,7 @@ body {
 
     /* 4. 정보 텍스트 조정 */
     .cv-info {
-        order: 1; /* ⭐ 텍스트가 테이블보다 먼저 나오도록 설정 ⭐ */
+        order: 1; /* 텍스트가 테이블보다 먼저 나오도록 설정 */
         margin-top: 0; /* 불필요한 마진 제거 */
         margin-bottom: 30px; /* 하단 마진 유지 */
     }
@@ -347,7 +347,7 @@ body {
     /* 5. 프로젝트 인덱스 테이블 표시 및 순서 설정 */
     .project-table {
         display: grid; /* 숨김 해제 (기존 Grid 레이아웃 사용) */
-        order: 2; /* ⭐ 테이블이 텍스트 뒤에 나오도록 설정 ⭐ */
+        order: 2; /* 테이블이 텍스트 뒤에 나오도록 설정 */
         margin-top: 0; /* 기존 마진 제거 */
         margin-bottom: 20px; /* 아래쪽 간격 추가 */
     }
@@ -382,7 +382,7 @@ body {
         justify-content: center; /* 모달 캡션은 중앙 정렬 유지 */
     }
 
-    /* ⭐ 8-1. 모바일 모달 캡션 텍스트 줄바꿈 방지 추가 ⭐ */
+    /* 모바일 모달 캡션 텍스트 줄바꿈 방지 유지 */
     .modal-caption .work-header span {
         white-space: nowrap;
     }
