@@ -51,24 +51,24 @@ body {
 }
 
 .top-jhl { left: 20px; }
-.top-info { left: 180px; } /* ⭐ 수정됨: 225px -> 180px ⭐ */
-.top-note { left: 360px; } /* ⭐ 수정됨: 470px -> 360px ⭐ */
-.top-cv { left: 510px; } /* ⭐ 수정됨: 640px -> 510px ⭐ */
-.top-works { left: calc(40% + 20px); } /* 50% -> 40%로 변경하여 오른쪽 패널 시작점에 맞춤 */
+.top-info { left: 180px; } 
+.top-note { left: 360px; } 
+.top-cv { left: 510px; } 
+.top-works { left: calc(40% + 20px); } 
 
 /* 2. 메인 콘텐츠 래퍼 (좌우 40:60 레이아웃) */
 .main-content-wrapper {
     display: flex; 
-    flex: 1; /* 남은 모든 수직 공간을 차지 */
-    overflow: hidden; /* 데스크톱에서 좌우 패널만 스크롤되도록 설정 */
+    flex: 1; 
+    overflow: hidden; 
 }
 
 /* 3. 왼쪽 패널 (정보 및 인덱스) */
 .left-panel {
-    width: 40%; /* 50% -> 40%로 변경 */
+    width: 40%; 
     height: 100%;
     padding: 20px;
-    overflow-y: auto; /* 내용이 길어지면 왼쪽 패널만 스크롤 */
+    overflow-y: auto; 
 }
 
 .cv-info {
@@ -78,7 +78,7 @@ body {
 
 /* information 글 들여쓰기 */
 .cv-info .deep-indent {
-    margin-left: 160px; /* ⭐ 수정됨: 205px -> 160px ⭐ */
+    margin-left: 160px; 
     padding-left: 0;
     line-height: 1.4;
     text-align: justify;
@@ -103,34 +103,46 @@ body {
 
 /* 4. 오른쪽 패널 (스크롤 가능한 영역) */
 .right-panel {
-    width: 60%; /* 50% -> 60%로 변경 */
+    width: 60%; 
     height: 100%;
-    overflow-y: scroll; /* 오른쪽 패널만 스크롤 */
+    overflow-y: scroll; 
     padding: 20px;
 }
 
+/* ⭐ 첫 번째 작업물 위에 들어갈 텍스트 스타일 (왼쪽 정렬) ⭐ */
+.work-intro-text {
+    text-align: left; 
+    font-size: 14px;
+    font-weight: bold; /* 상단 텍스트는 굵게 유지 */
+    margin-bottom: 30px; 
+    padding-top: 5px; 
+    padding-left: 15px; 
+}
+
+
 /* 작업물 항목 스타일링 */
 .work-item {
-    margin-bottom: 30px; /* 항목 간 간격 */
+    margin-bottom: 30px; 
     padding: 15px;
 }
 
 /* 작업물 헤더 (텍스트): 한 줄 중앙 정렬 */
 .work-header {
-    display: flex; /* 한 줄로 나열 */
-    justify-content: center; /* 중앙 정렬 */
+    display: flex; 
+    justify-content: center; 
     font-size: 14px;
-    font-weight: bold;
-    margin-top: 10px; /* 이미지와의 간격 */
-    flex-wrap: nowrap; /* 줄바꿈 방지 */
+    /* ⭐ 변경: Bold 체 제거 ⭐ */
+    font-weight: normal; 
+    margin-top: 10px; 
+    flex-wrap: nowrap; 
 }
 
 /* 헤더 내부의 텍스트 요소들: 한 줄 유지 및 간격 부여 */
 .work-header span {
     display: inline; 
-    margin: 0 5px; /* 항목 사이에 간격 추가 */
+    margin: 0 5px; 
     line-height: 1.2;
-    white-space: nowrap; /* 내부 텍스트 줄바꿈 방지 */
+    white-space: nowrap; 
 }
 
 .work-visual {
@@ -141,7 +153,7 @@ body {
     align-items: center;
     color: #bbb;
     font-style: italic;
-    cursor: pointer; /* 클릭 가능 시각적 표시 */
+    cursor: pointer; 
 }
 
 
@@ -153,7 +165,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* ⭐ 반투명 배경 ⭐ */
+    background-color: rgba(0, 0, 0, 0.7); 
     display: none; 
     justify-content: center;
     align-items: center;
@@ -164,7 +176,7 @@ body {
     display: flex;
 }
 
-#modal-image-container { /* id로 변경하여 더 명확하게 타겟팅 */
+#modal-image-container { 
     max-width: 80%; 
     max-height: 80%; 
     display: flex;
@@ -207,7 +219,7 @@ body {
     font-weight: bold;
     cursor: pointer;
     padding: 10px;
-    user-select: none; /* 텍스트 드래그 방지 */
+    user-select: none; 
     opacity: 0.6;
     transition: opacity 0.2s;
 }
@@ -227,10 +239,10 @@ body {
 /* ⭐ 모달 캡션/푸터 스타일 ⭐ */
 .modal-caption {
     position: absolute;
-    bottom: 20px; /* 화면 하단에서 띄우기 */
+    bottom: 20px; 
     left: 50%; 
     transform: translateX(-50%); 
-    max-width: 80%; /* 이미지 컨테이너와 동일한 너비 제한 */
+    max-width: 80%; 
     color: white; 
     text-align: center;
     font-size: 14px;
@@ -243,12 +255,13 @@ body {
     display: flex; 
     justify-content: center;
     font-size: 14px;
-    font-weight: bold;
+    /* ⭐ 변경: Bold 체 제거 ⭐ */
+    font-weight: normal;
     margin: 0; 
     flex-wrap: nowrap; 
 }
 .modal-caption .work-header span {
-    margin: 0 10px; /* 간격 확보 */
+    margin: 0 10px; 
 }
 
 
@@ -262,7 +275,7 @@ body {
 @media (max-width: 768px) {
     /* 기본 스크롤 동작 복원 */
     body {
-        overflow-y: visible; /* 전체 페이지 스크롤 허용 */
+        overflow-y: visible; 
         height: auto;
     }
     
@@ -293,11 +306,11 @@ body {
 
     /* 'Works' 메뉴와 'Contact' 로고 숨김/재배치 */
     .top-works, .main-header .logo { 
-        display: none; /* 데스크톱용 로고 숨김 */
+        display: none; 
     }
     
     /* Information, Note, CV를 오른쪽 그룹으로 묶기 위해 임시 래퍼 사용 */
-    .top-info, .top-note, .top-cv, .top-contact { /* Contact 포함 */
+    .top-info, .top-note, .top-cv, .top-contact { 
         margin-left: 0;
     }
     
@@ -305,51 +318,57 @@ body {
     .main-content-wrapper {
         flex-direction: column;
         overflow-y: visible; 
-        flex: none; /* 높이 유동적으로 변경 */
+        flex: none; 
         height: auto;
     }
 
     /* 3. 좌우 패널 너비 100%로 설정 및 순서 명시 */
     .left-panel {
-        order: 1; /* 정보 패널이 먼저 나오도록 명시적으로 설정 */
+        order: 1; 
         width: 100%;
         height: auto; 
-        overflow-y: visible; /* 스크롤 관리 해제 */
+        overflow-y: visible; 
         flex-shrink: 0;
         padding: 20px;
-        /* left-panel을 Flex 컨테이너로 만들어 내부 요소 순서 조정 */
         display: flex;
         flex-direction: column;
     }
     
     .right-panel {
-        order: 2; /* 작업물 패널이 나중에 나오도록 명시적으로 설정 */
+        order: 2; 
         width: 100%;
         height: auto; 
-        overflow-y: visible; /* 스크롤 관리 해제 */
+        overflow-y: visible; 
         flex-shrink: 0;
         padding: 20px;
-        padding-top: 0; /* 좌우 패널이 붙을 때 상단 패딩 제거 */
-        padding-bottom: 80px; /* 모바일 하단 여백 확보 */
+        padding-top: 0; 
+        padding-bottom: 80px; 
     }
 
     /* 4. 정보 텍스트 조정 */
     .cv-info {
-        order: 1; /* 텍스트가 테이블보다 먼저 나오도록 설정 */
-        margin-top: 0; /* 불필요한 마진 제거 */
-        margin-bottom: 30px; /* 하단 마진 유지 */
+        order: 1; 
+        margin-top: 0; 
+        margin-bottom: 30px; 
     }
 
     .cv-info .deep-indent {
-        margin-left: 0; /* 들여쓰기 제거 */
+        margin-left: 0; 
     }
     
     /* 5. 프로젝트 인덱스 테이블 표시 및 순서 설정 */
     .project-table {
-        display: grid; /* 숨김 해제 (기존 Grid 레이아웃 사용) */
-        order: 2; /* 테이블이 텍스트 뒤에 나오도록 설정 */
-        margin-top: 0; /* 기존 마진 제거 */
-        margin-bottom: 20px; /* 아래쪽 간격 추가 */
+        display: grid; 
+        order: 2; 
+        margin-top: 0; 
+        margin-bottom: 20px; 
+    }
+    
+    /* ⭐ 모바일 텍스트 조정 (왼쪽 정렬 유지) ⭐ */
+    .work-intro-text {
+        text-align: left; 
+        margin-bottom: 20px; 
+        padding-left: 15px; 
     }
 
     /* 6. Work Header 스타일 조정 (왼쪽 정렬) */
@@ -379,7 +398,7 @@ body {
     }
     
     .modal-caption .work-header {
-        justify-content: center; /* 모달 캡션은 중앙 정렬 유지 */
+        justify-content: center; 
     }
 
     /* 모바일 모달 캡션 텍스트 줄바꿈 방지 유지 */
