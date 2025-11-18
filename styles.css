@@ -335,7 +335,7 @@ body {
 
     /* 4. 정보 텍스트 조정 */
     .cv-info {
-        order: 2; /* ⭐ 텍스트는 테이블 뒤로 ⭐ */
+        order: 1; /* ⭐ 텍스트가 테이블보다 먼저 나오도록 설정 ⭐ */
         margin-top: 0; /* 불필요한 마진 제거 */
         margin-bottom: 30px; /* 하단 마진 유지 */
     }
@@ -346,8 +346,8 @@ body {
     
     /* 5. 프로젝트 인덱스 테이블 표시 및 순서 설정 */
     .project-table {
-        display: grid; /* ⭐ 숨김 해제 (기존 Grid 레이아웃 사용) ⭐ */
-        order: 1; /* ⭐ 테이블이 텍스트보다 먼저 나오도록 설정 ⭐ */
+        display: grid; /* 숨김 해제 (기존 Grid 레이아웃 사용) */
+        order: 2; /* ⭐ 테이블이 텍스트 뒤에 나오도록 설정 ⭐ */
         margin-top: 0; /* 기존 마진 제거 */
         margin-bottom: 20px; /* 아래쪽 간격 추가 */
     }
