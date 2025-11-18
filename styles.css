@@ -51,9 +51,9 @@ body {
 }
 
 .top-jhl { left: 20px; }
-.top-info { left: 180px; } 
-.top-note { left: 360px; } /* ⭐ Note 위치 추가 (Information과 CV 사이) ⭐ */
-.top-cv { left: 510px; } 
+.top-info { left: 225px; } 
+.top-note { left: 470px; } /* ⭐ Note 위치 추가 (Information과 CV 사이) ⭐ */
+.top-cv { left: 640px; } 
 .top-works { left: calc(40% + 20px); } /* 50% -> 40%로 변경하여 오른쪽 패널 시작점에 맞춤 */
 
 /* 2. 메인 콘텐츠 래퍼 (좌우 40:60 레이아웃) */
@@ -78,7 +78,7 @@ body {
 
 /* information 글 들여쓰기 */
 .cv-info .deep-indent {
-    margin-left: 160px;
+    margin-left: 205px;
     padding-left: 0;
     line-height: 1.4;
     text-align: justify;
@@ -297,7 +297,7 @@ body {
     }
     
     /* Information, Note, CV를 오른쪽 그룹으로 묶기 위해 임시 래퍼 사용 */
-    .top-info, .top-note, .top-cv { /* ⭐ Note 클래스 추가 ⭐ */
+    .top-info, .top-note, .top-cv { 
         margin-left: 0;
     }
     
@@ -309,8 +309,9 @@ body {
         height: auto;
     }
 
-    /* 3. 좌우 패널 너비 100%로 설정 및 스크롤 관리 해제 */
-    .left-panel, .right-panel {
+    /* 3. 좌우 패널 너비 100%로 설정 및 순서 명시 */
+    .left-panel {
+        order: 1; /* ⭐ 정보 패널이 먼저 나오도록 명시적으로 설정 ⭐ */
         width: 100%;
         height: auto; 
         overflow-y: visible; /* 스크롤 관리 해제 */
@@ -319,6 +320,12 @@ body {
     }
     
     .right-panel {
+        order: 2; /* ⭐ 작업물 패널이 나중에 나오도록 명시적으로 설정 ⭐ */
+        width: 100%;
+        height: auto; 
+        overflow-y: visible; /* 스크롤 관리 해제 */
+        flex-shrink: 0;
+        padding: 20px;
         padding-top: 0; /* 좌우 패널이 붙을 때 상단 패딩 제거 */
         padding-bottom: 80px; /* 모바일 하단 여백 확보 */
     }
