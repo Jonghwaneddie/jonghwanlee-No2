@@ -83,6 +83,8 @@
 
         <section class="right-panel">
             <div class="selected-work-list">
+                <!-- ⭐ 동적으로 변경될 텍스트 ⭐ -->
+                <div class="work-intro-text">SELECTED WORKS (2033 - 2049)</div>
                 <!-- 작업물 목록 (work-item) --><article class="work-item" data-project-id="xtr-082"><div class="work-visual">[Image Placeholder 1]</div><div class="work-header"><span class="client">SED_DO</span><span class="ref">Ref. R/XTR-082 (Visual 1/3)</span><span class="year">2049</span></div></article>
                 <article class="work-item" data-project-id="xtr-082"><div class="work-visual">[Image Placeholder 2]</div><div class="work-header"><span class="client">SED_DO</span><span class="ref">Ref. R/XTR-082 (Visual 2/3)</span><span class="year">2049</span></div></article>
                 <article class="work-item" data-project-id="xtr-082"><div class="work-visual">[Image Placeholder 3]</div><div class="work-header"><span class="client">SED_DO</span><span class="ref">Ref. R/XTR-082 (Visual 3/3)</span><span class="year">2049</span></div></article>
@@ -120,6 +122,8 @@
             const workItems = document.querySelectorAll('.right-panel .work-item');
             const workVisuals = document.querySelectorAll('.work-visual'); 
             const jhlReset = document.getElementById('jhl-reset');
+            const workIntroText = document.querySelector('.work-intro-text'); // ⭐ 추가: 텍스트 요소 참조 ⭐
+
             let activeFilterId = null; 
             
             const modal = document.getElementById('fullscreen-modal');
@@ -127,15 +131,15 @@
             const modalClose = modal.querySelector('.modal-close');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
-            const modalCaption = document.getElementById('modal-caption'); // ⭐ 캡션 요소 참조 ⭐
+            const modalCaption = document.getElementById('modal-caption'); 
 
             let currentModalIndex = 0;
             let currentModalProjectId = null;
-            let filteredWorkVisuals = []; // 현재 필터링된 이미지 목록
+            let filteredWorkVisuals = []; 
 
             // 각 work-visual에 data-index와 data-project-id 할당
             workVisuals.forEach((visual, index) => {
-                visual.dataset.index = index; // 전체 이미지 중 순서
+                visual.dataset.index = index; 
                 visual.dataset.projectId = visual.closest('.work-item').dataset.projectId;
             });
 
@@ -149,13 +153,10 @@
                     currentModalIndex = parseInt(targetVisual.dataset.index);
                     currentModalProjectId = targetVisual.dataset.projectId;
                     
-                    // 1. targetVisual이 속한 부모 work-item을 찾습니다.
                     const correspondingWorkItem = targetVisual.closest('.work-item');
                     
-                    // 2. 부모 work-item에서 work-header의 내용을 추출합니다.
                     if (correspondingWorkItem) {
                         const headerContent = correspondingWorkItem.querySelector('.work-header').innerHTML;
-                        // 캡션 영역에 내용을 삽입하고, 캡션 내에서 중앙 정렬을 위해 래핑합니다.
                         modalCaption.innerHTML = `<div class="work-header">${headerContent}</div>`;
                     } else {
                         modalCaption.innerHTML = '';
@@ -166,7 +167,6 @@
             };
 
             const updateNavButtons = () => {
-                // 현재 프로젝트 ID로 필터링된 이미지들
                 const projectImages = filteredWorkVisuals.filter(v => v.dataset.projectId === currentModalProjectId);
                 const currentIndexInProject = projectImages.findIndex(v => parseInt(v.dataset.index) === currentModalIndex);
                 
@@ -189,17 +189,20 @@
                 activeFilterId = null;
                 document.querySelector('.right-panel').scrollTop = 0;
                 
-                // 모든 workVisuals를 필터링된 목록으로 설정
+                // ⭐ 텍스트 초기화 및 표시 ⭐
+                workIntroText.textContent = 'SELECTED WORKS (2033 - 2049)';
+                
                 filteredWorkVisuals = Array.from(workVisuals);
-                updateNavButtons(); // 필터 초기화 시 버튼 상태 업데이트
+                updateNavButtons(); 
             };
 
-            resetFilter(); // 초기 상태: 모든 항목 보이기
+            resetFilter(); 
 
             projectLinks.forEach(link => {
                 link.addEventListener('click', (event) => {
                     event.preventDefault(); 
                     const projectId = event.currentTarget.dataset.projectId;
+                    const projectTitle = event.currentTarget.textContent; // ⭐ 추가: 클릭된 링크 텍스트 가져오기 ⭐
 
                     if (projectId === activeFilterId) {
                         resetFilter();
@@ -215,7 +218,9 @@
                         
                         activeFilterId = projectId;
                         
-                        // 현재 프로젝트 ID에 해당하는 workVisuals만 필터링된 목록으로 설정
+                        // ⭐ 텍스트 내용 업데이트 ⭐
+                        workIntroText.textContent = projectTitle.trim().toUpperCase();
+                        
                         filteredWorkVisuals = Array.from(workVisuals).filter(visual => 
                             visual.closest('.work-item').dataset.projectId === projectId
                         );
