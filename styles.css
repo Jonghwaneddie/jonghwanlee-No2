@@ -34,13 +34,14 @@ body {
     flex-shrink: 0;
 }
 
-/* 로고 위치 */
+/* ⭐ 제거됨: 로고 위치 (Contact 링크) ⭐
 .main-header .logo {
     position: absolute;
     top: 10px;
     right: 20px;
     font-size: 12px;
 }
+*/
 
 /* 공통: 상단 텍스트 스타일 */
 .top-text {
@@ -113,7 +114,6 @@ body {
 .work-intro-text {
     text-align: left; 
     font-size: 14px;
-    /* ⭐ 변경: Bold 체 제거 ⭐ */
     font-weight: normal; 
     margin-bottom: 30px; 
     padding-top: 5px; 
@@ -285,7 +285,7 @@ body {
         height: auto;
         padding: 10px 20px;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-between; /* Jonghwan Lee와 Contact 분리 */
         align-items: flex-start;
     }
     
@@ -296,7 +296,10 @@ body {
     }
     
     /* 'Jonghwan Lee'를 왼쪽 상단에 배치 */
-    .top-jhl { order: 1; font-weight: bold; }
+    .top-jhl { 
+        order: 1; 
+        font-weight: bold; 
+    }
     
     /* 오른쪽 상단 링크들을 flex로 묶어서 배치 */
     .main-header .top-links-mobile {
@@ -305,14 +308,21 @@ body {
         gap: 10px;
     }
 
-    /* 'Works' 메뉴와 'Contact' 로고 숨김/재배치 */
+    /* 'Works' 메뉴와 삭제된 'Contact' 로고 숨김 처리 */
     .top-works, .main-header .logo { 
         display: none; 
     }
     
-    /* Information, Note, CV를 오른쪽 그룹으로 묶기 위해 임시 래퍼 사용 */
-    .top-info, .top-note, .top-cv, .top-contact { 
-        margin-left: 0;
+    /* ⭐ 모바일에서 Information, Note, CV 숨기기 ⭐ */
+    .top-info, .top-note, .top-cv {
+        display: none;
+    }
+    
+    /* ⭐ Contact는 보이게 유지하고 오른쪽에 배치 ⭐ */
+    .top-contact {
+        display: block; 
+        font-weight: bold; /* 돋보이게 */
+        margin-left: 0; /* 불필요한 마진 제거 */
     }
     
     /* 2. 메인 콘텐츠를 수직으로 쌓기 */
