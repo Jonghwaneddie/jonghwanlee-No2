@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -10,11 +10,12 @@
 <body>
 
     <header class="main-header">
-        <!-- Contact 링크 --><div class="logo"><a href="/contact">Contact</a></div>
+        <!-- Contact 링크 (데스크톱에서만 절대 위치로 표시됨) --><div class="logo"><a href="/contact">Contact</a></div>
         
         <!-- 상단 메뉴 --><div class="top-text top-jhl" id="jhl-reset"><a href="#">Jonghwan Lee</a></div>
-        <!-- 모바일에서 오른쪽 상단 링크들을 묶기 위한 래퍼 (데스크톱에서는 CSS로 무시됨) -->
+        <!-- 모바일에서 오른쪽 상단 링크들을 묶기 위한 래퍼 -->
         <div class="top-links-mobile"> 
+            <!-- ⭐ Contact 링크 추가 (모바일에서 표시됨) ⭐ --><div class="top-text top-contact"><a href="/contact">Contact</a></div>
             <div class="top-text top-info">Information</div>
             <!-- ⭐ Note 링크 추가 ⭐ --><div class="top-text top-note"><a href="/note">Note</a></div>
             <div class="top-text top-cv"><a href="/cv">CV</a></div>
