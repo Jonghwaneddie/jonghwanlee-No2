@@ -381,4 +381,9 @@ body {
     .modal-caption .work-header {
         justify-content: center; /* 모달 캡션은 중앙 정렬 유지 */
     }
+
+    /* ⭐ 8-1. 모바일 모달 캡션 텍스트 줄바꿈 방지 추가 ⭐ */
+    .modal-caption .work-header span {
+        white-space: nowrap;
+    }
 }
