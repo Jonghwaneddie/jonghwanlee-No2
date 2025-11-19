@@ -3,21 +3,354 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cargo Demo Site Index</title>
-    <link rel="stylesheet" href="styles.css"> 
-    <!-- Pretendard 폰트 로드 --><link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+    <title>Jonghwan Lee Portfolio</title>
+    <!-- Pretendard 폰트 로드 -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+    <style>
+        /* 기본 스타일 및 폰트 설정 */
+        :root {
+            --main-font: 'Pretendard', sans-serif;
+            --text-color: #000000;
+            --background-color: #f7f7f7;
+            --line-color: #cccccc;
+        }
+
+        body {
+            font-family: var(--main-font);
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            font-size: 15px; /* 기본 폰트 크기 조정 */
+        }
+
+        a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: #777777; /* 호버 시 색상 변경 */
+        }
+
+        /* 헤더 스타일 */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 20px 30px;
+            border-bottom: 1px solid var(--line-color);
+            position: sticky;
+            top: 0;
+            background-color: var(--background-color);
+            z-index: 1000;
+        }
+        
+        /* 상단 텍스트 요소들 */
+        .top-text {
+            padding: 0 10px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        
+        .top-jhl {
+            font-weight: bold;
+            font-size: 1.2em;
+            padding-left: 0;
+        }
+
+        .top-links-mobile {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* 메인 컨텐츠 래퍼 */
+        .main-content-wrapper {
+            display: flex;
+            flex-direction: row;
+            min-height: calc(100vh - 61px); /* 헤더 높이를 뺀 나머지 높이 */
+        }
+
+        .left-panel, .right-panel {
+            padding: 30px;
+        }
+
+        .left-panel {
+            flex: 0 0 350px; /* 데스크톱에서 고정 폭 */
+            border-right: 1px solid var(--line-color);
+            overflow-y: auto;
+        }
+
+        .right-panel {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        /* CV 정보 영역 */
+        .cv-info {
+            margin-bottom: 30px;
+            font-size: 0.9em;
+        }
+        
+        .indented-text {
+            text-indent: 1.5em;
+        }
+        
+        .deep-indent {
+            text-indent: 3em;
+        }
+
+        /* 프로젝트 테이블 스타일 */
+        .project-table {
+            display: grid;
+            grid-template-columns: 80px 1fr 60px; /* Exhibition, Title, Year */
+            font-size: 0.9em;
+        }
+
+        .table-row {
+            display: contents;
+        }
+
+        .table-row span {
+            padding: 4px 5px;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .table-row.header span {
+            font-weight: bold;
+            border-bottom: 1px solid var(--text-color);
+            padding-bottom: 8px;
+            margin-bottom: 5px;
+        }
+
+        .table-row.item .tilte a {
+            cursor: pointer;
+        }
+
+        /* 오른쪽 패널 - 선택된 작업물 목록 */
+        .selected-work-list {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* 작업 소개 텍스트 */
+        .work-intro-text {
+            font-size: 2.2em; /* 텍스트 크기 키우기 */
+            line-height: 1.2;
+            margin-bottom: 20px;
+            white-space: pre-wrap; /* <br> 태그를 위한 설정 */
+        }
+        
+        /* 개별 작업물 스타일 */
+        .work-item {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .work-item.hidden {
+            display: none;
+        }
+
+        .work-visual {
+            background-color: #e0e0e0;
+            aspect-ratio: 4/3; /* 이미지 비율 유지 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-style: italic;
+            cursor: zoom-in;
+            font-size: 0.9em;
+        }
+
+        /* ⭐ [수정됨] 작업물 헤더 (텍스트): 왼쪽 정렬 및 한 줄 강제 ⭐ */
+        .work-header {
+            display: flex; 
+            justify-content: flex-start; /* 왼쪽 정렬 */
+            font-size: 0.8em;
+            font-weight: normal; 
+            flex-wrap: nowrap; /* 줄 바꿈 방지 */
+            text-align: left;
+        }
+
+        .work-header span {
+            display: inline; 
+            margin: 0 5px 0 0; /* 우측에만 작은 여백을 주어 연속적으로 보이게 함 */
+            line-height: 1.2;
+            white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+        }
+        
+        /* 모바일 반응형 설정 */
+        @media (max-width: 768px) {
+            .main-header {
+                flex-direction: column;
+                align-items: center;
+                padding: 15px 20px;
+            }
+            
+            .top-jhl {
+                margin-bottom: 15px;
+                padding: 0;
+            }
+
+            .top-links-mobile {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .top-text {
+                font-size: 0.9em;
+            }
+
+            .main-content-wrapper {
+                flex-direction: column;
+            }
+
+            .left-panel {
+                flex: none;
+                width: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--line-color);
+            }
+            
+            .left-panel, .right-panel {
+                padding: 20px;
+            }
+            
+            .work-intro-text {
+                font-size: 1.8em;
+            }
+            
+            .work-header {
+                justify-content: flex-start; 
+                font-size: 0.9em;
+            }
+        }
+        
+        /* 전체 화면 모달 (Lightbox) 스타일 */
+        .fullscreen-modal {
+            display: none; 
+            position: fixed; 
+            z-index: 2000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.95); 
+        }
+
+        .fullscreen-modal.show {
+            display: block;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            /* 실제 이미지 대신 Placeholder 텍스트 중앙 정렬 */
+            text-align: center;
+            color: white;
+            padding: 5px;
+        }
+        
+        .modal-content > div {
+             /* Placeholder가 컨테이너 역할을 하도록 스타일링 */
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+        }
+
+        .modal-caption {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 0.8em;
+            width: 90%;
+            text-align: center;
+        }
+        
+        .modal-caption .work-header {
+            border: 1px solid rgba(255,255,255,0.3);
+            background-color: rgba(0,0,0,0.5);
+            padding: 8px 15px;
+            border-radius: 4px;
+            /* 모달 캡션 내부 헤더는 중앙 정렬 */
+            justify-content: center; 
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .modal-close:hover,
+        .modal-close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .modal-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            padding: 16px;
+            transition: 0.6s ease;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .prev-btn {
+            left: 15px;
+        }
+
+        .next-btn {
+            right: 15px;
+        }
+
+        .modal-nav-btn:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+    </style>
 </head>
 <body>
 
     <header class="main-header">
         
-        <!-- 상단 메뉴 --><div class="top-text top-jhl" id="jhl-reset"><a href="#">Jonghwan Lee</a></div>
+        <!-- 상단 메뉴 -->
+        <div class="top-text top-jhl" id="jhl-reset"><a href="#">Jonghwan Lee</a></div>
         <!-- 모바일에서 오른쪽 상단 링크들을 묶기 위한 래퍼 -->
         <div class="top-links-mobile"> 
             <div class="top-text top-info">Information</div>
-            <!-- ⭐ Note 링크 ⭐ --><div class="top-text top-note"><a href="/note">Note</a></div>
+            <!-- Note 링크 -->
+            <div class="top-text top-note"><a href="/note">Note</a></div>
             <div class="top-text top-cv"><a href="/cv">CV</a></div>
-            <!-- ⭐ Contact 링크 (데스크톱에서 오른쪽 상단에 배치됨) ⭐ --><div class="top-text top-contact"><a href="/contact">Contact</a></div>
+            <!-- Contact 링크 (데스크톱에서 오른쪽 상단에 배치됨) -->
+            <div class="top-text top-contact"><a href="/contact">Contact</a></div>
             <div class="top-text top-works">Works</div>
         </div>
     </header>
@@ -36,64 +369,125 @@
                     <span class="year">Year</span>
                 </div>
                 
-                <!-- 테이블 인덱스 항목 --><div class="table-row item">
+                <!-- 테이블 인덱스 항목 - data-intro-lines 속성 추가 -->
+                <div class="table-row item">
                     <span class="exhibition">Solo</span>
-                    <span class="tilte"><a href="#" data-project-id="Loggia">Loggia</a></span>
+                    <span class="tilte">
+                        <a href="#" 
+                           data-project-id="Loggia"
+                           data-intro-lines="Loggia|Solo Exhibition|CYLINDER, Seoul"
+                        >Loggia</a>
+                    </span>
                     <span class="year">2025</span>
                 </div>
                 <div class="table-row item">
                     <span class="exhibition">Group</span>
-                    <span class="tilte"><a href="#" data-project-id="Surgical Room">Surgical Room</a></span>
+                    <span class="tilte">
+                        <a href="#" 
+                           data-project-id="Surgical Room"
+                           data-intro-lines="Surgical Room|Group Show|Gallery I, Paris"
+                        >Surgical Room</a>
+                    </span>
                     <span class="year">2025</span>
                 </div>
                 <div class="table-row item">
                     <span class="exhibition">Group</span>
-                    <span class="tilte"><a href="#" data-project-id="South Parade">CYLINDER x South Parade</a></span>
+                    <span class="tilte">
+                        <a href="#" 
+                           data-project-id="South Parade"
+                           data-intro-lines="CYLINDER x South Parade|2-person Exhibition|South Parade, London"
+                        >CYLINDER x South Parade</a>
+                    </span>
                     <span class="year">2024</span>
                 </div>
                 <div class="table-row item">
                     <span class="exhibition">Solo</span>
-                    <span class="tilte"><a href="#" data-project-id="Hypercube">Hypercube</a></span>
+                    <span class="tilte">
+                        <a href="#" 
+                           data-project-id="Hypercube"
+                           data-intro-lines="Hypercube|Solo Exhibition|The Archive, New York"
+                        >Hypercube</a>
+                    </span>
                     <span class="year">2023</span>
                 </div>
                 <div class="table-row item">
                     <span class="exhibition">Group</span>
-                    <span class="tilte"><a href="#" data-project-id="The Good Neighbor">The Good Neighbor (좋은이웃)</a></span>
+                    <span class="tilte">
+                        <a href="#" 
+                           data-project-id="The Good Neighbor"
+                           data-intro-lines="The Good Neighbor (좋은이웃)|Group Exhibition|Art Space Boan 1942, Seoul"
+                        >The Good Neighbor (좋은이웃)</a>
+                    </span>
                     <span class="year">2023</span>
                 </div>
                 <div class="table-row item">
                     <span class="exhibition">Solo</span>
-                    <span class="tilte"><a href="#" data-project-id="Cabinet">Cabinet</a></span>
+                    <span class="tilte">
+                        <a href="#" 
+                           data-project-id="Cabinet"
+                           data-intro-lines="Cabinet|Solo Exhibition|CYLINDER, Seoul"
+                        >Cabinet</a>
+                    </span>
                     <span class="year">2023</span>
                 </div>
                 <div class="table-row item">
                     <span class="exhibition">Group</span>
-                    <span class="tilte"><a href="#" data-project-id="Waiting Room">Waiting Room</a></span>
+                    <span class="tilte">
+                        <a href="#" 
+                           data-project-id="Waiting Room"
+                           data-intro-lines="Waiting Room|Group Exhibition|Wav-A, Seoul"
+                        >Waiting Room</a>
+                    </span>
                     <span class="year">2022</a></span>
                 </div>
                 <div class="table-row item">
                     <span class="exhibition">Group</span>
-                    <span class="tilte"><a href="#" data-project-id="Perigee Winter Show">Perigee Winter Show 2022</a></span>
+                    <span class="tilte">
+                        <a href="#" 
+                           data-project-id="Perigee Winter Show"
+                           data-intro-lines="Perigee Winter Show 2022|Group Exhibition|Perigee Gallery, Seoul"
+                        >Perigee Winter Show 2022</a>
+                    </span>
                     <span class="year">2022</span>
                 </div>
                  <div class="table-row item">
                     <span class="exhibition">Group</span>
-                    <span class="tilte"><a href="#" data-project-id="The Wild Bunch">The Wild Bunch</a></span>
+                    <span class="tilte">
+                        <a href="#" 
+                           data-project-id="The Wild Bunch"
+                           data-intro-lines="The Wild Bunch|Group Exhibition|Wav-A, Seoul"
+                        >The Wild Bunch</a>
+                    </span>
                     <span class="year">2022</span>
                 </div>
                  <div class="table-row item">
                     <span class="exhibition">Group</span>
-                    <span class="tilte"><a href="#" data-project-id="Fonds">Fonds</a></span>
+                    <span class="tilte">
+                        <a href="#" 
+                           data-project-id="Fonds"
+                           data-intro-lines="Fonds|Group Exhibition|CYLINDER, Seoul"
+                        >Fonds</a>
+                    </span>
                     <span class="year">2022</span>
                 </div>
                  <div class="table-row item">
                     <span class="exhibition">Group</span>
-                    <span class="tilte"><a href="#" data-project-id="Room of Convexity and Concavity">Room of Convexity and Concavity (철요의 방)</a></span>
+                    <span class="tilte">
+                        <a href="#" 
+                           data-project-id="Room of Convexity and Concavity"
+                           data-intro-lines="Room of Convexity and Concavity (철요의 방)|Group Exhibition|Wav-B, Seoul"
+                        >Room of Convexity and Concavity (철요의 방)</a>
+                    </span>
                     <span class="year">2022</span>
                 </div>
                  <div class="table-row item">
                     <span class="exhibition">Group</span>
-                    <span class="tilte"><a href="#" data-project-id="TORQUE 1">TORQUE 1 / GEAR SHIFT,</a></span>
+                    <span class="tilte">
+                        <a href="#" 
+                           data-project-id="TORQUE 1"
+                           data-intro-lines="TORQUE 1 / GEAR SHIFT|Group Exhibition|CYLINDER, Seoul"
+                        >TORQUE 1 / GEAR SHIFT,</a>
+                    </span>
                     <span class="year">2021</span>
                 </div>
             </div>
@@ -102,48 +496,119 @@
 
         <section class="right-panel">
             <div class="selected-work-list">
-                <!-- ⭐ 동적으로 변경될 텍스트 ⭐ -->
-                <div class="work-intro-text">sss</div>
-                <!-- 작업물 목록 (work-item) -->
-                <article class="work-item" data-project-id="Loggia"><div class="work-visual">[Image Placeholder 1]</div><div class="work-header"><span class="client">SED_DO</span></article>
-                <article class="work-item" data-project-id="Loggia"><div class="work-visual">[Image Placeholder 2]</div><div class="work-header"><span class="client">SED_DO</span><span class="ref">Ref. R/XTR-082 (Visual 2/3)</span><span class="year">2049</span></div></article>
-                <article class="work-item" data-project-id="Loggia"><div class="work-visual">[Image Placeholder 3]</div><div class="work-header"><span class="client">SED_DO</span><span class="ref">Ref. R/XTR-082 (Visual 3/3)</span><span class="year">2049</span></div></article>
+                <div class="work-intro-text">Recently Exhibition</div>
                 
-                <article class="work-item" data-project-id="prt-017"><div class="work-visual">[Image Placeholder 4]</div><div class="work-header"><span class="client">SED_DO</span><span class="ref">Ref. R/PRT-017 (Visual 1/3)</span><span class="year">2048-9</span></div></article>
-                <article class="work-item" data-project-id="prt-017"><div class="work-visual">[Image Placeholder 5]</div><div class="work-header"><span class="client">SED_DO</span><span class="ref">Ref. R/PRT-017 (Visual 2/3)</span><span class="year">2048-9</span></div></article>
-                <article class="work-item" data-project-id="prt-017"><div class="work-visual">[Image Placeholder 6]</div><div class="work-header"><span class="client">SED_DO</span><span class="ref">Ref. R/PRT-017 (Visual 3/3)</span><span class="year">2048-9</span></div></article>
+                <!-- ⭐ [NEW] 인덱스 첫 화면에만 보여줄 5개의 특별 이미지 세트 ⭐ -->
+                <!-- 이 항목들은 초기 로드 시 표시되며, 프로젝트 선택 시 숨겨집니다. -->
+                <article class="work-item initial-work-item" data-project-id="INDEX_HOME">
+                    <div class="work-visual">[Index Image 1 / Special]</div>
+                    <div class="work-header"><span class="client">CLIENT_FIRST_A</span></div>
+                </article>
+                <article class="work-item initial-work-item" data-project-id="INDEX_HOME">
+                    <div class="work-visual">[Index Image 2 / Special]</div>
+                    <div class="work-header"><span class="client">CLIENT_FIRST_B</span></div>
+                </article>
+                <article class="work-item initial-work-item" data-project-id="INDEX_HOME">
+                    <div class="work-visual">[Index Image 3 / Special]</div>
+                    <div class="work-header"><span class="client">CLIENT_FIRST_C</span></div>
+                </article>
+                <article class="work-item initial-work-item" data-project-id="INDEX_HOME">
+                    <div class="work-visual">[Index Image 4 / Special]</div>
+                    <div class="work-header"><span class="client">CLIENT_FIRST_D</span></div>
+                </article>
+                <article class="work-item initial-work-item" data-project-id="INDEX_HOME">
+                    <div class="work-visual">[Index Image 5 / Special]</div>
+                    <div class="work-header"><span class="client">CLIENT_FIRST_E</span></div>
+                </article>
 
-                <article class="work-item" data-project-id="cxx-500"><div class="work-visual">[Image Placeholder 7]</div><div class="work-header"><span class="client">SED_DO</span><span class="ref">R/CXX-500 (Visual 1/3)</span><span class="year">2047</span></div></article>
-                <article class="work-item" data-project-id="cxx-500"><div class="work-visual">[Image Placeholder 8]</div><div class="work-header"><span class="client">SED_DO</span><span class="ref">R/CXX-500 (Visual 2/3)</span><span class="year">2047</span></div></article>
-                <article class="work-item" data-project-id="cxx-500"><div class="work-visual">[Image Placeholder 9]</div><div class="work-header"><span class="client">SED_DO</span><span class="ref">R/CXX-500 (Visual 3/3)</span><span class="year">2047</span></div></article>
+                <!-- ⭐ [MODIFIED] 기존의 프로젝트별 작업물 목록 (초기에는 숨김 처리됨) ⭐ -->
+                <!-- 이 항목들은 프로젝트 선택 시에만 표시됩니다. -->
+                <article class="work-item project-work-item hidden" data-project-id="Loggia">
+                    <div class="work-visual">[Image Placeholder 1]</div>
+                    <div class="work-header"><span class="client">SED_DO</span></div>
+                </article>
+                <article class="work-item project-work-item hidden" data-project-id="Loggia">
+                    <div class="work-visual">[Image Placeholder 2]</div>
+                    <div class="work-header"><span class="client">SED_DO</span></div>
+                </article>
+                <article class="work-item project-work-item hidden" data-project-id="Loggia">
+                    <div class="work-visual">[Image Placeholder 3]</div>
+                    <div class="work-header"><span class="client">SED_DO</span></div>
+                </article>
+                
+                <article class="work-item project-work-item hidden" data-project-id="prt-017">
+                    <div class="work-visual">[Image Placeholder 4]</div>
+                    <div class="work-header"><span class="client">SED_DO</span></div>
+                </article>
+                <article class="work-item project-work-item hidden" data-project-id="prt-017">
+                    <div class="work-visual">[Image Placeholder 5]</div>
+                    <div class="work-header"><span class="client">SED_DO</span></div>
+                </article>
+                <article class="work-item project-work-item hidden" data-project-id="prt-017">
+                    <div class="work-visual">[Image Placeholder 6]</div>
+                    <div class="work-header"><span class="client">SED_DO</span></div>
+                </article>
 
-                <article class="work-item" data-project-id="qor-809"><div class="work-visual">[Image Placeholder 10]</div><div class="work-header"><span class="client">SED_DO</span><span class="ref">Ref. X/QOR-809 (Solo)</span><span class="year">2042</span></div></article>
-                <article class="work-item" data-project-id="tsl-203"><div class="work-visual">[Image Placeholder 11]</div><div class="work-header"><span class="client">SED_DO</span><span class="ref">X/TSL-203 (Group)</span><span class="year">2039</span></div></article>
-                <article class="work-item" data-project-id="tur-444"><div class="work-visual">[Image Placeholder 12]</div><div class="work-header"><span class="client">SED_DO</span><span class="ref">V/TUR-444</span><span class="year">2033</span></div></article>
-                <article class="work-item" data-project-id="qor-809"><div class="work-visual">[Image Placeholder 13]</div><div class="work-header"><span class="client">SED_DO</span><span class="ref">Ref. X/QOR-809 (Group)</span><span class="year">2042</span></div></article>
-                <article class="work-item" data-project-id="tsl-203"><div class="work-visual">[Image Placeholder 14]</div><div class="work-header"><span class="client">SED_DO</span><span class="ref">X/TSL-203 (Group 2)</span><span class="year">2039</span></div></article>
+                <article class="work-item project-work-item hidden" data-project-id="cxx-500">
+                    <div class="work-visual">[Image Placeholder 7]</div>
+                    <div class="work-header"><span class="client">SED_DO</span></div>
+                </article>
+                <article class="work-item project-work-item hidden" data-project-id="cxx-500">
+                    <div class="work-visual">[Image Placeholder 8]</div>
+                    <div class="work-header"><span class="client">SED_DO</span></div>
+                </article>
+                <article class="work-item project-work-item hidden" data-project-id="cxx-500">
+                    <div class="work-visual">[Image Placeholder 9]</div>
+                    <div class="work-header"><span class="client">SED_DO</span></div>
+                </article>
+
+                <article class="work-item project-work-item hidden" data-project-id="qor-809">
+                    <div class="work-visual">[Image Placeholder 10]</div>
+                    <div class="work-header"><span class="client">SED_DO</span></div>
+                </article>
+                <article class="work-item project-work-item hidden" data-project-id="tsl-203">
+                    <div class="work-visual">[Image Placeholder 11]</div>
+                    <div class="work-header"><span class="client">SED_DO</span></div>
+                </article>
+                <article class="work-item project-work-item hidden" data-project-id="tur-444">
+                    <div class="work-visual">[Image Placeholder 12]</div>
+                    <div class="work-header"><span class="client">SED_DO</span></div>
+                </article>
+                <article class="work-item project-work-item hidden" data-project-id="qor-809">
+                    <div class="work-visual">[Image Placeholder 13]</div>
+                    <div class="work-header"><span class="client">SED_DO</span></div>
+                </article>
+                <article class="work-item project-work-item hidden" data-project-id="tsl-203">
+                    <div class="work-visual">[Image Placeholder 14]</div>
+                    <div class="work-header"><span class="client">SED_DO</span></div>
+                </article>
             </div>
         </section>
 
     </div>
     
-    <!-- 전체 화면 모달 (Lightbox) --><div id="fullscreen-modal" class="fullscreen-modal">
+    <!-- 전체 화면 모달 (Lightbox) -->
+    <div id="fullscreen-modal" class="fullscreen-modal">
         <span class="modal-close">&times;</span>
         <div id="prev-btn" class="modal-nav-btn prev-btn">&#10094;</div>
         <div id="modal-image-container" class="modal-content">
-            <!-- 이미지 내용이 여기에 삽입됩니다. --></div>
+            <!-- 이미지 내용이 여기에 삽입됩니다. -->
+        </div>
         <div id="next-btn" class="modal-nav-btn next-btn">&#10095;</div>
-        <div id="modal-caption" class="modal-caption"></div> <!-- ⭐ 캡션 영역 추가 ⭐ -->
+        <div id="modal-caption" class="modal-caption"></div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const projectLinks = document.querySelectorAll('.project-table .tilte a');
-            const workItems = document.querySelectorAll('.right-panel .work-item');
-            const workVisuals = document.querySelectorAll('.work-visual'); 
+            const workIntroText = document.querySelector('.work-intro-text');
             const jhlReset = document.getElementById('jhl-reset');
-            const workIntroText = document.querySelector('.work-intro-text'); // ⭐ 추가: 텍스트 요소 참조 ⭐
 
+            const initialWorkItems = document.querySelectorAll('.initial-work-item');
+            const projectWorkItems = document.querySelectorAll('.project-work-item');
+            
+            const allWorkVisuals = document.querySelectorAll('.work-visual');
+            
             let activeFilterId = null; 
             
             const modal = document.getElementById('fullscreen-modal');
@@ -155,100 +620,123 @@
 
             let currentModalIndex = 0;
             let currentModalProjectId = null;
-            let filteredWorkVisuals = []; 
+            let filteredWorkVisuals = []; // 현재 화면에 보이는 work-visual 요소들
 
             // 각 work-visual에 data-index와 data-project-id 할당
-            workVisuals.forEach((visual, index) => {
+            allWorkVisuals.forEach((visual, index) => {
                 visual.dataset.index = index; 
                 visual.dataset.projectId = visual.closest('.work-item').dataset.projectId;
             });
 
-            const updateModalContent = (index, projectId) => {
-                const targetVisual = filteredWorkVisuals.find(v => 
-                    v.dataset.index == index && v.dataset.projectId == projectId
-                );
+            /**
+             * 현재 화면에 보이는 이미지 목록을 기반으로 모달의 컨텐츠를 업데이트하고 인덱스를 설정합니다.
+             * @param {number} index - 현재 보이는 목록에서의 순서 인덱스.
+             */
+            const updateModalContent = (index) => {
+                const targetVisual = filteredWorkVisuals[index];
                 
                 if (targetVisual) {
                     modalImageContainer.innerHTML = targetVisual.innerHTML;
-                    currentModalIndex = parseInt(targetVisual.dataset.index);
+                    currentModalIndex = index; // 현재 보이는 목록에서의 인덱스로 저장
                     currentModalProjectId = targetVisual.dataset.projectId;
                     
                     const correspondingWorkItem = targetVisual.closest('.work-item');
                     
                     if (correspondingWorkItem) {
+                        // work-header의 내용 (클라이언트 텍스트)만 포함
                         const headerContent = correspondingWorkItem.querySelector('.work-header').innerHTML;
                         modalCaption.innerHTML = `<div class="work-header">${headerContent}</div>`;
                     } else {
                         modalCaption.innerHTML = '';
                     }
-
                 }
                 updateNavButtons();
             };
 
             const updateNavButtons = () => {
-                const projectImages = filteredWorkVisuals.filter(v => v.dataset.projectId === currentModalProjectId);
-                const currentIndexInProject = projectImages.findIndex(v => parseInt(v.dataset.index) === currentModalIndex);
+                // filteredWorkVisuals 배열 내에서 현재 인덱스 사용
+                const currentIndexInProject = currentModalIndex; 
                 
-                if (currentIndexInProject === 0) {
+                // 해당 프로젝트 내에서 첫 번째 이미지인지 확인
+                if (currentIndexInProject <= 0) {
                     prevBtn.style.display = 'none';
                 } else {
                     prevBtn.style.display = 'block';
                 }
 
-                if (currentIndexInProject === projectImages.length - 1) {
+                // 해당 프로젝트 내에서 마지막 이미지인지 확인
+                if (currentIndexInProject >= filteredWorkVisuals.length - 1) {
                     nextBtn.style.display = 'none';
                 } else {
                     nextBtn.style.display = 'block';
                 }
             };
 
+            /**
+             * 필터를 초기화하고 전체(인덱스) 작품을 표시합니다.
+             */
             const resetFilter = () => {
-                workItems.forEach(item => item.classList.remove('hidden'));
+                // 프로젝트별 항목 숨기기
+                projectWorkItems.forEach(item => item.classList.add('hidden'));
+                
+                // 초기 화면 항목 표시
+                initialWorkItems.forEach(item => item.classList.remove('hidden'));
+
                 projectLinks.forEach(l => l.style.fontWeight = 'normal');
                 activeFilterId = null;
                 document.querySelector('.right-panel').scrollTop = 0;
                 
-                // ⭐ 텍스트 초기화 및 표시 ⭐
-                workIntroText.textContent = 'Recently Exhibition';
+                workIntroText.innerHTML = 'Recently Exhibition';
                 
-                filteredWorkVisuals = Array.from(workVisuals);
-                updateNavButtons(); 
+                // 필터링된 배열을 초기 화면 이미지 목록으로 업데이트
+                filteredWorkVisuals = Array.from(document.querySelectorAll('.initial-work-item .work-visual'));
             };
 
+            // 페이지 로드 시 초기화 (인덱스 이미지 5개 표시)
             resetFilter(); 
 
             projectLinks.forEach(link => {
                 link.addEventListener('click', (event) => {
                     event.preventDefault(); 
                     const projectId = event.currentTarget.dataset.projectId;
-                    const projectTitle = event.currentTarget.textContent; // ⭐ 추가: 클릭된 링크 텍스트 가져오기 ⭐
+                    const projectTitle = event.currentTarget.textContent;
+                    const introData = event.currentTarget.dataset.introLines;
 
                     if (projectId === activeFilterId) {
                         resetFilter();
                     } else {
-                        workItems.forEach(item => {
+                        // 1. 인덱스 항목 숨기기
+                        initialWorkItems.forEach(item => item.classList.add('hidden'));
+
+                        // 2. 모든 프로젝트 항목 숨기기
+                        projectWorkItems.forEach(item => {
                             item.classList.add('hidden');
                         });
 
-                        const selectedItems = document.querySelectorAll(`.work-item[data-project-id="${projectId}"]`);
+                        // 3. 선택된 프로젝트 항목만 표시
+                        const selectedItems = document.querySelectorAll(`.work-item.project-work-item[data-project-id="${projectId}"]`);
                         selectedItems.forEach(item => {
                             item.classList.remove('hidden');
                         });
                         
                         activeFilterId = projectId;
                         
-                        // ⭐ 텍스트 내용 업데이트 ⭐
-                        workIntroText.textContent = projectTitle.trim().toUpperCase();
+                        // 4. 소개 텍스트 업데이트
+                        let newTextContent = projectTitle.trim();
+                        if (introData) {
+                            const lines = introData.split('|').map(line => line.trim());
+                            newTextContent = lines.join('<br>');
+                        }
+                        workIntroText.innerHTML = newTextContent; 
                         
-                        filteredWorkVisuals = Array.from(workVisuals).filter(visual => 
-                            visual.closest('.work-item').dataset.projectId === projectId
-                        );
-
+                        // 5. 링크 스타일 업데이트
                         projectLinks.forEach(l => l.style.fontWeight = 'normal');
                         event.currentTarget.style.fontWeight = 'bold';
                         
                         document.querySelector('.right-panel').scrollTop = 0;
+
+                        // 6. 필터링된 이미지 목록 업데이트 (모달용)
+                        filteredWorkVisuals = Array.from(selectedItems).map(item => item.querySelector('.work-visual'));
                     }
                 });
             });
@@ -260,25 +748,37 @@
                 });
             }
             
-            workVisuals.forEach(visual => {
+            // 이미지 클릭 시 모달 열기
+            allWorkVisuals.forEach(visual => {
                 visual.addEventListener('click', () => {
-                    currentModalIndex = parseInt(visual.dataset.index);
-                    currentModalProjectId = visual.dataset.projectId;
-                    updateModalContent(currentModalIndex, currentModalProjectId);
-                    modal.classList.add('show');
+                    const workItem = visual.closest('.work-item');
+                    
+                    // 현재 보이는 항목만 모달 실행
+                    if (!workItem.classList.contains('hidden')) {
+                        // 현재 클릭된 visual이 filteredWorkVisuals에서 몇 번째 인덱스인지 찾음
+                        const indexInFiltered = filteredWorkVisuals.findIndex(v => v === visual);
+
+                        if (indexInFiltered !== -1) {
+                            updateModalContent(indexInFiltered);
+                            modal.classList.add('show');
+                        }
+                    }
                 });
             });
             
+            // 모달 닫기
             modalClose.addEventListener('click', () => {
                 modal.classList.remove('show');
             });
 
+            // 모달 배경 클릭 시 닫기
             modal.addEventListener('click', (event) => {
                 if (event.target === modal) {
                     modal.classList.remove('show');
                 }
             });
             
+            // 키보드 네비게이션
             document.addEventListener('keydown', (event) => {
                 if (modal.classList.contains('show')) {
                     if (event.key === 'Escape') {
@@ -291,23 +791,21 @@
                 }
             });
 
+            /**
+             * 모달 내 이전 이미지로 이동
+             */
             prevBtn.addEventListener('click', () => {
-                const projectImages = filteredWorkVisuals.filter(v => v.dataset.projectId === currentModalProjectId);
-                let currentIndexInProject = projectImages.findIndex(v => parseInt(v.dataset.index) === currentModalIndex);
-                
-                if (currentIndexInProject > 0) {
-                    const prevVisual = projectImages[currentIndexInProject - 1];
-                    updateModalContent(parseInt(prevVisual.dataset.index), prevVisual.dataset.projectId);
+                if (currentModalIndex > 0) {
+                    updateModalContent(currentModalIndex - 1);
                 }
             });
 
+            /**
+             * 모달 내 다음 이미지로 이동
+             */
             nextBtn.addEventListener('click', () => {
-                const projectImages = filteredWorkVisuals.filter(v => v.dataset.projectId === currentModalProjectId);
-                let currentIndexInProject = projectImages.findIndex(v => parseInt(v.dataset.index) === currentModalIndex);
-                
-                if (currentIndexInProject < projectImages.length - 1) {
-                    const nextVisual = projectImages[currentIndexInProject + 1];
-                    updateModalContent(parseInt(nextVisual.dataset.index), nextVisual.dataset.projectId);
+                if (currentModalIndex < filteredWorkVisuals.length - 1) {
+                    updateModalContent(currentModalIndex + 1);
                 }
             });
         });
