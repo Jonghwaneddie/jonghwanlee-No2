@@ -121,23 +121,22 @@ body {
     padding: 15px;
 }
 
-/* 작업물 헤더 (텍스트): 한 줄 중앙 정렬 */
+/* ⭐ [수정됨] 작업물 헤더 (텍스트): 왼쪽 정렬 및 한 줄 강제 ⭐ */
 .work-header {
     display: flex; 
-    justify-content: center; 
+    justify-content: flex-start; /* 중앙 정렬에서 왼쪽 정렬로 변경 */
     font-size: 14px;
-    /* Bold 체 제거 */
     font-weight: normal; 
     margin-top: 10px; 
-    flex-wrap: nowrap; 
+    flex-wrap: nowrap; /* 줄 바꿈 방지 */
 }
 
-/* 헤더 내부의 텍스트 요소들: 한 줄 유지 및 간격 부여 */
+/* ⭐ [수정됨] 헤더 내부의 텍스트 요소들: 간격 최소화 및 한 줄 유지 ⭐ */
 .work-header span {
     display: inline; 
-    margin: 0 5px; 
+    margin: 0 5px 0 0; /* 우측에만 작은 여백을 주어 연속적으로 보이게 함 */
     line-height: 1.2;
-    white-space: nowrap; 
+    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
 }
 
 .work-visual {
@@ -245,18 +244,17 @@ body {
     z-index: 1010; 
 }
 
-/* 캡션 내부의 work-header 스타일 재정의 */
+/* ⭐ [수정됨] 모달 캡션 내부의 work-header 스타일: 한 줄 및 중앙 정렬 유지 (전체 캡션은 중앙 정렬이 적합) ⭐ */
 .modal-caption .work-header {
     display: flex; 
-    justify-content: center;
+    justify-content: center; /* 모달 캡션은 중앙 정렬 유지 */
     font-size: 14px;
-    /* Bold 체 제거 */
     font-weight: normal;
     margin: 0; 
     flex-wrap: nowrap; 
 }
 .modal-caption .work-header span {
-    margin: 0 10px; 
+    margin: 0 5px; /* 모달에서는 요소 간 여백을 조금 더 줌 */
 }
 
 
@@ -310,12 +308,9 @@ body {
     /* ⭐ 변경: 모바일에서 Information, Note, CV, Contact 모두 보이게 설정 ⭐ */
     .top-info, .top-note, .top-cv, .top-contact {
         display: block; 
-        font-weight: normal; /* Contact의 굵은 글씨체도 통일 */
+        font-weight: normal; 
         margin-left: 0;
     }
-    
-    /* Contact만 굵게 표시하고 싶다면 아래 주석을 해제하세요. */
-    /* .top-contact { font-weight: bold; } */
     
     /* 2. 메인 콘텐츠를 수직으로 쌓기 */
     .main-content-wrapper {
@@ -374,19 +369,19 @@ body {
         padding-left: 15px; 
     }
 
-    /* 6. Work Header 스타일 조정 (왼쪽 정렬) */
+    /* ⭐ [수정됨] 6. Work Header 스타일 조정 (왼쪽 정렬, 한 줄 강제) ⭐ */
     .work-header {
         justify-content: flex-start; 
         font-size: 13px;
         font-weight: normal; 
-        flex-wrap: wrap; 
+        flex-wrap: nowrap; /* 줄 바꿈 방지 */
         text-align: left;
     }
     
     .work-header span {
-        margin: 0 10px 0 0; 
+        margin: 0 5px 0 0; /* 우측에만 작은 여백을 주어 연속적으로 보이게 함 */
         line-height: 1.5;
-        white-space: normal; 
+        white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
     }
     
     /* 7. 모달 내비게이션 버튼 크기 조정 */
@@ -400,10 +395,11 @@ body {
         padding: 5px 10px;
     }
     
+    /* 모바일 모달 캡션의 work-header 스타일은 데스크톱과 동일하게 중앙 정렬 유지 */
     .modal-caption .work-header {
         justify-content: center; 
     }
-
+    
     /* 모바일 모달 캡션 텍스트 줄바꿈 방지 유지 */
     .modal-caption .work-header span {
         white-space: nowrap;
