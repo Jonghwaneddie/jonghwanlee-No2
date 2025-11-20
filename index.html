@@ -114,7 +114,7 @@
             padding: 20px;
         }
 
-        /* ⭐ 정적 프로젝트 소개 텍스트 스타일 ⭐ */
+        /* ⭐ 정적 프로젝트 소개 텍스트 스타일 (상단) ⭐ */
         .project-intro-text {
             text-align: left; 
             font-size: 14px;
@@ -129,12 +129,26 @@
             display: block; /* 활성화 시 보임 */
         }
 
+        /* 7. 작업물 목록 하단 푸터 스타일 (새로 추가됨) */
+        .project-footer-text { 
+            margin-top: 60px; /* 위쪽 여백으로 이미지와 분리 */
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            font-size: 12px;
+            color: #444;
+            border-top: 1px solid #eee; /* 가벼운 구분선 */
+            text-align: left;
+            display: none; /* 기본 숨김 */
+        }
+
+        .project-footer-text.active {
+            display: block; /* 활성화 시 보임 */
+        }
 
         /* 작업물 항목 스타일링 */
         .work-item {
             margin-bottom: 30px; 
             padding: 15px;
-            /* JS에 의해 hidden 클래스가 추가될 수 있음 */
         }
 
         /* 작업물 헤더 (텍스트): 한 줄 왼쪽 정렬로 변경 */
@@ -171,22 +185,19 @@
             color: #bbb;
             font-style: italic;
             cursor: pointer; 
-            overflow: hidden; /* 혹시 모를 오버플로우 방지 */
+            overflow: hidden; 
         }
         
-        /* ⭐ 이미지 잘림 방지 (Contain) CSS (핵심 수정) ⭐ */
+        /* 이미지 잘림 방지 (Contain) CSS */
         .work-visual img {
-            width: 100%; /* 너비 100% 사용 */
-            height: 100%; /* 높이 100% 사용 */
+            width: 100%; 
+            height: 100%; 
             display: block; 
-            /* 가로 세로 비율에 관계없이 이미지 전체를 컨테이너 안에 맞춰 표시 (잘림 없음) */
             object-fit: contain; 
-            /* 남는 공간은 부모(.work-visual)의 배경색(#fcfcfc)으로 채워짐 */
         }
 
 
         /* 5. 전체 화면 모달 스타일 */
-
         .fullscreen-modal {
             position: fixed;
             top: 0;
@@ -215,11 +226,11 @@
             width: 100%; 
             height: 100%;
         }
-        /* ⭐ 모달 내부 img 태그 스타일 (모달에서도 잘림 방지) ⭐ */
+        /* 모달 내부 img 태그 스타일 (모달에서도 잘림 방지) */
         #modal-image-container img {
             max-width: 100%;
             max-height: 100%;
-            object-fit: contain; /* 모달에서도 잘림 방지 */
+            object-fit: contain; 
             width: auto; 
             height: auto; 
             display: block; 
@@ -242,7 +253,7 @@
             opacity: 1;
         }
 
-        /* ⭐ 이전/다음 버튼 스타일 ⭐ */
+        /* 이전/다음 버튼 스타일 */
         .modal-nav-btn {
             position: absolute;
             top: 50%;
@@ -269,7 +280,7 @@
             right: 20px;
         }
 
-        /* ⭐ 모달 캡션/푸터 스타일 ⭐ */
+        /* 모달 캡션/푸터 스타일 */
         .modal-caption {
             position: absolute;
             bottom: 20px; 
@@ -298,7 +309,6 @@
         .modal-caption .work-header .full-description {
             margin: 0; 
         }
-
 
         /* JS 상호작용을 위한 숨김 클래스 */
         .work-item.hidden {
@@ -377,7 +387,7 @@
                 flex-shrink: 0;
                 padding: 20px;
                 padding-top: 0; 
-                padding-bottom: 80px; 
+                /* padding-bottom: 80px; - 푸터에서 처리 */
             }
 
             /* 4. 정보 텍스트 조정 */
@@ -399,12 +409,19 @@
                 margin-bottom: 20px; 
             }
             
-            /* ⭐ 모바일 텍스트 조정 (왼쪽 정렬 유지) ⭐ */
+            /* 모바일 텍스트 조정 (왼쪽 정렬 유지) */
             .project-intro-text {
                 text-align: left; 
                 margin-bottom: 20px; 
                 padding-left: 15px; 
             }
+            
+            /* 모바일 푸터 조정 */
+             .project-footer-text {
+                 margin-top: 40px; 
+                 border-top: none; 
+                 padding: 0 0 40px 0; /* 아래쪽 여백을 많이 줌 */
+             }
 
             /* 6. Work Header 스타일 조정 (왼쪽 정렬) */
             .work-header {
@@ -448,21 +465,13 @@
 
     <header class="main-header">
         
+        <div class="top-text top-jhl" id="jhl-reset"><a href="#">Jonghwan Lee</a></div>
         
-
-<div class="top-text top-jhl" id="jhl-reset"><a href="#">Jonghwan Lee</a></div>
-        
-        
-
-<div class="top-links-mobile"> 
+        <div class="top-links-mobile"> 
             <div class="top-text top-info">Information</div>
-            
-
-<div class="top-text top-note"><a href="/note">Note</a></div>
+            <div class="top-text top-note"><a href="/note">Note</a></div>
             <div class="top-text top-cv"><a href="/cv">CV</a></div>
-            
-
-<div class="top-text top-contact"><a href="/contact">Contact</a></div>
+            <div class="top-text top-contact"><a href="/contact">Contact</a></div>
             <div class="top-text top-works">Works</div>
         </div>
     </header>
@@ -481,9 +490,7 @@
                     <span class="year">Year</span>
                 </div>
                 
-                
-
-<div class="table-row item">
+                <div class="table-row item">
                     <span class="exhibition">Solo</span>
                     <span class="tilte"><a href="#" data-project-id="Loggia" data-display-title="Loggia, Solo Show (2025)">Loggia</a></span>
                     <span class="year">2025</span>
@@ -550,39 +557,68 @@
         <section class="right-panel">
             <div class="selected-work-list">
                 
-                <!-- ⭐ 정적 프로젝트 소개 텍스트 블록들 (visibility로 제어) ⭐ -->
+                       <!-- ⭐ 정적 프로젝트 소개 텍스트 블록들 (visibility로 제어) ⭐ -->
                 <div class="project-intro-text active" data-project-id="INDEX_DEFAULT">
-                    <span style="font-weight: bold;">[Index Default]</span> This selection showcases recent exhibitions and key pieces from the artist's portfolio, reflecting the current direction of their work.
+                   Recently Exhibition
                 </div>
                 
                 <div class="project-intro-text" data-project-id="Loggia">
-                    <span style="font-weight: bold;">Loggia, Solo Show (2025).</span><br>
-                    A dedicated presentation exploring the concept of liminal architectural spaces and digital material presence. 2049, Seoul.
+                   Loggia (2025)<br><br>
+                    2025. 7. 31 ~ 2025. 8. 23<br>
+                    Hall1, 8, Yangpyeong-ro 22ma-gil, Yeongdeungpo-gu, Seoul, Korea<br><br>
+                    해방된 기둥이 있다. 구역을 만들어내는 기둥은 중심에서 장소를 구체화하고 있지만 그 무엇도 지지하지 않고 있다. 정확히는 어디를 지지하고 있는지 말할 수 없다. 기둥의 끝에서 빛이 솟아오른다. 기둥은 저기 있지만 빛은 다가와 마주침을 만들어낸다. 기둥과 빛은 보이지 않는 것을 마주하기 위해 공간과 시간을 뒤섞어 지금 이 자리에 있음을 느끼게 한다. 그곳은 재현되는 것이 아니라 스스로를 드러낸다. 기둥 속에서 반짝이는 추는 반복되는 소리를 흘려보낸다. 그 소리는 이곳이 우리와 또 다른 것임을 알려주는 듯하다.
+                   <br><br> A liberated pillar stands. Creating a distinct zone, the pillar gives substance to the space from its center, yet supports nothing. Precisely where it lends its support is undefinable. Light springs forth from the pillar's apex. The pillar remains distant, but the light approaches to orchestrate an encounter. The pillar and the light intertwine space and time to confront the unseen, evoking a presence of being here and now. The place does not merely reproduce; it reveals itself. Within the pillar, a shimmering pendulum releases a repeating sound. That sound seems to suggest this space is fundamentally separate from us.
+                    <br><br>
+                    Text by Soomin Lee<br>
+                    Poster by Jungin Won<br>
+                    Installation by Alwayslastdanceclub<br>
+                    Photography by San Choi<br>
+                    Support by Bongkyun Kwon, Gayoon Yong, Anha Lee<br><br>
+                   Supported by Seoul Foundation for Arts and Culture
                 </div>
 
                 <div class="project-intro-text" data-project-id="Surgical Room">
-                    <span style="font-weight: bold;">Surgical Room, Group Exhibition (2025).</span><br>
-                    Group exhibition centered on bio-medical ethics and synthesized environments. Curated by XYZ Agency.
+                    Surgical Room(2025)<br><br>
+                    2025. 5. 17 ~ 2025. 6. 15<br>
+                    CYLINDER TWO, 24, Hangang-daero 48-gil, Yongsan-gu, Seoul, Korea<br><br>
+
+                    Participating Artists: Kolja Kärtner Sainz, Hyun Bhin Kwon, Jonghwan Lee, Heesu Choi, Lian Fu
                 </div>
 
                 <div class="project-intro-text" data-project-id="South Parade">
-                    <span style="font-weight: bold;">CYLINDER x South Parade (2024).</span><br>
-                    Collaborative project with CYLINDER gallery, focusing on post-human identity and salvaged digital history.
+                    CYLINDER x South Parade (2024) <br><br>
+                    2024. 6. 27 ~ 2024. 8. 3<br>
+                    Griffin House, 79 Saffron Hill, ECIR 5BU, London, UK<br><br>
+                   Participating Artists: Aidan Duffy, Jonghwan Lee
+                    
                 </div>
 
                 <div class="project-intro-text" data-project-id="Hypercube">
-                    <span style="font-weight: bold;">Hypercube, Solo Exhibition (2023).</span><br>
-                    The artist’s first exhibition in London, investigating four-dimensional geometries and their failure in physical space.
+                Hypercube (2023)<br><br>
+                    2023. 7. 8 ~ 2023. 8. 13<br>
+                    CYLINDER TWO, 24, Hangang-daero 48-gil, Yongsan-gu, Seoul, Korea   <br><br>
+                     Supported by Seoul Foundation for Arts and Culture<br><br>
+                  <br><br>  인간의 지각 이전에 회화 자체의 지각이 역으로 생기를 발생시킬 수 있다는 가설과 함께, 지속적으로 형성되는 지각의 순환구조에서 작용하는 회화 속 물질들의 압축된 세계를 탐구한다. 그의 회화를 담아 내는 화판은 단순히 안료가 안착되는 표면이 아닌 회화로부터 파생된 존재들이 거주하며 회화의 확장성을 이끌어내는 유기적인 육면체이자 소우주이다. 화판의 표면에 그려진 회화는 음각으로 생겨난 균열을 통해 2차원과 3차원의 경계 사이에 머무르고, 나무의 깎인 자국이 만든 계곡과 그 주변의 풍경들은 캐스팅을 통해 물과 하얀 가루의 화학반응으로 만들어진 고체의 표면으로 서서히 이동한다. 그리고 정지해 있는 회화 및 석고와 달리 화판 내부에 식립된 진자는 주기운동을 통해 서로가 맞닿으며 미세한 파동을 일으키는데, 이 청각적인 진동을 동반한 추의 위치변화는 시계의 초침처럼 정지해있는 대상에 시간성을 부여하고, 이는 다시 석고를 매질 삼아 회화의 표면으로 도달해 그 주위로 흐르는 시간에 대한 고찰을 이끈다.
+                   <br><br> Jonghwan Lee delves into the condensed world of painting materials that exist within the continuously forming cyclical structure of perception based on the hypothesis that the perception of painting itself can generate vitality even prior to human perception. The wood panel that encapsulates his paintings goes beyond being a mere surface for pigments to settle and takes the form of an organic hexahedron and a microcosm inhabited by entities that originate from the paintings and lead to their extension. Lee's paintings, portrayed on the panel, reside between the boundaries of two-dimensional and three-dimensional through cracks formed by engraving. The carved traces on wood that create valleys and the surrounding landscapes gradually transition into solid surfaces through casting, facilitated by chemical reactions between water and white powder. Furthermore, amidst the static nature of the paintings and plaster, a pendulum embedded within the panel undergoes periodic motion, colliding and creating waves. The pendulum’s positional shifts, accompanied by auditory vibrations, infuse a sense of temporality into the stationary subjects, akin to the movement of a clock's second hand. This, in turn, reaches the surface of the paintings using plaster as a medium, prompting contemplation on the passage of time.
+                    
                 </div>
                 
                 <div class="project-intro-text" data-project-id="The Good Neighbor">
-                    <span style="font-weight: bold;">The Good Neighbor (좋은이웃) - 2023 Group.</span><br>
-                    A local community-based exhibition focusing on public data transparency and neighborhood surveillance.
+                    The Good Neighbor 좋은 이웃 (2023)<br><br>
+                    2023. 5. 25 ~ 2023. 6. 10<br>
+                    Art Space 3, 23, Hyoja-ro 7-gil, Jongno-gu, Seoul<br><br>
+                    Participating Artists: Dawool Lim, Hanna Lee, Ichae Shin, Jihyun Kim, Jonghwan Lee, Wanjun Jo, Yuso Moon
                 </div>
 
                 <div class="project-intro-text" data-project-id="Cabinet">
-                    <span style="font-weight: bold;">Cabinet - Solo, Seoul (2023).</span><br>
-                    An intimate show presenting a series of small-scale sculptures and artifacts related to containment and domestic space.
+                   Cabinet (2023)<br><br>
+                    2023. 1. 17 ~ 2023. 1. 31<br>
+                    Sahangup gallery, 143, Eulji-ro, Jung-gu, Seoul, Korea<br><br>
+                    Poster by Hanbyul Joo<br>
+                    Installation by Alwayslastdanceclub<br>
+                    Photography by SES<br>
+                    <br><br>‘Cabinet’은 단순한 수납 구조가 아니라, 보이지 않는 것을 수집하고 보존하는 장소, 나아가 회화를 기록하는 새로운 방식에 대한 탐색의 장으로 제안된다. 고대의 ‘호기심의 방(Wunderkammer)’이 세계의 단면을 수집하고 배열하며 하나의 인식 구조를 만들어냈듯, 이 전시에서의 캐비닛은 회화를 감각적으로 기록하고 물리적으로 저장하는 장소로 작동한다. 기존의 사진 매체는 회화를 납작한 이미지로 환원시키며, 지지체의 물질성, 화면의 구조, 시간성과 같은 회화의 본질적 요소를 배제한다. 이에 반해, 프로타주는 회화와의 신체적 접촉을 통해 그 표면 너머의 두께, 굴곡, 질감, 잔여 정보 등을 비시각적 감각으로 기록하는 방식으로 기능한다. 이는 회화를 단순한 이미지가 아닌, 기록 가능한 물질이자 접촉 가능한 사건으로 인식하게 하며, 회화와 기록, 이미지와 구조 사이의 간극을 새롭게 사유하게 한다.
+                    <br>
                 </div>
                 
                 <div class="project-intro-text" data-project-id="Waiting Room">
@@ -614,22 +650,76 @@
                     <span style="font-weight: bold;">TORQUE 1 / GEAR SHIFT (2021).</span><br>
                     Focus on the mechanics of motion, power transmission, and the industrial aesthetic.
                 </div>
+                
+                <!-- 동적 이미지 항목이 여기에 렌더링됩니다. -->
+                
+                <!-- 2. ⭐ 정적 프로젝트별 푸터 텍스트 블록들 (하단) ⭐ -->
+                <div class="project-footer-text active" data-project-id="INDEX_DEFAULT">
+                    <p>이것은 기본 인덱스 화면에 표시되는 푸터 텍스트입니다. 각 프로젝트별로 내용을 수정하여 사용하십시오.</p>
+                </div>
+
+                <div class="project-footer-text" data-project-id="Loggia">
+                    <p>«Loggia»는 비선형적 시간과 공간에 대한 작가의 깊은 탐구를 담고 있으며, 가상의 건축물에 대한 질문을 던집니다. (2049, Seoul)</p>
+                </div>
+
+                <div class="project-footer-text" data-project-id="Surgical Room">
+                    <p>본 전시는 생체 윤리와 기술의 융합 지점에서 발생하는 새로운 미적 경험을 다루고 있습니다. (Curated by XYZ Agency)</p>
+                </div>
+
+                <div class="project-footer-text" data-project-id="South Parade">
+                    <p>CYLINDER와 South Parade의 협업은 파편화된 디지털 역사 속에서 '잔존하는 자아'의 형태를 모색합니다.</p>
+                </div>
+
+                <div class="project-footer-text" data-project-id="Hypercube">
+                    <p>«Hypercube»는 4차원 기하학이 현실 공간에서 겪는 실패와 긴장감을 물리적 매체를 통해 시각화합니다.</p>
+                </div>
+                
+                <div class="project-footer-text" data-project-id="The Good Neighbor">
+                    <p>공공 데이터의 투명성과 근린 감시에 대한 주제를 지역 사회와 연결하여 재해석한 전시입니다.</p>
+                </div>
+
+                <div class="project-footer-text" data-project-id="Cabinet">
+                    <p>감금과 가정 공간에 관련된 일련의 소규모 조각 및 아티팩트를 선보인 개인전입니다. (Seoul, 2023)</p>
+                </div>
+                
+                <div class="project-footer-text" data-project-id="Waiting Room">
+                    <p>끊임없는 연결 시대의 과도기적 공간, 지루함, 그리고 불안을 탐구하는 전시입니다.</p>
+                </div>
+
+                <div class="project-footer-text" data-project-id="Perigee Winter Show">
+                    <p>페리지 미술관에서 주최하는 연례 그룹전으로, 한국의 신진 작가들을 소개합니다.</p>
+                </div>
+
+                <div class="project-footer-text" data-project-id="The Wild Bunch">
+                    <p>기존 규범에서 벗어나 혼돈적이고 유기적인 형태를 포용하는 작품들을 전시했습니다.</p>
+                </div>
+                
+                <div class="project-footer-text" data-project-id="Fonds">
+                    <p>디지털 및 물리적 자산의 축적, 그리고 '깊은 예비군'의 개념에 대한 연구를 담은 그룹 전시입니다.</p>
+                </div>
+                
+                <div class="project-footer-text" data-project-id="Room of Convexity and Concavity">
+                    <p>빛과 그림자를 조작하여 공간적 인식을 왜곡시키는 설치 작품입니다. (철요의 방).</p>
+                </div>
+
+                <div class="project-footer-text" data-project-id="TORQUE 1">
+                    <p>움직임의 역학, 동력 전달, 산업 미학에 중점을 둔 전시입니다. (GEAR SHIFT, 2021)</p>
+                </div>
 
 
-                <!-- 이미지는 아래에 JavaScript에 의해 동적으로 생성됩니다. -->
             </div>
+            
         </section>
 
     </div>
     
-    
+    <!-- 모달 관련 HTML은 그대로 유지됩니다. -->
 
 <div id="fullscreen-modal" class="fullscreen-modal">
         <span class="modal-close">&times;</span>
         <div id="prev-btn" class="modal-nav-btn prev-btn">&#10094;</div>
         <div id="modal-image-container" class="modal-content">
-            
-
+            <!-- 이미지 동적 로드 -->
 </div>
         <div id="next-btn" class="modal-nav-btn next-btn">&#10095;</div>
         <div id="modal-caption" class="modal-caption"></div> 
@@ -637,7 +727,7 @@
 </div>
 
     <script>
-        // 1. 이미지 데이터 정의 (폴더/파일명을 포함하는 구조)
+        // 1. 이미지 데이터 정의 
         const allImageData = [
             // INDEX_DEFAULT - 최근 전시 작품 목록
             { id: 'index_1', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2024_1.jpg', description: 'Group Exhibition / Selected Works 2024 / 1 / 2024', url: 'https://placehold.co/800x450/3498db/ffffff?text=INDEX_1+(WIDER)' },
@@ -651,22 +741,10 @@
             { id: 'loggia_2', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia2.jpg', description: 'SED_DO / Ref. R/XTR-082 (Visual 2/3) / 2049', url: 'https://placehold.co/600x800/d63031/ffffff?text=LOGGIA_2+(TALLER)' },
             { id: 'loggia_3', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'SED_DO / Ref. R/XTR-082 (Visual 3/3) / 2049', url: 'https://placehold.co/900x500/00b894/ffffff?text=LOGGIA_3+(WIDER)' },
 
-            // Surgical Room 프로젝트 (가상 데이터)
+            // 나머지 프로젝트 1개씩만 추가하여 데이터 구조를 유지합니다.
             { id: 'sr_1', projectId: 'Surgical Room', isDefault: false, folder: 'surgicalroom', fileName: 'sr_1.jpg', description: 'SED_DO / Surgical Room (Visual 1/3) / 2025', url: 'https://placehold.co/700x400/34495e/ffffff?text=SURGICAL_ROOM_1' },
-            { id: 'sr_2', projectId: 'Surgical Room', isDefault: false, folder: 'surgicalroom', fileName: 'sr_2.jpg', description: 'SED_DO / Surgical Room (Visual 2/3) / 2025', url: 'https://placehold.co/400x700/34495e/ffffff?text=SURGICAL_ROOM_2' },
-            { id: 'sr_3', projectId: 'Surgical Room', isDefault: false, folder: 'surgicalroom', fileName: 'sr_3.jpg', description: 'SED_DO / Surgical Room (Visual 3/3) / 2025', url: 'https://placehold.co/700x700/34495e/ffffff?text=SURGICAL_ROOM_3' },
-            
-            // CYLINDER x South Parade 프로젝트 (가상 데이터)
             { id: 'cyl_1', projectId: 'South Parade', isDefault: false, folder: 'cylinder', fileName: 'cyl_1.jpg', description: 'SED_DO / CYLINDER x South Parade (Visual 1/3) / 2024', url: 'https://placehold.co/600x300/e91e63/ffffff?text=CYLINDER_1' },
-            { id: 'cyl_2', projectId: 'South Parade', isDefault: false, folder: 'cylinder', fileName: 'cyl_2.jpg', description: 'SED_DO / CYLINDER x South Parade (Visual 2/3) / 2024', url: 'https://placehold.co/500x700/e91e63/ffffff?text=CYLINDER_2' },
-            { id: 'cyl_3', projectId: 'South Parade', isDefault: false, folder: 'cylinder', fileName: 'cyl_3.jpg', description: 'SED_DO / CYLINDER x South Parade (Visual 3/3) / 2024', url: 'https://placehold.co/800x400/e91e63/ffffff?text=CYLINDER_3' },
-            
-            // Hypercube 프로젝트 (가상 데이터)
             { id: 'hyp_1', projectId: 'Hypercube', isDefault: false, folder: 'hypercube', fileName: 'hyp_1.jpg', description: 'SED_DO / Hypercube (Solo) / 2023', url: 'https://placehold.co/700x400/ff9800/ffffff?text=HYPERCUBE_1' },
-            { id: 'hyp_2', projectId: 'Hypercube', isDefault: false, folder: 'hypercube', fileName: 'hyp_2.jpg', description: 'SED_DO / Hypercube (Solo) / 2023', url: 'https://placehold.co/400x700/ff9800/ffffff?text=HYPERCUBE_2' },
-            { id: 'hyp_3', projectId: 'Hypercube', isDefault: false, folder: 'hypercube', fileName: 'hyp_3.jpg', description: 'SED_DO / Hypercube (Solo) / 2023', url: 'https://placehold.co/600x600/ff9800/ffffff?text=HYPERCUBE_3' },
-
-            // 나머지 프로젝트는 시각적 구분을 위해 기본 데이터에 연결하지 않습니다.
             { id: 'gn_1', projectId: 'The Good Neighbor', isDefault: false, folder: 'goodneighbor', fileName: 'gn_1.jpg', description: 'SED_DO / The Good Neighbor (좋은이웃) / 2023', url: 'https://placehold.co/700x400/3498db/ffffff?text=GOOD_NEIGHBOR_1' },
             { id: 'cb_1', projectId: 'Cabinet', isDefault: false, folder: 'cabinet', fileName: 'cb_1.jpg', description: 'SED_DO / Cabinet (Solo, Seoul) / 2023', url: 'https://placehold.co/400x700/2ecc71/ffffff?text=CABINET_1' },
             { id: 'wr_1', projectId: 'Waiting Room', isDefault: false, folder: 'waitingroom', fileName: 'wr_1.jpg', description: 'SED_DO / Waiting Room (Group) / 2022', url: 'https://placehold.co/600x600/f39c12/ffffff?text=WAITING_ROOM_1' },
@@ -682,8 +760,11 @@
             const projectLinks = document.querySelectorAll('.project-table .tilte a');
             const workListContainer = document.querySelector('.right-panel .selected-work-list'); 
             const jhlReset = document.getElementById('jhl-reset');
-            // ⭐ 모든 정적 소개 텍스트 블록 선택
+            
+            // ⭐ 정적 소개 텍스트 블록 (상단)
             const projectIntroTexts = document.querySelectorAll('.project-intro-text'); 
+            // ⭐ 정적 푸터 텍스트 블록 (하단)
+            const projectFooterTexts = document.querySelectorAll('.project-footer-text'); 
 
             let activeFilterId = null; 
             
@@ -697,7 +778,6 @@
             let currentModalImageId = null;
             let currentFilteredImages = []; 
             
-
             /**
              * 단일 작업 항목 HTML을 생성합니다.
              */
@@ -719,7 +799,7 @@
             }
 
             /**
-             * 오른쪽 패널의 작업물 목록을 렌더링하고 상단 텍스트 가시성을 업데이트합니다.
+             * 오른쪽 패널의 작업물 목록을 렌더링하고 상단/하단 텍스트 가시성을 업데이트합니다.
              */
             const renderWorkList = (filterId = 'INDEX_DEFAULT') => {
                 let filteredData;
@@ -730,24 +810,37 @@
                     filteredData = allImageData.filter(item => item.projectId === filterId);
                 }
 
-                // ⭐ 1. 이미지 목록 렌더링 (이전에 했던 대로)
                 const workItemsHtml = filteredData.map(createWorkItemHtml).join('');
-                // Note: workListContainer에는 정적 텍스트 블록들이 이미 포함되어 있으므로, 이미지를 그 후에 추가해야 함
                 
-                // 정적 텍스트 블록들을 제외하고 이미지들만 다시 채우기
+                // 정적 텍스트 블록들을 분리합니다.
                 const introTexts = Array.from(workListContainer.querySelectorAll('.project-intro-text'));
+                const footerTexts = Array.from(workListContainer.querySelectorAll('.project-footer-text')); 
+                
+                // 1. 컨테이너를 비우고 (이미지만) 정적 텍스트 블록을 다시 추가합니다.
                 workListContainer.innerHTML = '';
                 introTexts.forEach(text => workListContainer.appendChild(text));
+                
+                // 2. 이미지 목록을 상단 텍스트 다음에 추가합니다.
                 workListContainer.insertAdjacentHTML('beforeend', workItemsHtml);
+
+                // 3. 하단 푸터 텍스트를 이미지 목록 다음에 추가합니다.
+                footerTexts.forEach(text => workListContainer.appendChild(text));
 
                 document.querySelector('.right-panel').scrollTop = 0;
                 
-                // ⭐ 2. 상단 텍스트 가시성 관리 (정적 텍스트 블록 활성화/비활성화)
+                // 4. 상단 텍스트 가시성 관리
                 projectIntroTexts.forEach(textBlock => {
+                    textBlock.classList.remove('active');
                     if (textBlock.dataset.projectId === filterId) {
                         textBlock.classList.add('active');
-                    } else {
-                        textBlock.classList.remove('active');
+                    }
+                });
+                
+                // 5. 하단 푸터 텍스트 가시성 관리 (새로 추가됨)
+                projectFooterTexts.forEach(textBlock => {
+                    textBlock.classList.remove('active');
+                    if (textBlock.dataset.projectId === filterId) {
+                        textBlock.classList.add('active');
                     }
                 });
 
