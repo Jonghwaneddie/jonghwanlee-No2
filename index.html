@@ -114,14 +114,19 @@
             padding: 20px;
         }
 
-        /* ⭐ 첫 번째 작업물 위에 들어갈 텍스트 스타일 (왼쪽 정렬) ⭐ */
-        .work-intro-text {
+        /* ⭐ 정적 프로젝트 소개 텍스트 스타일 ⭐ */
+        .project-intro-text {
             text-align: left; 
             font-size: 14px;
             font-weight: normal; 
             margin-bottom: 30px; 
             padding-top: 5px; 
             padding-left: 15px; 
+            display: none; /* 기본 숨김 */
+        }
+
+        .project-intro-text.active {
+            display: block; /* 활성화 시 보임 */
         }
 
 
@@ -395,7 +400,7 @@
             }
             
             /* ⭐ 모바일 텍스트 조정 (왼쪽 정렬 유지) ⭐ */
-            .work-intro-text {
+            .project-intro-text {
                 text-align: left; 
                 margin-bottom: 20px; 
                 padding-left: 15px; 
@@ -545,8 +550,71 @@
         <section class="right-panel">
             <div class="selected-work-list">
                 
+                <!-- ⭐ 정적 프로젝트 소개 텍스트 블록들 (visibility로 제어) ⭐ -->
+                <div class="project-intro-text active" data-project-id="INDEX_DEFAULT">
+                    <span style="font-weight: bold;">[Index Default]</span> This selection showcases recent exhibitions and key pieces from the artist's portfolio, reflecting the current direction of their work.
+                </div>
+                
+                <div class="project-intro-text" data-project-id="Loggia">
+                    <span style="font-weight: bold;">Loggia, Solo Show (2025).</span><br>
+                    A dedicated presentation exploring the concept of liminal architectural spaces and digital material presence. 2049, Seoul.
+                </div>
 
-<div class="work-intro-text">Recently Exhibition</div>
+                <div class="project-intro-text" data-project-id="Surgical Room">
+                    <span style="font-weight: bold;">Surgical Room, Group Exhibition (2025).</span><br>
+                    Group exhibition centered on bio-medical ethics and synthesized environments. Curated by XYZ Agency.
+                </div>
+
+                <div class="project-intro-text" data-project-id="South Parade">
+                    <span style="font-weight: bold;">CYLINDER x South Parade (2024).</span><br>
+                    Collaborative project with CYLINDER gallery, focusing on post-human identity and salvaged digital history.
+                </div>
+
+                <div class="project-intro-text" data-project-id="Hypercube">
+                    <span style="font-weight: bold;">Hypercube, Solo Exhibition (2023).</span><br>
+                    The artist’s first exhibition in London, investigating four-dimensional geometries and their failure in physical space.
+                </div>
+                
+                <div class="project-intro-text" data-project-id="The Good Neighbor">
+                    <span style="font-weight: bold;">The Good Neighbor (좋은이웃) - 2023 Group.</span><br>
+                    A local community-based exhibition focusing on public data transparency and neighborhood surveillance.
+                </div>
+
+                <div class="project-intro-text" data-project-id="Cabinet">
+                    <span style="font-weight: bold;">Cabinet - Solo, Seoul (2023).</span><br>
+                    An intimate show presenting a series of small-scale sculptures and artifacts related to containment and domestic space.
+                </div>
+                
+                <div class="project-intro-text" data-project-id="Waiting Room">
+                    <span style="font-weight: bold;">Waiting Room (Group, 2022).</span><br>
+                    Exhibition exploring transitional spaces, boredom, and anxiety in the age of constant connectivity.
+                </div>
+
+                <div class="project-intro-text" data-project-id="Perigee Winter Show">
+                    <span style="font-weight: bold;">Perigee Winter Show 2022.</span><br>
+                    Annual group exhibition hosted by Perigee Art Museum, featuring emerging Korean artists.
+                </div>
+
+                <div class="project-intro-text" data-project-id="The Wild Bunch">
+                    <span style="font-weight: bold;">The Wild Bunch, Group (2022).</span><br>
+                    Showcasing works that deviate from established norms, embracing chaotic and organic forms.
+                </div>
+                
+                <div class="project-intro-text" data-project-id="Fonds">
+                    <span style="font-weight: bold;">Fonds, Group Exhibition (2022).</span><br>
+                    A study on the accumulation of digital and physical assets, and the concept of a 'deep reserve.'
+                </div>
+                
+                <div class="project-intro-text" data-project-id="Room of Convexity and Concavity">
+                    <span style="font-weight: bold;">Room of Convexity and Concavity (철요의 방) (2022).</span><br>
+                    An installation piece that manipulates light and shadow to distort spatial perception.
+                </div>
+
+                <div class="project-intro-text" data-project-id="TORQUE 1">
+                    <span style="font-weight: bold;">TORQUE 1 / GEAR SHIFT (2021).</span><br>
+                    Focus on the mechanics of motion, power transmission, and the industrial aesthetic.
+                </div>
+
 
                 <!-- 이미지는 아래에 JavaScript에 의해 동적으로 생성됩니다. -->
             </div>
@@ -579,27 +647,34 @@
             { id: 'index_5', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: 'Group Exhibition / Selected Works 2022 / 1 / 2022', url: 'https://placehold.co/450x600/e67e22/ffffff?text=INDEX_5+(TALLER)' },
             
             // Loggia - Loggia 프로젝트 이미지 (폴더/파일명 지정)
-            // 첫 번째 이미지는 요청하신 파일명(loggia1.jpg)으로 유지
             { id: 'loggia_1', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia1.jpg', description: 'SED_DO / Ref. R/XTR-082 (Visual 1/3) / 2049', url: 'loggiaimages/loggia1.jpg' },
             { id: 'loggia_2', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia2.jpg', description: 'SED_DO / Ref. R/XTR-082 (Visual 2/3) / 2049', url: 'https://placehold.co/600x800/d63031/ffffff?text=LOGGIA_2+(TALLER)' },
             { id: 'loggia_3', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'SED_DO / Ref. R/XTR-082 (Visual 3/3) / 2049', url: 'https://placehold.co/900x500/00b894/ffffff?text=LOGGIA_3+(WIDER)' },
 
-            // prt-017 프로젝트 (가상 데이터)
-            { id: 'prt_1', projectId: 'prt-017', isDefault: false, folder: 'prt', fileName: 'prt_1.jpg', description: 'SED_DO / Ref. R/PRT-017 (Visual 1/3) / 2048-9', url: 'https://placehold.co/700x400/34495e/ffffff?text=PRT_1' },
-            { id: 'prt_2', projectId: 'prt-017', isDefault: false, folder: 'prt', fileName: 'prt_2.jpg', description: 'SED_DO / Ref. R/PRT-017 (Visual 2/3) / 2048-9', url: 'https://placehold.co/400x700/34495e/ffffff?text=PRT_2' },
-            { id: 'prt_3', projectId: 'prt-017', isDefault: false, folder: 'prt', fileName: 'prt_3.jpg', description: 'SED_DO / Ref. R/PRT-017 (Visual 3/3) / 2048-9', url: 'https://placehold.co/700x700/34495e/ffffff?text=PRT_3' },
+            // Surgical Room 프로젝트 (가상 데이터)
+            { id: 'sr_1', projectId: 'Surgical Room', isDefault: false, folder: 'surgicalroom', fileName: 'sr_1.jpg', description: 'SED_DO / Surgical Room (Visual 1/3) / 2025', url: 'https://placehold.co/700x400/34495e/ffffff?text=SURGICAL_ROOM_1' },
+            { id: 'sr_2', projectId: 'Surgical Room', isDefault: false, folder: 'surgicalroom', fileName: 'sr_2.jpg', description: 'SED_DO / Surgical Room (Visual 2/3) / 2025', url: 'https://placehold.co/400x700/34495e/ffffff?text=SURGICAL_ROOM_2' },
+            { id: 'sr_3', projectId: 'Surgical Room', isDefault: false, folder: 'surgicalroom', fileName: 'sr_3.jpg', description: 'SED_DO / Surgical Room (Visual 3/3) / 2025', url: 'https://placehold.co/700x700/34495e/ffffff?text=SURGICAL_ROOM_3' },
             
-            // cxx-500 프로젝트 (가상 데이터)
-            { id: 'cxx_1', projectId: 'cxx-500', isDefault: false, folder: 'cxx', fileName: 'cxx_1.jpg', description: 'SED_DO / R/CXX-500 (Visual 1/3) / 2047', url: 'https://placehold.co/600x300/e91e63/ffffff?text=CXX_1' },
-            { id: 'cxx_2', projectId: 'cxx-500', isDefault: false, folder: 'cxx', fileName: 'cxx_2.jpg', description: 'SED_DO / R/CXX-500 (Visual 2/3) / 2047', url: 'https://placehold.co/500x700/e91e63/ffffff?text=CXX_2' },
-            { id: 'cxx_3', projectId: 'cxx-500', isDefault: false, folder: 'cxx', fileName: 'cxx_3.jpg', description: 'SED_DO / R/CXX-500 (Visual 3/3) / 2047', url: 'https://placehold.co/800x400/e91e63/ffffff?text=CXX_3' },
+            // CYLINDER x South Parade 프로젝트 (가상 데이터)
+            { id: 'cyl_1', projectId: 'South Parade', isDefault: false, folder: 'cylinder', fileName: 'cyl_1.jpg', description: 'SED_DO / CYLINDER x South Parade (Visual 1/3) / 2024', url: 'https://placehold.co/600x300/e91e63/ffffff?text=CYLINDER_1' },
+            { id: 'cyl_2', projectId: 'South Parade', isDefault: false, folder: 'cylinder', fileName: 'cyl_2.jpg', description: 'SED_DO / CYLINDER x South Parade (Visual 2/3) / 2024', url: 'https://placehold.co/500x700/e91e63/ffffff?text=CYLINDER_2' },
+            { id: 'cyl_3', projectId: 'South Parade', isDefault: false, folder: 'cylinder', fileName: 'cyl_3.jpg', description: 'SED_DO / CYLINDER x South Parade (Visual 3/3) / 2024', url: 'https://placehold.co/800x400/e91e63/ffffff?text=CYLINDER_3' },
             
-            // 기타 프로젝트 (가상 데이터)
-            { id: 'qor_1', projectId: 'qor-809', isDefault: false, folder: 'qor', fileName: 'qor_1.jpg', description: 'SED_DO / Ref. X/QOR-809 (Solo) / 2042', url: 'https://placehold.co/700x400/ff9800/ffffff?text=QOR_1' },
-            { id: 'tsl_1', projectId: 'tsl-203', isDefault: false, folder: 'tsl', fileName: 'tsl_1.jpg', description: 'SED_DO / X/TSL-203 (Group) / 2039', url: 'https://placehold.co/400x700/ff9800/ffffff?text=TSL_1' },
-            { id: 'tur_1', projectId: 'tur-444', isDefault: false, folder: 'tur', fileName: 'tur_1.jpg', description: 'SED_DO / V/TUR-444 / 2033', url: 'https://placehold.co/600x600/ff9800/ffffff?text=TUR_1' },
-            { id: 'qor_2', projectId: 'qor-809', isDefault: false, folder: 'qor', fileName: 'qor_2.jpg', description: 'SED_DO / Ref. X/QOR-809 (Group) / 2042', url: 'https://placehold.co/700x400/ff9800/ffffff?text=QOR_2' },
-            { id: 'tsl_2', projectId: 'tsl-203', isDefault: false, folder: 'tsl', fileName: 'tsl_2.jpg', description: 'SED_DO / X/TSL-203 (Group 2) / 2039', url: 'https://placehold.co/400x700/ff9800/ffffff?text=TSL_2' },
+            // Hypercube 프로젝트 (가상 데이터)
+            { id: 'hyp_1', projectId: 'Hypercube', isDefault: false, folder: 'hypercube', fileName: 'hyp_1.jpg', description: 'SED_DO / Hypercube (Solo) / 2023', url: 'https://placehold.co/700x400/ff9800/ffffff?text=HYPERCUBE_1' },
+            { id: 'hyp_2', projectId: 'Hypercube', isDefault: false, folder: 'hypercube', fileName: 'hyp_2.jpg', description: 'SED_DO / Hypercube (Solo) / 2023', url: 'https://placehold.co/400x700/ff9800/ffffff?text=HYPERCUBE_2' },
+            { id: 'hyp_3', projectId: 'Hypercube', isDefault: false, folder: 'hypercube', fileName: 'hyp_3.jpg', description: 'SED_DO / Hypercube (Solo) / 2023', url: 'https://placehold.co/600x600/ff9800/ffffff?text=HYPERCUBE_3' },
+
+            // 나머지 프로젝트는 시각적 구분을 위해 기본 데이터에 연결하지 않습니다.
+            { id: 'gn_1', projectId: 'The Good Neighbor', isDefault: false, folder: 'goodneighbor', fileName: 'gn_1.jpg', description: 'SED_DO / The Good Neighbor (좋은이웃) / 2023', url: 'https://placehold.co/700x400/3498db/ffffff?text=GOOD_NEIGHBOR_1' },
+            { id: 'cb_1', projectId: 'Cabinet', isDefault: false, folder: 'cabinet', fileName: 'cb_1.jpg', description: 'SED_DO / Cabinet (Solo, Seoul) / 2023', url: 'https://placehold.co/400x700/2ecc71/ffffff?text=CABINET_1' },
+            { id: 'wr_1', projectId: 'Waiting Room', isDefault: false, folder: 'waitingroom', fileName: 'wr_1.jpg', description: 'SED_DO / Waiting Room (Group) / 2022', url: 'https://placehold.co/600x600/f39c12/ffffff?text=WAITING_ROOM_1' },
+            { id: 'pws_1', projectId: 'Perigee Winter Show', isDefault: false, folder: 'perigee', fileName: 'pws_1.jpg', description: 'SED_DO / Perigee Winter Show 2022 / 2022', url: 'https://placehold.co/800x450/9b59b6/ffffff?text=PERIGEE_WINTER_1' },
+            { id: 'twb_1', projectId: 'The Wild Bunch', isDefault: false, folder: 'wildbunch', fileName: 'twb_1.jpg', description: 'SED_DO / The Wild Bunch, Group (2022)', url: 'https://placehold.co/450x600/e67e22/ffffff?text=WILD_BUNCH_1' },
+            { id: 'fnd_1', projectId: 'Fonds', isDefault: false, folder: 'fonds', fileName: 'fnd_1.jpg', description: 'SED_DO / Fonds (Group Exhibition) / 2022', url: 'https://placehold.co/800x800/7f8c8d/ffffff?text=FONDS_1' },
+            { id: 'rcc_1', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'convexity', fileName: 'rcc_1.jpg', description: 'SED_DO / Room of Convexity and Concavity / 2022', url: 'https://placehold.co/450x600/1abc9c/ffffff?text=CONVEXITY_1' },
+            { id: 'tq_1', projectId: 'TORQUE 1', isDefault: false, folder: 'torque', fileName: 'tq_1.jpg', description: 'SED_DO / TORQUE 1 / GEAR SHIFT / 2021', url: 'https://placehold.co/700x400/c0392b/ffffff?text=TORQUE_1' },
         ];
 
 
@@ -607,7 +682,8 @@
             const projectLinks = document.querySelectorAll('.project-table .tilte a');
             const workListContainer = document.querySelector('.right-panel .selected-work-list'); 
             const jhlReset = document.getElementById('jhl-reset');
-            const workIntroText = document.querySelector('.work-intro-text'); 
+            // ⭐ 모든 정적 소개 텍스트 블록 선택
+            const projectIntroTexts = document.querySelectorAll('.project-intro-text'); 
 
             let activeFilterId = null; 
             
@@ -643,40 +719,50 @@
             }
 
             /**
-             * 오른쪽 패널의 작업물 목록을 렌더링합니다.
+             * 오른쪽 패널의 작업물 목록을 렌더링하고 상단 텍스트 가시성을 업데이트합니다.
              */
             const renderWorkList = (filterId = 'INDEX_DEFAULT') => {
                 let filteredData;
                 
                 if (filterId === 'INDEX_DEFAULT') {
-                    // 기본 (최근 전시) 필터
                     filteredData = allImageData.filter(item => item.isDefault);
-                    workIntroText.textContent = 'Recently Exhibition';
                 } else {
-                    // 프로젝트 필터
                     filteredData = allImageData.filter(item => item.projectId === filterId);
-                    const link = document.querySelector(`.project-table .tilte a[data-project-id="${filterId}"]`);
-                    workIntroText.textContent = link ? (link.dataset.displayTitle || link.textContent.trim()) : 'Works';
                 }
 
-                workListContainer.innerHTML = filteredData.map(createWorkItemHtml).join('');
+                // ⭐ 1. 이미지 목록 렌더링 (이전에 했던 대로)
+                const workItemsHtml = filteredData.map(createWorkItemHtml).join('');
+                // Note: workListContainer에는 정적 텍스트 블록들이 이미 포함되어 있으므로, 이미지를 그 후에 추가해야 함
+                
+                // 정적 텍스트 블록들을 제외하고 이미지들만 다시 채우기
+                const introTexts = Array.from(workListContainer.querySelectorAll('.project-intro-text'));
+                workListContainer.innerHTML = '';
+                introTexts.forEach(text => workListContainer.appendChild(text));
+                workListContainer.insertAdjacentHTML('beforeend', workItemsHtml);
+
                 document.querySelector('.right-panel').scrollTop = 0;
                 
-                // 모달 처리를 위해 현재 필터링된 이미지 목록 업데이트
+                // ⭐ 2. 상단 텍스트 가시성 관리 (정적 텍스트 블록 활성화/비활성화)
+                projectIntroTexts.forEach(textBlock => {
+                    if (textBlock.dataset.projectId === filterId) {
+                        textBlock.classList.add('active');
+                    } else {
+                        textBlock.classList.remove('active');
+                    }
+                });
+
                 currentFilteredImages = filteredData;
             };
 
-            // 모달 콘텐츠 업데이트 함수
+            // 모달 콘텐츠 업데이트 함수 (생략되지 않음 - 기존과 동일)
             const updateModalContent = (imageId) => {
                 const targetImage = currentFilteredImages.find(item => item.id === imageId);
                 
                 if (targetImage) {
-                    // 모달 이미지 컨테이너 내부를 초기화하고 새 이미지 추가
                     modalImageContainer.innerHTML = '';
                     const img = document.createElement('img');
                     img.src = targetImage.url;
                     img.alt = `${targetImage.folder}/${targetImage.fileName}`;
-                    // CSS에서 object-fit: contain이 적용되지만 명시적으로 설정
                     img.style.objectFit = 'contain'; 
                     modalImageContainer.appendChild(img);
                     
@@ -687,7 +773,7 @@
                 updateNavButtons();
             };
             
-            // 모달 버튼 상태 업데이트 함수
+            // 모달 버튼 상태 업데이트 함수 (생략되지 않음 - 기존과 동일)
             const updateNavButtons = () => {
                 const currentIndex = currentFilteredImages.findIndex(item => item.id === currentModalImageId);
                 
@@ -714,6 +800,7 @@
                     projectLinks.forEach(l => l.style.fontWeight = 'normal');
 
                     if (projectId === activeFilterId) {
+                        // 현재 활성화된 프로젝트를 다시 클릭하면 리셋 (토글 기능 유지)
                         resetFilter();
                     } else {
                         renderWorkList(projectId);
