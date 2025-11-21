@@ -1041,47 +1041,60 @@
                 }
             };
 
-          // 모달 콘텐츠 업데이트 함수 (Fade Out 후 Fade In)
+         // 모달 콘텐츠 업데이트 함수 (이미지 로딩 완료 후 Fade Out -> Fade In)
             const updateModalContent = (imageId) => {
                 const targetImage = currentFilteredImages.find(item => item.id === imageId);
                 
                 if (targetImage) {
-                    const transitionDuration = 300; // CSS의 0.3s와 일치시킵니다.
+                    const transitionDuration = 300; // 0.3초
                     const currentImg = modalImageContainer.querySelector('img');
                     
-                    // 캡션은 이미지 교체와 독립적으로 빠르게 업데이트
+                    // 캡션은 즉시 업데이트
                     currentModalImageId = targetImage.id;
                     modalCaption.innerHTML = `<div class="work-header"><span class="full-description">${targetImage.description}</span></div>`;
 
-                    // 이미지를 삽입하고 페이드 인을 처리하는 내부 함수
-                    const fadeInNewImage = () => {
-                        // 1. DOM 교체: 현재 이미지를 완전히 비우고 새 이미지로 교체합니다.
-                        modalImageContainer.innerHTML = '';
+                    // 새 이미지를 로드하고 Fade In을 처리하는 함수
+                    const loadAndFadeInNewImage = () => {
+                        // 1. 새 이미지 요소 생성
                         const newImg = document.createElement('img');
-                        
-                        // 2. 속성 설정
-                        newImg.src = targetImage.url;
                         newImg.alt = `${targetImage.folder}/${targetImage.fileName}`;
                         newImg.style.objectFit = 'contain'; 
                         newImg.style.opacity = '0'; // 초기 상태 (투명)
                         
+                        // 2. 이미지가 로드되었을 때만 Fade In 시작
+                        newImg.onload = () => {
+                            // DOM에 삽입된 후 Reflow 강제
+                            void newImg.offsetWidth; 
+                            // 로딩이 완료되었으므로 Fade In 전환 시작
+                            newImg.style.opacity = '1'; 
+                        };
+
+                        // 3. 에러 발생 시 처리 (옵션)
+                        newImg.onerror = () => {
+                            console.error('Image failed to load:', targetImage.url);
+                            // 로딩 실패 시 바로 투명도를 1로 설정하여 빈 공간을 없앰 (선택 사항)
+                            newImg.style.opacity = '1'; 
+                        };
+                        
+                        // 4. DOM 교체 (이전 이미지를 제거하고 새 이미지를 삽입)
+                        modalImageContainer.innerHTML = '';
                         modalImageContainer.appendChild(newImg);
                         
-                        // 3. Reflow 강제 및 Fade In 트리거
-                        void newImg.offsetWidth; 
-                        newImg.style.opacity = '1'; // Fade In 시작
+                        // 5. 이미지 로드 시작 (src 설정은 반드시 DOM 삽입 후에 해야 합니다.)
+                        newImg.src = targetImage.url; 
                     };
 
-                    // 1. 기존 이미지가 있다면 Fade Out 로직 시작
+
+                    // ⭐ 로직: 현재 이미지가 있다면 Fade Out 먼저 실행
                     if (currentImg) {
-                        currentImg.style.opacity = '0'; // ⭐ 기존 이미지 Fade Out 시작 ⭐
+                        currentImg.style.opacity = '0'; // 기존 이미지 Fade Out 시작
                         
-                        // 0.3초 후 (Fade Out이 완료될 시간을 기다린 후) 새 이미지 삽입 및 Fade In
-                        setTimeout(fadeInNewImage, transitionDuration);
+                        // 0.3초 후 (Fade Out 완료를 기다린 후) 새 이미지 로드 및 Fade In 시작
+                        setTimeout(loadAndFadeInNewImage, transitionDuration);
 
                     } else {
-                        // 2. 처음 모달을 열 때 (기존 이미지가 없는 경우)는 바로 Fade In
-                        fadeInNewImage();
+                        // 처음 모달을 열 때는 바로 로드 및 Fade In
+                        loadAndFadeInNewImage();
                     }
 
                 }
