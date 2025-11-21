@@ -921,7 +921,7 @@
             const startCarousel = () => {
                 stopCarousel(); // 이미 실행 중인 캐러셀이 있다면 중지
 
-                const indexImages = allImageData.filter(item => item.projectId === 'INDEX_DEFAULT','Loggia1');
+                const indexImages = allImageData.filter(item => item.projectId === 'INDEX_DEFAULT');
                 if (indexImages.length === 0) return;
 
                 // 캐러셀 인덱스를 0으로 초기화
