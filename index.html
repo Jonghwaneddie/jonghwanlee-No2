@@ -228,7 +228,7 @@
             display: block; 
             object-fit: contain; 
             /* ⭐ 캐러셀 전환 시 부드러운 효과를 위해 opacity 전환 유지 ⭐ */
-            transition: opacity 0.4s ease-in-out; 
+            transition: opacity 0.1s ease-in-out; 
         }
 
 
@@ -970,7 +970,7 @@
                             imgElement.src = nextImage.url;
                             imgElement.alt = `${nextImage.folder}/${nextImage.fileName}`;
                             imgElement.style.opacity = '1';
-                        }, 400); // 0.1초 후 이미지 변경 및 페이드 인
+                        }, 100); // 0.1초 후 이미지 변경 및 페이드 인
                     }
                     if (descElement) {
                         descElement.textContent = nextImage.description;
