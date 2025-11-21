@@ -220,6 +220,7 @@
             font-style: italic;
             cursor: pointer; 
             overflow: hidden; 
+            position: relative;
         }
         
         /* 이미지 잘림 방지 (Contain) CSS */
@@ -228,6 +229,9 @@
             height: 100%; 
             display: block; 
             object-fit: contain; 
+            position: absolute; /* ⭐ 이 줄을 추가합니다. ⭐ */
+            top: 0;
+            left: 0;
             transition: opacity 0.05s ease-in-out;
         }
 
@@ -260,15 +264,21 @@
             
             width: 100%; 
             height: 100%;
+
+            position: relative;
         }
         /* 모달 내부 img 태그 스타일 (모달에서도 잘림 방지) */
         #modal-image-container img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain; 
-            width: auto; 
-            height: auto; 
+            width: 100; 
+            height: 100; 
             display: block; 
+
+            position: absolute; /* ⭐ 이 줄을 추가합니다. ⭐ */
+            top: 0;
+            left: 0;
             transition: opacity 0.05s ease-in-out;
         }
 
@@ -892,11 +902,11 @@
             let currentFilteredImages = []; 
             
             // =========================================================================
-           // =========================================================================
-            // 캐러셀 관련 변수 및 상수 (자동 전환 Fade Out/In 로직)
+        // =========================================================================
+            // 캐러셀 관련 변수 및 상수 (자동 전환 Cross-Fade 로직)
             let carouselInterval = null;
-            const CAROUSEL_INTERVAL_MS = 3000; // 3초 전환 주기
-            const FADE_DURATION_MS = 50; // ⭐ 0.15초 (CSS와 일치) ⭐
+            const CAROUSEL_INTERVAL_MS = 3000; // 3초 전환 주기 (유지)
+            const FADE_DURATION_MS = 50; // 0.05초 (CSS와 일치)
             let currentCarouselIndex = 0;
 
             // 캐러셀 중지 함수
@@ -911,11 +921,10 @@
             const startCarousel = () => {
                 stopCarousel(); 
                 currentCarouselIndex = 0;
-                // 첫 이미지 로딩 후 3초 뒤부터 캐러셀 시작
                 carouselInterval = setInterval(updateIndexImage, CAROUSEL_INTERVAL_MS);
             };
 
-            // 캐러셀 이미지 및 텍스트를 업데이트하는 함수 (Fade 효과 적용)
+            // 캐러셀 이미지 및 텍스트를 업데이트하는 함수 (Cross-Fade 적용)
             const updateIndexImage = () => {
                 const defaultImages = allImageData.filter(item => item.isDefault);
                 if (defaultImages.length === 0) return;
@@ -924,53 +933,54 @@
                 const nextImage = defaultImages[nextImageIndex];
 
                 const mainIndexItem = workListContainer.querySelector('.work-item[data-project-id="INDEX_DEFAULT"]');
-                const imgElement = mainIndexItem ? mainIndexItem.querySelector('.work-visual img') : null;
+                const imgContainer = mainIndexItem ? mainIndexItem.querySelector('.work-visual') : null; // 이미지 컨테이너
+                const currentImg = imgContainer ? imgContainer.querySelector('img') : null; // 이전 이미지
                 const captionElement = mainIndexItem ? mainIndexItem.querySelector('.work-header .full-description') : null;
                 
-                if (!imgElement) {
+                if (!imgContainer) {
                     stopCarousel();
                     return;
                 }
+                
+                // 1. 새 이미지 요소 생성
+                const newImg = document.createElement('img');
+                newImg.src = nextImage.url;
+                newImg.alt = `${nextImage.folder}/${nextImage.fileName}`;
+                newImg.style.opacity = '0'; // 초기 투명
 
-                // 1. Fade Out 시작
-                imgElement.style.opacity = '0'; 
+                // 2. DOM에 새 이미지를 추가 (기존 이미지 위에 겹쳐짐)
+                imgContainer.appendChild(newImg); 
+                
+                // 3. 로드가 완료되면 Fade In 시작
+                newImg.onload = () => {
+                    // Fade In
+                    void newImg.offsetWidth; 
+                    newImg.style.opacity = '1'; 
 
-                // 2. Fade Out이 완료될 때까지 대기
-                setTimeout(() => {
-                    // 3. 새로운 이미지를 배경에서 로드
-                    const tempImg = new Image();
-                    tempImg.src = nextImage.url;
-                    tempImg.alt = `${nextImage.folder}/${nextImage.fileName}`;
-                    
-                    // 4. 로드가 완료되면 DOM 업데이트 및 Fade In 시작
-                    tempImg.onload = () => {
-                        // 이미지 URL, 캡션 업데이트
-                        imgElement.src = nextImage.url;
-                        imgElement.alt = tempImg.alt;
-                        if (captionElement) {
-                            captionElement.textContent = nextImage.description;
-                        }
-                        mainIndexItem.dataset.imageId = nextImage.id;
-                        
-                        // Reflow 강제 후 Fade In
-                        void imgElement.offsetWidth; 
-                        imgElement.style.opacity = '1'; 
-                    };
-                    
-                    tempImg.onerror = () => {
-                        // 로딩 실패 시에도 텍스트는 업데이트
-                        imgElement.src = nextImage.url; 
-                        if (captionElement) {
-                            captionElement.textContent = nextImage.description;
-                        }
-                        mainIndexItem.dataset.imageId = nextImage.id;
-                        imgElement.style.opacity = '1'; 
-                    };
+                    // 4. 새 이미지가 완전히 나타난 후(50ms 후) 이전 이미지를 제거
+                    if (currentImg) {
+                        setTimeout(() => {
+                            if (currentImg.parentNode) {
+                                currentImg.parentNode.removeChild(currentImg);
+                            }
+                        }, FADE_DURATION_MS); 
+                    }
 
-                    // 다음 캐러셀 사이클을 위해 현재 인덱스 업데이트
+                    // 캡션 및 인덱스 업데이트
+                    if (captionElement) {
+                        captionElement.textContent = nextImage.description;
+                    }
+                    mainIndexItem.dataset.imageId = nextImage.id;
                     currentCarouselIndex = nextImageIndex;
+                };
 
-                }, FADE_DURATION_MS); // 150ms 대기
+                newImg.onerror = () => {
+                    // 로딩 실패 시 바로 보이게 처리하고 이전 이미지 제거
+                    newImg.style.opacity = '1';
+                    if (currentImg && currentImg.parentNode) {
+                        currentImg.parentNode.removeChild(currentImg);
+                    }
+                };
 
             }; // End of updateIndexImage
             // =========================================================================
@@ -1072,48 +1082,55 @@
                 }
             };
 
-         // 모달 콘텐츠 업데이트 함수 (이미지 로딩 완료 후 Fade Out -> Fade In)
+        // 모달 콘텐츠 업데이트 함수 (Cross-Fade 적용)
             const updateModalContent = (imageId) => {
                 const targetImage = currentFilteredImages.find(item => item.id === imageId);
                 
                 if (targetImage) {
-                    const transitionDuration = 50; // 0.1초
-                    const currentImg = modalImageContainer.querySelector('img');
+                    const transitionDuration = 50; // 0.05초
+                    const currentImg = modalImageContainer.querySelector('img'); // 이전 이미지
                     
-                    // 캡션은 즉시 업데이트
+                    // 캡션 업데이트
                     currentModalImageId = targetImage.id;
                     modalCaption.innerHTML = `<div class="work-header"><span class="full-description">${targetImage.description}</span></div>`;
 
-                    // 새 이미지를 로드하고 Fade In을 처리하는 함수
-                    const loadAndFadeInNewImage = () => {
-                        // 1. 새 이미지 요소 생성
-                        const newImg = document.createElement('img');
-                        newImg.alt = `${targetImage.folder}/${targetImage.fileName}`;
-                        newImg.style.objectFit = 'contain'; 
-                        newImg.style.opacity = '0'; // 초기 상태 (투명)
-                        
-                        // 2. 이미지가 로드되었을 때만 Fade In 시작
-                        newImg.onload = () => {
-                            // DOM에 삽입된 후 Reflow 강제
-                            void newImg.offsetWidth; 
-                            // 로딩이 완료되었으므로 Fade In 전환 시작
-                            newImg.style.opacity = '1'; 
-                        };
+                    // 1. 새 이미지 요소 생성 및 초기 투명도 설정
+                    const newImg = document.createElement('img');
+                    newImg.alt = `${targetImage.folder}/${targetImage.fileName}`;
+                    newImg.style.objectFit = 'contain'; 
+                    newImg.style.opacity = '0'; // 초기 상태 (투명)
+                    
+                    // 2. DOM에 새 이미지를 추가 (기존 이미지 위에 겹쳐짐)
+                    modalImageContainer.appendChild(newImg);
+                    
+                    // 3. 로드 완료 후 Fade In 시작
+                    newImg.onload = () => {
+                        // Reflow 강제 및 Fade In 트리거
+                        void newImg.offsetWidth; 
+                        newImg.style.opacity = '1'; 
 
-                        // 3. 에러 발생 시 처리 (옵션)
-                        newImg.onerror = () => {
-                            console.error('Image failed to load:', targetImage.url);
-                            // 로딩 실패 시 바로 투명도를 1로 설정하여 빈 공간을 없앰 (선택 사항)
-                            newImg.style.opacity = '1'; 
-                        };
-                        
-                        // 4. DOM 교체 (이전 이미지를 제거하고 새 이미지를 삽입)
-                        modalImageContainer.innerHTML = '';
-                        modalImageContainer.appendChild(newImg);
-                        
-                        // 5. 이미지 로드 시작 (src 설정은 반드시 DOM 삽입 후에 해야 합니다.)
-                        newImg.src = targetImage.url; 
+                        // 4. 새 이미지가 완전히 나타난 후(50ms 후) 이전 이미지를 제거
+                        if (currentImg) {
+                            setTimeout(() => {
+                                if (currentImg.parentNode) {
+                                    currentImg.parentNode.removeChild(currentImg);
+                                }
+                            }, transitionDuration);
+                        }
                     };
+
+                    newImg.onerror = () => {
+                        newImg.style.opacity = '1';
+                        if (currentImg && currentImg.parentNode) {
+                            currentImg.parentNode.removeChild(currentImg);
+                        }
+                    };
+                    
+                    // 5. 이미지 로드 시작
+                    newImg.src = targetImage.url; 
+                }
+                updateNavButtons();
+            };
 
 
                     // ⭐ 로직: 현재 이미지가 있다면 Fade Out 먼저 실행
