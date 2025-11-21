@@ -654,7 +654,7 @@
                     CYLINDER TWO, 24, Hangang-daero 48-gil, Yongsan-gu, Seoul, Korea   <br><br>
                   <span class="fade-text">   Supported by Seoul Foundation for Arts and Culture</span><br>
                   <br><br>  인간의 지각 이전에 회화 자체의 지각이 역으로 생기를 발생시킬 수 있다는 가설과 함께, 지속적으로 형성되는 지각의 순환구조에서 작용하는 회화 속 물질들의 압축된 세계를 탐구한다. 그의 회화를 담아 내는 화판은 단순히 안료가 안착되는 표면이 아닌 회화로부터 파생된 존재들이 거주하며 회화의 확장성을 이끌어내는 유기적인 육면체이자 소우주이다. 화판의 표면에 그려진 회화는 음각으로 생겨난 균열을 통해 2차원과 3차원의 경계 사이에 머무르고, 나무의 깎인 자국이 만든 계곡과 그 주변의 풍경들은 캐스팅을 통해 물과 하얀 가루의 화학반응으로 만들어진 고체의 표면으로 서서히 이동한다. 그리고 정지해 있는 회화 및 석고와 달리 화판 내부에 식립된 진자는 주기운동을 통해 서로가 맞닿으며 미세한 파동을 일으키는데, 이 청각적인 진동을 동반한 추의 위치변화는 시계의 초침처럼 정지해있는 대상에 시간성을 부여하고, 이는 다시 석고를 매질 삼아 회화의 표면으로 도달해 그 주위로 흐르는 시간에 대한 고찰을 이끈다.
-                   <br><br> Jonghwan Lee delves into the condensed world of painting materials that exist within the continuously forming cyclical structure of perception based on the hypothesis that the perception of painting itself can generate vitality even prior to human perception. The wood panel that encapsulates his paintings goes beyond being a mere surface for pigments to settle and takes the form of an organic hexahedron and a microcosm inhabited by entities that originate from the paintings and lead to their extension. Lee's paintings, portrayed on the panel, reside between the boundaries of two-dimensional and three-dimensional through cracks formed by engraving. The carved traces on wood that create valleys and the surrounding landscapes gradually transition into solid surfaces through casting, facilitated by chemical reactions between water and white powder. Furthermore, amidst the static nature of the paintings and plaster, a pendulum embedded within the panel undergoes periodic motion, colliding and creating waves. The pendulum’s positional shifts, accompanied by auditory vibrations, infuse a sense of temporality into the stationary subjects, akin to the movement of a clock's second hand. This, in turn, reaches the surface of the paintings using plaster as a medium, prompting contemplation on the passage of time.
+                   <br><br> Jonghwan Lee delves into the condensed world of painting materials that exist within the continuously forming cyclical structure of perception based on the hypothesis that the perception of painting itself can generate vitality even prior to human perception. The wood panel that encapsulates his paintings goes beyond being a mere surface for pigments to settle and takes the form of an organic hexahedron and a microcosm inhabited by entities that originate from the paintings and lead to their extension. Lee's paintings, portrayed on the panel, reside between the boundaries of two-dimensional and three-dimensional through cracks formed by engraving. The carved traces on wood that create valleys and the surrounding landscapes gradually transition into solid surfaces through casting, facilitated by chemical reactions between water and white powder. Furthermore, a pendulum embedded within the panel undergoes periodic motion, colliding and creating waves. The pendulum’s positional shifts, accompanied by auditory vibrations, infuse a sense of temporality into the stationary subjects, akin to the movement of a clock's second hand. This, in turn, reaches the surface of the paintings using plaster as a medium, prompting contemplation on the passage of time.
                     
                 </div>
                 
@@ -795,16 +795,17 @@
         // 1. 이미지 데이터 정의 
         const allImageData = [
             // INDEX_DEFAULT - 최근 전시 작품 목록
-            { id: 'index_1', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2024_1.jpg',  description: '', url: 'loggiaimages/loggia1.jpg' },
-            { id: 'index_2', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2024_2.jpg', description: '', url: 'loggiaimages/loggia2.jpg' },
-            { id: 'index_3', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2023_1.jpg', description: '', url: 'loggiaimages/loggia3.jpg' },
-            { id: 'index_4', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2023_2.jpg', description: '', url: 'loggiaimages/loggia4.jpg' },
-            { id: 'index_5', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '',url: 'loggiaimages/loggia5.jpg' },
-             { id: 'index_6', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia6.jpg' },
- { id: 'index_7', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia7.jpg' },
- { id: 'index_8', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg',description: '', url: 'loggiaimages/loggia8.jpg' },
- { id: 'index_9', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia9.jpg' },
- { id: 'index_10', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia10.jpg' },
+            // ⭐ isGroupMain: true를 index_1에만 설정하여, 메인 화면에 이 항목만 렌더링되게 합니다. (캐러셀의 시작점)
+            { id: 'index_1', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2024_1.jpg',  description: 'Index Image 1 (2024)', url: 'loggiaimages/loggia1.jpg', isGroupMain: true }, 
+            { id: 'index_2', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2024_2.jpg', description: 'Index Image 2 (2024)', url: 'loggiaimages/loggia2.jpg' },
+            { id: 'index_3', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2023_1.jpg', description: 'Index Image 3 (2023)', url: 'loggiaimages/loggia3.jpg' },
+            { id: 'index_4', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2023_2.jpg', description: 'Index Image 4 (2023)', url: 'loggiaimages/loggia4.jpg' },
+            { id: 'index_5', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: 'Index Image 5 (2022)',url: 'loggiaimages/loggia5.jpg' },
+             { id: 'index_6', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: 'Index Image 6 (2022)', url: 'loggiaimages/loggia6.jpg' },
+             { id: 'index_7', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: 'Index Image 7 (2022)', url: 'loggiaimages/loggia7.jpg' },
+             { id: 'index_8', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg',description: 'Index Image 8 (2022)', url: 'loggiaimages/loggia8.jpg' },
+             { id: 'index_9', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: 'Index Image 9 (2022)', url: 'loggiaimages/loggia9.jpg' },
+             { id: 'index_10', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: 'Index Image 10 (2022)', url: 'loggiaimages/loggia10.jpg' },
 
             // Loggia - Loggia 프로젝트 이미지 (폴더/파일명 지정)
             { id: 'loggia_1', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia1.jpg', description: '', url: 'loggiaimages/loggia1.jpg' },
@@ -812,7 +813,7 @@
             { id: 'loggia_3', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia3.jpg' },
                         { id: 'loggia_4', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia4.jpg' },
                         { id: 'loggia_5', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia5.jpg' },
-                        { id: 'loggia_6', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg',description: '', url: 'loggiaimages/loggia6.jpg' },
+                        { id: 'loggia_6', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg',description: '',url: 'loggiaimages/loggia6.jpg' },
                         { id: 'loggia_7', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg',description: '',  url: 'loggiaimages/loggia7.jpg' },
                         { id: 'loggia_8', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia8.jpg' },
                         { id: 'loggia_9', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia9.jpg' },
@@ -883,6 +884,63 @@
             let currentModalImageId = null;
             let currentFilteredImages = []; 
             
+            // =========================================================================
+            // ⭐ 3초 자동 캐러셀 기능 변수 및 함수 추가 ⭐
+            // =========================================================================
+            let carouselInterval = null;
+            let currentCarouselIndex = 0; 
+            const CAROUSEL_INTERVAL_MS = 3000; // 3초
+
+            const stopCarousel = () => {
+                if (carouselInterval) {
+                    clearInterval(carouselInterval);
+                    carouselInterval = null;
+                }
+            };
+
+            const startCarousel = () => {
+                stopCarousel(); // 이미 실행 중인 캐러셀이 있다면 중지
+
+                const indexImages = allImageData.filter(item => item.projectId === 'INDEX_DEFAULT');
+                if (indexImages.length === 0) return;
+
+                // 캐러셀 인덱스를 0으로 초기화
+                currentCarouselIndex = 0; 
+                
+                // 메인 화면에 렌더링된 단일 항목 DOM 요소를 찾습니다.
+                const mainIndexItem = workListContainer.querySelector('.work-item[data-project-id="INDEX_DEFAULT"]');
+
+                if (!mainIndexItem) return;
+
+                const updateIndexImage = () => {
+                    // 다음 이미지 인덱스를 순환 방식으로 계산
+                    const nextImageIndex = (currentCarouselIndex + 1) % indexImages.length;
+                    const nextImage = indexImages[nextImageIndex];
+                    
+                    // 렌더링된 요소의 src와 description을 업데이트합니다.
+                    const imgElement = mainIndexItem.querySelector('.work-visual img');
+                    const descElement = mainIndexItem.querySelector('.work-header .full-description');
+                    
+                    if (imgElement) {
+                        imgElement.src = nextImage.url;
+                        imgElement.alt = `${nextImage.folder}/${nextImage.fileName}`;
+                    }
+                    if (descElement) {
+                        descElement.textContent = nextImage.description;
+                    }
+                    
+                    // 모달을 위해 work-item의 data-image-id도 업데이트해야 합니다.
+                    mainIndexItem.dataset.imageId = nextImage.id;
+
+                    // 다음 캐러셀 사이클을 위해 현재 인덱스 업데이트
+                    currentCarouselIndex = nextImageIndex;
+                };
+                
+                // 3초마다 이미지 전환 시작
+                carouselInterval = setInterval(updateIndexImage, CAROUSEL_INTERVAL_MS);
+            };
+            // =========================================================================
+            
             /**
              * 단일 작업 항목 HTML을 생성합니다.
              */
@@ -907,27 +965,34 @@
              * 오른쪽 패널의 작업물 목록을 렌더링하고 상단/하단 텍스트 가시성을 업데이트합니다.
              */
             const renderWorkList = (filterId = 'INDEX_DEFAULT') => {
+                
+                // 1. 캐러셀 중지/시작 처리
+                stopCarousel();
+                
+                // 2. 필터링된 데이터 준비 (모달 내비게이션용)
                 let filteredData;
                 
                 if (filterId === 'INDEX_DEFAULT') {
-                    // 기본 화면: isDefault가 true인 항목만 필터링
+                    // 기본 화면: isDefault가 true인 모든 항목을 필터링 (모달/캐러셀 데이터로 사용)
                     filteredData = allImageData.filter(item => item.isDefault);
                 } else {
                     // 프로젝트 선택 화면: 해당 projectId의 모든 항목 필터링 (모달 내비게이션용)
                     filteredData = allImageData.filter(item => item.projectId === filterId);
                 }
                 
-                // ⭐ 추가된 로직: 메인 패널에 렌더링할 항목을 다시 필터링합니다.
+                // 3. ⭐ 메인 패널에 렌더링할 항목을 다시 필터링합니다.
                 let itemsToRenderInMain;
                 if (filterId === 'INDEX_DEFAULT') {
-                    // 기본 화면은 모든 항목을 렌더링
-                    itemsToRenderInMain = filteredData;
+                    // 기본 화면 (INDEX_DEFAULT): isGroupMain: true 인 항목만 렌더링 (단일 캐러셀 컨테이너)
+                    itemsToRenderInMain = filteredData.filter(item => item.isGroupMain === true);
+                    
+                    // 비상 시 첫 번째 항목만 렌더링 (데이터 오류 방지)
+                    if (itemsToRenderInMain.length === 0 && filteredData.length > 0) {
+                        itemsToRenderInMain = [filteredData[0]];
+                    }
                 } else {
-                    // 프로젝트 화면은 isGroupMain: true 항목만 렌더링
-                    // 만약 isGroupMain이 없는 프로젝트라면 전체를 렌더링하는 대체 로직도 고려할 수 있지만, 
-                    // Loggia 프로젝트에서는 명확하게 isGroupMain을 사용합니다.
+                    // 프로젝트 화면: isGroupMain: true 항목만 렌더링, 없으면 전체 렌더링
                     const mainItems = filteredData.filter(item => item.isGroupMain === true);
-                    // isGroupMain이 설정된 항목이 있다면 그것만 렌더링, 없다면 전체를 렌더링 (후자를 선택하여 다른 프로젝트 호환성을 높임)
                     itemsToRenderInMain = mainItems.length > 0 ? mainItems : filteredData;
                 }
 
@@ -938,19 +1003,19 @@
                 const introTexts = Array.from(workListContainer.querySelectorAll('.project-intro-text'));
                 const footerTexts = Array.from(workListContainer.querySelectorAll('.project-footer-text')); 
                 
-                // 1. 컨테이너를 비우고 (이미지만) 정적 텍스트 블록을 다시 추가합니다.
+                // 4. 컨테이너를 비우고 (이미지만) 정적 텍스트 블록을 다시 추가합니다.
                 workListContainer.innerHTML = '';
                 introTexts.forEach(text => workListContainer.appendChild(text));
                 
-                // 2. 이미지 목록을 상단 텍스트 다음에 추가합니다.
+                // 5. 이미지 목록을 상단 텍스트 다음에 추가합니다.
                 workListContainer.insertAdjacentHTML('beforeend', workItemsHtml);
 
-                // 3. 하단 푸터 텍스트를 이미지 목록 다음에 추가합니다.
+                // 6. 하단 푸터 텍스트를 이미지 목록 다음에 추가합니다.
                 footerTexts.forEach(text => workListContainer.appendChild(text));
 
                 document.querySelector('.right-panel').scrollTop = 0;
                 
-                // 4. 상단 텍스트 가시성 관리
+                // 7. 상단/하단 텍스트 가시성 관리
                 projectIntroTexts.forEach(textBlock => {
                     textBlock.classList.remove('active');
                     if (textBlock.dataset.projectId === filterId) {
@@ -958,7 +1023,6 @@
                     }
                 });
                 
-                // 5. 하단 푸터 텍스트 가시성 관리 (새로 추가됨)
                 projectFooterTexts.forEach(textBlock => {
                     textBlock.classList.remove('active');
                     if (textBlock.dataset.projectId === filterId) {
@@ -966,8 +1030,13 @@
                     }
                 });
 
-                // ⭐ 모달용으로 전체 필터링된 데이터(숨겨진 이미지 포함)를 저장합니다.
+                // 8. 모달용으로 전체 필터링된 데이터(숨겨진 이미지 포함)를 저장합니다.
                 currentFilteredImages = filteredData;
+                
+                // 9. INDEX_DEFAULT일 경우에만 캐러셀 시작
+                if (filterId === 'INDEX_DEFAULT') {
+                    startCarousel();
+                }
             };
 
             // 모달 콘텐츠 업데이트 함수 (생략되지 않음 - 기존과 동일)
@@ -1041,6 +1110,10 @@
                     const workItem = visual.closest('.work-item');
                     if (workItem) {
                         const imageId = workItem.dataset.imageId;
+                        
+                        // ⭐ 모달 열기 시 캐러셀 중지
+                        stopCarousel();
+                        
                         updateModalContent(imageId);
                         modal.classList.add('show');
                     }
@@ -1050,11 +1123,19 @@
             // 5. 모달 닫기 이벤트
             modalClose.addEventListener('click', () => {
                 modal.classList.remove('show');
+                // ⭐ 모달 닫기 후 INDEX_DEFAULT 화면이면 캐러셀 다시 시작
+                if (activeFilterId === null || activeFilterId === 'INDEX_DEFAULT') {
+                    startCarousel();
+                }
             });
 
             modal.addEventListener('click', (event) => {
                 if (event.target === modal) {
                     modal.classList.remove('show');
+                    // ⭐ 모달 닫기 후 INDEX_DEFAULT 화면이면 캐러셀 다시 시작
+                    if (activeFilterId === null || activeFilterId === 'INDEX_DEFAULT') {
+                        startCarousel();
+                    }
                 }
             });
             
@@ -1063,6 +1144,10 @@
                 if (modal.classList.contains('show')) {
                     if (event.key === 'Escape') {
                         modal.classList.remove('show');
+                        // ⭐ 모달 닫기 후 INDEX_DEFAULT 화면이면 캐러셀 다시 시작
+                        if (activeFilterId === null || activeFilterId === 'INDEX_DEFAULT') {
+                            startCarousel();
+                        }
                     } else if (event.key === 'ArrowLeft') {
                         prevBtn.click();
                     } else if (event.key === 'ArrowRight') {
