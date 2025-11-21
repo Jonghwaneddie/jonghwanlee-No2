@@ -1059,50 +1059,53 @@
                 }
             };
 
-        // =========================================================================
-            // ⭐ 전체화면 모달 전환 함수 (Zoom-Out & Cross-Fade 적용) ⭐
-            // =========================================================================
-       // =========================================================================
-// ⭐ [최종] 전체화면 모달 전환 함수 (즉시 전환 / 겹침 제거) ⭐
+   // =========================================================================
+// ⭐ [최종] 전체화면 모달 전환 함수 (로딩 완료 후 즉시 전환) ⭐
 // =========================================================================
 const updateModalContent = (imageId) => {
     const targetImage = currentFilteredImages.find(item => item.id === imageId);
     
     if (!targetImage) return;
 
-    // 이전 이미지를 찾습니다.
+    // 현재 화면에 보이는 이전 이미지입니다. (로딩 중 화면 유지를 위해 필요)
     const currentImg = modalImageContainer.querySelector('img'); 
     
-    // ⭐ [핵심] 새 이미지를 로드하기 전에 이전 이미지를 즉시 제거합니다. ⭐
-    if (currentImg && currentImg.parentNode) {
-        currentImg.parentNode.removeChild(currentImg);
-    }
-    
-    // 캡션 업데이트
+    // 1. 캡션 및 ID 업데이트 (먼저 처리하여 사용자에게 피드백 제공)
     currentModalImageId = targetImage.id;
     modalCaption.innerHTML = `<div class="work-header"><span class="full-description">${targetImage.description}</span></div>`;
 
-    // 1. 새 이미지 요소 생성
-    const newImg = document.createElement('img');
-    newImg.alt = `${targetImage.folder}/${targetImage.fileName}`;
-    newImg.style.objectFit = 'contain'; 
+    // 2. 로딩 전용 이미지 객체 생성 (DOM에 추가되지 않고 메모리에서 로딩 시작)
+    const tempLoader = new Image();
+    tempLoader.alt = `${targetImage.folder}/${targetImage.fileName}`;
+    
+    // 3. 로드가 완료되면 실행할 함수
+    tempLoader.onload = () => {
+        // 4. 새 이미지 요소 (DOM에 들어갈 요소) 생성
+        // 이미 로드된 tempLoader의 데이터를 사용하여 새로운 <img> 요소를 만듭니다.
+        const newImg = document.createElement('img');
+        newImg.alt = tempLoader.alt; 
+        newImg.src = tempLoader.src; // 이미 로드가 완료된 이미지 데이터가 즉시 표시됩니다.
+        newImg.style.objectFit = 'contain'; 
+        newImg.style.transition = 'none'; // 애니메이션 제거
+        newImg.style.opacity = '1'; 
+        newImg.style.transform = 'scale(1)'; 
 
-    // 부드러운 전환 효과(transition, opacity, transform)를 모두 제거합니다.
-    newImg.style.transition = 'none'; 
-    newImg.style.opacity = '1'; // 바로 보이게 설정
-    newImg.style.transform = 'scale(1)'; // 크기 변화 없이 설정
+        // 5. 이전 이미지 제거 (로딩이 끝났으므로 이제 안전하게 제거)
+        if (currentImg && currentImg.parentNode) {
+            currentImg.parentNode.removeChild(currentImg);
+        }
+        
+        // 6. 새 이미지를 DOM에 추가 (로딩 지연 없이 바로 표시됨)
+        modalImageContainer.appendChild(newImg);
+    };
+
+    // 7. 로드 시작
+    tempLoader.src = targetImage.url; 
     
-    // 2. DOM에 새 이미지를 추가 (이제 컨테이너에는 이 이미지 하나만 남습니다.)
-    modalImageContainer.appendChild(newImg);
-    
-    // 3. 이미지 로드 시작
-    newImg.src = targetImage.url; 
-    
-    // 4. 내비게이션 버튼 업데이트
+    // 8. 내비게이션 버튼 업데이트
     updateNavButtons();
 };
 // =========================================================================
-            // =========================================================================
             
             // 모달 버튼 상태 업데이트 함수 (생략되지 않음 - 기존과 동일)
             const updateNavButtons = () => {
