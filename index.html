@@ -824,16 +824,16 @@
              { id: 'index_10', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia10.jpg' },
 
             // Loggia - Loggia 프로젝트 이미지 (폴더/파일명 지정)
-            { id: 'loggia_1', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia1.jpg', description: '', url: 'loggiaimages/loggia1.jpg',isGroupMain: true },
-            { id: 'loggia_2', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia2.jpg', description: '', url: 'loggiaimages/loggia2.jpg' },
-            { id: 'loggia_3', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia3.jpg' },
-                        { id: 'loggia_4', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia4.jpg' },
-                        { id: 'loggia_5', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia5.jpg' },
-                        { id: 'loggia_6', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg',description: '',url: 'loggiaimages/loggia6.jpg' },
-                        { id: 'loggia_7', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg',description: '',  url: 'loggiaimages/loggia7.jpg' },
-                        { id: 'loggia_8', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia8.jpg' },
-                        { id: 'loggia_9', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia9.jpg' },
-                        { id: 'loggia_10', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg',description: '',url: 'loggiaimages/loggia10.jpg' },
+            { id: 'loggia_1', projectId: 'Loggia0', isDefault: false, folder: 'loggiaimages', fileName: 'loggia1.jpg', description: '', url: 'loggiaimages/loggia1.jpg',isGroupMain: true },
+            { id: 'loggia_2', projectId: 'Loggia0', isDefault: false, folder: 'loggiaimages', fileName: 'loggia2.jpg', description: '', url: 'loggiaimages/loggia2.jpg' },
+            { id: 'loggia_3', projectId: 'Loggia0', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia3.jpg' },
+                        { id: 'loggia_4', projectId: 'Loggia0', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia4.jpg' },
+                        { id: 'loggia_5', projectId: 'Loggia0', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia5.jpg' },
+                        { id: 'loggia_6', projectId: 'Loggia0', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg',description: '',url: 'loggiaimages/loggia6.jpg' },
+                        { id: 'loggia_7', projectId: 'Loggia0', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg',description: '',  url: 'loggiaimages/loggia7.jpg' },
+                        { id: 'loggia_8', projectId: 'Loggia0', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia8.jpg' },
+                        { id: 'loggia_9', projectId: 'Loggia0', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia9.jpg' },
+                        { id: 'loggia_10', projectId: 'Loggia0', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg',description: '',url: 'loggiaimages/loggia10.jpg' },
                   
             
                                     { id: 'loggia_12', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img1.jpg', isGroupMain: true },
@@ -918,47 +918,53 @@
                 }
             };
 
-            const startCarousel = () => {
-                stopCarousel(); // 이미 실행 중인 캐러셀이 있다면 중지
+            // =========================================================================
+// ⭐ [전체 교체] 새로운 startCarousel 함수 (projectId 인자 추가) ⭐
+// =========================================================================
+const startCarousel = (projectId) => { // ⭐ 1. projectId 인자 추가
+    stopCarousel(); // 이미 실행 중인 캐러셀이 있다면 중지
 
-                const indexImages = allImageData.filter(item => item.projectId === 'INDEX_DEFAULT');
-                if (indexImages.length === 0) return;
+    // 2. 해당 프로젝트 ID에 속한 이미지들만 가져와서 캐러셀 목록으로 사용
+    const carouselImages = allImageData.filter(item => item.projectId === projectId);
+    if (carouselImages.length === 0) return;
 
-                // 캐러셀 인덱스를 0으로 초기화
-                currentCarouselIndex = 0; 
-                
-                // 메인 화면에 렌더링된 단일 항목 DOM 요소를 찾습니다.
-                const mainIndexItem = workListContainer.querySelector('.work-item[data-project-id="INDEX_DEFAULT"]');
+    // 캐러셀 인덱스를 0으로 초기화
+    currentCarouselIndex = 0; 
+    
+    // 3. 메인 화면에 렌더링된 단일 항목 DOM 요소를 찾습니다.
+    // data-project-id 속성이 해당 projectId와 일치하는 .work-item을 찾음
+    const mainIndexItem = workListContainer.querySelector(`.work-item[data-project-id="${projectId}"]`);
 
-                if (!mainIndexItem) return;
+    if (!mainIndexItem) return;
 
-                const updateIndexImage = () => {
-                    // 다음 이미지 인덱스를 순환 방식으로 계산
-                    const nextImageIndex = (currentCarouselIndex + 1) % indexImages.length;
-                    const nextImage = indexImages[nextImageIndex];
-                    
-                    // 렌더링된 요소의 src와 description을 업데이트합니다.
-                    const imgElement = mainIndexItem.querySelector('.work-visual img');
-                    const descElement = mainIndexItem.querySelector('.work-header .full-description');
-                    
-                    if (imgElement) {
-                        imgElement.src = nextImage.url;
-                        imgElement.alt = `${nextImage.folder}/${nextImage.fileName}`;
-                    }
-                    if (descElement) {
-                        descElement.textContent = nextImage.description;
-                    }
-                    
-                    // 모달을 위해 work-item의 data-image-id도 업데이트해야 합니다.
-                    mainIndexItem.dataset.imageId = nextImage.id;
+    const updateIndexImage = () => {
+        // 4. 다음 이미지 인덱스를 순환 방식으로 계산
+        const nextImageIndex = (currentCarouselIndex + 1) % carouselImages.length;
+        const nextImage = carouselImages[nextImageIndex];
+        
+        // 5. 렌더링된 요소의 src와 description을 업데이트합니다.
+        const imgElement = mainIndexItem.querySelector('.work-visual img');
+        const descElement = mainIndexItem.querySelector('.work-header .full-description');
+        
+        if (imgElement) {
+            imgElement.src = nextImage.url;
+            imgElement.alt = `${nextImage.folder}/${nextImage.fileName}`;
+        }
+        if (descElement) {
+            descElement.textContent = nextImage.description;
+        }
+        
+        // 모달 뷰어 기능을 위해 work-item의 data-image-id도 업데이트
+        mainIndexItem.dataset.imageId = nextImage.id;
 
-                    // 다음 캐러셀 사이클을 위해 현재 인덱스 업데이트
-                    currentCarouselIndex = nextImageIndex;
-                };
-                
-                // 3초마다 이미지 전환 시작
-                carouselInterval = setInterval(updateIndexImage, CAROUSEL_INTERVAL_MS);
-            };
+        // 다음 캐러셀 사이클을 위해 현재 인덱스 업데이트
+        currentCarouselIndex = nextImageIndex;
+    };
+    
+    // 6. 3초마다 이미지 전환 시작
+    carouselInterval = setInterval(updateIndexImage, CAROUSEL_INTERVAL_MS);
+};
+// =========================================================================
             // =========================================================================
             
             /**
@@ -984,81 +990,119 @@
             /**
              * 오른쪽 패널의 작업물 목록을 렌더링하고 상단/하단 텍스트 가시성을 업데이트합니다.
              */
-            const renderWorkList = (filterId = 'INDEX_DEFAULT') => {
-                
-                // 1. 캐러셀 중지/시작 처리
-                stopCarousel();
-                
-                // 2. 필터링된 데이터 준비 (모달 내비게이션용)
-                let filteredData;
-                
-                if (filterId === 'INDEX_DEFAULT') {
-                    // 기본 화면: isDefault가 true인 모든 항목을 필터링 (모달/캐러셀 데이터로 사용)
-                    filteredData = allImageData.filter(item => item.isDefault);
-                } else {
-                    // 프로젝트 선택 화면: 해당 projectId의 모든 항목 필터링 (모달 내비게이션용)
-                    filteredData = allImageData.filter(item => item.projectId === filterId);
-                }
-                
-                // 3. ⭐ 메인 패널에 렌더링할 항목을 다시 필터링합니다.
-                let itemsToRenderInMain;
-                if (filterId === 'INDEX_DEFAULT') {
-                    // 기본 화면 (INDEX_DEFAULT): isGroupMain: true 인 항목만 렌더링 (단일 캐러셀 컨테이너)
-                    itemsToRenderInMain = filteredData.filter(item => item.isGroupMain === true);
-                    
-                    // 비상 시 첫 번째 항목만 렌더링 (데이터 오류 방지)
-                    if (itemsToRenderInMain.length === 0 && filteredData.length > 0) {
-                        itemsToRenderInMain = [filteredData[0]];
-                    }
-                } else {
-                    // 프로젝트 화면: isGroupMain: true 항목만 렌더링, 없으면 전체 렌더링
-                    const mainItems = filteredData.filter(item => item.isGroupMain === true);
-                    itemsToRenderInMain = mainItems.length > 0 ? mainItems : filteredData;
-                }
+          요청하신 대로, renderWorkList 함수에서 Loggia 프로젝트의 렌더링 및 캐러셀 시작을 처리하는 수정된 전체 코드 블록을 제공합니다.
+
+이 코드를 기존 renderWorkList 함수 전체에 덮어쓰거나, 함수가 정의된 부분을 찾아 수정하십시오.
+
+renderWorkList 수정 전체 코드
+JavaScript
+
+const renderWorkList = (filterId = 'INDEX_DEFAULT') => {
+    
+    // 1. 캐러셀 중지
+    stopCarousel();
+
+    // 2. 필터링된 데이터 준비 (모달 내비게이션에 사용될 전체 이미지 목록)
+    let filteredData;
+
+    // Loggia를 선택했을 때 Loggia0 캐러셀 항목도 포함하도록 수정
+    if (filterId === 'INDEX_DEFAULT') {
+        filteredData = allImageData.filter(item => item.isDefault);
+    } else if (filterId === 'Loggia') { 
+        // Loggia 그룹과 Loggia0 캐러셀 그룹의 모든 이미지를 합칩니다.
+        filteredData = allImageData.filter(item => 
+            item.projectId === filterId || item.projectId === 'Loggia0' // ⭐ 'Loggia0' 그룹 포함 ⭐
+        );
+    } else {
+        // 그 외 프로젝트는 해당 projectId의 모든 항목을 필터링
+        filteredData = allImageData.filter(item => item.projectId === filterId);
+    }
+    
+    // 모달 내비게이션을 위해 현재 필터링된 이미지 목록과 ID를 저장
+    currentFilteredImages = filteredData;
+    activeFilterId = filterId; 
+
+    // 3. 메인 패널에 렌더링할 항목을 결정 (실제로 화면에 보여줄 항목)
+    let itemsToRenderInMain = []; // 배열로 초기화
+
+    if (filterId === 'INDEX_DEFAULT') {
+        // 기본 화면: isGroupMain: true 인 항목만 렌더링 (단일 캐러셀 컨테이너)
+        itemsToRenderInMain = filteredData.filter(item => item.isGroupMain === true);
+        
+        // 비상 시 첫 번째 항목만 렌더링 (데이터 오류 방지)
+        if (itemsToRenderInMain.length === 0 && filteredData.length > 0) {
+            itemsToRenderInMain = [filteredData[0]];
+        }
+    
+    // ⭐⭐ Loggia 렌더링 로직 추가 ⭐⭐
+    } else if (filterId === 'Loggia') {
+        // Loggia를 선택한 경우: Loggia0 캐러셀 컨테이너 + Loggia 정적 항목 순서로 렌더링
+
+        // a. Loggia0 캐러셀 그룹의 대표 항목 (isGroupMain=true인 단 1개)을 가장 먼저 렌더링
+        const carouselItem = filteredData.find(item => item.projectId === 'Loggia0' && item.isGroupMain === true);
+        if (carouselItem) {
+            itemsToRenderInMain.push(carouselItem); // 이 항목이 캐러셀 컨테이너 역할을 합니다.
+        }
+        
+        // b. 나머지 Loggia 그룹의 대표 항목들 (정적 이미지 목록)
+        const otherMainItems = filteredData.filter(item => item.projectId === 'Loggia' && item.isGroupMain === true);
+        itemsToRenderInMain.push(...otherMainItems); 
+        
+        // c. (예외 처리) 대표 항목이 없다면 Loggia 그룹 전체 렌더링
+        if (itemsToRenderInMain.length === 0) {
+            // 주의: Loggia0 캐러셀 항목이 포함되지 않도록 Loggia 그룹만 필터링합니다.
+            itemsToRenderInMain = filteredData.filter(item => item.projectId === 'Loggia');
+        }
+        
+    // 나머지 프로젝트 화면
+    } else { 
+        // isGroupMain: true 항목만 렌더링, 없으면 전체 렌더링
+        const mainItems = filteredData.filter(item => item.isGroupMain === true);
+        itemsToRenderInMain = mainItems.length > 0 ? mainItems : filteredData;
+    }
 
 
-                const workItemsHtml = itemsToRenderInMain.map(createWorkItemHtml).join('');
-                
-                // 정적 텍스트 블록들을 분리합니다.
-                const introTexts = Array.from(workListContainer.querySelectorAll('.project-intro-text'));
-                const footerTexts = Array.from(workListContainer.querySelectorAll('.project-footer-text')); 
-                
-                // 4. 컨테이너를 비우고 (이미지만) 정적 텍스트 블록을 다시 추가합니다.
-                workListContainer.innerHTML = '';
-                introTexts.forEach(text => workListContainer.appendChild(text));
-                
-                // 5. 이미지 목록을 상단 텍스트 다음에 추가합니다.
-                workListContainer.insertAdjacentHTML('beforeend', workItemsHtml);
+    // 4. HTML 렌더링 준비 (기존 텍스트 블록 분리)
+    const workItemsHtml = itemsToRenderInMain.map(createWorkItemHtml).join('');
+    const introTexts = Array.from(workListContainer.querySelectorAll('.project-intro-text'));
+    const footerTexts = Array.from(workListContainer.querySelectorAll('.project-footer-text'));
+    
+    // 5. 컨테이너를 비우고 (이미지만) 정적 텍스트 블록을 다시 추가합니다.
+    workListContainer.innerHTML = '';
+    introTexts.forEach(text => workListContainer.appendChild(text));
+    
+    // 6. 이미지 목록을 상단 텍스트 다음에 추가합니다.
+    workListContainer.insertAdjacentHTML('beforeend', workItemsHtml);
 
-                // 6. 하단 푸터 텍스트를 이미지 목록 다음에 추가합니다.
-                footerTexts.forEach(text => workListContainer.appendChild(text));
+    // 7. 하단 푸터 텍스트를 이미지 목록 다음에 추가합니다.
+    footerTexts.forEach(text => workListContainer.appendChild(text));
 
-                document.querySelector('.right-panel').scrollTop = 0;
-                
-                // 7. 상단/하단 텍스트 가시성 관리
-                projectIntroTexts.forEach(textBlock => {
-                    textBlock.classList.remove('active');
-                    if (textBlock.dataset.projectId === filterId) {
-                        textBlock.classList.add('active');
-                    }
-                });
-                
-                projectFooterTexts.forEach(textBlock => {
-                    textBlock.classList.remove('active');
-                    if (textBlock.dataset.projectId === filterId) {
-                        textBlock.classList.add('active');
-                    }
-                });
+    document.querySelector('.right-panel').scrollTop = 0;
+    
+    // 8. 상단/하단 텍스트 가시성 관리 (이 부분은 기존 코드를 최대한 유지했습니다.)
+    projectIntroTexts.forEach(textBlock => {
+        textBlock.classList.remove('active');
+        if (textBlock.dataset.projectId === filterId) {
+            textBlock.classList.add('active');
+        }
+    });
+    
+    projectFooterTexts.forEach(textBlock => {
+        textBlock.classList.remove('active');
+        if (textBlock.dataset.projectId === filterId) {
+            textBlock.classList.add('active');
+        }
+    });
 
-                // 8. 모달용으로 전체 필터링된 데이터(숨겨진 이미지 포함)를 저장합니다.
-                currentFilteredImages = filteredData;
-                
-                // 9. INDEX_DEFAULT일 경우에만 캐러셀 시작
-                if (filterId === 'INDEX_DEFAULT') {
-                    startCarousel();
-                }
-            };
+    // 9. ⭐ 캐러셀 시작 ⭐
+    if (filterId === 'INDEX_DEFAULT') {
+        startCarousel('INDEX_DEFAULT');
+    } else if (filterId === 'Loggia') {
+        startCarousel('Loggia0'); // Loggia 선택 시 'Loggia0' 캐러셀 시작
+    }
+};
 
+            
    // =========================================================================
 // ⭐ [최종] 전체화면 모달 전환 함수 (로딩 완료 후 즉시 전환) ⭐
 // =========================================================================
@@ -1189,21 +1233,29 @@ const updateModalContent = (imageId) => {
             });
             
             // 6. 키보드 및 내비게이션 버튼 이벤트
-            document.addEventListener('keydown', (event) => {
-                if (modal.classList.contains('show')) {
-                    if (event.key === 'Escape') {
-                        modal.classList.remove('show');
-                        // ⭐ 모달 닫기 후 INDEX_DEFAULT 화면이면 캐러셀 다시 시작
-                        if (activeFilterId === null || activeFilterId === 'INDEX_DEFAULT') {
-                            startCarousel();
-                        }
-                    } else if (event.key === 'ArrowLeft') {
-                        prevBtn.click();
-                    } else if (event.key === 'ArrowRight') {
-                        nextBtn.click();
-                    }
-                }
-            });
+          document.addEventListener('keydown', (event) => {
+    if (modal.classList.contains('show')) {
+        if (event.key === 'Escape') {
+            modal.classList.remove('show');
+            
+            // ⭐⭐ [수정] 캐러셀 재시작 로직 ⭐⭐
+            // Loggia 선택 시 'Loggia0' 캐러셀을 시작하도록 변경
+            if (activeFilterId === 'INDEX_DEFAULT' || activeFilterId === null) {
+                // INDEX_DEFAULT 또는 초기 상태일 때
+                startCarousel('INDEX_DEFAULT'); 
+            } else if (activeFilterId === 'Loggia') {
+                // Loggia 프로젝트일 때, Loggia0 캐러셀을 시작
+                startCarousel('Loggia0'); 
+            }
+            // ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐
+
+        } else if (event.key === 'ArrowLeft') {
+            prevBtn.click();
+        } else if (event.key === 'ArrowRight') {
+            nextBtn.click();
+        }
+    }
+});
 
             prevBtn.addEventListener('click', () => {
                 const currentIndex = currentFilteredImages.findIndex(item => item.id === currentModalImageId);
