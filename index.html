@@ -812,7 +812,7 @@
         const allImageData = [
             // INDEX_DEFAULT - 최근 전시 작품 목록
             // ⭐ isGroupMain: true를 index_1에만 설정하여, 메인 화면에 이 항목만 렌더링되게 합니다. (캐러셀의 시작점)
-            { id: 'index_1', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2024_1.jpg',  description: '', url: 'loggiaimages/loggia1.jpg', isGroupMain: true }, 
+            { id: 'index_1', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2024_1.jpg',  description: 'Exhibition View', url: 'loggiaimages/loggia1.jpg', isGroupMain: true }, 
             { id: 'index_2', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2024_2.jpg', description: '', url: 'loggiaimages/loggia2.jpg' },
             { id: 'index_3', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2023_1.jpg', description: '', url: 'loggiaimages/loggia3.jpg' },
             { id: 'index_4', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2023_2.jpg', description: '', url: 'loggiaimages/loggia4.jpg' },
@@ -1062,73 +1062,46 @@
         // =========================================================================
             // ⭐ 전체화면 모달 전환 함수 (Zoom-Out & Cross-Fade 적용) ⭐
             // =========================================================================
-            const updateModalContent = (imageId) => {
-                const targetImage = currentFilteredImages.find(item => item.id === imageId);
-                
-                if (!targetImage) return;
+       // =========================================================================
+// ⭐ [최종] 전체화면 모달 전환 함수 (즉시 전환 / 겹침 제거) ⭐
+// =========================================================================
+const updateModalContent = (imageId) => {
+    const targetImage = currentFilteredImages.find(item => item.id === imageId);
+    
+    if (!targetImage) return;
 
-                const transitionDuration = 300; // 0.3초 (CSS와 일치)
-                const currentImg = modalImageContainer.querySelector('img'); // 이전 이미지
-                
-                // 캡션 업데이트
-                currentModalImageId = targetImage.id;
-                modalCaption.innerHTML = `<div class="work-header"><span class="full-description">${targetImage.description}</span></div>`;
+    // 이전 이미지를 찾습니다.
+    const currentImg = modalImageContainer.querySelector('img'); 
+    
+    // ⭐ [핵심] 새 이미지를 로드하기 전에 이전 이미지를 즉시 제거합니다. ⭐
+    if (currentImg && currentImg.parentNode) {
+        currentImg.parentNode.removeChild(currentImg);
+    }
+    
+    // 캡션 업데이트
+    currentModalImageId = targetImage.id;
+    modalCaption.innerHTML = `<div class="work-header"><span class="full-description">${targetImage.description}</span></div>`;
 
-                // 1. 새 이미지 요소 생성
-                const newImg = document.createElement('img');
-                newImg.alt = `${targetImage.folder}/${targetImage.fileName}`;
-                newImg.style.objectFit = 'contain'; 
+    // 1. 새 이미지 요소 생성
+    const newImg = document.createElement('img');
+    newImg.alt = `${targetImage.folder}/${targetImage.fileName}`;
+    newImg.style.objectFit = 'contain'; 
 
-                // ⭐ [핵심] 초기 상태 설정: 투명하고 약간 확대된 상태에서 시작 ⭐
-                newImg.style.opacity = '0'; 
-                newImg.style.transform = 'scale(1.05)'; 
-                
-                // 2. DOM에 새 이미지를 추가 (기존 이미지 위에 겹쳐짐)
-                // 이전에 슬라이드 구현을 위해 추가했던 #modal-carousel-track은 제거합니다.
-                const trackElement = modalImageContainer.querySelector('#modal-carousel-track');
-                if (trackElement) {
-                    modalImageContainer.removeChild(trackElement);
-                }
-
-                modalImageContainer.appendChild(newImg);
-                
-                // 3. 로드 완료 후 Fade In & Zoom-Out 시작
-                newImg.onload = () => {
-                    // Reflow 강제 후 Fade In & Zoom-Out 트리거
-                    void newImg.offsetWidth; 
-                    newImg.style.opacity = '1'; 
-                    newImg.style.transform = 'scale(1)'; // ⭐ 원래 크기(1)로 Zoom-Out ⭐
-
-                    // 4. 새 이미지가 완전히 나타난 후 (0.3초 대기) 이전 이미지를 제거 (Cross-Fade)
-                    if (currentImg) {
-                        setTimeout(() => {
-                            if (currentImg.parentNode) {
-                                currentImg.parentNode.removeChild(currentImg);
-                            }
-                        }, transitionDuration);
-                    }
-                };
-
-                newImg.onerror = () => {
-                    // 로딩 실패 시 바로 보이게 처리하고 이전 이미지 제거
-                    newImg.style.opacity = '1';
-                    newImg.style.transform = 'scale(1)';
-                    if (currentImg && currentImg.parentNode) {
-                        currentImg.parentNode.removeChild(currentImg);
-                    }
-                };
-                
-                // 5. 이미지 로드 시작
-                newImg.src = targetImage.url; 
-                
-                // 모달을 처음 열 때 currentImg가 있다면, 그것의 투명도를 1로 설정하여 보이게 합니다.
-                if (!currentImg && newImg.src) {
-                    newImg.style.opacity = '1';
-                    newImg.style.transform = 'scale(1)';
-                }
-
-                updateNavButtons();
-            };
+    // 부드러운 전환 효과(transition, opacity, transform)를 모두 제거합니다.
+    newImg.style.transition = 'none'; 
+    newImg.style.opacity = '1'; // 바로 보이게 설정
+    newImg.style.transform = 'scale(1)'; // 크기 변화 없이 설정
+    
+    // 2. DOM에 새 이미지를 추가 (이제 컨테이너에는 이 이미지 하나만 남습니다.)
+    modalImageContainer.appendChild(newImg);
+    
+    // 3. 이미지 로드 시작
+    newImg.src = targetImage.url; 
+    
+    // 4. 내비게이션 버튼 업데이트
+    updateNavButtons();
+};
+// =========================================================================
             // =========================================================================
             
             // 모달 버튼 상태 업데이트 함수 (생략되지 않음 - 기존과 동일)
