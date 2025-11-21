@@ -902,13 +902,13 @@ margin: auto;
             
             // =========================================================================
     // =========================================================================
-            // 캐러셀 관련 변수 및 상수 (자동 전환 Cross-Fade 로직)
+            // ⭐ INDEX 화면 자동 전환 (Cross-Fade) 로직 - 최종 안정화 버전 ⭐
+            // =========================================================================
             let carouselInterval = null;
             const CAROUSEL_INTERVAL_MS = 3000; // 3초 전환 주기
             const FADE_DURATION_MS = 50; // 0.05초
             let currentCarouselIndex = 0;
 
-            // 캐러셀 중지 함수
             const stopCarousel = () => {
                 if (carouselInterval) {
                     clearInterval(carouselInterval);
@@ -916,12 +916,11 @@ margin: auto;
                 }
             };
 
-           // 캐러셀 시작 함수 (첫 이미지를 보이게 하는 초기화 로직 추가)
-      const startCarousel = () => {
+            const startCarousel = () => {
                 stopCarousel(); 
                 currentCarouselIndex = 0;
                 
-                // ⭐ [최종 수정] 초기 이미지를 찾아 투명도를 1로 강제 설정합니다. ⭐
+                // ⭐ [핵심 안정화]: 첫 이미지를 강제로 보이게 합니다. ⭐
                 const mainIndexItem = workListContainer.querySelector('.work-item[data-project-id="INDEX_DEFAULT"]');
                 const imgElement = mainIndexItem ? mainIndexItem.querySelector('.work-visual img') : null;
                 
@@ -929,7 +928,7 @@ margin: auto;
                     // 1. 이미지를 강제로 보이게 합니다.
                     imgElement.style.opacity = '1';
                     
-                    // 2. 혹시나 나중에 로딩될 경우에도 보이도록 이벤트 리스너를 추가합니다.
+                    // 2. 이미지가 로드될 때까지 기다렸다가 opacity를 1로 설정하여 가시성 보장
                     imgElement.onload = function() {
                         this.style.opacity = '1';
                     };
@@ -938,7 +937,6 @@ margin: auto;
                 carouselInterval = setInterval(updateIndexImage, CAROUSEL_INTERVAL_MS);
             };
 
-            // 캐러셀 이미지 및 텍스트를 업데이트하는 함수 (Cross-Fade 적용)
             const updateIndexImage = () => {
                 const defaultImages = allImageData.filter(item => item.isDefault);
                 if (defaultImages.length === 0) return;
@@ -970,7 +968,7 @@ margin: auto;
                     void newImg.offsetWidth; 
                     newImg.style.opacity = '1'; 
 
-                    // 4. 새 이미지가 나타난 후 이전 이미지를 제거
+                    // 4. 새 이미지가 나타난 후 이전 이미지를 제거 (Cross-Fade)
                     if (currentImg) {
                         setTimeout(() => {
                             if (currentImg.parentNode) {
@@ -988,13 +986,13 @@ margin: auto;
                 };
 
                 newImg.onerror = () => {
+                    // 로딩 실패 시 이전 이미지를 제거하고 새 이미지를 바로 보이게 합니다.
                     newImg.style.opacity = '1';
                     if (currentImg && currentImg.parentNode) {
                         currentImg.parentNode.removeChild(currentImg);
                     }
                 };
-
-            }; // End of updateIndexImage
+            }; 
             // =========================================================================
             
             /**
