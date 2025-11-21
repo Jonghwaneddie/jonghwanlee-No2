@@ -1081,16 +1081,27 @@ const startCarousel = (projectId) => {
                     if (itemsToRenderInMain.length === 0 && filteredData.length > 0) {
                         itemsToRenderInMain = [filteredData[0]];
                     }
-                } else if (filterId === 'Loggia') { //   Loggia 프로젝트에 대한 특별 처리
-                    // 1) 캐러셀 그룹에서 isGroupMain: true인 항목 (loggia_1)을 찾습니다.
-                    const carouselMainItem = filteredData.find(item => item.isCarouselGroup === true && item.isGroupMain === true);
+                } else if (filterId === 'Loggia') { // ⭐ [수정됨] Loggia 프로젝트에 대한 특별 처리
+                    // 1) 캐러셀 그룹 A (기존)에서 isGroupMain: true인 항목 (loggia_1)을 찾습니다.
+                    const carouselMainItemA = filteredData.find(item => item.isCarouselGroup === true && item.isGroupMain === true);
                     
-                    // 2) 나머지 고정 이미지들 (isGroupMain: true인 항목들, 단 isCarouselGroup은 제외)을 찾습니다.
-                    const fixedItems = filteredData.filter(item => item.isCarouselGroup !== true && item.isGroupMain === true);
+                    // 2) 캐러셀 그룹 B (새로운)에서 isGroupMain: true인 항목 (loggia_12)을 찾습니다.
+                    // 주의: loggia_12는 isSecondCarousel이 true여야 합니다.
+                    const carouselMainItemB = filteredData.find(item => item.isSecondCarousel === true && item.isGroupMain === true);
+
+                    // 3) 순수 고정 이미지들 (두 캐러셀 그룹 모두에 속하지 않는 isGroupMain: true 항목들)을 찾습니다.
+                    const fixedItems = filteredData.filter(item => 
+                        item.isCarouselGroup !== true && 
+                        item.isSecondCarousel !== true && 
+                        item.isGroupMain === true
+                    );
                     
-                    // 3) 렌더링 순서: 캐러셀 항목 (단일) + 고정 항목들
-                    if (carouselMainItem) {
-                        itemsToRenderInMain.push(carouselMainItem); // 캐러셀을 위한 단일 렌더링 항목
+                    // 4) 렌더링 순서: 캐러셀 항목 A + 캐러셀 항목 B + 나머지 고정 항목들
+                    if (carouselMainItemA) {
+                        itemsToRenderInMain.push(carouselMainItemA); // 캐러셀 A
+                    }
+                    if (carouselMainItemB) {
+                        itemsToRenderInMain.push(carouselMainItemB); // ⭐ 캐러셀 B 추가 ⭐
                     }
                     itemsToRenderInMain.push(...fixedItems); // 나머지 고정 항목들 추가
                     
