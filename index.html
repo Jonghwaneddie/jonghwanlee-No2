@@ -228,8 +228,7 @@
             height: 100%; 
             display: block; 
             object-fit: contain; 
-            opacity: 1;
-            transition: opacity 0.3s ease-in-out;
+            transition: opacity 0.2s ease-in-out;
         }
 
 
@@ -906,92 +905,47 @@
                 }
             };
 
-          // ⭐ 지운 자리에 이 코드를 통째로 붙여넣으세요. ⭐
-            // 캐러셀 관련 변수 및 상수 (FADE_DURATION_MS 상수 추가)
-            let carouselInterval = null;
-            const CAROUSEL_INTERVAL_MS = 3000; // 3초
-            const FADE_DURATION_MS = 300; // 0.3초 (CSS transition과 일치)
-            let currentCarouselIndex = 0;
-
-            // =========================================================================
-            // 캐러셀 중지 함수
-            const stopCarousel = () => {
-                if (carouselInterval) {
-                    clearInterval(carouselInterval);
-                    carouselInterval = null;
-                }
-            };
-
-            // 캐러셀 시작 함수
             const startCarousel = () => {
-                stopCarousel(); // 기존 인터벌 중지
-                currentCarouselIndex = 0; // 인덱스 초기화
+                stopCarousel(); // 이미 실행 중인 캐러셀이 있다면 중지
+
+                const indexImages = allImageData.filter(item => item.projectId === 'INDEX_DEFAULT','Loggia1');
+                if (indexImages.length === 0) return;
+
+                // 캐러셀 인덱스를 0으로 초기화
+                currentCarouselIndex = 0; 
                 
-                // 첫 이미지 로딩 후 3초 뒤부터 캐러셀 시작
-                carouselInterval = setInterval(updateIndexImage, CAROUSEL_INTERVAL_MS);
-            };
-
-            // 2. 캐러셀 이미지 및 텍스트를 업데이트하는 함수 (Fade 효과 적용)
-            const updateIndexImage = () => {
-                const defaultImages = allImageData.filter(item => item.isDefault);
-                if (defaultImages.length === 0) return;
-
-                // 다음 이미지 인덱스 계산
-                const nextImageIndex = (currentCarouselIndex + 1) % defaultImages.length;
-                const nextImage = defaultImages[nextImageIndex];
-
-                // 현재 메인 이미지 항목 및 내부 요소 찾기
+                // 메인 화면에 렌더링된 단일 항목 DOM 요소를 찾습니다.
                 const mainIndexItem = workListContainer.querySelector('.work-item[data-project-id="INDEX_DEFAULT"]');
-                const imgElement = mainIndexItem ? mainIndexItem.querySelector('.work-visual img') : null;
-                const captionElement = mainIndexItem ? mainIndexItem.querySelector('.work-header .full-description') : null;
-                
-                if (!imgElement) {
-                    stopCarousel();
-                    return;
-                }
 
-                // ===================================
-                // 1. Fade Out 시작
-                imgElement.style.opacity = '0'; 
+                if (!mainIndexItem) return;
 
-                // 2. Fade Out이 완료될 때까지 대기
-                setTimeout(() => {
-                    // 3. 새로운 이미지를 배경에서 로드
-                    const tempImg = new Image();
-                    tempImg.src = nextImage.url;
+                const updateIndexImage = () => {
+                    // 다음 이미지 인덱스를 순환 방식으로 계산
+                    const nextImageIndex = (currentCarouselIndex + 1) % indexImages.length;
+                    const nextImage = indexImages[nextImageIndex];
                     
-                    // 4. 로드가 완료되면 DOM 업데이트 및 Fade In 시작
-                    tempImg.onload = () => {
-                        // 이미지 URL, 캡션, data-image-id 업데이트
+                    // 렌더링된 요소의 src와 description을 업데이트합니다.
+                    const imgElement = mainIndexItem.querySelector('.work-visual img');
+                    const descElement = mainIndexItem.querySelector('.work-header .full-description');
+                    
+                    if (imgElement) {
                         imgElement.src = nextImage.url;
-                        if (captionElement) {
-                            captionElement.textContent = nextImage.description;
-                        }
-                        mainIndexItem.dataset.imageId = nextImage.id;
-                        
-                        // Reflow 강제 후 Fade In
-                        void imgElement.offsetWidth; 
-                        imgElement.style.opacity = '1'; 
-                    };
+                        imgElement.alt = `${nextImage.folder}/${nextImage.fileName}`;
+                    }
+                    if (descElement) {
+                        descElement.textContent = nextImage.description;
+                    }
                     
-                    tempImg.onerror = () => {
-                        // 로딩 실패 시 처리
-                        imgElement.src = nextImage.url; 
-                        if (captionElement) {
-                            captionElement.textContent = nextImage.description;
-                        }
-                        mainIndexItem.dataset.imageId = nextImage.id;
-                        imgElement.style.opacity = '1'; 
-                    };
-
+                    // 모달을 위해 work-item의 data-image-id도 업데이트해야 합니다.
+                    mainIndexItem.dataset.imageId = nextImage.id;
 
                     // 다음 캐러셀 사이클을 위해 현재 인덱스 업데이트
                     currentCarouselIndex = nextImageIndex;
-
-                }, FADE_DURATION_MS); // 0.3초 대기
-
-            }; // End of updateIndexImage
-            // =========================================================================
+                };
+                
+                // 3초마다 이미지 전환 시작
+                carouselInterval = setInterval(updateIndexImage, CAROUSEL_INTERVAL_MS);
+            };
             // =========================================================================
             
             /**
@@ -1269,3 +1223,4 @@
     </script>
 </body>
 </html>
+
