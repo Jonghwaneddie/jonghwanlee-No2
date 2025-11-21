@@ -159,29 +159,29 @@
         }
 
         .work-pair {
-            display: flex;       /* Flexbox 활성화 */
-            gap: 2px;           /* 두 이미지 항목 사이의 간격 */
-            margin-bottom: 10px; /* work-pair 자체의 하단 간격 */
-        }
+    display: flex;       /* Flexbox 활성화 */
+    gap: 10px;           /* 두 이미지 항목 사이의 간격 */
+    margin-bottom: 10px; /* work-pair 자체의 하단 간격 */
+}
 
-        /* ⭐ [새로 삽입] 그룹 내의 각 이미지 항목의 너비 설정 ⭐ */
-        .work-pair .work-item {
-            flex: 1 1 50%; /* 컨테이너 너비의 50%를 차지 */
-            width: 50%;
-        }
+/* ⭐ [새로 삽입] 그룹 내의 각 이미지 항목의 너비 설정 ⭐ */
+.work-pair .work-item {
+    flex: 1 1 50%; /* 컨테이너 너비의 50%를 차지 */
+    width: 50%;
+}
 
-        /* 4개의 이미지를 그룹화하여 가로로 나열 */
-        .work-row-4 {
-            display: flex;         /* Flexbox 활성화 */
-            gap: 2px;              /* 4개 이미지 항목 사이의 간격 (원하는 값으로 조정) */
-            margin-bottom: 10px;   /* work-row-4 자체의 하단 간격 */
-        }
+/* 4개의 이미지를 그룹화하여 가로로 나열 */
+.work-row-4 {
+    display: flex;         /* Flexbox 활성화 */
+    gap: 5px;              /* 4개 이미지 항목 사이의 간격 (원하는 값으로 조정) */
+    margin-bottom: 10px;   /* work-row-4 자체의 하단 간격 */
+}
 
-        /* 그룹 내의 각 이미지 항목의 너비 설정 (100% / 4 = 25%) */
-        .work-row-4 .work-item {
-            flex: 1 1 25%;         /* 컨테이너 너비의 25%를 차지하도록 합니다. */
-            width: 25%;            /* 명시적으로 25% 너비 설정 */
-        }
+/* 그룹 내의 각 이미지 항목의 너비 설정 (100% / 4 = 25%) */
+.work-row-4 .work-item {
+    flex: 1 1 25%;         /* 컨테이너 너비의 25%를 차지하도록 합니다. */
+    width: 25%;            /* 명시적으로 25% 너비 설정 */
+}
 
         
         /* 작업물 헤더 (텍스트): 한 줄 왼쪽 정렬로 변경 */
@@ -358,23 +358,23 @@
             }
 
             .work-pair {
-                flex-direction: column; /* 모바일에서는 수직으로 쌓기 */
-                gap: 0;                 /* 모바일에서는 그룹 간격 제거 */
-                margin-bottom: 10px;    /* 모바일에서 work-pair의 하단 간격 */
-            }
-            .work-pair .work-item {
-                width: 100%; /* 모바일에서는 너비를 다시 100%로 복원 */
-            }
+        flex-direction: column; /* 모바일에서는 수직으로 쌓기 */
+        gap: 0;                 /* 모바일에서는 그룹 간격 제거 */
+        margin-bottom: 10px;    /* 모바일에서 work-pair의 하단 간격 */
+    }
+    .work-pair .work-item {
+        width: 100%; /* 모바일에서는 너비를 다시 100%로 복원 */
+    }
 
             /* ⭐ [새로 삽입] 모바일에서 work-row-4 스타일 재정의 ⭐ */
-            .work-row-4 {
-                flex-direction: column; /* 모바일에서는 수직으로 쌓기 */
-                gap: 0;                 /* 그룹 간격 제거 */
-                margin-bottom: 10px;
-            }
-            .work-row-4 .work-item {
-                width: 100%; /* 모바일에서는 너비를 다시 100%로 복원 */
-            }
+    .work-row-4 {
+        flex-direction: column; /* 모바일에서는 수직으로 쌓기 */
+        gap: 0;                 /* 그룹 간격 제거 */
+        margin-bottom: 10px;
+    }
+    .work-row-4 .work-item {
+        width: 100%; /* 모바일에서는 너비를 다시 100%로 복원 */
+    }
             
             
             /* 1. 헤더 재배치 및 간소화 */
@@ -820,31 +820,31 @@
                   { id: 'loggia_16', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: '2025loggia1/img1-1.jpg' },
                                     { id: 'loggia_17', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: '2025loggia1/img1-2.jpg' },
             
-                                    { id: 'loggia_12', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img1.jpg' },
+                                    { id: 'loggia_12', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img1.jpg', isGroupMain: true },
                                     { id: 'loggia_13', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img2.jpg' },
                                     { id: 'loggia_14', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img3.jpg' },
                                     { id: 'loggia_15', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img4.jpg' },
                   
-                                    { id: 'loggia_18', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Threshold Guard, 2025, Engraving and watercolor on panel, Iron Ball, 165x71cm', url: '2025loggia1/img5.jpg' },
+                                    { id: 'loggia_18', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Threshold Guard, 2025, Engraving and watercolor on panel, Iron Ball, 165x71cm', url: '2025loggia1/img5.jpg', isGroupMain: true },
             
                                     { id: 'loggia_19', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: '2025loggia1/img6-1.jpg' },
                                     { id: 'loggia_20', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: '2025loggia1/img6-2.jpg' },
-                                    { id: 'loggia_21', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Silent Observer, 2025, Engraving and watercolor on panel, Iron Ball, 175x62.5cm', url: '2025loggia1/img6.jpg' },
+                                    { id: 'loggia_21', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Silent Observer, 2025, Engraving and watercolor on panel, Iron Ball, 175x62.5cm', url: '2025loggia1/img6.jpg', isGroupMain: true },
 
                                     { id: 'loggia_22', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: '2025loggia1/img7-1.jpg' },
                                     { id: 'loggia_23', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: '2025loggia1/img7-2.jpg' },
-                                                { id: 'loggia_24', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Echo Keeper, 2025, Engraving and watercolor on panel, Iron Ball, 122.5x79cm', url: '2025loggia1/img7.jpg' },
+                                                { id: 'loggia_24', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Echo Keeper, 2025, Engraving and watercolor on panel, Iron Ball, 122.5x79cm', url: '2025loggia1/img7.jpg', isGroupMain: true },
              { id: 'loggia_25', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: '2025loggia2/img8.jpg' },
              { id: 'loggia_26', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: '2025loggia2/img9.jpg' },
                                     { id: 'loggia_27', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: '2025loggia2/img10.jpg' },
-                                    { id: 'loggia_28', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'A Room Without Looking, 2025, Paper(frotage), 41x164cm', url: '2025loggia2/img11.jpg' },
+                                    { id: 'loggia_28', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'A Room Without Looking, 2025, Paper(frotage), 41x164cm', url: '2025loggia2/img11.jpg', isGroupMain: true },
                                     { id: 'loggia_29', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: '2025loggia2/img12.jpg' },
-             { id: 'loggia_30', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'As It Sank In, 2025, Plaster, 21x15.5cm', url: '2025loggia2/img13.jpg' },
+             { id: 'loggia_30', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'As It Sank In, 2025, Plaster, 21x15.5cm', url: '2025loggia2/img13.jpg', isGroupMain: true },
              { id: 'loggia_31', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: '2025loggia2/img14-1.jpg' },
-             { id: 'loggia_32', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Shadowlight, 2025, Engraving and watercolor on panel, 30x30cm', url: '2025loggia2/img14.jpg' },
-             { id: 'loggia_33', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Where Color Hesitates, 2025, Engraving and watercolor on panel, 39x160cm', url: '2025loggia2/img15.jpg' },
-             { id: 'loggia_34', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Through the Quiet Veil, 2025, Engraving and watercolor on panel, Plaster, 170x60cm', url: '2025loggia2/img16.jpg' },
-             { id: 'loggia_35', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Beyond the Quiet Veil, 2025, Engraving and watercolor on panel, Plaster, 170x60cm', url: '2025loggia2/img17.jpg' },
+             { id: 'loggia_32', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Shadowlight, 2025, Engraving and watercolor on panel, 30x30cm', url: '2025loggia2/img14.jpg', isGroupMain: true },
+             { id: 'loggia_33', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Where Color Hesitates, 2025, Engraving and watercolor on panel, 39x160cm', url: '2025loggia2/img15.jpg', isGroupMain: true },
+             { id: 'loggia_34', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Through the Quiet Veil, 2025, Engraving and watercolor on panel, Plaster, 170x60cm', url: '2025loggia2/img16.jpg', isGroupMain: true },
+             { id: 'loggia_35', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Beyond the Quiet Veil, 2025, Engraving and watercolor on panel, Plaster, 170x60cm', url: '2025loggia2/img17.jpg', isGroupMain: true },
 
             // 나머지 프로젝트 1개씩만 추가하여 데이터 구조를 유지합니다.
             { id: 'sr_1', projectId: 'Surgical Room', isDefault: false, folder: 'surgicalroom', fileName: 'sr_1.jpg', description: 'SED_DO / Surgical Room (Visual 1/3) / 2025', url: 'https://placehold.co/700x400/34495e/ffffff?text=SURGICAL_ROOM_1' },
@@ -910,51 +910,29 @@
                 let filteredData;
                 
                 if (filterId === 'INDEX_DEFAULT') {
+                    // 기본 화면: isDefault가 true인 항목만 필터링
                     filteredData = allImageData.filter(item => item.isDefault);
                 } else {
+                    // 프로젝트 선택 화면: 해당 projectId의 모든 항목 필터링 (모달 내비게이션용)
                     filteredData = allImageData.filter(item => item.projectId === filterId);
                 }
-
-                // ⭐ [수정된 렌더링 로직: 2열/4열 그룹핑 추가] ⭐
-                let workItemsHtml = '';
-    
-                for (let i = 0; i < filteredData.length; i++) {
-                    const item = filteredData[i];
-                    let itemHtml = '';
-            
-                    // 1. 4개 항목 그룹핑 체크 (ID: loggia_12부터 시작, 배열 길이가 4개 이상 남아있는지 확인, Loggia 프로젝트인 경우에만 적용)
-                    if (item.id === 'loggia_12' && filteredData.length >= i + 4 && item.projectId === 'Loggia') {
-                        const groupItems = filteredData.slice(i, i + 4); 
-                        let innerGroupHtml = '';
-                        
-                        groupItems.forEach(groupItem => {
-                            innerGroupHtml += createWorkItemHtml(groupItem);
-                        });
-                        
-                        itemHtml = `<div class="work-row-4">${innerGroupHtml}</div>`;
-                        i += 3; // 이미 처리된 3개 항목 건너뛰기
-            
-                    // 2. 2개 항목 그룹핑 체크 (ID: loggia_16부터 시작, 배열 길이가 2개 이상 남아있는지 확인, Loggia 프로젝트인 경우에만 적용)
-                    } else if (item.id === 'loggia_16' && filteredData.length >= i + 2 && item.projectId === 'Loggia') {
-                        const groupItems = filteredData.slice(i, i + 2); 
-                        let innerGroupHtml = '';
-                        
-                        groupItems.forEach(groupItem => {
-                            innerGroupHtml += createWorkItemHtml(groupItem);
-                        });
-                        
-                        itemHtml = `<div class="work-pair">${innerGroupHtml}</div>`;
-                        i += 1; // 이미 처리된 1개 항목 건너뛰기
-                        
-                    } else {
-                        // 3. 그룹에 속하지 않는 일반 항목은 그대로 처리
-                        itemHtml = createWorkItemHtml(item);
-                    }
-            
-                    workItemsHtml += itemHtml;
-                }
-                // ⭐ [수정된 렌더링 로직 끝] ⭐
                 
+                // ⭐ 추가된 로직: 메인 패널에 렌더링할 항목을 다시 필터링합니다.
+                let itemsToRenderInMain;
+                if (filterId === 'INDEX_DEFAULT') {
+                    // 기본 화면은 모든 항목을 렌더링
+                    itemsToRenderInMain = filteredData;
+                } else {
+                    // 프로젝트 화면은 isGroupMain: true 항목만 렌더링
+                    // 만약 isGroupMain이 없는 프로젝트라면 전체를 렌더링하는 대체 로직도 고려할 수 있지만, 
+                    // Loggia 프로젝트에서는 명확하게 isGroupMain을 사용합니다.
+                    const mainItems = filteredData.filter(item => item.isGroupMain === true);
+                    // isGroupMain이 설정된 항목이 있다면 그것만 렌더링, 없다면 전체를 렌더링 (후자를 선택하여 다른 프로젝트 호환성을 높임)
+                    itemsToRenderInMain = mainItems.length > 0 ? mainItems : filteredData;
+                }
+
+
+                const workItemsHtml = itemsToRenderInMain.map(createWorkItemHtml).join('');
                 
                 // 정적 텍스트 블록들을 분리합니다.
                 const introTexts = Array.from(workListContainer.querySelectorAll('.project-intro-text'));
@@ -988,6 +966,7 @@
                     }
                 });
 
+                // ⭐ 모달용으로 전체 필터링된 데이터(숨겨진 이미지 포함)를 저장합니다.
                 currentFilteredImages = filteredData;
             };
 
