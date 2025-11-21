@@ -275,8 +275,8 @@
             max-width: 100%;
             max-height: 100%;
             object-fit: contain; 
-            width: 100; 
-            height: 100; 
+            width: 100%; 
+            height: 100%; 
             display: block; 
 
             position: absolute; /* ⭐ 이 줄을 추가합니다. ⭐ */
@@ -922,19 +922,18 @@ margin: auto;
                 }
             };
 
-            // 캐러셀 시작 함수 (첫 이미지를 보이게 하는 초기화 로직 추가)
+           // 캐러셀 시작 함수 (첫 이미지를 보이게 하는 초기화 로직 추가)
             const startCarousel = () => {
                 stopCarousel(); 
                 currentCarouselIndex = 0;
                 
-                // ⭐ 첫 이미지의 투명도를 1로 강제 설정하여 보이게 합니다. ⭐
-                setTimeout(() => {
-                    const mainIndexItem = workListContainer.querySelector('.work-item[data-project-id="INDEX_DEFAULT"]');
-                    const imgElement = mainIndexItem ? mainIndexItem.querySelector('.work-visual img') : null;
-                    if (imgElement) {
-                        imgElement.style.opacity = '1';
-                    }
-                }, 100); 
+                // ⭐ [수정] 첫 이미지의 투명도를 1로 강제 설정하여 보이게 합니다. ⭐
+                const mainIndexItem = workListContainer.querySelector('.work-item[data-project-id="INDEX_DEFAULT"]');
+                const imgElement = mainIndexItem ? mainIndexItem.querySelector('.work-visual img') : null;
+                if (imgElement) {
+                    // setTimeout을 제거하고 즉시 투명도를 설정합니다. 
+                    imgElement.style.opacity = '1';
+                }
 
                 carouselInterval = setInterval(updateIndexImage, CAROUSEL_INTERVAL_MS);
             };
