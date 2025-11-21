@@ -233,7 +233,7 @@
             position: absolute; /* ⭐ 이 줄을 추가합니다. ⭐ */
             top: 0;
             left: 0;
-            opacity: 1;
+            
             transition: opacity 0.05s ease-in-out;
         }
 
@@ -282,7 +282,7 @@
             top: 0;
             left: 0;
 
-            opacity: 1;
+           
             transition: opacity 0.05s ease-in-out;
         }
 
@@ -906,7 +906,7 @@
             let currentFilteredImages = []; 
             
             // =========================================================================
-       // =========================================================================
+     // =========================================================================
             // 캐러셀 관련 변수 및 상수 (자동 전환 Cross-Fade 로직)
             let carouselInterval = null;
             const CAROUSEL_INTERVAL_MS = 3000; // 3초 전환 주기
@@ -922,17 +922,20 @@
             };
 
             // 캐러셀 시작 함수 (첫 이미지를 보이게 하는 초기화 로직 추가)
-            const startCarousel = () => {
+           const startCarousel = () => {
                 stopCarousel(); 
                 currentCarouselIndex = 0;
                 
-                // ⭐ [수정] 초기 로딩 시 첫 번째 이미지가 보이도록 설정 ⭐
-                const mainIndexItem = workListContainer.querySelector('.work-item[data-project-id="INDEX_DEFAULT"]');
-                const imgElement = mainIndexItem ? mainIndexItem.querySelector('.work-visual img') : null;
-                if (imgElement) {
-                    // 첫 이미지의 투명도를 1로 설정하여 보이게 합니다.
-                    imgElement.style.opacity = '1';
-                }
+                // ⭐ [수정] 초기 로딩 시 첫 번째 이미지가 보이도록 강제 설정 ⭐
+                // 혹시 이미지 로딩 전이라면 setTimeout으로 딜레이를 줍니다.
+                setTimeout(() => {
+                    const mainIndexItem = workListContainer.querySelector('.work-item[data-project-id="INDEX_DEFAULT"]');
+                    const imgElement = mainIndexItem ? mainIndexItem.querySelector('.work-visual img') : null;
+                    if (imgElement) {
+                        // 첫 이미지를 강제로 보이게 합니다.
+                        imgElement.style.opacity = '1';
+                    }
+                }, 100); // 100ms 지연 후 실행
 
                 carouselInterval = setInterval(updateIndexImage, CAROUSEL_INTERVAL_MS);
             };
@@ -997,6 +1000,7 @@
 
             }; // End of updateIndexImage
             // =========================================================================
+            
             /**
              * 단일 작업 항목 HTML을 생성합니다.
              */
@@ -1095,7 +1099,7 @@
                 }
             };
 
-       // 모달 콘텐츠 업데이트 함수 (Cross-Fade 적용)
+      // 모달 콘텐츠 업데이트 함수 (Cross-Fade 적용)
             const updateModalContent = (imageId) => {
                 const targetImage = currentFilteredImages.find(item => item.id === imageId);
                 
