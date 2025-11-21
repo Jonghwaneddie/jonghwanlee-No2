@@ -158,6 +158,32 @@
             padding: 0px;
         }
 
+        .work-pair {
+    display: flex;       /* Flexbox 활성화 */
+    gap: 10px;           /* 두 이미지 항목 사이의 간격 */
+    margin-bottom: 10px; /* work-pair 자체의 하단 간격 */
+}
+
+/* ⭐ [새로 삽입] 그룹 내의 각 이미지 항목의 너비 설정 ⭐ */
+.work-pair .work-item {
+    flex: 1 1 50%; /* 컨테이너 너비의 50%를 차지 */
+    width: 50%;
+}
+
+/* 4개의 이미지를 그룹화하여 가로로 나열 */
+.work-row-4 {
+    display: flex;         /* Flexbox 활성화 */
+    gap: 5px;              /* 4개 이미지 항목 사이의 간격 (원하는 값으로 조정) */
+    margin-bottom: 10px;   /* work-row-4 자체의 하단 간격 */
+}
+
+/* 그룹 내의 각 이미지 항목의 너비 설정 (100% / 4 = 25%) */
+.work-row-4 .work-item {
+    flex: 1 1 25%;         /* 컨테이너 너비의 25%를 차지하도록 합니다. */
+    width: 25%;            /* 명시적으로 25% 너비 설정 */
+}
+
+        
         /* 작업물 헤더 (텍스트): 한 줄 왼쪽 정렬로 변경 */
         .work-header {
             display: flex; 
@@ -330,6 +356,26 @@
                 overflow-y: visible; 
                 height: auto;
             }
+
+            .work-pair {
+        flex-direction: column; /* 모바일에서는 수직으로 쌓기 */
+        gap: 0;                 /* 모바일에서는 그룹 간격 제거 */
+        margin-bottom: 10px;    /* 모바일에서 work-pair의 하단 간격 */
+    }
+    .work-pair .work-item {
+        width: 100%; /* 모바일에서는 너비를 다시 100%로 복원 */
+    }
+
+            /* ⭐ [새로 삽입] 모바일에서 work-row-4 스타일 재정의 ⭐ */
+    .work-row-4 {
+        flex-direction: column; /* 모바일에서는 수직으로 쌓기 */
+        gap: 0;                 /* 그룹 간격 제거 */
+        margin-bottom: 10px;
+    }
+    .work-row-4 .work-item {
+        width: 100%; /* 모바일에서는 너비를 다시 100%로 복원 */
+    }
+            
             
             /* 1. 헤더 재배치 및 간소화 */
             .main-header {
@@ -780,6 +826,7 @@
                         { id: 'loggia_10', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg',description: '',url: 'loggiaimages/loggia10.jpg' },
                   { id: 'loggia_16', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: '2025loggia1/img1-1.jpg' },
                                     { id: 'loggia_17', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: '2025loggia1/img1-2.jpg' },
+            
                                     { id: 'loggia_12', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img1.jpg' },
                                     { id: 'loggia_13', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img2.jpg' },
                                     { id: 'loggia_14', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img3.jpg' },
