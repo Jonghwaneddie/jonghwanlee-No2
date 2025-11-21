@@ -228,7 +228,7 @@
             height: 100%; 
             display: block; 
             object-fit: contain; 
-            transition: opacity 0.15s ease-in-out;
+            transition: opacity 0.05s ease-in-out;
         }
 
 
@@ -269,7 +269,7 @@
             width: auto; 
             height: auto; 
             display: block; 
-            transition: opacity 0.15s ease-in-out;
+            transition: opacity 0.05s ease-in-out;
         }
 
 
@@ -896,7 +896,7 @@
             // 캐러셀 관련 변수 및 상수 (자동 전환 Fade Out/In 로직)
             let carouselInterval = null;
             const CAROUSEL_INTERVAL_MS = 3000; // 3초 전환 주기
-            const FADE_DURATION_MS = 150; // ⭐ 0.15초 (CSS와 일치) ⭐
+            const FADE_DURATION_MS = 50; // ⭐ 0.15초 (CSS와 일치) ⭐
             let currentCarouselIndex = 0;
 
             // 캐러셀 중지 함수
@@ -1077,7 +1077,7 @@
                 const targetImage = currentFilteredImages.find(item => item.id === imageId);
                 
                 if (targetImage) {
-                    const transitionDuration = 150; // 0.1초
+                    const transitionDuration = 50; // 0.1초
                     const currentImg = modalImageContainer.querySelector('img');
                     
                     // 캡션은 즉시 업데이트
