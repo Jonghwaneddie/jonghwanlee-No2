@@ -228,7 +228,10 @@
             height: 100%; 
             display: block; 
             object-fit: contain; 
-            transition: opacity 0.1s ease-in-out;
+            position: absolute; 
+            top: 0;
+            left: 0;
+           transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
         }
 
 
@@ -927,32 +930,68 @@
 
                 if (!mainIndexItem) return;
 
-                const updateIndexImage = () => {
-                    // 다음 이미지 인덱스를 순환 방식으로 계산
-                    const nextImageIndex = (currentCarouselIndex + 1) % indexImages.length;
-                    const nextImage = indexImages[nextImageIndex];
-                    
-                    // 렌더링된 요소의 src와 description을 업데이트합니다.
-                    const imgElement = mainIndexItem.querySelector('.work-visual img');
-                    const descElement = mainIndexItem.querySelector('.work-header .full-description');
-                    
-                    if (imgElement) {
-                        imgElement.src = nextImage.url;
-                        imgElement.alt = `${nextImage.folder}/${nextImage.fileName}`;
-                    }
-                    if (descElement) {
-                        descElement.textContent = nextImage.description;
-                    }
-                    
-                    // 모달을 위해 work-item의 data-image-id도 업데이트해야 합니다.
-                    mainIndexItem.dataset.imageId = nextImage.id;
+               // 캐러셀 이미지 및 텍스트를 업데이트하는 함수 (Zoom-Out & Cross-Fade 적용)
+            const updateIndexImage = () => {
+                const defaultImages = allImageData.filter(item => item.isDefault);
+                if (defaultImages.length === 0) return;
 
-                    // 다음 캐러셀 사이클을 위해 현재 인덱스 업데이트
+                const nextImageIndex = (currentCarouselIndex + 1) % defaultImages.length;
+                const nextImage = defaultImages[nextImageIndex];
+
+                const mainIndexItem = workListContainer.querySelector('.work-item[data-project-id="INDEX_DEFAULT"]');
+                const imgContainer = mainIndexItem ? mainIndexItem.querySelector('.work-visual') : null; 
+                const currentImg = imgContainer ? imgContainer.querySelector('img') : null; 
+                const captionElement = mainIndexItem ? mainIndexItem.querySelector('.work-header .full-description') : null;
+                
+                if (!imgContainer) {
+                    stopCarousel();
+                    return;
+                }
+                
+                // 1. 새 이미지 요소 생성
+                const newImg = document.createElement('img');
+                newImg.src = nextImage.url;
+                newImg.alt = `${nextImage.folder}/${nextImage.fileName}`;
+                
+                // ⭐ [핵심] 초기 상태 설정: 투명하고 약간 확대된 상태에서 시작 ⭐
+                newImg.style.opacity = '0'; 
+                newImg.style.transform = 'scale(1.05)'; 
+
+                // 2. DOM에 새 이미지를 추가 (기존 이미지 위에 겹쳐짐)
+                imgContainer.appendChild(newImg); 
+                
+                // 3. 로드가 완료되면 Fade In & Zoom-Out 시작
+                newImg.onload = () => {
+                    // Reflow 강제 후 Fade In & Zoom-Out 트리거
+                    void newImg.offsetWidth; 
+                    newImg.style.opacity = '1'; 
+                    newImg.style.transform = 'scale(1)'; // ⭐ 원래 크기(1)로 Zoom-Out ⭐
+
+                    // 4. 새 이미지가 나타난 후 0.3초 대기 (Cross-Fade) 후 이전 이미지 제거
+                    if (currentImg) {
+                        setTimeout(() => {
+                            if (currentImg.parentNode) {
+                                currentImg.parentNode.removeChild(currentImg);
+                            }
+                        }, 300); // 0.3s 대기
+                    }
+
+                    // 캡션 및 인덱스 업데이트
+                    if (captionElement) {
+                        captionElement.textContent = nextImage.description;
+                    }
+                    mainIndexItem.dataset.imageId = nextImage.id;
                     currentCarouselIndex = nextImageIndex;
                 };
-                
-                // 3초마다 이미지 전환 시작
-                carouselInterval = setInterval(updateIndexImage, CAROUSEL_INTERVAL_MS);
+
+                newImg.onerror = () => {
+                    // 로딩 실패 시 바로 보이게 처리하고 이전 이미지 제거
+                    newImg.style.opacity = '1';
+                    newImg.style.transform = 'scale(1)';
+                    if (currentImg && currentImg.parentNode) {
+                        currentImg.parentNode.removeChild(currentImg);
+                    }
+                };
             };
             // =========================================================================
             
