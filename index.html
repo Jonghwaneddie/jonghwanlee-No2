@@ -222,7 +222,10 @@
             cursor: pointer; 
             overflow: hidden; 
             position: relative;
-     
+/* ⭐ [진단용] 컨테이너가 보이는지 확인하는 코드 ⭐ */
+            background-color: red !important; 
+            z-index: 9999;
+            
         }
         
         /* 이미지 잘림 방지 (Contain) CSS */
@@ -236,6 +239,9 @@
             left: 0;
             
             transition: opacity 0.05s ease-in-out;
+
+            /* ⭐ [진단용] 이미지가 로드되지 않았을 때 대신 검은색으로 표시 ⭐ */
+            background-color: black;
         }
 
 
