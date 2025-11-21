@@ -825,16 +825,16 @@
             
             
             // Loggia - Loggia 프로젝트 이미지 (폴더/파일명 지정)
-            { id: 'loggia_1', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia1.jpg', description: '', url: 'loggiaimages/loggia1.jpg',isGroupMain: true },
-            { id: 'loggia_2', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia2.jpg', description: '', url: 'loggiaimages/loggia2.jpg' },
-            { id: 'loggia_3', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia3.jpg' },
-                        { id: 'loggia_4', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia4.jpg' },
-                        { id: 'loggia_5', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia5.jpg' },
-                        { id: 'loggia_6', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg',description: '',url: 'loggiaimages/loggia6.jpg' },
-                        { id: 'loggia_7', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg',description: '',  url: 'loggiaimages/loggia7.jpg' },
-                        { id: 'loggia_8', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia8.jpg' },
-                        { id: 'loggia_9', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia9.jpg' },
-                        { id: 'loggia_10', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg',description: '',url: 'loggiaimages/loggia10.jpg' },
+            { id: 'loggia_1', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia1.jpg', description: '', url: 'loggiaimages/loggia1.jpg',groupId: 'loggia_carousel', isGroupMain: true },
+            { id: 'loggia_2', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia2.jpg', description: '', url: 'loggiaimages/loggia2.jpg',groupId: 'loggia_carousel' },
+            { id: 'loggia_3', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia3.jpg',groupId: 'loggia_carousel' },
+                        { id: 'loggia_4', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia4.jpg',groupId: 'loggia_carousel' },
+                        { id: 'loggia_5', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia5.jpg',groupId: 'loggia_carousel' },
+                        { id: 'loggia_6', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg',description: '',url: 'loggiaimages/loggia6.jpg',groupId: 'loggia_carousel' },
+                        { id: 'loggia_7', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg',description: '',  url: 'loggiaimages/loggia7.jpg',groupId: 'loggia_carousel' },
+                        { id: 'loggia_8', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia8.jpg',groupId: 'loggia_carousel' },
+                        { id: 'loggia_9', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia9.jpg',groupId: 'loggia_carousel' },
+                        { id: 'loggia_10', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg',description: '',url: 'loggiaimages/loggia10.jpg',groupId: 'loggia_carousel' },
                                    
                   
             
@@ -1161,6 +1161,30 @@ const updateModalContent = (imageId) => {
                     const workItem = visual.closest('.work-item');
                     if (workItem) {
                         const imageId = workItem.dataset.imageId;
+
+                    // 4. 작업물 비주얼 클릭 이벤트 (모달 열기)
+workListContainer.addEventListener('click', (event) => {
+    const visual = event.target.closest('.work-visual');
+    if (visual) {
+        const workItem = visual.closest('.work-item');
+        if (workItem) {
+            const imageId = workItem.dataset.imageId;
+            
+            // ⭐ [핵심 추가] 그룹 필터링 로직 ⭐
+            const clickedImage = allImageData.find(item => item.id === imageId);
+
+            if (clickedImage && clickedImage.groupId) {
+                // 1. 클릭된 이미지가 groupId를 가지고 있다면: 해당 그룹의 이미지들만 모달 목록으로 만듭니다.
+                currentFilteredImages = allImageData.filter(item => item.groupId === clickedImage.groupId);
+            } else if (clickedImage && clickedImage.projectId !== 'INDEX_DEFAULT') {
+                // 2. 그룹에 속하지 않지만 프로젝트(예: loggia_12)에 속한다면: 해당 이미지 1개만 모달 목록으로 만듭니다.
+                // 이렇게 하면 내비게이션 버튼이 숨겨집니다.
+                currentFilteredImages = [clickedImage];
+            } 
+            // 3. INDEX_DEFAULT (메인화면) 이미지를 클릭한 경우: renderWorkList에서 설정된 currentFilteredImages (전체 INDEX 이미지)를 그대로 사용합니다.
+            // ⭐ [핵심 추가 끝] ⭐
+
+
                         
                         // ⭐ 모달 열기 시 캐러셀 중지
                         stopCarousel();
