@@ -228,6 +228,7 @@
             height: 100%; 
             display: block; 
             object-fit: contain; 
+            transition: opacity 0.2s ease-in-out;
         }
 
 
@@ -268,7 +269,7 @@
             width: auto; 
             height: auto; 
             display: block; 
-            transition: opacity 0.3s ease-in-out;
+            transition: opacity 0.2s ease-in-out;
         }
 
 
@@ -1050,7 +1051,7 @@
                 const targetImage = currentFilteredImages.find(item => item.id === imageId);
                 
                 if (targetImage) {
-                    const transitionDuration = 300; // 0.3초
+                    const transitionDuration = 100; // 0.1초
                     const currentImg = modalImageContainer.querySelector('img');
                     
                     // 캡션은 즉시 업데이트
