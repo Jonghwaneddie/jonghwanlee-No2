@@ -222,9 +222,7 @@
             cursor: pointer; 
             overflow: hidden; 
             position: relative;
-/* ⭐ [진단용] 컨테이너가 보이는지 확인하는 코드 ⭐ */
-            background-color: red !important; 
-            z-index: 9999;
+
             
         }
         
@@ -240,8 +238,7 @@
             
             transition: opacity 0.05s ease-in-out;
 
-            /* ⭐ [진단용] 이미지가 로드되지 않았을 때 대신 검은색으로 표시 ⭐ */
-            background-color: black;
+           
         }
 
 
@@ -456,16 +453,14 @@ margin: auto;
                 flex-direction: column;
             }
             
-            .right-panel {
-                order: 2; 
-                width: 100%;
-                height: auto; 
-                overflow-y: visible; 
-                flex-shrink: 0;
-                padding: 0px;
-                padding-top: 0; 
-                /* padding-bottom: 80px; - 푸터에서 처리 */
-            }
+           .right-panel {
+            flex: 1; /* 왼쪽 패널과 동등하게 공간 분배 */
+            overflow-y: auto; /* 세로 스크롤 가능 */
+            
+            /* ⭐ [최종 진단] 오른쪽 패널 영역 자체에 파란색을 칠합니다. ⭐ */
+            background-color: blue !important; 
+            min-height: 100vh; /* ⭐ 높이를 강제로 확보합니다. ⭐ */
+        }
 
             /* 4. 정보 텍스트 조정 */
             .cv-info {
