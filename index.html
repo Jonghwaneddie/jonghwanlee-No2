@@ -823,33 +823,17 @@
         // 1. 이미지 데이터 정의
         const allImageData = [
             // ⭐ 0. 인덱스 화면에 표시할 기본 작업물 (캐러셀 그룹으로 변경)
-            { 
-                id: 'index_1', 
-                projectId: 'INDEX_DEFAULT', 
-                isDefault: true, 
-                folder: 'index', 
-                fileName: 'index_1.jpg', 
-                description: 'Loggia 2025', 
-                url: 'loggiaimages/loggia1.jpg', // URL 수정 필요
-                isGroupMain: true,
-                groupId: 'INDEX_CAROUSEL' // ⭐ [수정 2-A] 그룹 ID 추가
-            },
-            { 
-                id: 'index_2', // 새로운 이미지 ID 추가
-                projectId: 'INDEX_DEFAULT', 
-                isDefault: true, 
-                folder: 'index', 
-                fileName: 'index_2.jpg', 
-                description: '', 
-                url: 'loggiaimages/loggia2.jpg', // URL 수정 필요
-                groupId: 'INDEX_CAROUSEL'  // ⭐ [수정 2-A] 동일한 그룹 ID 추가
-            },
-            // 기존 인덱스 항목은 필요 없으므로 삭제하거나 위 그룹에 추가합니다.
-            /* 기존 데이터 제거
-            { id: 'index_1', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2024_1.jpg',  description: 'Exhibition View', url: 'loggiaimages/loggia1.jpg', isGroupMain: true }, 
-            { id: 'index_2', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2024_2.jpg', description: '', url: 'loggiaimages/loggia2.jpg' },
-            // ... (index_3 ~ index_10 생략) ...
-            */
+            {   id: 'index_1', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_1.jpg', description: 'Loggia 2025', url: 'loggiaimages/loggia1.jpg',isGroupMain: true, groupId: 'INDEX_CAROUSEL'},
+            {   id: 'index_2', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_2.jpg', description: '', url: 'loggiaimages/loggia2.jpg',groupId: 'INDEX_CAROUSEL' },
+            {   id: 'index_3', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_3.jpg', description: '', url: 'loggiaimages/loggia3.jpg',groupId: 'INDEX_CAROUSEL' },
+            {   id: 'index_4', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_4.jpg', description: '', url: 'loggiaimages/loggia4.jpg',groupId: 'INDEX_CAROUSEL' },
+            {   id: 'index_5', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_5.jpg', description: '', url: 'loggiaimages/loggia5.jpg',groupId: 'INDEX_CAROUSEL' },
+            {   id: 'index_6', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_6.jpg', description: '', url: 'loggiaimages/loggia6.jpg',groupId: 'INDEX_CAROUSEL' },
+            {   id: 'index_7', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_7.jpg', description: '', url: 'loggiaimages/loggia7.jpg',groupId: 'INDEX_CAROUSEL' },
+            {   id: 'index_8', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_8.jpg', description: '', url: 'loggiaimages/loggia8.jpg',groupId: 'INDEX_CAROUSEL' },
+            {   id: 'index_9', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_9.jpg', description: '', url: 'loggiaimages/loggia9.jpg',groupId: 'INDEX_CAROUSEL' },
+            {   id: 'index_10', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_10.jpg', description: '', url: 'loggiaimages/loggia10.jpg',groupId: 'INDEX_CAROUSEL' },
+         
 
             // Loggia - 설치 전경 (Install_View_1)
             { id: 'loggia_1', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia1.jpg', description: 'Installation View ', url: 'loggiaimages/loggia1.jpg', isGroupMain: true, groupId: 'Install_View_1'}, 
