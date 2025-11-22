@@ -646,7 +646,7 @@
                    Supported by Seoul Foundation for Arts and Culture</span>
                     <br><br>
                     해방된 기둥이 있다. 구역을 만들어내는 기둥은 중심에서 장소를 구체화하고 있지만 그 무엇도 지지하지 않고 있다. 정확히는 어디를 지지하고 있는지 말할 수 없다. 기둥의 끝에서 빛이 솟아오른다. 기둥은 저기 있지만 빛은 다가와 마주침을 만들어낸다. 기둥과 빛은 보이지 않는 것을 마주하기 위해 공간과 시간을 뒤섞어 지금 이 자리에 있음을 느끼게 한다. 그곳은 재현되는 것이 아니라 스스로를 드러낸다. 기둥 속에서 반짝이는 추는 반복되는 소리를 흘려보낸다. 그 소리는 이곳이 우리와 또 다른 것임을 알려주는 듯하다.
-                   <br><br> A liberated pillar stands. Creating a distinct zone, the pillar gives substance to the space from its center, yet supports nothing. Precisely where it lends its support is undefinable. Light springs forth from the pillar's apex. The pillar remains distant, but the light approaches to orchestrate an encounter. The pillar and the light intertwine space and time to confront the unseen, evoking a presence of being here and now. The place does not merely reproduce; it reveals itself. Within the pillar, a shimmering pendulum releases a repeating sound. That sound seems to suggest this space is fundamentally separate from us.
+                   <br><br> A liberated pillar stands. Creating a distinct zone, the pillar gives substance to the space from its center, yet supports nothing. Precisely where it lends its support is undefinable. Light springs forth from the pillar's apex. The pillar remains distant, but the light approaches to orchestrate an encounter. The place does not merely reproduce; it reveals itself. Within the pillar, a shimmering pendulum releases a repeating sound. That sound seems to suggest this space is fundamentally separate from us.
                   
                 </div>
 
@@ -827,7 +827,7 @@
 
             // Loggia - Loggia 프로젝트 이미지 (폴더/파일명 지정)
             // ⭐ loggia_1 ~ loggia_10까지 isCarouselGroup: true 속성 추가
-            { id: 'loggia_1', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia1.jpg', description: '', url: 'loggiaimages/loggia1.jpg',isGroupMain: true, isCarouselGroup: true}, 
+            { id: 'loggia_1', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia1.jpg', description: '', url: 'loggiaimages/loggia1.jpg', isGroupMain: true, isCarouselGroup: true}, 
             { id: 'loggia_2', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia2.jpg', description: '', url: 'loggiaimages/loggia2.jpg', isCarouselGroup: true  },
             { id: 'loggia_3', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia3.jpg', isCarouselGroup: true },
             { id: 'loggia_4', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia4.jpg', isCarouselGroup: true},
@@ -1161,24 +1161,18 @@ const updateModalContent = (imageId) => {
                 }
             };
 
-            // 모달 열기 시 필터링된 이미지 업데이트 및 첫 이미지 로드
+            // ⭐ [수정] 모달 열기 시 필터링된 이미지 업데이트 및 첫 이미지 로드
             const openModal = (imageId) => {
-                // Loggia 프로젝트의 경우, isCarouselGroup이 true인 항목만 캐러셀 대상에 포함
-                if (activeFilterId === 'Loggia') {
-                    currentFilteredImages = allImageData.filter(item => item.projectId === 'Loggia' && item.isCarouselGroup === true);
-                    // 만약 캐러셀 항목이 없다면 전체 이미지로 폴백
-                    if (currentFilteredImages.length === 0) {
-                        currentFilteredImages = allImageData.filter(item => item.projectId === 'Loggia');
-                    }
-                } else if (activeFilterId === 'INDEX_DEFAULT') {
-                     // INDEX_DEFAULT도 isCarouselGroup이 true인 항목만 대상으로 합니다.
+                // 1. INDEX_DEFAULT일 경우 isDefault가 true인 항목 전체를 모달 데이터로 사용
+                if (activeFilterId === 'INDEX_DEFAULT') {
                      currentFilteredImages = allImageData.filter(item => item.isDefault);
                 } else {
-                    // 그 외 프로젝트는 전체 이미지 사용
+                    // 2. 그 외 모든 프로젝트는 해당 projectId의 전체 이미지를 모달 데이터로 사용 (Loggia 포함)
                     currentFilteredImages = allImageData.filter(item => item.projectId === activeFilterId);
                 }
+                // (Loggia의 캐러셀 내비게이션 제한은 updateNavButtons()에서 처리됨)
 
-                updateModalContent(imageId);
+                updateModalContent(imageId); 
                 modal.classList.add('show');
             }
 
@@ -1257,6 +1251,7 @@ const updateModalContent = (imageId) => {
             });
 
             prevBtn.addEventListener('click', () => {
+                // 내비게이션 시에만 Loggia 프로젝트 캐러셀 항목으로 제한
                 const navigableImages = currentFilteredImages.filter(item => activeFilterId === 'Loggia' ? item.isCarouselGroup === true : true);
                 const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
                 if (currentIndex > 0) {
@@ -1266,6 +1261,7 @@ const updateModalContent = (imageId) => {
             });
 
             nextBtn.addEventListener('click', () => {
+                // 내비게이션 시에만 Loggia 프로젝트 캐러셀 항목으로 제한
                 const navigableImages = currentFilteredImages.filter(item => activeFilterId === 'Loggia' ? item.isCarouselGroup === true : true);
                 const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
                 if (currentIndex < navigableImages.length - 1) {
