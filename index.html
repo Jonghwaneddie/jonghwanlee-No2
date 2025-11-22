@@ -245,12 +245,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); 
+            /* background-color: rgba(255, 255, 255, 0.6); <- Original */
+            background-color: rgba(0, 0, 0, 0.7); /* ⭐ [수정 2, 3] 배경을 어둡게 변경 */
             display: none; 
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            background-color: rgba(255, 255, 255, 0.6);
         }
 
         .fullscreen-modal.show {
@@ -290,7 +290,8 @@
             position: absolute;
             top: 20px;
             right: 40px;
-            color: #BBBBBB;
+            /* color: white; <- Original */
+            color: #BBBBBB; /* ⭐ [수정 3] 회색으로 변경 */
             font-size: 30px;
             font-weight: bold;
             cursor: pointer;
@@ -303,7 +304,7 @@
         }
 
         /* 이전/다음 버튼 스타일 */
-    .modal-nav-btn {
+        .modal-nav-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
@@ -315,14 +316,6 @@
             user-select: none; 
             opacity: 0.6;
             transition: opacity 0.2s;
-            /* ⭐ [추가 4-A] 모바일에서 버튼 숨김 */
-            display: none; 
-        }
-        /* 데스크톱에서는 다시 보이게 (768px 초과) */
-        @media (min-width: 769px) {
-            .modal-nav-btn {
-                display: block; 
-            }
         }
 
         .modal-nav-btn:hover {
@@ -489,7 +482,7 @@
             /* 모바일 텍스트 조정 (왼쪽 정렬 유지) */
             .project-intro-text {
                 text-align: left; 
-                margin-bottom: 10px; 
+                margin-bottom: 10px; /* ⭐ [수정 1] 간격 축소 */
                 padding-left: 5px; 
             }
             
@@ -534,6 +527,11 @@
             /* 모바일 모달 캡션 텍스트 줄바꿈 방지 유지 */
             .modal-caption .work-header span {
                 white-space: nowrap;
+            }
+            
+            /* ⭐ [수정 4-A] 모바일에서 버튼 숨김 */
+            .modal-nav-btn {
+                display: none !important; 
             }
         }
 
@@ -640,8 +638,7 @@
             <div class="selected-work-list">
                 
                        <div class="project-intro-text active" data-project-id="INDEX_DEFAULT">
-                   Recently Exhibition<br>
-                </div>
+                   Recently Exhibition </div>
                 
                 <div class="project-intro-text" data-project-id="Loggia">
                    Loggia (2025)<br><br>
@@ -1090,14 +1087,6 @@
                                            
                 if (!shouldStart) return;
 
-                // 프로젝트 변경 시 모든 그룹의 인덱스를 0으로 초기화
-                // 참고: 이 로직은 이제 renderWorkList에서 처리되므로 여기서는 제거해도 무방하지만, 안전을 위해 남겨둡니다.
-                // allImageData.forEach(item => {
-                //     if(item.projectId === activeFilterId && item.groupId) {
-                //         groupCurrentIndexMap[item.groupId] = 0;
-                //     }
-                // });
-                
                 // 재귀 루프 정의
                 const loop = () => {
                     // cycleGroupImage는 이미지 로드 + 전환 완료 후 resolve되는 Promise를 반환합니다.
@@ -1250,30 +1239,7 @@ const updateModalContent = (imageId) => {
         modalImageContainer.innerHTML = '';
         modalImageContainer.appendChild(newImg);
     };
-// ⭐ [추가 4-B] 모달 이미지 컨테이너 클릭 이벤트 (모바일 터치 넘기기)
-            modalImageContainer.addEventListener('click', (event) => {
-                // 모바일 환경에서만 이 로직을 실행하도록 조건 추가 (768px 이하)
-                if (window.innerWidth <= 768) {
-                    const containerRect = modalImageContainer.getBoundingClientRect();
-                    const clickX = event.clientX - containerRect.left; // 컨테이너 내 X 좌표
-                    const width = containerRect.width;
-                    
-                    // 왼쪽 1/3 클릭 시 (Prev)
-                    if (clickX < width / 3) {
-                        prevBtn.click();
-                    } 
-                    // 오른쪽 1/3 클릭 시 (Next)
-                    else if (clickX > width * 2 / 3) {
-                        nextBtn.click();
-                    }
-                    // 중앙 1/3 클릭 시 아무 동작 없음
-                }
-            });
-            
-            // ⭐ 모달 버튼 상태 업데이트 함수: groupId 기반으로 모달 순서 결정
-            const updateNavButtons = () => {
 
-    
     // 5. 로드 시작
     tempLoader.src = targetImage.url; 
     
@@ -1288,8 +1254,15 @@ const updateModalContent = (imageId) => {
                 const navigableImages = currentFilteredImages;
                 const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
                 
-                prevBtn.style.display = (currentIndex > 0) ? 'block' : 'none';
-                nextBtn.style.display = (currentIndex < navigableImages.length - 1) ? 'block' : 'none';
+                // 모바일이 아닐 때만 버튼을 표시
+                if (window.innerWidth > 768) { 
+                    prevBtn.style.display = (currentIndex > 0) ? 'block' : 'none';
+                    nextBtn.style.display = (currentIndex < navigableImages.length - 1) ? 'block' : 'none';
+                } else {
+                    // 모바일에서는 항상 숨김 (CSS에서도 처리하지만 JS에서도 안전하게 처리)
+                    prevBtn.style.display = 'none';
+                    nextBtn.style.display = 'none';
+                }
             };
             
             // ⭐ 모달 열기 시 그룹 데이터로 필터링
@@ -1321,6 +1294,8 @@ const updateModalContent = (imageId) => {
                 // 5. 모달 콘텐츠 업데이트 및 표시
                 updateModalContent(imageId);
                 modal.classList.add('show');
+                
+                // ⭐ [수정 2-A] 모달 열기 시 history.pushState를 사용하여 URL에 상태를 추가합니다.
                 history.pushState({ modalOpen: true }, 'Modal Open', '#modal');
             }
 
@@ -1333,6 +1308,18 @@ const updateModalContent = (imageId) => {
             };
 
             resetFilter(); 
+            
+            // 모달 닫기 공통 함수
+            const closeModal = () => {
+                 modal.classList.remove('show');
+                 startCarousel(); // ⭐ 모달 닫기 시 캐러셀 재시작
+                 
+                 // ⭐ [수정 2-B] 모달 닫기 시 URL에서 #modal 상태를 제거합니다.
+                 if (history.state && history.state.modalOpen) {
+                     history.back(); // history.pushState로 추가된 상태를 닫습니다.
+                 }
+            }
+
 
             // 2. 프로젝트 링크 클릭 이벤트
             projectLinks.forEach(link => {
@@ -1375,53 +1362,60 @@ const updateModalContent = (imageId) => {
             });
             
             // 5. 모달 닫기 이벤트
-         modalClose.addEventListener('click', () => {
-                modal.classList.remove('show');
-                startCarousel(); // ⭐ 모달 닫기 시 캐러셀 재시작
-                
-                // ⭐ [수정 2-B] 모달 닫기 시 URL에서 #modal 상태를 제거합니다.
-                if (history.state && history.state.modalOpen) {
-                    history.back(); // history.pushState로 추가된 상태를 닫습니다.
-                }
-            });
+            modalClose.addEventListener('click', closeModal);
 
             modal.addEventListener('click', (event) => {
                 if (event.target === modal) {
-                    modal.classList.remove('show');
-                    startCarousel(); // ⭐ 모달 닫기 시 캐러셀 재시작
-                    
-                    // ⭐ [수정 2-C] 모달 닫기 시 URL에서 #modal 상태를 제거합니다.
-                    if (history.state && history.state.modalOpen) {
-                        history.back();
-                    }
-                }
-            });
-
-            // ⭐ [추가 2-D] 모바일 뒤로가기 버튼(popstate 이벤트) 처리
-            window.addEventListener('popstate', (event) => {
-                // history.back()이 아닌 외부(모바일 버튼)에서 popstate 이벤트가 발생하고, 
-                // 모달이 열려 있으며, history state에 modalOpen 정보가 없다면 (최상위 URL로 돌아가려 할 때)
-                if (modal.classList.contains('show') && (!event.state || !event.state.modalOpen)) {
-                    modal.classList.remove('show');
-                    startCarousel();
-                    // 이 경우에는 뒤로가기 동작이 이미 일어났으므로 추가적인 history.back() 호출은 불필요합니다.
+                    closeModal();
                 }
             });
             
-          // 6. 키보드 및 내비게이션 버튼 이벤트
+            // ⭐ [추가 2-D] 모바일 뒤로가기 버튼(popstate 이벤트) 처리
+            window.addEventListener('popstate', (event) => {
+                // 외부(모바일 버튼)에서 popstate 이벤트가 발생했고, 모달이 열려 있는 상태라면 모달을 닫습니다.
+                if (modal.classList.contains('show')) {
+                    modal.classList.remove('show');
+                    startCarousel();
+                    // history.back()이 이미 실행된 상태이므로 추가적인 history.back()은 호출하지 않습니다.
+                }
+            });
+
+            // 6. 키보드 및 내비게이션 버튼 이벤트
             document.addEventListener('keydown', (event) => {
                 if (modal.classList.contains('show')) {
                     if (event.key === 'Escape') {
-                        modal.classList.remove('show');
-                        startCarousel(); // ⭐ 모달 닫기 시 캐러셀 재시작
-                        
-                        // ⭐ [수정 2-E] Esc 키 시에도 history 상태 정리
-                         if (history.state && history.state.modalOpen) {
-                            history.back(); 
-                        }
-                    } else if (event.key === 'ArrowLeft') {
+                        closeModal(); // ⭐ [수정 2-E] Esc 키 시에도 history 상태 정리 포함
+                    } else if (event.key === 'ArrowLeft' && window.innerWidth > 768) {
+                        prevBtn.click();
+                    } else if (event.key === 'ArrowRight' && window.innerWidth > 768) {
                         nextBtn.click();
                     }
+                }
+            });
+            
+            // ⭐ [추가 4-B] 모달 이미지 컨테이너 클릭 이벤트 (모바일 터치 넘기기)
+            modalImageContainer.addEventListener('click', (event) => {
+                // 모바일 환경 (768px 이하)에서만 로직 실행
+                if (window.innerWidth <= 768 && modal.classList.contains('show')) {
+                    const containerRect = modalImageContainer.getBoundingClientRect();
+                    const clickX = event.clientX - containerRect.left; // 컨테이너 내 X 좌표
+                    const width = containerRect.width;
+                    const navigableImages = currentFilteredImages;
+                    const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
+                    
+                    // 왼쪽 1/3 클릭 시 (Prev)
+                    if (currentIndex > 0 && clickX < width / 3) {
+                        const prevImage = navigableImages[currentIndex - 1];
+                        updateModalContent(prevImage.id);
+                        event.stopPropagation(); // 모달 닫힘 방지
+                    } 
+                    // 오른쪽 1/3 클릭 시 (Next)
+                    else if (currentIndex < navigableImages.length - 1 && clickX > width * 2 / 3) {
+                        const nextImage = navigableImages[currentIndex + 1];
+                        updateModalContent(nextImage.id);
+                        event.stopPropagation(); // 모달 닫힘 방지
+                    }
+                    // 중앙 1/3 클릭 시는 모달 배경 클릭으로 처리되지 않도록 stopPropagation을 추가하지 않습니다.
                 }
             });
 
