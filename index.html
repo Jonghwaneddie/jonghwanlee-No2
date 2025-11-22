@@ -231,7 +231,7 @@
            position: absolute; 
            top: 0;
            left: 0;
-            /* ⭐ [수정 3] 이미지 전환 속도 0.3초로 변경 */
+            /* ⭐ [수정] 이미지 전환 속도 0.1초로 변경 */
             transition: opacity 0.1s ease-in-out; 
             /* ⭐ [추가] 초기 이미지의 불투명도를 1로 설정 */
             opacity: 1; 
@@ -281,8 +281,8 @@
             left: 0;
             margin: auto;
 
-            /* ⭐ [핵심] Opacity 뿐만 아니라 Transform도 전환 대상에 추가 ⭐ */
-            transition: opacity 0.1s ease-in-out, transform 0.3s ease-in-out; 
+            /* ⭐ [수정] Opacity 뿐만 아니라 Transform도 전환 대상에 추가 (0.1s로 변경) ⭐ */
+            transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out; 
         }
 
 
@@ -814,17 +814,34 @@
     <script>
         // 1. 이미지 데이터 정의
         const allImageData = [
-            // INDEX_DEFAULT - 최근 전시 작품 목록
+            // ⭐ 0. 인덱스 화면에 표시할 기본 작업물 (캐러셀 그룹으로 변경)
+            { 
+                id: 'index_1', 
+                projectId: 'INDEX_DEFAULT', 
+                isDefault: true, 
+                folder: 'index', 
+                fileName: 'index_1.jpg', 
+                description: 'Jonghwan Lee, Artist, Seoul (2025)', 
+                url: 'loggiaimages/loggia1.jpg', // URL 수정 필요
+                isGroupMain: true,
+                groupId: 'INDEX_CAROUSEL' // ⭐ [수정 2-A] 그룹 ID 추가
+            },
+            { 
+                id: 'index_2', // 새로운 이미지 ID 추가
+                projectId: 'INDEX_DEFAULT', 
+                isDefault: true, 
+                folder: 'index', 
+                fileName: 'index_2.jpg', 
+                description: 'Jonghwan Lee, Artist, Seoul (2025) - Second', 
+                url: 'loggiaimages/loggia2.jpg', // URL 수정 필요
+                groupId: 'INDEX_CAROUSEL'  // ⭐ [수정 2-A] 동일한 그룹 ID 추가
+            },
+            // 기존 인덱스 항목은 필요 없으므로 삭제하거나 위 그룹에 추가합니다.
+            /* 기존 데이터 제거
             { id: 'index_1', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2024_1.jpg',  description: 'Exhibition View', url: 'loggiaimages/loggia1.jpg', isGroupMain: true }, 
             { id: 'index_2', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2024_2.jpg', description: '', url: 'loggiaimages/loggia2.jpg' },
-            { id: 'index_3', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2023_1.jpg', description: '', url: 'loggiaimages/loggia3.jpg' },
-            { id: 'index_4', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2023_2.jpg', description: '', url: 'loggiaimages/loggia4.jpg' },
-            { id: 'index_5', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '',url: 'loggiaimages/loggia5.jpg' },
-             { id: 'index_6', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia6.jpg' },
-             { id: 'index_7', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia7.jpg' },
-             { id: 'index_8', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia8.jpg' },
-             { id: 'index_9', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia9.jpg' },
-             { id: 'index_10', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg',description: '', url: 'loggiaimages/loggia10.jpg' },
+            // ... (index_3 ~ index_10 생략) ...
+            */
 
             // Loggia - 설치 전경 (Install_View_1)
             { id: 'loggia_1', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia1.jpg', description: 'Installation View 1', url: 'loggiaimages/loggia1.jpg', isGroupMain: true, groupId: 'Install_View_1'}, 
@@ -882,7 +899,7 @@
             // Group: Beyond the Quiet Veil (Beyond_the_Quiet_Veil)
             { id: 'loggia_35', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img17.jpg', description: 'Beyond the Quiet Veil, 2025, Engraving and watercolor on panel, Plaster, 170x60cm', url: '2025loggia2/img17.jpg', isGroupMain: true, groupId: 'Beyond_the_Quiet_Veil' },
 
-            // 나머지 프로젝트
+            // 나머지 프로젝트 (단일 이미지는 isGroupMain: true, groupId 없음)
             { id: 'sr_1', projectId: 'Surgical Room', isDefault: false, folder: 'surgicalroom', fileName: 'sr_1.jpg', description: 'SED_DO / Surgical Room (Visual 1/3) / 2025', url: 'https://placehold.co/700x400/34495e/ffffff?text=SURGICAL_ROOM_1', isGroupMain: true },
             { id: 'cyl_1', projectId: 'South Parade', isDefault: false, folder: 'cylinder', fileName: 'cyl_1.jpg', description: 'SED_DO / CYLINDER x South Parade (Visual 1/3) / 2024', url: 'https://placehold.co/600x300/e91e63/ffffff?text=CYLINDER_1', isGroupMain: true },
             { id: 'hyp_1', projectId: 'Hypercube', isDefault: false, folder: 'hypercube', fileName: 'hyp_1.jpg', description: 'SED_DO / Hypercube (Solo) / 2023', url: 'https://placehold.co/700x400/ff9800/ffffff?text=HYPERCUBE_1', isGroupMain: true },
@@ -900,7 +917,7 @@
         let groupCarouselTimeout = null; 
         const groupCurrentIndexMap = {}; // 각 그룹 ID별 현재 이미지 인덱스를 추적
         const CAROUSEL_INTERVAL_MS = 3000; // 3초 간격
-        const TRANSITION_DURATION_MS = 100; // ⭐ [수정 3] 전환 속도 0.3초로 변경
+        const TRANSITION_DURATION_MS = 100; // ⭐ [수정] 전환 속도 0.1초 (100ms)로 변경
 
         document.addEventListener('DOMContentLoaded', () => {
             const projectLinks = document.querySelectorAll('.project-table .tilte a');
@@ -1002,7 +1019,7 @@
                                 activeImgElement.style.opacity = '0'; 
                                 activeImgElement.classList.remove('active'); // 기존 이미지 'active' 제거
                                 
-                                // c. ⭐ 전환 시간(0.3s) 후 정리 작업 수행
+                                // c. ⭐ 전환 시간(0.1s) 후 정리 작업 수행
                                 setTimeout(() => {
                                     // 완전히 페이드 아웃된 기존 이미지 요소 제거
                                     activeImgElement.remove();
@@ -1012,7 +1029,7 @@
                                     
                                     // e. 다음 주기를 예약하기 위해 resolve
                                     resolve(); 
-                                }, TRANSITION_DURATION_MS); // 0.3s
+                                }, TRANSITION_DURATION_MS); // 0.1s
                             }, 50); // 짧은 딜레이로 DOM 적용 대기
                         };
 
@@ -1036,17 +1053,22 @@
             const startCarousel = () => {
                 stopCarousel(); // 이중 실행 방지
                 
-                const shouldStart = activeFilterId !== 'INDEX_DEFAULT' && 
-                                   allImageData.filter(item => item.projectId === activeFilterId && item.groupId).length > 0;
+                // [수정 2-B] 캐러셀 시작 조건 변경: activeFilterId가 'INDEX_DEFAULT'여도 그룹이 있으면 시작
+                const hasGroupItems = allImageData.filter(item => 
+                    item.projectId === activeFilterId && item.groupId
+                ).length > 0;
+
+                const shouldStart = hasGroupItems; // 그룹 항목 존재 여부만 확인하여 전환 시작
                                            
                 if (!shouldStart) return;
 
                 // 프로젝트 변경 시 모든 그룹의 인덱스를 0으로 초기화
-                allImageData.forEach(item => {
-                    if(item.projectId === activeFilterId && item.groupId) {
-                        groupCurrentIndexMap[item.groupId] = 0;
-                    }
-                });
+                // 참고: 이 로직은 이제 renderWorkList에서 처리되므로 여기서는 제거해도 무방하지만, 안전을 위해 남겨둡니다.
+                // allImageData.forEach(item => {
+                //     if(item.projectId === activeFilterId && item.groupId) {
+                //         groupCurrentIndexMap[item.groupId] = 0;
+                //     }
+                // });
                 
                 // 재귀 루프 정의
                 const loop = () => {
@@ -1075,22 +1097,30 @@
                 
                 // 1. ⭐ 기존 캐러셀 중지
                 stopCarousel();
+                activeFilterId = filterId; // 활성 필터 ID 업데이트
                 
                 // 2. 필터링된 데이터 준비 (모달 내비게이션용)
                 let filteredData;
                 
+                // INDEX_DEFAULT는 isDefault가 true인 항목, 나머지는 projectId가 일치하는 항목을 사용
                 if (filterId === 'INDEX_DEFAULT') {
-                    // 기본 화면: isDefault가 true인 모든 항목을 필터링 (모달/캐러셀 데이터로 사용)
                     filteredData = allImageData.filter(item => item.isDefault);
                 } else {
-                    // 프로젝트 선택 화면: 해당 projectId의 모든 항목 필터링 (모달 내비게이션용)
                     filteredData = allImageData.filter(item => item.projectId === filterId);
                 }
+                
+                // ⭐ [수정 1 반영] Loggia 등 새로 진입한 프로젝트의 모든 그룹 인덱스를 0으로 초기화
+                 filteredData.forEach(item => {
+                    if (item.groupId) {
+                        groupCurrentIndexMap[item.groupId] = 0;
+                    }
+                });
+
                 
                 // 3. ⭐ 메인 패널에 렌더링할 항목을 필터링합니다. (isGroupMain: true 항목만)
                 let itemsToRenderInMain = [];
                 
-                // 모든 프로젝트에 대해 isGroupMain: true 항목만 렌더링합니다.
+                // isGroupMain이 true인 항목만 렌더링 (즉, 캐러셀 그룹의 대표 이미지만)
                 const mainItems = filteredData.filter(item => item.isGroupMain === true);
                 
                 // isGroupMain 항목이 있다면 그것만 렌더링, 없다면 전체를 렌더링 (후자를 통해 데이터 오류 방지)
@@ -1265,7 +1295,7 @@ const updateModalContent = (imageId) => {
                         resetFilter();
                     } else {
                         renderWorkList(projectId);
-                        activeFilterId = projectId;
+                        // activeFilterId는 renderWorkList 내에서 업데이트됨
                         event.currentTarget.style.fontWeight = 'bold';
                     }
                 });
