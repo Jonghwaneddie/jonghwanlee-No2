@@ -135,6 +135,9 @@
         .project-intro-text.active {
             display: block; /* 활성화 시 보임 */
         }
+        .project-intro-text[data-project-id="INDEX_DEFAULT"] {
+            margin-bottom: 60px; /* 기존 20px에서 60px로 증가 */
+        }
 
         /* 7. 작업물 목록 하단 푸터 스타일 (새로 추가됨) */
         .project-footer-text { 
@@ -941,7 +944,7 @@
         // ⭐ 1. 캐러셀 관련 전역 변수 설정
         let groupCarouselTimeout = null; 
         const groupCurrentIndexMap = {}; // 각 그룹 ID별 현재 이미지 인덱스를 추적
-        const CAROUSEL_INTERVAL_MS = 3000; // 3초 간격
+        const CAROUSEL_INTERVAL_MS = 5000; // 5초 간격
         const TRANSITION_DURATION_MS = 100; // ⭐ [수정] 전환 속도 0.1초 (100ms)로 변경
 
         document.addEventListener('DOMContentLoaded', () => {
