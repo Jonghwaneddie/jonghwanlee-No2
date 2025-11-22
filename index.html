@@ -159,29 +159,29 @@
         }
 
         .work-pair {
-    display: flex;       /* Flexbox 활성화 */
-    gap: 10px;           /* 두 이미지 항목 사이의 간격 */
-    margin-bottom: 10px; /* work-pair 자체의 하단 간격 */
-}
+            display: flex;       /* Flexbox 활성화 */
+            gap: 10px;           /* 두 이미지 항목 사이의 간격 */
+            margin-bottom: 10px; /* work-pair 자체의 하단 간격 */
+        }
 
-/* ⭐ [새로 삽입] 그룹 내의 각 이미지 항목의 너비 설정 ⭐ */
-.work-pair .work-item {
-    flex: 1 1 50%; /* 컨테이너 너비의 50%를 차지 */
-    width: 50%;
-}
+        /* ⭐ 그룹 내의 각 이미지 항목의 너비 설정 ⭐ */
+        .work-pair .work-item {
+            flex: 1 1 50%; /* 컨테이너 너비의 50%를 차지 */
+            width: 50%;
+        }
 
-/* 4개의 이미지를 그룹화하여 가로로 나열 */
-.work-row-4 {
-    display: flex;         /* Flexbox 활성화 */
-    gap: 5px;              /* 4개 이미지 항목 사이의 간격 (원하는 값으로 조정) */
-    margin-bottom: 10px;   /* work-row-4 자체의 하단 간격 */
-}
+        /* 4개의 이미지를 그룹화하여 가로로 나열 */
+        .work-row-4 {
+            display: flex;         /* Flexbox 활성화 */
+            gap: 5px;              /* 4개 이미지 항목 사이의 간격 (원하는 값으로 조정) */
+            margin-bottom: 10px;   /* work-row-4 자체의 하단 간격 */
+        }
 
-/* 그룹 내의 각 이미지 항목의 너비 설정 (100% / 4 = 25%) */
-.work-row-4 .work-item {
-    flex: 1 1 25%;         /* 컨테이너 너비의 25%를 차지하도록 합니다. */
-    width: 25%;            /* 명시적으로 25% 너비 설정 */
-}
+        /* 그룹 내의 각 이미지 항목의 너비 설정 (100% / 4 = 25%) */
+        .work-row-4 .work-item {
+            flex: 1 1 25%;         /* 컨테이너 너비의 25%를 차지하도록 합니다. */
+            width: 25%;            /* 명시적으로 25% 너비 설정 */
+        }
 
         
         /* 작업물 헤더 (텍스트): 한 줄 왼쪽 정렬로 변경 */
@@ -229,10 +229,12 @@
             display: block; 
             object-fit: contain; 
            position: absolute; 
-    top: 0;
-    left: 0;
-            /* ⭐ 추가: 이미지 전환 시 페이드 효과를 위한 트랜지션 */
-            transition: opacity 0.5s ease-in-out; 
+           top: 0;
+           left: 0;
+            /* ⭐ [수정 3] 이미지 전환 속도 0.3초로 변경 */
+            transition: opacity 0.3s ease-in-out; 
+            /* ⭐ [추가] 초기 이미지의 불투명도를 1로 설정 */
+            opacity: 1; 
         }
 
 
@@ -281,7 +283,6 @@
 
             /* ⭐ [핵심] Opacity 뿐만 아니라 Transform도 전환 대상에 추가 ⭐ */
             transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; 
-            /* Zoom 효과를 위해 전환 속도는 0.3초가 가장 자연스럽습니다. */
         }
 
 
@@ -373,23 +374,23 @@
             }
 
             .work-pair {
-        flex-direction: column; /* 모바일에서는 수직으로 쌓기 */
-        gap: 0;                 /* 모바일에서는 그룹 간격 제거 */
-        margin-bottom: 10px;    /* 모바일에서 work-pair의 하단 간격 */
-    }
-    .work-pair .work-item {
-        width: 100%; /* 모바일에서는 너비를 다시 100%로 복원 */
-    }
+                flex-direction: column; /* 모바일에서는 수직으로 쌓기 */
+                gap: 0;                 /* 모바일에서는 그룹 간격 제거 */
+                margin-bottom: 10px;    /* 모바일에서 work-pair의 하단 간격 */
+            }
+            .work-pair .work-item {
+                width: 100%; /* 모바일에서는 너비를 다시 100%로 복원 */
+            }
 
-            /* ⭐ [새로 삽입] 모바일에서 work-row-4 스타일 재정의 ⭐ */
-    .work-row-4 {
-        flex-direction: column; /* 모바일에서는 수직으로 쌓기 */
-        gap: 0;                 /* 그룹 간격 제거 */
-        margin-bottom: 10px;
-    }
-    .work-row-4 .work-item {
-        width: 100%; /* 모바일에서는 너비를 다시 100%로 복원 */
-    }
+            /* ⭐ 모바일에서 work-row-4 스타일 재정의 ⭐ */
+            .work-row-4 {
+                flex-direction: column; /* 모바일에서는 수직으로 쌓기 */
+                gap: 0;                 /* 그룹 간격 제거 */
+                margin-bottom: 10px;
+            }
+            .work-row-4 .work-item {
+                width: 100%; /* 모바일에서는 너비를 다시 100%로 복원 */
+            }
             
             
             /* 1. 헤더 재배치 및 간소화 */
@@ -811,7 +812,7 @@
 </div>
 
     <script>
-        // 1. 이미지 데이터 정의 (groupId 속성 추가)
+        // 1. 이미지 데이터 정의
         const allImageData = [
             // INDEX_DEFAULT - 최근 전시 작품 목록
             { id: 'index_1', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2024_1.jpg',  description: 'Exhibition View', url: 'loggiaimages/loggia1.jpg', isGroupMain: true }, 
@@ -895,19 +896,18 @@
             { id: 'tq_1', projectId: 'TORQUE 1', isDefault: false, folder: 'torque', fileName: 'tq_1.jpg', description: 'SED_DO / TORQUE 1 / GEAR SHIFT / 2021', url: 'https://placehold.co/700x400/c0392b/ffffff?text=TORQUE_1', isGroupMain: true },
         ];
 
-        // ⭐ 1. 캐러셀 관련 전역 변수 설정: Interval -> Timeout으로 변경
+        // ⭐ 1. 캐러셀 관련 전역 변수 설정
         let groupCarouselTimeout = null; 
         const groupCurrentIndexMap = {}; // 각 그룹 ID별 현재 이미지 인덱스를 추적
         const CAROUSEL_INTERVAL_MS = 3000; // 3초 간격
+        const TRANSITION_DURATION_MS = 300; // ⭐ [수정 3] 전환 속도 0.3초로 변경
 
         document.addEventListener('DOMContentLoaded', () => {
             const projectLinks = document.querySelectorAll('.project-table .tilte a');
             const workListContainer = document.querySelector('.right-panel .selected-work-list'); 
             const jhlReset = document.getElementById('jhl-reset');
             
-            // ⭐ 정적 소개 텍스트 블록 (상단)
             const projectIntroTexts = document.querySelectorAll('.project-intro-text'); 
-            // ⭐ 정적 푸터 텍스트 블록 (하단)
             const projectFooterTexts = document.querySelectorAll('.project-footer-text'); 
 
             let activeFilterId = null; 
@@ -922,41 +922,27 @@
             let currentModalImageId = null;
             let currentFilteredImages = []; 
             
-            /**
-             * 단일 작업 항목 HTML을 생성합니다.
-             */
-            function createWorkItemHtml(image) {
-                const isDefaultAttr = image.isDefault ? 'data-is-default="true"' : '';
-                // ⭐ groupId 속성 추가
-                const groupIdAttr = image.groupId ? `data-group-id="${image.groupId}"` : '';
-                // ⭐ isGroupMain 속성도 명시적으로 추가
-                const isGroupMainAttr = image.isGroupMain ? 'data-group-main="true"' : '';
-                
-                // ⭐ groupID가 있는 항목에 대해, isGroupMain이 true인 항목만 렌더링 시 그룹 ID를 추가합니다.
-                const initialImageUrl = image.groupId && image.isGroupMain 
-                    ? getGroupImages(image.groupId)[0].url // 안전하게 첫 번째 이미지 URL을 가져옴
-                    : image.url;
-
-                return `
-                    <article class="work-item" data-project-id="${image.projectId}" data-image-id="${image.id}" ${isDefaultAttr} ${groupIdAttr} ${isGroupMainAttr}>
-                        <div class="work-visual">
-                            <img src="${initialImageUrl}" 
-                                 alt="${image.folder}/${image.fileName}" 
-                                 onerror="this.onerror=null; this.src='https://placehold.co/600x300/CCCCCC/333333?text=Image+Load+Failed';">
-                        </div>
-                        <div class="work-header">
-                            <span class="full-description">${image.description}</span>
-                        </div>
-                    </article>
-                `;
-            }
             
             /**
              * 특정 그룹 ID에 속한 모든 이미지 데이터를 반환합니다.
              */
             const getGroupImages = (groupId) => {
-                return allImageData.filter(item => item.groupId === groupId).sort((a, b) => a.id.localeCompare(b.id)); 
+                const groupItems = allImageData.filter(item => item.groupId === groupId);
+                
+                // ⭐ [수정 1] Install_View_1 그룹에 대해 숫자 기반 정렬을 수행합니다.
+                if (groupId === 'Install_View_1') {
+                    return groupItems.sort((a, b) => {
+                        // loggia_1, loggia_2, ... loggia_10에서 숫자 부분만 추출하여 정렬
+                        const numA = parseInt(a.id.split('_')[1]);
+                        const numB = parseInt(b.id.split('_')[1]);
+                        return numA - numB;
+                    });
+                } else {
+                    // 그 외 그룹은 기존의 문자열 기반 정렬을 유지합니다.
+                    return groupItems.sort((a, b) => a.id.localeCompare(b.id)); 
+                }
             };
+            
             
             // ⭐ 2. 캐러셀 중지 함수 (Update: clearTimeout 사용)
             const stopCarousel = () => {
@@ -967,8 +953,7 @@
             };
             
             /**
-             * ⭐ 3. 개별 그룹 이미지 순환 함수 (Promise 반환)
-             * 다음 이미지를 로드하고, 로드가 완료된 후 전환을 수행하며, 모든 전환이 끝났을 때 resolve 됩니다.
+             * ⭐ 3. 개별 그룹 이미지 순환 함수 (크로스 페이드 구현)
              */
             const cycleGroupImage = () => {
                 const mainGroupItems = document.querySelectorAll('.work-item[data-group-main="true"][data-group-id]');
@@ -983,39 +968,52 @@
 
                     let currentIndex = groupCurrentIndexMap[groupId] !== undefined ? groupCurrentIndexMap[groupId] : 0;
                     
-                    // 현재 인덱스에서 다음 인덱스로 이동
                     const nextIndex = (currentIndex + 1) % groupImages.length;
                     const nextImage = groupImages[nextIndex];
                     
-                    const imgElement = item.querySelector('.work-visual img');
-                    if (!imgElement) return;
+                    const visualContainer = item.querySelector('.work-visual');
+                    // 현재 활성화된 이미지를 찾습니다. (초기 렌더링 시 .active 클래스를 부여함)
+                    const activeImgElement = visualContainer.querySelector('img.active');
+                    if (!activeImgElement) return;
 
                     const transitionPromise = new Promise(resolve => {
                         // 1. 다음 이미지를 미리 로드할 Image 객체 생성
                         const preloader = new Image();
                         preloader.src = nextImage.url;
                         
-                        // 2. ⭐ 로딩 완료 시 처리: 끊김 없는 전환 시작
+                        // 2. ⭐ 로딩 완료 시 처리: 겹쳐지는 크로스 페이드 전환 시작
                         preloader.onload = () => {
-                            // a. 기존 이미지 페이드 아웃 시작
-                            imgElement.style.opacity = '0'; 
+                            // a. 새 이미지 요소 생성 및 컨테이너에 추가 (opacity: 0 상태)
+                            const newImgElement = document.createElement('img');
+                            newImgElement.src = preloader.src; // 이미 로드된 URL 설정
+                            newImgElement.alt = `${nextImage.folder}/${nextImage.fileName}`;
+                            newImgElement.classList.add('active'); // 새 이미지에 'active' 클래스 부여
+                            newImgElement.style.opacity = '0'; // 초기 투명 상태
 
-                            // b. CSS 트랜지션 시간(0.5s) 후 src를 변경하고 페이드 인 시작
+                            // 새 이미지를 DOM에 추가하여 기존 이미지 위에 겹치게 함
+                            visualContainer.appendChild(newImgElement);
+
+                            // b. DOM이 업데이트된 후, 다음 프레임에서 트랜지션을 시작합니다.
+                            // 렌더링 시간 확보를 위한 짧은 딜레이
                             setTimeout(() => {
-                                // 이미 로드된 이미지를 src에 설정
-                                imgElement.src = nextImage.url; 
-                                imgElement.alt = `${nextImage.folder}/${nextImage.fileName}`;
+                                // 새 이미지 페이드 인 시작
+                                newImgElement.style.opacity = '1';
+                                // 기존 이미지 페이드 아웃 시작 (겹치기)
+                                activeImgElement.style.opacity = '0'; 
+                                activeImgElement.classList.remove('active'); // 기존 이미지 'active' 제거
                                 
-                                // c. 페이드 인 시작
-                                imgElement.style.opacity = '1'; 
-                                
-                                // d. 인덱스 업데이트
-                                groupCurrentIndexMap[groupId] = nextIndex;
-                                
-                                // e. 페이드 인 완료를 위해 0.5초 더 기다린 후 resolve
-                                // (다음 주기를 예약하기 위해 모든 애니메이션이 끝날 때까지 기다립니다)
-                                setTimeout(resolve, 500); 
-                            }, 500); // 0.5s for fade-out
+                                // c. ⭐ 전환 시간(0.3s) 후 정리 작업 수행
+                                setTimeout(() => {
+                                    // 완전히 페이드 아웃된 기존 이미지 요소 제거
+                                    activeImgElement.remove();
+                                    
+                                    // d. 인덱스 업데이트
+                                    groupCurrentIndexMap[groupId] = nextIndex;
+                                    
+                                    // e. 다음 주기를 예약하기 위해 resolve
+                                    resolve(); 
+                                }, TRANSITION_DURATION_MS); // 0.3s
+                            }, 50); // 짧은 딜레이로 DOM 적용 대기
                         };
 
                         // 3. 로딩 실패 시: 인덱스만 업데이트하고 즉시 완료 처리
@@ -1100,7 +1098,33 @@
 
                 
                 // 4. 렌더링할 항목들을 HTML로 변환합니다.
-                let workItemsHtml = itemsToRenderInMain.map(createWorkItemHtml).join('');
+                let workItemsHtml = itemsToRenderInMain.map(image => {
+                    const isDefaultAttr = image.isDefault ? 'data-is-default="true"' : '';
+                    // ⭐ groupId 속성 추가
+                    const groupIdAttr = image.groupId ? `data-group-id="${image.groupId}"` : '';
+                    // ⭐ isGroupMain 속성도 명시적으로 추가
+                    const isGroupMainAttr = image.isGroupMain ? 'data-group-main="true"' : '';
+                    
+                    // ⭐ 그룹의 첫 번째 이미지 URL을 가져옵니다.
+                    const initialImageUrl = image.groupId && image.isGroupMain 
+                        ? getGroupImages(image.groupId)[0].url // 안전하게 첫 번째 이미지 URL을 가져옴
+                        : image.url;
+
+                    // ⭐ [수정] 초기 이미지에 active 클래스를 부여하여 시작 시점의 '현재' 이미지를 식별합니다.
+                    return `
+                        <article class="work-item" data-project-id="${image.projectId}" data-image-id="${image.id}" ${isDefaultAttr} ${groupIdAttr} ${isGroupMainAttr}>
+                            <div class="work-visual">
+                                <img src="${initialImageUrl}" 
+                                     alt="${image.folder}/${image.fileName}" 
+                                     class="active"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/600x300/CCCCCC/333333?text=Image+Load+Failed';">
+                            </div>
+                            <div class="work-header">
+                                <span class="full-description">${image.description}</span>
+                            </div>
+                        </article>
+                    `;
+                }).join('');
                 
                 // 5. 정적 텍스트 블록들을 분리하고 다시 추가합니다.
                 const introTexts = Array.from(workListContainer.querySelectorAll('.project-intro-text'));
