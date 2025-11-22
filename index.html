@@ -290,7 +290,7 @@
             position: absolute;
             top: 20px;
             right: 40px;
-            color: white;
+            color: #BBBBBB;
             font-size: 30px;
             font-weight: bold;
             cursor: pointer;
@@ -303,7 +303,7 @@
         }
 
         /* 이전/다음 버튼 스타일 */
-        .modal-nav-btn {
+    .modal-nav-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
@@ -315,6 +315,14 @@
             user-select: none; 
             opacity: 0.6;
             transition: opacity 0.2s;
+            /* ⭐ [추가 4-A] 모바일에서 버튼 숨김 */
+            display: none; 
+        }
+        /* 데스크톱에서는 다시 보이게 (768px 초과) */
+        @media (min-width: 769px) {
+            .modal-nav-btn {
+                display: block; 
+            }
         }
 
         .modal-nav-btn:hover {
@@ -632,7 +640,7 @@
             <div class="selected-work-list">
                 
                        <div class="project-intro-text active" data-project-id="INDEX_DEFAULT">
-                   Recently Exhibition<br><br><br><br><br><br><br><br><br>
+                   Recently Exhibition<br>
                 </div>
                 
                 <div class="project-intro-text" data-project-id="Loggia">
@@ -1242,7 +1250,30 @@ const updateModalContent = (imageId) => {
         modalImageContainer.innerHTML = '';
         modalImageContainer.appendChild(newImg);
     };
+// ⭐ [추가 4-B] 모달 이미지 컨테이너 클릭 이벤트 (모바일 터치 넘기기)
+            modalImageContainer.addEventListener('click', (event) => {
+                // 모바일 환경에서만 이 로직을 실행하도록 조건 추가 (768px 이하)
+                if (window.innerWidth <= 768) {
+                    const containerRect = modalImageContainer.getBoundingClientRect();
+                    const clickX = event.clientX - containerRect.left; // 컨테이너 내 X 좌표
+                    const width = containerRect.width;
+                    
+                    // 왼쪽 1/3 클릭 시 (Prev)
+                    if (clickX < width / 3) {
+                        prevBtn.click();
+                    } 
+                    // 오른쪽 1/3 클릭 시 (Next)
+                    else if (clickX > width * 2 / 3) {
+                        nextBtn.click();
+                    }
+                    // 중앙 1/3 클릭 시 아무 동작 없음
+                }
+            });
+            
+            // ⭐ 모달 버튼 상태 업데이트 함수: groupId 기반으로 모달 순서 결정
+            const updateNavButtons = () => {
 
+    
     // 5. 로드 시작
     tempLoader.src = targetImage.url; 
     
@@ -1290,6 +1321,7 @@ const updateModalContent = (imageId) => {
                 // 5. 모달 콘텐츠 업데이트 및 표시
                 updateModalContent(imageId);
                 modal.classList.add('show');
+                history.pushState({ modalOpen: true }, 'Modal Open', '#modal');
             }
 
 
@@ -1343,27 +1375,51 @@ const updateModalContent = (imageId) => {
             });
             
             // 5. 모달 닫기 이벤트
-            modalClose.addEventListener('click', () => {
+         modalClose.addEventListener('click', () => {
                 modal.classList.remove('show');
                 startCarousel(); // ⭐ 모달 닫기 시 캐러셀 재시작
+                
+                // ⭐ [수정 2-B] 모달 닫기 시 URL에서 #modal 상태를 제거합니다.
+                if (history.state && history.state.modalOpen) {
+                    history.back(); // history.pushState로 추가된 상태를 닫습니다.
+                }
             });
 
             modal.addEventListener('click', (event) => {
                 if (event.target === modal) {
                     modal.classList.remove('show');
                     startCarousel(); // ⭐ 모달 닫기 시 캐러셀 재시작
+                    
+                    // ⭐ [수정 2-C] 모달 닫기 시 URL에서 #modal 상태를 제거합니다.
+                    if (history.state && history.state.modalOpen) {
+                        history.back();
+                    }
+                }
+            });
+
+            // ⭐ [추가 2-D] 모바일 뒤로가기 버튼(popstate 이벤트) 처리
+            window.addEventListener('popstate', (event) => {
+                // history.back()이 아닌 외부(모바일 버튼)에서 popstate 이벤트가 발생하고, 
+                // 모달이 열려 있으며, history state에 modalOpen 정보가 없다면 (최상위 URL로 돌아가려 할 때)
+                if (modal.classList.contains('show') && (!event.state || !event.state.modalOpen)) {
+                    modal.classList.remove('show');
+                    startCarousel();
+                    // 이 경우에는 뒤로가기 동작이 이미 일어났으므로 추가적인 history.back() 호출은 불필요합니다.
                 }
             });
             
-            // 6. 키보드 및 내비게이션 버튼 이벤트
+          // 6. 키보드 및 내비게이션 버튼 이벤트
             document.addEventListener('keydown', (event) => {
                 if (modal.classList.contains('show')) {
                     if (event.key === 'Escape') {
                         modal.classList.remove('show');
                         startCarousel(); // ⭐ 모달 닫기 시 캐러셀 재시작
+                        
+                        // ⭐ [수정 2-E] Esc 키 시에도 history 상태 정리
+                         if (history.state && history.state.modalOpen) {
+                            history.back(); 
+                        }
                     } else if (event.key === 'ArrowLeft') {
-                        prevBtn.click();
-                    } else if (event.key === 'ArrowRight') {
                         nextBtn.click();
                     }
                 }
