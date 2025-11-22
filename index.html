@@ -231,7 +231,8 @@
            position: absolute; 
     top: 0;
     left: 0;
-            transition: opacity 0.3s ease-in-out; 
+            /* ⭐ 추가: 이미지 전환 시 페이드 효과를 위한 트랜지션 */
+            transition: opacity 0.5s ease-in-out; 
         }
 
 
@@ -820,9 +821,9 @@
             { id: 'index_5', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '',url: 'loggiaimages/loggia5.jpg' },
              { id: 'index_6', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia6.jpg' },
              { id: 'index_7', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia7.jpg' },
-             { id: 'index_8', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg',description: '', url: 'loggiaimages/loggia8.jpg' },
+             { id: 'index_8', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia8.jpg' },
              { id: 'index_9', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia9.jpg' },
-             { id: 'index_10', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia10.jpg' },
+             { id: 'index_10', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg',description: '', url: 'loggiaimages/loggia10.jpg' },
 
             // Loggia - 설치 전경 (Install_View_1)
             { id: 'loggia_1', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia1.jpg', description: 'Installation View 1', url: 'loggiaimages/loggia1.jpg', isGroupMain: true, groupId: 'Install_View_1'}, 
@@ -859,9 +860,9 @@
             
             // Group: A Room Without Looking (A_Room_Without_Looking)
             { id: 'loggia_25', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img8.jpg', description: 'A Room Without Looking, 2025, Paper(frotage), 41x164cm', url: '2025loggia2/img8.jpg', isGroupMain: true, groupId: 'A_Room_Without_Looking'  },
-            { id: 'loggia_26', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img9.jpg', description: 'A Room Without Looking, 2025, Paper(frotage), 41x164cm', url: '2025loggia2/img9.jpg', groupId: 'A_Room_Without_Looking' },
-            { id: 'loggia_27', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img10.jpg', description: 'A Room Without Looking, 2025, Paper(frotage), 41x164cm', url: '2025loggia2/img10.jpg', groupId: 'A_Room_Without_Looking' },
-            { id: 'loggia_28', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img11.jpg', description: 'A Room Without Looking, 2025, Paper(frotage), 41x164cm', url: '2025loggia2/img11.jpg', groupId: 'A_Room_Without_Looking'},
+            { id: 'loggia_26', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img9.jpg', description: 'detail', url: '2025loggia2/img9.jpg', groupId: 'A_Room_Without_Looking' },
+            { id: 'loggia_27', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img10.jpg', description: 'detail', url: '2025loggia2/img10.jpg', groupId: 'A_Room_Without_Looking' },
+            { id: 'loggia_28', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img11.jpg', description: 'detail', url: '2025loggia2/img11.jpg', groupId: 'A_Room_Without_Looking'},
             
             // Group: As It Sank In (As_It_Sank_In)
             { id: 'loggia_29', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img12.jpg', description: 'As It Sank In, 2025, Plaster, 21x15.5cm', url: '2025loggia2/img12.jpg', isGroupMain: true, groupId: 'As_It_Sank_In'  },
@@ -894,6 +895,10 @@
             { id: 'tq_1', projectId: 'TORQUE 1', isDefault: false, folder: 'torque', fileName: 'tq_1.jpg', description: 'SED_DO / TORQUE 1 / GEAR SHIFT / 2021', url: 'https://placehold.co/700x400/c0392b/ffffff?text=TORQUE_1', isGroupMain: true },
         ];
 
+        // ⭐ 1. 캐러셀 관련 전역 변수 설정
+        let groupCarouselInterval = null;
+        const groupCurrentIndexMap = {}; // 각 그룹 ID별 현재 이미지 인덱스를 추적
+        const CAROUSEL_INTERVAL_MS = 3000; // 3초 간격
 
         document.addEventListener('DOMContentLoaded', () => {
             const projectLinks = document.querySelectorAll('.project-table .tilte a');
@@ -940,13 +945,95 @@
                     </article>
                 `;
             }
+            
+            /**
+             * 특정 그룹 ID에 속한 모든 이미지 데이터를 반환합니다.
+             */
+            const getGroupImages = (groupId) => {
+                return allImageData.filter(item => item.groupId === groupId).sort((a, b) => a.id.localeCompare(b.id)); 
+            };
+            
+            // ⭐ 2. 캐러셀 중지 함수
+            const stopCarousel = () => {
+                if (groupCarouselInterval) {
+                    clearInterval(groupCarouselInterval);
+                    groupCarouselInterval = null;
+                }
+            };
+            
+            // ⭐ 3. 개별 그룹 이미지 순환 함수
+            const cycleGroupImage = () => {
+                // 현재 화면에 렌더링된 메인 그룹 항목들을 찾습니다.
+                const mainGroupItems = document.querySelectorAll('.work-item[data-group-main="true"][data-group-id]');
+
+                mainGroupItems.forEach(item => {
+                    const groupId = item.dataset.groupId;
+                    if (!groupId) return;
+
+                    const groupImages = getGroupImages(groupId);
+                    if (groupImages.length <= 1) return; // 1개 이하는 전환 불필요
+
+                    // 현재 그룹 인덱스 가져오기 (없으면 0으로 초기화)
+                    let currentIndex = groupCurrentIndexMap[groupId] !== undefined ? groupCurrentIndexMap[groupId] : 0;
+                    
+                    // 다음 인덱스 계산
+                    const nextIndex = (currentIndex + 1) % groupImages.length;
+                    const nextImage = groupImages[nextIndex];
+
+                    // DOM 업데이트
+                    const imgElement = item.querySelector('.work-visual img');
+                    if (imgElement) {
+                        // 페이드 아웃 시작
+                        imgElement.style.opacity = '0'; 
+
+                        setTimeout(() => {
+                            imgElement.src = nextImage.url;
+                            imgElement.alt = `${nextImage.folder}/${nextImage.fileName}`;
+                            
+                            // 페이드 인
+                            imgElement.style.opacity = '1'; 
+                        }, 500); // CSS transition 0.5s에 맞춰 지연 후 이미지 소스 변경
+
+                        // 인덱스 업데이트
+                        groupCurrentIndexMap[groupId] = nextIndex;
+                    }
+                });
+            };
+
+            // ⭐ 4. 캐러셀 시작 함수
+            const startCarousel = () => {
+                stopCarousel(); // 이중 실행 방지
+                
+                // 현재 활성화된 프로젝트 ID를 가진 이미지 중 그룹 ID가 있는 항목이 하나라도 있고, INDEX_DEFAULT가 아닐 때만 시작
+                const shouldStart = activeFilterId !== 'INDEX_DEFAULT' && 
+                                   allImageData.filter(item => item.projectId === activeFilterId && item.groupId).length > 0;
+                                   
+                if (shouldStart) {
+                    // 모든 그룹의 인덱스를 0으로 초기화 (새 프로젝트 선택 시)
+                    allImageData.forEach(item => {
+                        if(item.projectId === activeFilterId && item.groupId) {
+                            groupCurrentIndexMap[item.groupId] = 0;
+                        }
+                    });
+
+                    // 즉시 한 번 실행하여 시작
+                    cycleGroupImage(); 
+                    
+                    // 3초 간격으로 반복 실행
+                    groupCarouselInterval = setInterval(cycleGroupImage, CAROUSEL_INTERVAL_MS);
+                }
+            };
+
 
             /**
              * 오른쪽 패널의 작업물 목록을 렌더링하고 상단/하단 텍스트 가시성을 업데이트합니다.
              */
             const renderWorkList = (filterId = 'INDEX_DEFAULT') => {
                 
-                // 1. 필터링된 데이터 준비 (모달 내비게이션용)
+                // 1. ⭐ 기존 캐러셀 중지
+                stopCarousel();
+                
+                // 2. 필터링된 데이터 준비 (모달 내비게이션용)
                 let filteredData;
                 
                 if (filterId === 'INDEX_DEFAULT') {
@@ -954,11 +1041,10 @@
                     filteredData = allImageData.filter(item => item.isDefault);
                 } else {
                     // 프로젝트 선택 화면: 해당 projectId의 모든 항목 필터링 (모달 내비게이션용)
-                    // ⭐ Loggia 프로젝트 포함, 모든 프로젝트는 전체 데이터를 모달/필터링 원본으로 사용
                     filteredData = allImageData.filter(item => item.projectId === filterId);
                 }
                 
-                // 2. ⭐ 메인 패널에 렌더링할 항목을 필터링합니다. (isGroupMain: true 항목만)
+                // 3. ⭐ 메인 패널에 렌더링할 항목을 필터링합니다. (isGroupMain: true 항목만)
                 let itemsToRenderInMain = [];
                 
                 // 모든 프로젝트에 대해 isGroupMain: true 항목만 렌더링합니다.
@@ -968,26 +1054,23 @@
                 itemsToRenderInMain = mainItems.length > 0 ? mainItems : filteredData;
 
                 
-                // 3. 렌더링할 항목들을 HTML로 변환합니다.
+                // 4. 렌더링할 항목들을 HTML로 변환합니다.
                 let workItemsHtml = itemsToRenderInMain.map(createWorkItemHtml).join('');
                 
-                // 정적 텍스트 블록들을 분리합니다.
+                // 5. 정적 텍스트 블록들을 분리하고 다시 추가합니다.
                 const introTexts = Array.from(workListContainer.querySelectorAll('.project-intro-text'));
                 const footerTexts = Array.from(workListContainer.querySelectorAll('.project-footer-text')); 
                 
-                // 4. 컨테이너를 비우고 (이미지만) 정적 텍스트 블록을 다시 추가합니다.
                 workListContainer.innerHTML = '';
                 introTexts.forEach(text => workListContainer.appendChild(text));
                 
-                // 5. 이미지 목록을 상단 텍스트 다음에 추가합니다.
                 workListContainer.insertAdjacentHTML('beforeend', workItemsHtml);
 
-                // 6. 하단 푸터 텍스트를 이미지 목록 다음에 추가합니다.
                 footerTexts.forEach(text => workListContainer.appendChild(text));
 
                 document.querySelector('.right-panel').scrollTop = 0;
                 
-                // 7. 상단/하단 텍스트 가시성 관리
+                // 6. 상단/하단 텍스트 가시성 관리
                 projectIntroTexts.forEach(textBlock => {
                     textBlock.classList.remove('active');
                     if (textBlock.dataset.projectId === filterId) {
@@ -1002,91 +1085,78 @@
                     }
                 });
 
-                // 8. 모달용으로 전체 필터링된 데이터(숨겨진 이미지 포함)를 저장합니다.
+                // 7. 모달용으로 전체 필터링된 데이터(숨겨진 이미지 포함)를 저장합니다.
                 currentFilteredImages = filteredData;
+                
+                // 8. ⭐ 캐러셀 시작
+                startCarousel();
             };
 
    // =========================================================================
 // ⭐ [최종] 전체화면 모달 전환 함수 (로딩 완료 후 즉시 전환) ⭐
 // =========================================================================
 const updateModalContent = (imageId) => {
+    // 주의: currentFilteredImages는 현재 그룹의 이미지 목록입니다.
     const targetImage = currentFilteredImages.find(item => item.id === imageId);
     
     if (!targetImage) return;
 
-    // 1. 캡션 및 ID 업데이트 (먼저 처리하여 사용자에게 피드백 제공)
+    // 1. 캡션 및 ID 업데이트
     currentModalImageId = targetImage.id;
     modalCaption.innerHTML = `<div class="work-header"><span class="full-description">${targetImage.description}</span></div>`;
 
-    // 2. 로딩 전용 이미지 객체 생성 (DOM에 추가되지 않고 메모리에서 로딩 시작)
+    // 2. 로딩 전용 이미지 객체 생성
     const tempLoader = new Image();
     tempLoader.alt = `${targetImage.folder}/${targetImage.fileName}`;
     
     // 3. 로드가 완료되면 실행할 함수
     tempLoader.onload = () => {
-        // 4. 새 이미지 요소 (DOM에 들어갈 요소) 생성
         const newImg = document.createElement('img');
         newImg.alt = tempLoader.alt; 
         newImg.src = tempLoader.src; 
         newImg.style.objectFit = 'contain'; 
-        newImg.style.transition = 'none'; // 애니메이션 제거
+        newImg.style.transition = 'none'; 
         newImg.style.opacity = '1'; 
         newImg.style.transform = 'scale(1)'; 
 
-        // 5. 이전 이미지 제거
-       
+        // 4. 이전 이미지 제거 및 새 이미지 추가
         modalImageContainer.innerHTML = '';
-        
-        // 6. 새 이미지를 DOM에 추가
         modalImageContainer.appendChild(newImg);
     };
 
-    // 7. 로드 시작
+    // 5. 로드 시작
     tempLoader.src = targetImage.url; 
     
-    // 8. 내비게이션 버튼 업데이트
+    // 6. 내비게이션 버튼 업데이트
     updateNavButtons();
 };
 // =========================================================================
             
-            // ⭐ [수정됨] 모달 버튼 상태 업데이트 함수: groupId 기반으로 모달 순서 결정
+            // ⭐ 모달 버튼 상태 업데이트 함수: groupId 기반으로 모달 순서 결정
             const updateNavButtons = () => {
-                // 현재 활성 필터 ID (프로젝트 ID)를 사용합니다.
-                const currentProjectData = allImageData.filter(item => item.projectId === activeFilterId);
-                const currentImage = currentProjectData.find(item => item.id === currentModalImageId);
+                // currentFilteredImages는 이미 모달 열기 시 그룹 데이터로 설정되어 있습니다.
+                const navigableImages = currentFilteredImages;
+                const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
                 
-                if (!currentImage || !currentImage.groupId) {
-                    // groupId가 없는 경우 전체 프로젝트 내비게이션을 기본값으로 사용
-                    const currentIndex = currentProjectData.findIndex(item => item.id === currentModalImageId);
-                    prevBtn.style.display = (currentIndex > 0) ? 'block' : 'none';
-                    nextBtn.style.display = (currentIndex < currentProjectData.length - 1) ? 'block' : 'none';
-                    return;
-                }
-                
-                // ⭐ groupId가 있는 경우, 해당 그룹 내에서만 순서 결정
-                const currentGroupData = currentProjectData.filter(item => item.groupId === currentImage.groupId);
-                const currentIndexInGroup = currentGroupData.findIndex(item => item.id === currentModalImageId);
-                
-                prevBtn.style.display = (currentIndexInGroup > 0) ? 'block' : 'none';
-                nextBtn.style.display = (currentIndexInGroup < currentGroupData.length - 1) ? 'block' : 'none';
-                
-                // 현재 모달에 표시될 이미지 리스트를 그룹 데이터로 재정의합니다.
-                // 이 리스트는 prev/next 버튼을 눌렀을 때 사용됩니다.
-                currentFilteredImages = currentGroupData;
+                prevBtn.style.display = (currentIndex > 0) ? 'block' : 'none';
+                nextBtn.style.display = (currentIndex < navigableImages.length - 1) ? 'block' : 'none';
             };
             
-            // ⭐ [수정] 모달 열기 시 그룹 데이터로 필터링 (로직 단순화 및 그룹핑 적용)
+            // ⭐ 모달 열기 시 그룹 데이터로 필터링
             const openModal = (imageId) => {
                 
                 // 1. 클릭된 이미지 정보 획득
                 const clickedImage = allImageData.find(item => item.id === imageId);
                 if (!clickedImage) return;
 
-                // 2. 모달에 사용할 이미지 리스트 결정:
+                // 2. ⭐ 캐러셀 중지
+                stopCarousel();
+                
+                // 3. 모달에 사용할 이미지 리스트 결정:
                 let modalImages;
                 if (clickedImage.groupId) {
                     // groupId가 있으면, 해당 그룹의 모든 이미지를 모달 이미지로 사용
-                    modalImages = allImageData.filter(item => item.groupId === clickedImage.groupId);
+                    modalImages = getGroupImages(clickedImage.groupId); // Helper function 사용
                 } else if (activeFilterId === 'INDEX_DEFAULT') {
                      // INDEX_DEFAULT는 isDefault가 true인 항목 전체를 모달 데이터로 사용 (그룹핑 무시)
                      modalImages = allImageData.filter(item => item.isDefault);
@@ -1095,10 +1165,10 @@ const updateModalContent = (imageId) => {
                     modalImages = allImageData.filter(item => item.projectId === activeFilterId);
                 }
                 
-                // 3. currentFilteredImages를 모달 내비게이션 리스트로 업데이트
+                // 4. currentFilteredImages를 모달 내비게이션 리스트로 업데이트
                 currentFilteredImages = modalImages;
                 
-                // 4. 모달 콘텐츠 업데이트 및 표시
+                // 5. 모달 콘텐츠 업데이트 및 표시
                 updateModalContent(imageId);
                 modal.classList.add('show');
             }
@@ -1156,11 +1226,13 @@ const updateModalContent = (imageId) => {
             // 5. 모달 닫기 이벤트
             modalClose.addEventListener('click', () => {
                 modal.classList.remove('show');
+                startCarousel(); // ⭐ 모달 닫기 시 캐러셀 재시작
             });
 
             modal.addEventListener('click', (event) => {
                 if (event.target === modal) {
                     modal.classList.remove('show');
+                    startCarousel(); // ⭐ 모달 닫기 시 캐러셀 재시작
                 }
             });
             
@@ -1169,6 +1241,7 @@ const updateModalContent = (imageId) => {
                 if (modal.classList.contains('show')) {
                     if (event.key === 'Escape') {
                         modal.classList.remove('show');
+                        startCarousel(); // ⭐ 모달 닫기 시 캐러셀 재시작
                     } else if (event.key === 'ArrowLeft') {
                         prevBtn.click();
                     } else if (event.key === 'ArrowRight') {
@@ -1177,7 +1250,7 @@ const updateModalContent = (imageId) => {
                 }
             });
 
-            // ⭐ [수정됨] 이전 버튼 이벤트 리스너: currentFilteredImages (현재 그룹 데이터)를 사용
+            // ⭐ 이전 버튼 이벤트 리스너
             prevBtn.addEventListener('click', () => {
                 const navigableImages = currentFilteredImages;
                 const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
@@ -1187,7 +1260,7 @@ const updateModalContent = (imageId) => {
                 }
             });
 
-            // ⭐ [수정됨] 다음 버튼 이벤트 리스너: currentFilteredImages (현재 그룹 데이터)를 사용
+            // ⭐ 다음 버튼 이벤트 리스너
             nextBtn.addEventListener('click', () => {
                 const navigableImages = currentFilteredImages;
                 const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
