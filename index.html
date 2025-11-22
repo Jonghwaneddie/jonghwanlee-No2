@@ -810,88 +810,6 @@
 </div>
 
     <script>
-
-// 1. 캐러셀 관련 변수 및 상수 정의
-const CAROUSEL_INTERVAL_MS = 3000; // 3초 간격
-let carouselInterval = null;
-let currentCarouselIndex = 0; 
-let currentCarouselImages = []; // 현재 캐러셀로 사용될 이미지 목록
-
-// 2. 캐러셀 제어 함수 정의 (startCarousel, stopCarousel)
-
-/**
- * 오른쪽 패널의 자동 전환을 멈춥니다.
- */
-const stopCarousel = () => {
-    if (carouselInterval) {
-        clearInterval(carouselInterval);
-        carouselInterval = null;
-    }
-};
-
-/**
- * INDEX_DEFAULT 또는 Loggia 프로젝트의 캐러셀을 시작합니다.
- */
-const startCarousel = (projectId) => {
-    stopCarousel(); // 기존 캐러셀 중지
-
-    if (projectId !== 'INDEX_DEFAULT' && projectId !== 'Loggia') {
-        return; // INDEX_DEFAULT와 Loggia가 아니면 실행하지 않음
-    }
-
-    // 현재 프로젝트에 해당하는 캐러셀 그룹 이미지 필터링
-    if (projectId === 'Loggia') {
-        // Loggia는 isCarouselGroup: true인 항목만 사용
-        currentCarouselImages = allImageData.filter(item => item.projectId === 'Loggia' && item.isCarouselGroup === true);
-    } else { // INDEX_DEFAULT
-        // INDEX_DEFAULT는 isDefault: true인 항목만 사용
-        currentCarouselImages = allImageData.filter(item => item.isDefault === true);
-    }
-
-    if (currentCarouselImages.length <= 1) {
-        return; // 이미지가 1개 이하면 캐러셀 불필요
-    }
-
-    // 현재 화면에 렌더링된 메인 이미지 work-item 요소를 찾습니다.
-    // (INDEX_DEFAULT의 isGroupMain: true 항목 또는 Loggia의 isCarouselGroup && isGroupMain 항목)
-    const mainWorkItem = document.querySelector(`.work-item[data-project-id="${projectId}"]`);
-    
-    if (!mainWorkItem) return;
-
-    // 메인 이미지에 해당하는 이미지 데이터 찾기 (캐러셀의 시작점)
-    const mainImageId = mainWorkItem.dataset.imageId;
-    const mainImageIndex = currentCarouselImages.findIndex(img => img.id === mainImageId);
-
-    // 현재 캐러셀의 시작 인덱스 설정 (화면에 보이는 이미지로 시작)
-    currentCarouselIndex = (mainImageIndex !== -1) ? mainImageIndex : 0;
-    
-    // 3초 간격으로 이미지 전환
-    carouselInterval = setInterval(() => {
-        currentCarouselIndex = (currentCarouselIndex + 1) % currentCarouselImages.length;
-        const nextImage = currentCarouselImages[currentCarouselIndex];
-        
-        // 이미지 교체 로직 (Fade 효과 적용)
-        const visual = mainWorkItem.querySelector('.work-visual');
-        const imgElement = visual ? visual.querySelector('img') : null;
-        
-        if (imgElement && nextImage) {
-            // 페이드 아웃 시작
-            imgElement.style.opacity = '0'; 
-            setTimeout(() => {
-                // 이미지 소스 변경
-                imgElement.src = nextImage.url;
-                imgElement.alt = `${nextImage.folder}/${nextImage.fileName}`;
-                // 페이드 인
-                imgElement.style.opacity = '1'; 
-            }, 300); // CSS transition: opacity 0.3s와 일치시켜 부드러운 전환
-        }
-    }, CAROUSEL_INTERVAL_MS);
-};
-
-
-
-
-        
         // 1. 이미지 데이터 정의 
         const allImageData = [
             // INDEX_DEFAULT - 최근 전시 작품 목록
@@ -921,36 +839,41 @@ const startCarousel = (projectId) => {
             { id: 'loggia_10', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg',description: '',url: 'loggiaimages/loggia10.jpg', isCarouselGroup: true },
                   
             
-                                    { id: 'loggia_12', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img1.jpg', isGroupMain: true },
-                                    { id: 'loggia_13', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img2.jpg' },
-                                    { id: 'loggia_14', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img3.jpg' },
-                                    { id: 'loggia_15', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img4.jpg' },
-                                    { id: 'loggia_16', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'detail', url: '2025loggia1/img1-1.jpg' },
-                                    { id: 'loggia_17', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'detail', url: '2025loggia1/img1-2.jpg' },
+                                    { id: 'loggia_12', projectId: 'Loggia0', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img1.jpg', isGroupMain: true },
+                                    { id: 'loggia_13', projectId: 'Loggia0', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img2.jpg' },
+                                    { id: 'loggia_14', projectId: 'Loggia0', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img3.jpg' },
+                                    { id: 'loggia_15', projectId: 'Loggia0', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img4.jpg' },
+                                    { id: 'loggia_16', projectId: 'Loggia0', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'detail', url: '2025loggia1/img1-1.jpg' },
+                                    { id: 'loggia_17', projectId: 'Loggia0', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'detail', url: '2025loggia1/img1-2.jpg' },
             
-                                    { id: 'loggia_18', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Threshold Guard, 2025, Engraving and watercolor on panel, Iron Ball, 165x71cm', url: '2025loggia1/img5.jpg', isGroupMain: true },
+                                    { id: 'loggia_18', projectId: 'Loggia1', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Threshold Guard, 2025, Engraving and watercolor on panel, Iron Ball, 165x71cm', url: '2025loggia1/img5.jpg', isGroupMain: true },
             
                                    
-                                    { id: 'loggia_21', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Silent Observer, 2025, Engraving and watercolor on panel, Iron Ball, 175x62.5cm', url: '2025loggia1/img6.jpg', isGroupMain: true },
-                                     { id: 'loggia_19', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'detail', url: '2025loggia1/img6-1.jpg' },
-                                    { id: 'loggia_20', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'detail', url: '2025loggia1/img6-2.jpg' },
+                                    { id: 'loggia_21', projectId: 'Loggia2', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Silent Observer, 2025, Engraving and watercolor on panel, Iron Ball, 175x62.5cm', url: '2025loggia1/img6.jpg', isGroupMain: true },
+                                     { id: 'loggia_19', projectId: 'Loggia2', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'detail', url: '2025loggia1/img6-1.jpg' },
+                                    { id: 'loggia_20', projectId: 'Loggia2', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'detail', url: '2025loggia1/img6-2.jpg' },
             
                        
-                                                { id: 'loggia_24', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Echo Keeper, 2025, Engraving and watercolor on panel, Iron Ball, 122.5x79cm', url: '2025loggia1/img7.jpg', isGroupMain: true },
-             { id: 'loggia_22', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'detail', url: '2025loggia1/img7-1.jpg' },
-                                    { id: 'loggia_23', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'detail', url: '2025loggia1/img7-2.jpg' },
+                                                { id: 'loggia_24', projectId: 'Loggia3', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Echo Keeper, 2025, Engraving and watercolor on panel, Iron Ball, 122.5x79cm', url: '2025loggia1/img7.jpg', isGroupMain: true },
+             { id: 'loggia_22', projectId: 'Loggia3', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'detail', url: '2025loggia1/img7-1.jpg' },
+                                    { id: 'loggia_23', projectId: 'Loggia3', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'detail', url: '2025loggia1/img7-2.jpg' },
             
-             { id: 'loggia_25', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'A Room Without Looking, 2025, Paper(frotage), 41x164cm', url: '2025loggia2/img8.jpg', isGroupMain: true  },
-             { id: 'loggia_26', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'detail', url: '2025loggia2/img9.jpg' },
-                                    { id: 'loggia_27', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'detail', url: '2025loggia2/img10.jpg' },
-                                    { id: 'loggia_28', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'detail', url: '2025loggia2/img11.jpg'},
-                                    { id: 'loggia_29', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'As It Sank In, 2025, Plaster, 21x15.5cm', url: '2025loggia2/img12.jpg', isGroupMain: true  },
-             { id: 'loggia_30', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'As It Sank In, 2025, Plaster, 21x15.5cm', url: '2025loggia2/img13.jpg'     },
-             { id: 'loggia_31', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: '2025loggia2/img14.jpg', isGroupMain: true  },
-             { id: 'loggia_32', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Shadowlight, 2025, Engraving and watercolor on panel, 30x30cm', url: '2025loggia2/img14-1.jpg' },
-             { id: 'loggia_33', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Where Color Hesitates, 2025, Engraving and watercolor on panel, 39x160cm', url: '2025loggia2/img15.jpg', isGroupMain: true },
-             { id: 'loggia_34', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Through the Quiet Veil, 2025, Engraving and watercolor on panel, Plaster, 170x60cm', url: '2025loggia2/img16.jpg', isGroupMain: true },
-             { id: 'loggia_35', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Beyond the Quiet Veil, 2025, Engraving and watercolor on panel, Plaster, 170x60cm', url: '2025loggia2/img17.jpg', isGroupMain: true },
+             { id: 'loggia_25', projectId: 'Loggia4', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'A Room Without Looking, 2025, Paper(frotage), 41x164cm', url: '2025loggia2/img8.jpg', isGroupMain: true  },
+             { id: 'loggia_26', projectId: 'Loggia4', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'detail', url: '2025loggia2/img9.jpg' },
+                                    { id: 'loggia_27', projectId: 'Loggia4', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'detail', url: '2025loggia2/img10.jpg' },
+                                    { id: 'loggia_28', projectId: 'Loggia4', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'detail', url: '2025loggia2/img11.jpg'},
+            
+                                    { id: 'loggia_29', projectId: 'Loggia5', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'As It Sank In, 2025, Plaster, 21x15.5cm', url: '2025loggia2/img12.jpg', isGroupMain: true  },
+             { id: 'loggia_30', projectId: 'Loggia5', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'As It Sank In, 2025, Plaster, 21x15.5cm', url: '2025loggia2/img13.jpg'     },
+            
+             { id: 'loggia_31', projectId: 'Loggia6', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: '2025loggia2/img14.jpg', isGroupMain: true  },            
+             { id: 'loggia_32', projectId: 'Loggia6', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Shadowlight, 2025, Engraving and watercolor on panel, 30x30cm', url: '2025loggia2/img14-1.jpg' },
+            
+             { id: 'loggia_33', projectId: 'Loggia7', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Where Color Hesitates, 2025, Engraving and watercolor on panel, 39x160cm', url: '2025loggia2/img15.jpg', isGroupMain: true },
+            
+             { id: 'loggia_34', projectId: 'Loggia8', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Through the Quiet Veil, 2025, Engraving and watercolor on panel, Plaster, 170x60cm', url: '2025loggia2/img16.jpg', isGroupMain: true },
+            
+             { id: 'loggia_35', projectId: 'Loggia9', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Beyond the Quiet Veil, 2025, Engraving and watercolor on panel, Plaster, 170x60cm', url: '2025loggia2/img17.jpg', isGroupMain: true },
 
             // 나머지 프로젝트 1개씩만 추가하여 데이터 구조를 유지합니다.
             { id: 'sr_1', projectId: 'Surgical Room', isDefault: false, folder: 'surgicalroom', fileName: 'sr_1.jpg', description: 'SED_DO / Surgical Room (Visual 1/3) / 2025', url: 'https://placehold.co/700x400/34495e/ffffff?text=SURGICAL_ROOM_1' },
@@ -1022,8 +945,8 @@ const startCarousel = (projectId) => {
              */
             const renderWorkList = (filterId = 'INDEX_DEFAULT') => {
                 
-                // 1. 캐러셀 중지 
-                stopCarousel();
+                // 1. 캐러셀 중지 로직 제거됨
+                
                 // 2. 필터링된 데이터 준비 (모달 내비게이션용)
                 let filteredData;
                 
@@ -1106,7 +1029,6 @@ const startCarousel = (projectId) => {
                 currentFilteredImages = filteredData;
                 
                 // 9. INDEX_DEFAULT 또는 Loggia 프로젝트일 경우에만 캐러셀 시작 로직 제거됨
-                if (filterId === 'INDEX_DEFAULT'
             };
 
    // =========================================================================
@@ -1210,8 +1132,7 @@ const updateModalContent = (imageId) => {
                     if (workItem) {
                         const imageId = workItem.dataset.imageId;
                         
-                       // ⭐ 모달 열기 시 캐러셀 중지
-                        stopCarousel();
+                        // ⭐ 모달 열기 시 캐러셀 중지 로직 제거됨
                         
                         updateModalContent(imageId);
                         modal.classList.add('show');
@@ -1222,15 +1143,13 @@ const updateModalContent = (imageId) => {
             // 5. 모달 닫기 이벤트
             modalClose.addEventListener('click', () => {
                 modal.classList.remove('show');
-               // ⭐ 모달 닫기 후 INDEX_DEFAULT 또는 Loggia 화면이면 캐러셀 다시 시작
-                `if (activeFilterId === null
+                // ⭐ 모달 닫기 후 캐러셀 다시 시작 로직 제거됨
             });
 
             modal.addEventListener('click', (event) => {
                 if (event.target === modal) {
                     modal.classList.remove('show');
-                  // ⭐ 모달 닫기 후 INDEX_DEFAULT 또는 Loggia 화면이면 캐러셀 다시 시작
-                `if (activeFilterId === null
+                    // ⭐ 모달 닫기 후 캐러셀 다시 시작 로직 제거됨
                 }
             });
             
@@ -1239,8 +1158,7 @@ const updateModalContent = (imageId) => {
                 if (modal.classList.contains('show')) {
                     if (event.key === 'Escape') {
                         modal.classList.remove('show');
-                       // ⭐ 모달 닫기 후 INDEX_DEFAULT 또는 Loggia 화면이면 캐러셀 다시 시작
-                        `if (activeFilterId === null
+                        // ⭐ 모달 닫기 후 캐러셀 다시 시작 로직 제거됨
                     } else if (event.key === 'ArrowLeft') {
                         prevBtn.click();
                     } else if (event.key === 'ArrowRight') {
