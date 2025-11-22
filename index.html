@@ -488,7 +488,10 @@
                 margin-bottom: 10px; /* ⭐ [수정 1] 간격 축소 */
                 padding-left: 5px; 
             }
-            
+            /* ⭐ [추가] 데스크톱용으로 설정했던 큰 마진을 모바일에서 덮어쓰기 ⭐ */
+            .project-intro-text[data-project-id="INDEX_DEFAULT"] {
+                margin-bottom: 10px; /* 데스크톱에서 설정한 큰 마진(60px)을 모바일에서 10px로 재정의 */
+            }
             /* 모바일 푸터 조정 */
              .project-footer-text {
                  margin-top: 40px; 
