@@ -1063,9 +1063,8 @@ const updateModalContent = (imageId) => {
         newImg.style.transform = 'scale(1)'; 
 
         // 5. 이전 이미지 제거 (로딩이 끝났으므로 이제 안전하게 제거)
-        if (currentImg && currentImg.parentNode) {
-            currentImg.parentNode.removeChild(currentImg);
-        }
+       
+        modalImageContainer.innerHTML = '';
         
         // 6. 새 이미지를 DOM에 추가 (로딩 지연 없이 바로 표시됨)
         modalImageContainer.appendChild(newImg);
