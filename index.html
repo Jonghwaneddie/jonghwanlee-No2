@@ -815,28 +815,28 @@
         // 1. 이미지 데이터 정의
         const allImageData = [
             // INDEX_DEFAULT - 최근 전시 작품 목록
-            { id: 'index_1', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2024_1.jpg',  description: 'Exhibition View', url: 'loggiaimages/loggia1.jpg', isGroupMain: true }, 
-            { id: 'index_2', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2024_2.jpg', description: '', url: 'loggiaimages/loggia2.jpg' },
-            { id: 'index_3', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2023_1.jpg', description: '', url: 'loggiaimages/loggia3.jpg' },
-            { id: 'index_4', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2023_2.jpg', description: '', url: 'loggiaimages/loggia4.jpg' },
-            { id: 'index_5', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '',url: 'loggiaimages/loggia5.jpg' },
-             { id: 'index_6', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia6.jpg' },
-             { id: 'index_7', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia7.jpg' },
-             { id: 'index_8', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia8.jpg' },
-             { id: 'index_9', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia9.jpg' },
-             { id: 'index_10', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg',description: '', url: 'loggiaimages/loggia10.jpg' },
+            { id: 'index_1', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2024_1.jpg',  description: 'Exhibition View', url: 'loggiaimages/loggia1.jpg', isGroupMain: true, groupId: 'Main' }, 
+            { id: 'index_2', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2024_2.jpg', description: '', url: 'loggiaimages/loggia2.jpg', groupId: 'Main' },
+            { id: 'index_3', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2023_1.jpg', description: '', url: 'loggiaimages/loggia3.jpg', groupId: 'Main' },
+            { id: 'index_4', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2023_2.jpg', description: '', url: 'loggiaimages/loggia4.jpg', groupId: 'Main' },
+            { id: 'index_5', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '',url: 'loggiaimages/loggia5.jpg', groupId: 'Main' },
+             { id: 'index_6', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia6.jpg', groupId: 'Main' },
+             { id: 'index_7', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia7.jpg', groupId: 'Main' },
+             { id: 'index_8', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia8.jpg', groupId: 'Main' },
+             { id: 'index_9', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg', description: '', url: 'loggiaimages/loggia9.jpg', groupId: 'Main' },
+             { id: 'index_10', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'selected_works_2022_1.jpg',description: '', url: 'loggiaimages/loggia10.jpg', groupId: 'Main' },
 
             // Loggia - 설치 전경 (Install_View_1)
-            { id: 'loggia_1', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia1.jpg', description: 'Installation View 1', url: 'loggiaimages/loggia1.jpg', isGroupMain: true, groupId: 'Install_View_1'}, 
-            { id: 'loggia_2', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia2.jpg', description: 'Installation View 2', url: 'loggiaimages/loggia2.jpg', groupId: 'Install_View_1'  },
-            { id: 'loggia_3', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: 'Installation View 3', url: 'loggiaimages/loggia3.jpg', groupId: 'Install_View_1' },
-            { id: 'loggia_4', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia4.jpg', description: 'Installation View 4', url: 'loggiaimages/loggia4.jpg', groupId: 'Install_View_1'},
-            { id: 'loggia_5', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia5.jpg', description: 'Installation View 5', url: 'loggiaimages/loggia5.jpg', groupId: 'Install_View_1'},
-            { id: 'loggia_6', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia6.jpg',description: 'Installation View 6',url: 'loggiaimages/loggia6.jpg', groupId: 'Install_View_1' },
-            { id: 'loggia_7', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia7.jpg',description: 'Installation View 7',  url: 'loggiaimages/loggia7.jpg', groupId: 'Install_View_1' },
-            { id: 'loggia_8', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia8.jpg', description: 'Installation View 8', url: 'loggiaimages/loggia8.jpg', groupId: 'Install_View_1' },
-            { id: 'loggia_9', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia9.jpg', description: 'Installation View 9', url: 'loggiaimages/loggia9.jpg', groupId: 'Install_View_1' },
-            { id: 'loggia_10', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia10.jpg',description: 'Installation View 10',url: 'loggiaimages/loggia10.jpg', groupId: 'Install_View_1'},
+            { id: 'loggia_1', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia1.jpg', description: 'Installation View', url: 'loggiaimages/loggia1.jpg', isGroupMain: true, groupId: 'Install_View_1'}, 
+            { id: 'loggia_2', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia2.jpg', description: '', url: 'loggiaimages/loggia2.jpg', groupId: 'Install_View_1'  },
+            { id: 'loggia_3', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia3.jpg', groupId: 'Install_View_1' },
+            { id: 'loggia_4', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia4.jpg', description: '', url: 'loggiaimages/loggia4.jpg', groupId: 'Install_View_1'},
+            { id: 'loggia_5', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia5.jpg', description: '', url: 'loggiaimages/loggia5.jpg', groupId: 'Install_View_1'},
+            { id: 'loggia_6', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia6.jpg',description: '',url: 'loggiaimages/loggia6.jpg', groupId: 'Install_View_1' },
+            { id: 'loggia_7', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia7.jpg',description: '',  url: 'loggiaimages/loggia7.jpg', groupId: 'Install_View_1' },
+            { id: 'loggia_8', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia8.jpg', description: '', url: 'loggiaimages/loggia8.jpg', groupId: 'Install_View_1' },
+            { id: 'loggia_9', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia9.jpg', description: '', url: 'loggiaimages/loggia9.jpg', groupId: 'Install_View_1' },
+            { id: 'loggia_10', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia10.jpg',description: '',url: 'loggiaimages/loggia10.jpg', groupId: 'Install_View_1'},
                   
             // Group 1: Breath of the Hollow (Breath_Hollow)
             { id: 'loggia_12', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img1.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img1.jpg', isGroupMain: true, groupId: 'Breath_Hollow' },
@@ -861,9 +861,9 @@
             
             // Group: A Room Without Looking (A_Room_Without_Looking)
             { id: 'loggia_25', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img8.jpg', description: 'A Room Without Looking, 2025, Paper(frotage), 41x164cm', url: '2025loggia2/img8.jpg', isGroupMain: true, groupId: 'A_Room_Without_Looking'  },
-            { id: 'loggia_26', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img9.jpg', description: 'A Room Without Looking, 2025, Paper(frotage)', url: '2025loggia2/img9.jpg', groupId: 'A_Room_Without_Looking' },
-            { id: 'loggia_27', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img10.jpg', description: 'A Room Without Looking, 2025, Paper(frotage)', url: '2025loggia2/img10.jpg', groupId: 'A_Room_Without_Looking' },
-            { id: 'loggia_28', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img11.jpg', description: 'A Room Without Looking, 2025, Paper(frotage)', url: '2025loggia2/img11.jpg', groupId: 'A_Room_Without_Looking'},
+            { id: 'loggia_26', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img9.jpg', description: 'A Room Without Looking, 2025, Paper(frotage), 41x164cm'', url: '2025loggia2/img9.jpg', groupId: 'A_Room_Without_Looking' },
+            { id: 'loggia_27', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img10.jpg', description: 'A Room Without Looking, 2025, Paper(frotage), 41x164cm'', url: '2025loggia2/img10.jpg', groupId: 'A_Room_Without_Looking' },
+            { id: 'loggia_28', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img11.jpg', description: 'A Room Without Looking, 2025, Paper(frotage), 41x164cm'', url: '2025loggia2/img11.jpg', groupId: 'A_Room_Without_Looking'},
             
             // Group: As It Sank In (As_It_Sank_In)
             { id: 'loggia_29', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img12.jpg', description: 'As It Sank In, 2025, Plaster, 21x15.5cm', url: '2025loggia2/img12.jpg', isGroupMain: true, groupId: 'As_It_Sank_In'  },
