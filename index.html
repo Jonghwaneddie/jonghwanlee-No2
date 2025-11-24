@@ -1198,7 +1198,7 @@
                 startCarousel();
             };
 
-   // =========================================================================
+  // =========================================================================
 // ⭐ [최종] 전체화면 모달 전환 함수 (로딩 완료 후 즉시 전환) ⭐
 // =========================================================================
 const updateModalContent = (imageId) => {
@@ -1207,34 +1207,48 @@ const updateModalContent = (imageId) => {
     
     if (!targetImage) return;
 
-    // 1. 캡션 및 ID 업데이트
-    currentModalImageId = targetImage.id;
-    modalCaption.innerHTML = `<div class="work-header"><span class="full-description">${targetImage.description}</span></div>`;
-
-    // 2. 로딩 전용 이미지 객체 생성
+    // 1. 새 이미지 로드를 위한 임시 객체 생성
     const tempLoader = new Image();
     tempLoader.alt = `${targetImage.folder}/${targetImage.fileName}`;
     
-    // 3. 로드가 완료되면 실행할 함수
+    // ⭐ 2. 로딩 완료 시 실행할 함수 (이전 사진을 대체)
     tempLoader.onload = () => {
+        // 로드가 완료되었으므로 이제 DOM을 업데이트합니다.
+        
+        // A. 새 이미지 DOM 요소 생성
         const newImg = document.createElement('img');
         newImg.alt = tempLoader.alt; 
         newImg.src = tempLoader.src; 
         newImg.style.objectFit = 'contain'; 
-        newImg.style.transition = 'none'; 
+        newImg.style.transition = 'none'; // 겹침 방지를 위해 전환 효과 제거
         newImg.style.opacity = '1'; 
         newImg.style.transform = 'scale(1)'; 
 
-        // 4. 이전 이미지 제거 및 새 이미지 추가
-        modalImageContainer.innerHTML = '';
+        // B. 이전 이미지 제거 및 새 이미지 추가
+        // 이전 이미지를 제거하고 (로드가 완료될 때까지 이전 이미지가 유지됨)
+        modalImageContainer.innerHTML = ''; 
+        // 새 이미지를 컨테이너에 추가 (즉시 전환)
         modalImageContainer.appendChild(newImg);
+        
+        // C. 캡션 및 ID 업데이트
+        currentModalImageId = targetImage.id;
+        modalCaption.innerHTML = `<div class="work-header"><span class="full-description">${targetImage.description}</span></div>`;
+        
+        // D. 내비게이션 버튼 업데이트
+        updateNavButtons();
+    };
+    
+    // ⭐ 3. 로드 실패 시
+    tempLoader.onerror = () => {
+        console.error(`이미지 로드 실패: ${targetImage.url}`);
+        // 로드 실패 시 아무것도 하지 않아 이전 사진이 유지되도록 함
     };
 
-    // 5. 로드 시작
+    // 4. 로드 시작 (src를 할당하여 로딩 시작)
     tempLoader.src = targetImage.url; 
     
-    // 6. 내비게이션 버튼 업데이트
-    updateNavButtons();
+    // ⭐ 중요: 로딩이 완료될 때까지 DOM(modalImageContainer)은 업데이트하지 않습니다.
+    // 따라서 로딩 중에는 이전 이미지가 그대로 화면에 남아있게 됩니다.
 };
 // =========================================================================
             
