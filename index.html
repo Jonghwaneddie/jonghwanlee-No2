@@ -422,15 +422,15 @@
                 gap: 10px;
             }
 
-            .top-works, .main-header .logo { 
-                display: none; 
-            }
-            
-            .top-info, .top-note, .top-cv, .top-contact {
-                display: block; 
-                font-weight: normal; 
-                margin-left: 0;
-            }
+          .main-header .logo { 
+        display: none; 
+    }
+    
+    .top-info, .top-note, .top-cv, .top-contact, .top-works { 
+        display: block; /* Works도 display: block; 으로 표시되도록 추가 */
+        font-weight: normal; 
+        margin-left: 0;
+    }
             
             /* 2. 메인 콘텐츠를 수직으로 쌓기 */
             .main-content-wrapper {
