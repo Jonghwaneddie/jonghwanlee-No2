@@ -984,14 +984,14 @@
             let activeClass = (item.groupId && typeof groupCurrentIndexMap !== 'undefined' && groupCurrentIndexMap[item.groupId] === 0) || item.isDefault ? 'active' : '';
             let opacityStyle = activeClass ? 'opacity: 1;' : 'opacity: 0;';
 
-            return `
-                <div class="work-item" data-project-id="${item.projectId}" data-id="${item.id}" ${isMain} ${groupIdAttr}>
-                    ${headerHtml}
-                    <div class="work-visual">
-                        <img src="${item.url}" alt="${item.description}" class="${activeClass}" style="${opacityStyle}">
-                    </div>
-                </div>`;
-        };
+         return `
+            <div class="work-item" data-project-id="${item.projectId}" data-id="${item.id}" ${isMain} ${groupIdAttr}>
+                <div class="work-visual"> 
+                    <img src="${item.url}" alt="${item.description}" class="${activeClass}" style="${opacityStyle}">
+                </div>
+                ${headerHtml} // 이 부분을 이미지 아래로 이동
+            </div>`;
+    };
         // ⭐ [추가 끝]
 
 
