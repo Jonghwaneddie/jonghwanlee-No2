@@ -1339,16 +1339,7 @@
                 });
             });
 
-            // 2. 인덱스 (Jonghwan Lee) 클릭 이벤트 리스너
-            document.getElementById('jhl-reset').addEventListener('click', (e) => {
-                 e.preventDefault();
-                renderWorkList('INDEX_DEFAULT');
-
-                // 메뉴 항목 활성화 상태 초기화
-                document.querySelectorAll('.table-row a').forEach(otherLink => {
-                    otherLink.parentElement.parentElement.classList.remove('active-project');
-                });
-            });
+        
             
             // 3. 모달 닫기 이벤트 리스너
             const modal = document.getElementById('fullscreen-modal');
