@@ -260,34 +260,57 @@
             display: flex;
         }
 
-       #modal-image-container {
+     #modal-image-container {
+            /* 기존 flexbox 대신 2열 Grid 적용 */
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 1:1 비율로 두 개의 동일한 너비 열 */
+            gap: 15px; /* 이미지 간 간격 설정 */
+            
             width: 90%;
             height: 90%; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative; /* 겹치기 기준점 유지 */
-            overflow: hidden; 
+            overflow-y: auto; /* 내용이 많아지면 스크롤 가능 */
+            padding: 20px; /* 내부 여백 */
+            position: relative; /* 자식 요소 캡션의 relative 기준점 유지 */
             background-color: #fff;
+            justify-content: start; /* 이미지 시작 지점을 왼쪽으로 정렬 */
+            align-items: start; /* 이미지 시작 지점을 위쪽으로 정렬 */
         }
         
-        /* 2. 모달 이미지 요소 (Cross-Fade + Zoom) */
+        /* 갤러리 항목 이미지 스타일 (position: absolute 제거) */
         #modal-image-container img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain; 
             width: 100%;
-            height: 100%;
+            height: auto;
+            display: block;
             
-            position: absolute; /* ⭐ Cross-Fade를 위한 겹치기 복원 ⭐ */
-            top: 0;
-            left: 0;
+            position: static; /* 캐러셀을 위한 absolute 포지셔닝 제거 */
             margin: auto;
-
-            /* ⭐ [수정] Opacity 뿐만 아니라 Transform도 전환 대상에 추가 (0.1s로 변경) ⭐ */
-            transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out; 
+            
+            /* 전환 효과 제거 */
+            transition: none; 
         }
+/* ⭐[새로 추가] 갤러리 항목별 캡션 스타일 */
+.gallery-item-caption {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #000;
+    text-align: left;
+    line-height: 1.4;
+    padding-bottom: 5px;
+    padding-left: 5px; 
+}
 
+/* ⭐ 모달 내비게이션 버튼 숨기기 (갤러리 모드에서는 불필요) */
+.modal-nav-btn {
+    display: none !important;
+}
+
+/* ⭐ 중앙 모달 캡션 숨기기 */
+.modal-caption {
+    display: none !important;
+}
 
         .modal-close {
             position: absolute;
@@ -792,16 +815,7 @@
         // 1. 이미지 데이터 정의
         const allImageData = [
             // ⭐ 0. 인덱스 화면에 표시할 기본 작업물 (캐러셀 그룹으로 변경)
-            {   id: 'index_1', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_1.jpg', description: 'Loggia 2025', url: 'loggiaimages/loggia1.jpg',isGroupMain: true, groupId: 'INDEX_CAROUSEL'},
-            {   id: 'index_2', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_2.jpg', description: '', url: 'loggiaimages/loggia2.jpg',groupId: 'INDEX_CAROUSEL' },
-            {   id: 'index_3', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_3.jpg', description: '', url: 'loggiaimages/loggia3.jpg',groupId: 'INDEX_CAROUSEL' },
-            {   id: 'index_4', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_4.jpg', description: '', url: 'loggiaimages/loggia4.jpg',groupId: 'INDEX_CAROUSEL' },
-            {   id: 'index_5', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_5.jpg', description: '', url: 'loggiaimages/loggia5.jpg',groupId: 'INDEX_CAROUSEL' },
-            {   id: 'index_6', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_6.jpg', description: '', url: 'loggiaimages/loggia6.jpg',groupId: 'INDEX_CAROUSEL' },
-            {   id: 'index_7', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_7.jpg', description: '', url: 'loggiaimages/loggia7.jpg',groupId: 'INDEX_CAROUSEL' },
-            {   id: 'index_8', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_8.jpg', description: '', url: 'loggiaimages/loggia8.jpg',groupId: 'INDEX_CAROUSEL' },
-            {   id: 'index_9', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_9.jpg', description: '', url: 'loggiaimages/loggia9.jpg',groupId: 'INDEX_CAROUSEL' },
-            {   id: 'index_10', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_10.jpg', description: '', url: 'loggiaimages/loggia10.jpg',groupId: 'INDEX_CAROUSEL' },
+          
          
 
             // Loggia - 설치 전경 (Install_View_1)
@@ -1312,41 +1326,56 @@ const updateModalContent = (imageId) => {
                     nextBtn.style.display = 'none';
                 }
             };
-            
-            // ⭐ 모달 열기 시 그룹 데이터로 필터링
-            const openModal = (imageId) => {
-                
-                // 1. 클릭된 이미지 정보 획득
-                const clickedImage = allImageData.find(item => item.id === imageId);
-                if (!clickedImage) return;
+          // ⭐ [수정] openModal 함수: 단일 이미지 뷰어 대신 2열 갤러리 그리드를 렌더링하도록 변경
+const openModal = (projectId, imageId) => {
+    // 1. 해당 프로젝트 ID의 모든 이미지 데이터를 가져옵니다.
+    const targetProjectImages = allImageData.filter(item => item.projectId === projectId);
+    
+    // 만약 이미지가 없으면 실행하지 않습니다.
+    if (targetProjectImages.length === 0) {
+        console.warn(`No images found for project ID: ${projectId}`);
+        return;
+    }
+    
+    // 2. 모달 컨테이너 초기화
+    modalImageContainer.innerHTML = '';
+    
+    // 3. 이미지들을 반복하여 그리드 아이템으로 추가
+    targetProjectImages.forEach(image => {
+        // 개별 이미지 아이템 컨테이너 (그리드 항목)
+        const gridItem = document.createElement('div');
+        gridItem.classList.add('gallery-grid-item');
+        
+        // 이미지 태그
+        const img = document.createElement('img');
+        img.classList.add('gallery-image');
+        // src는 image.url에 이미 '폴더명/파일명.jpg' 형태의 경로가 들어있다고 가정합니다.
+        // 현재 코드에서는 'assets/images/' 접두사가 없으므로 image.url만 사용합니다.
+        img.src = image.url; // ⭐ 이미지 URL 구조에 맞게 수정: assets/images/ 접두어가 필요하면 추가하세요.
+        img.alt = image.fileName;
+        
+        gridItem.appendChild(img);
+        
+        // 캡션 추가
+        if (image.description && image.description.trim() !== '') {
+            const caption = document.createElement('div');
+            caption.classList.add('gallery-item-caption');
+            caption.innerHTML = image.description;
+            gridItem.appendChild(caption);
+        }
+        
+        modalImageContainer.appendChild(gridItem);
+    });
+    
+    // 4. 모달 표시
+    modal.classList.add('show');
+    
+    // 5. URL 상태 업데이트 
+    history.pushState({ modalOpen: true, projectId: projectId }, 'Modal Open', `#modal-${projectId}`); 
+};
 
-                // 2. ⭐ 캐러셀 중지
-                stopCarousel();
-                
-                // 3. 모달에 사용할 이미지 리스트 결정:
-                let modalImages;
-                if (clickedImage.groupId) {
-                    // groupId가 있으면, 해당 그룹의 모든 이미지를 모달 이미지로 사용
-                    modalImages = getGroupImages(clickedImage.groupId); // Helper function 사용
-                } else if (activeFilterId === 'INDEX_DEFAULT') {
-                     // INDEX_DEFAULT는 isDefault가 true인 항목 전체를 모달 데이터로 사용 (그룹핑 무시)
-                     modalImages = allImageData.filter(item => item.isDefault);
-                } else {
-                    // 그 외 (groupId가 없지만 프로젝트가 활성화된 경우), 해당 프로젝트의 모든 이미지를 모달 이미지로 사용
-                    modalImages = allImageData.filter(item => item.projectId === activeFilterId);
-                }
-                
-                // 4. currentFilteredImages를 모달 내비게이션 리스트로 업데이트
-                currentFilteredImages = modalImages;
-                
-                // 5. 모달 콘텐츠 업데이트 및 표시
-                updateModalContent(imageId);
-                modal.classList.add('show');
-                
-                // ⭐ [수정 2-A] 모달 열기 시 history.pushState를 사용하여 URL에 상태를 추가합니다.
-                history.pushState({ modalOpen: true }, 'Modal Open', '#modal');
-            }
-
+// 갤러리 모드에서는 더 이상 사용하지 않는 함수를 빈 함수로 대체하여 오류 방지
+const updateModalContent = () => { /* 2열 갤러리에서는 사용하지 않습니다. */ };
 
             // 초기 필터링 및 렌더링
             const resetFilter = () => {
@@ -1358,15 +1387,15 @@ const updateModalContent = (imageId) => {
             resetFilter(); 
             
             // 모달 닫기 공통 함수
-            const closeModal = () => {
-                 modal.classList.remove('show');
-                 startCarousel(); // ⭐ 모달 닫기 시 캐러셀 재시작
-                 
-                 // ⭐ [수정 2-B] 모달 닫기 시 URL에서 #modal 상태를 제거합니다.
-                 if (history.state && history.state.modalOpen) {
-                     history.back(); // history.pushState로 추가된 상태를 닫습니다.
-                 }
-            }
+           const closeModal = () => {
+    modal.classList.remove('show');
+    // startCarousel(); // ⬅️ 이 부분을 제거하거나 주석 처리합니다.
+    
+    // ⭐ [수정 2-B] 모달 닫기 시 URL에서 #modal 상태를 제거합니다.
+    if (history.state && history.state.modalOpen) {
+        history.back(); // history.pushState로 추가된 상태를 닫습니다.
+    }
+}
 
 
             // 2. 프로젝트 링크 클릭 이벤트
@@ -1467,25 +1496,6 @@ const updateModalContent = (imageId) => {
                 }
             });
 
-            // ⭐ 이전 버튼 이벤트 리스너
-            prevBtn.addEventListener('click', () => {
-                const navigableImages = currentFilteredImages;
-                const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
-                if (currentIndex > 0) {
-                    const prevImage = navigableImages[currentIndex - 1];
-                    updateModalContent(prevImage.id);
-                }
-            });
-
-            // ⭐ 다음 버튼 이벤트 리스너
-            nextBtn.addEventListener('click', () => {
-                const navigableImages = currentFilteredImages;
-                const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
-                if (currentIndex < navigableImages.length - 1) {
-                    const nextImage = navigableImages[currentIndex + 1];
-                    updateModalContent(nextImage.id);
-                }
-            });
         });
     </script>
 </body>
