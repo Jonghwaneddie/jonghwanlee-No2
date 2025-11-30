@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Works</title> <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+    <title>works</title>
+    
+
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
     <style>
         /* 기본 리셋 */
         * {
@@ -39,563 +42,1505 @@
         }
 
         /* 1. 헤더 */
-        header {
-            width: 100%;
+        .main-header {
+            position: relative;
+            padding: 10px 0;
+            height: 40px; /* 고정 높이 */
+            flex-shrink: 0;
+        }
+
+        /* 공통: 상단 텍스트 스타일 */
+        .top-text {
+            position: absolute;
+            font-size: 14px;
+            top: 10px;
+            white-space: nowrap;
+        }
+
+        .top-jhl { left: 20px; }
+        .top-info { left: 180px; } 
+        .top-note { left: 360px; } 
+        .top-cv { left: 510px; } 
+        .top-works { left: calc(40% + 20px); } 
+
+        /* ⭐ 데스크톱: Contact를 오른쪽 상단 구석에 배치 ⭐ */
+        .top-contact { right: 20px; left: auto; } 
+
+        /* 2. 메인 콘텐츠 래퍼 (좌우 40:60 레이아웃) */
+        .main-content-wrapper {
+            display: flex; 
+            flex: 1; 
+            overflow: hidden; 
+        }
+
+        /* 3. 왼쪽 패널 (정보 및 인덱스) */
+        .left-panel {
+            width: 40%; 
+            height: 100%;
             padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            z-index: 100; /* 모달 위에 오지 않도록 설정 */
+            overflow-y: auto; 
         }
 
-        .left-header, .right-header {
-            display: flex;
-            flex-direction: column;
+        .cv-info {
+            margin-top: 5px; 
+            margin-bottom: 30px;
         }
 
-        .left-header {
-            width: 50%;
+        /* information 글 들여쓰기 */
+        .cv-info .deep-indent {
+            margin-left: 160px; 
+            padding-left: 0;
+            line-height: 1.4;
+            text-align: justify;
         }
 
-        .right-header {
-            width: 50%;
-            align-items: flex-end;
-            text-align: right;
-        }
-
-        header a {
-            padding: 2px 0;
-            display: block;
-        }
-        
-        /* 2. 메인 콘텐츠 및 레이아웃 */
-        .main-container {
-            flex-grow: 1; /* 남은 공간을 모두 차지 */
-            width: 100%;
-            height: 100%;
-            display: flex;
-            position: relative;
-        }
-        
-        .left-panel {
-            width: 50%;
-            height: 100%; /* 부모의 높이 상속 */
-            overflow-y: scroll; /* 왼쪽 패널 스크롤 가능 */
-            padding: 0 20px 20px;
-            position: relative; /* 자식 absolute 위치 기준 */
-        }
-
-        /* 스크롤바 숨기기 (선택 사항) */
-        .left-panel::-webkit-scrollbar {
-            display: none;
-        }
-        .left-panel {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
-        }
-
-        .right-panel {
-            width: 50%;
-            height: 100%;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* 3. 프로젝트 목록 (왼쪽 패널) */
+        /* 3-2. 프로젝트 인덱스 테이블 스타일 (Grid 사용) */
         .project-table {
-            margin-top: 50px; /* 헤더 아래 간격 */
-        }
-
-        .table-header, .table-row {
-            display: flex;
-            line-height: 1.6;
-        }
-
-        .table-header {
-            font-weight: 500;
-            margin-bottom: 5px;
+            margin-top: 20px;
         }
 
         .table-row {
-            padding: 2px 0;
-        }
-        
-        .table-row.item:hover .exhibition,
-        .table-row.item:hover .tilte,
-        .table-row.item:hover .year {
-            font-weight: bold;
-        }
-
-        .exhibition {
-            width: 35%;
-        }
-
-        .tilte {
-            width: 45%;
-        }
-
-        .year {
-            width: 20%;
-            text-align: right;
-        }
-
-        /* 4. 이미지 (오른쪽 패널) */
-        .image-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .main-image {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        /* 5. 모달 (레이어 팝업) */
-        .modal {
-            display: none; /* 기본 숨김 */
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.9); /* 검은색 반투명 배경 */
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        .modal.show {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            position: relative;
-            max-width: 90%;
-            max-height: 90%;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        /* ---------------------------------------------------- */
-        /* ⭐ 2. 오른쪽 레이어 2열 그리드 CSS 수정 (최소 변경) ⭐ */
-        /* ---------------------------------------------------- */
-        #modal-image-container {
-            /* 2열 Grid 적용 */
             display: grid;
-            grid-template-columns: 1fr 1fr; /* 1:1 비율로 두 개의 동일한 너비 열 */
-            gap: 15px; /* 이미지 간 간격 설정 */
-            
-            width: 90%; /* 기존 너비 유지 */
-            height: 90%; /* 기존 높이 유지 */
-            overflow-y: auto; /* 스크롤 가능 */
-            padding: 20px; /* 내부 여백 */
-            position: relative; 
-            background-color: #fff;
-            justify-content: start; 
-            align-items: start; 
+            grid-template-columns: 1fr 2fr 0.5fr; 
+            padding: 5px 0;
+        }
+
+        /* 테이블 헤더 스타일 */
+        .table-row.header {
+            font-weight: bold;
+            margin-bottom: 5px;
         }
         
-        /* 갤러리 항목 이미지 스타일 */
+        /* 4. 오른쪽 패널 (스크롤 가능한 영역) */
+        .right-panel {
+            width: 60%; 
+            height: 100%;
+            overflow-y: scroll; 
+            padding: 0px;
+        }
+
+        /* ⭐ 정적 프로젝트 소개 텍스트 스타일 (상단) ⭐ */
+        .project-intro-text {
+            text-align: left; 
+            font-size: 14px;
+            font-weight: normal; 
+            margin-bottom: 20px; 
+            padding-top: 5px; 
+            padding-left: 5px; 
+            
+            display: none; /* 기본 숨김 */
+              
+        }
+
+        .project-intro-text.active {
+            display: block; /* 활성화 시 보임 */
+        }
+        .project-intro-text[data-project-id="INDEX_DEFAULT"] {
+            margin-bottom: 110px; /* 기존 20px에서 60px로 증가 */
+        }
+
+        /* 7. 작업물 목록 하단 푸터 스타일 (새로 추가됨) */
+        .project-footer-text { 
+            margin-top: 60px; /* 위쪽 여백으로 이미지와 분리 */
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            font-size: 12px;
+            color: #444;
+            border-top: 1px solid #eee; /* 가벼운 구분선 */
+            text-align: right;
+            display: none; /* 기본 숨김 */
+        }
+
+        .project-footer-text.active {
+            display: block; /* 활성화 시 보임 */
+        }
+
+        /* 작업물 항목 스타일링 */
+        .work-item {
+            margin-bottom: 5px; 
+            padding: 0px;
+        }
+
+        .work-pair {
+            display: flex;       /* Flexbox 활성화 */
+            gap: 10px;           /* 두 이미지 항목 사이의 간격 */
+            margin-bottom: 10px; /* work-pair 자체의 하단 간격 */
+        }
+
+        /* ⭐ 그룹 내의 각 이미지 항목의 너비 설정 ⭐ */
+        .work-pair .work-item {
+            flex: 1 1 50%; /* 컨테이너 너비의 50%를 차지 */
+            width: 50%;
+        }
+
+        /* 4개의 이미지를 그룹화하여 가로로 나열 */
+        .work-row-4 {
+            display: flex;         /* Flexbox 활성화 */
+            gap: 5px;              /* 4개 이미지 항목 사이의 간격 (원하는 값으로 조정) */
+            margin-bottom: 10px;   /* work-row-4 자체의 하단 간격 */
+        }
+
+        /* 그룹 내의 각 이미지 항목의 너비 설정 (100% / 4 = 25%) */
+        .work-row-4 .work-item {
+            flex: 1 1 25%;         /* 컨테이너 너비의 25%를 차지하도록 합니다. */
+            width: 25%;            /* 명시적으로 25% 너비 설정 */
+        }
+
+        
+        /* 작업물 헤더 (텍스트): 한 줄 왼쪽 정렬로 변경 */
+        .work-header {
+            display: flex; 
+            justify-content: center;
+            font-size: 14px;
+            font-weight: normal; 
+            margin-top: 0px; 
+            flex-wrap: nowrap; 
+            padding-left: 0px; 
+            text-align: center;
+        }
+
+        /* 헤더 내부의 텍스트 요소들 */
+        .work-header span {
+            display: inline; 
+            margin: 0; 
+            line-height: 1.6;
+            white-space: normal; 
+        }
+        
+        .work-header .full-description {
+            margin-right: 5px; 
+            white-space: normal;
+        }
+
+        .work-visual {
+            height: 300px; /* 고정된 박스 높이 */
+            background-color: #fcfcfc;
+            display: flex;
+            justify-content: center; /* 중앙 정렬 */
+            align-items: center; /* 중앙 정렬 */
+            color: #bbb;
+            font-style: italic;
+            cursor: pointer; 
+            overflow: hidden; 
+            position: relative;
+        }
+        
+        /* 이미지 잘림 방지 (Contain) CSS */
+        .work-visual img {
+            width: 100%; 
+            height: 100%;
+            display: block; 
+            object-fit: contain; 
+           position: absolute; 
+           top: 0;
+           left: 0;
+            /* ⭐ [수정] 이미지 전환 속도 0.1초로 변경 */
+            transition: opacity 0.1s ease-in-out; 
+            /* ⭐ [추가] 초기 이미지의 불투명도를 1로 설정 */
+            opacity: 1; 
+        }
+
+
+        /* 5. 전체 화면 모달 스타일 */
+        .fullscreen-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* background-color: rgba(255, 255, 255, 0.6); <- Original */
+            background-color: rgba(255, 255, 255, 0.7); /* ⭐ [수정 2, 3] 배경을 어둡게 변경 */
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .fullscreen-modal.show {
+            display: flex;
+        }
+
+       #modal-image-container {
+            width: 90%;
+            height: 90%; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative; /* 겹치기 기준점 유지 */
+            overflow: hidden; 
+            background-color: #fff;
+        }
+        
+        /* 2. 모달 이미지 요소 (Cross-Fade + Zoom) */
         #modal-image-container img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain; 
             width: 100%;
-            height: auto; /* 그리드 높이에 맞추기 위해 auto */
-            display: block;
+            height: 100%;
             
-            /* 캐러셀 관련 속성 제거/수정 */
-            position: static; 
+            position: absolute; /* ⭐ Cross-Fade를 위한 겹치기 복원 ⭐ */
+            top: 0;
+            left: 0;
             margin: auto;
-            transition: none; 
+
+            /* ⭐ [수정] Opacity 뿐만 아니라 Transform도 전환 대상에 추가 (0.1s로 변경) ⭐ */
+            transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out; 
         }
 
-        /* 갤러리 항목별 캡션 스타일 (새로 추가) */
-        .gallery-item-caption {
-            margin-top: 5px;
-            font-size: 12px;
-            color: #000;
-            text-align: left;
-            line-height: 1.4;
-            padding-bottom: 5px;
-            padding-left: 5px; 
-        }
-
-        /* 캐러셀 버튼 숨기기 */
-        .modal-nav-btn {
-            display: none !important;
-        }
-
-        /* 중앙 모달 캡션 숨기기 */
-        .modal-caption {
-            display: none !important;
-        }
-        /* ---------------------------------------------------- */
 
         .modal-close {
             position: absolute;
             top: 20px;
-            right: 30px;
-            color: #fff;
+            right: 40px;
+            /* color: white; <- Original */
+            color: #BBBBBB; /* ⭐ [수정 3] 회색으로 변경 */
             font-size: 30px;
             font-weight: bold;
             cursor: pointer;
-            z-index: 1010;
+            opacity: 0.8;
+            transition: opacity 0.2s;
         }
 
+        .modal-close:hover {
+            opacity: 1;
+        }
+
+        /* 이전/다음 버튼 스타일 */
+        .modal-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 10px;
+            user-select: none; 
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        .modal-nav-btn:hover {
+            opacity: 1;
+        }
+
+        .prev-btn {
+            left: 20px;
+        }
+
+        .next-btn {
+            right: 20px;
+        }
+
+        /* 모달 캡션/푸터 스타일 */
         .modal-caption {
             position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #fff;
+            bottom: 0px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            max-width: 80%; 
+            color:black; 
             text-align: center;
-            line-height: 1.4;
+            font-size: 14px;
+            padding: 10px;
+            z-index: 1010; 
         }
 
-        /* 반응형 디자인 */
+        /* 캡션 내부의 work-header 스타일 재정의 */
+        .modal-caption .work-header {
+            display: flex; 
+            justify-content: center; 
+            font-size: 14px;
+            font-weight: normal;
+            margin: 0; 
+            flex-wrap: nowrap; 
+            padding-left: 0;
+            text-align: center;
+        }
+        /* 모달 캡션 텍스트는 간격을 유지 */
+        .modal-caption .work-header .full-description {
+            margin: 0; 
+        }
+
+        /* JS 상호작용을 위한 숨김 클래스 */
+        .work-item.hidden {
+            display: none;
+        }
+
+
+        /* 6. 모바일 레이아웃 (최대 768px) */
         @media (max-width: 768px) {
+            /* 기본 스크롤 동작 복원 */
             body {
-                flex-direction: column;
-                overflow-y: auto; /* 모바일에서는 전체 스크롤 허용 */
-            }
-
-            header {
-                position: relative;
-            }
-
-            .left-panel, .right-panel {
-                width: 100%;
+                overflow-y: visible; 
                 height: auto;
-                overflow-y: visible; /* 모바일에서는 스크롤을 body가 처리 */
-            }
-            
-            .left-panel {
-                order: 2; /* 목록을 아래로 */
-                padding-top: 20px;
             }
 
-            .right-panel {
-                order: 1; /* 이미지를 위로 */
-                height: 40vh; /* 이미지 영역 최소 높이 설정 */
+            .work-pair {
+                flex-direction: column; /* 모바일에서는 수직으로 쌓기 */
+                gap: 0;                 /* 모바일에서는 그룹 간격 제거 */
+                margin-bottom: 10px;    /* 모바일에서 work-pair의 하단 간격 */
+            }
+            .work-pair .work-item {
+                width: 100%; /* 모바일에서는 너비를 다시 100%로 복원 */
+            }
+
+            /* ⭐ 모바일에서 work-row-4 스타일 재정의 ⭐ */
+            .work-row-4 {
+                flex-direction: column; /* 모바일에서는 수직으로 쌓기 */
+                gap: 0;                 /* 그룹 간격 제거 */
+                margin-bottom: 10px;
+            }
+            .work-row-4 .work-item {
+                width: 100%; /* 모바일에서는 너비를 다시 100%로 복원 */
             }
             
-            .right-header {
+            
+            /* 1. 헤더 재배치 및 간소화 */
+            .main-header {
+                height: auto;
+                padding: 10px 20px;
+                display: flex;
+                justify-content: space-between; 
                 align-items: flex-start;
-                text-align: left;
-                margin-top: 10px;
             }
             
-            .left-header {
-                width: 100%;
+            .top-text {
+                position: static;
+                font-size: 13px;
+            }
+            
+            .top-jhl { 
+                order: 1; 
+                font-weight: bold; 
+            }
+            
+            .main-header .top-links-mobile {
+                order: 2;
+                display: flex;
+                gap: 10px;
             }
 
-            .modal-content {
-                max-width: 100%;
-                max-height: 100%;
+          .main-header .logo { 
+        display: none; 
+    }
+    
+    .top-info, .top-note, .top-cv, .top-contact, .top-works { 
+        display: block; /* Works도 display: block; 으로 표시되도록 추가 */
+        font-weight: normal; 
+        margin-left: 0;
+    }
+            
+            /* 2. 메인 콘텐츠를 수직으로 쌓기 */
+            .main-content-wrapper {
+                flex-direction: column;
+                overflow-y: visible; 
+                flex: none; 
+                height: auto;
+            }
+
+            /* 3. 좌우 패널 너비 100%로 설정 및 순서 명시 */
+            .left-panel {
+                order: 1; 
                 width: 100%;
-                height: 100%;
+                height: auto; 
+                overflow-y: visible; 
+                flex-shrink: 0;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
             }
             
-            #modal-image-container {
-                /* 모바일에서는 1열로 변경 */
-                grid-template-columns: 1fr;
+            .right-panel {
+                order: 2; 
+                width: 100%;
+                height: auto; 
+                overflow-y: visible; 
+                flex-shrink: 0;
+                padding: 0px;
+                padding-top: 0; 
+                /* padding-bottom: 80px; - 푸터에서 처리 */
             }
+
+            /* 4. 정보 텍스트 조정 */
+            .cv-info {
+                order: 1; 
+                margin-top: 0; 
+                margin-bottom: 30px; 
+            }
+
+            .cv-info .deep-indent {
+                margin-left: 0; 
+            }
+            
+            /* 5. 프로젝트 인덱스 테이블 표시 및 순서 설정 */
+            .project-table {
+                display: grid; 
+                order: 2; 
+                margin-top: 0; 
+                margin-bottom: 20px; 
+            }
+            
+            /* 모바일 텍스트 조정 (왼쪽 정렬 유지) */
+            .project-intro-text {
+                text-align: left; 
+                margin-bottom: 10px; /* ⭐ [수정 1] 간격 축소 */
+                padding-left: 5px; 
+            }
+            /* ⭐ [추가] 데스크톱용으로 설정했던 큰 마진을 모바일에서 덮어쓰기 ⭐ */
+            .project-intro-text[data-project-id="INDEX_DEFAULT"] {
+                margin-bottom: 10px; /* 데스크톱에서 설정한 큰 마진(60px)을 모바일에서 10px로 재정의 */
+            }
+            /* 모바일 푸터 조정 */
+             .project-footer-text {
+                 margin-top: 40px; 
+                 border-top: none; 
+                 padding: 0 0 40px 0; /* 아래쪽 여백을 많이 줌 */
+             }
+
+            /* 6. Work Header 스타일 조정 (왼쪽 정렬) */
+            .work-header {
+                justify-content: center; 
+                font-size: 13px;
+                font-weight: normal; 
+                flex-wrap: wrap; 
+                text-align: center;
+                padding-left: 0;
+            }
+            
+            .work-header .full-description {
+                margin: 0; 
+                line-height: 1.5;
+                white-space: normal; 
+            }
+            
+            /* 7. 모달 내비게이션 버튼 크기 조정 */
+            .modal-nav-btn {
+                font-size: 30px; 
+            }
+            
+            /* 8. 모달 캡션 조정 */
+            .modal-caption {
+                bottom: 10px;
+                padding: 5px 10px;
+            }
+            
+            .modal-caption .work-header {
+                justify-content: center; 
+            }
+
+            /* 모바일 모달 캡션 텍스트 줄바꿈 방지 유지 */
+          .modal-caption .work-header span {
+    white-space: normal; 
+}
+            
+            /* ⭐ [수정 4-A] 모바일에서 버튼 숨김 */
+            .modal-nav-btn {
+                display: none !important; 
+            }
+        }
+
+        .fullscreen-modal .full-description {
+          color: #000 !important; /* ⭐ 흰색으로 강제 설정 ⭐ */
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="left-header">
-            <span class="name">Jonghwan Lee</span>
-            <a href="#">Works</a>
-            <a href="#" class="fade-text">About</a>
-            <a href="#" class="fade-text">Contact</a>
-        </div>
-        <div class="right-header">
-            <a href="#" class="fade-text">Insta</a>
-            <a href="#" class="fade-text">Email</a>
+
+    <header class="main-header">
+        
+        <div class="top-text top-jhl" id="jhl-reset"><a href="index.html">Jonghwan Lee</a></div>
+        
+        <div class="top-links-mobile"> 
+            <div class="top-text top-info">Information</div>
+            <div class="top-text top-note"><a href="note.html">Note</a></div> 
+            <div class="top-text top-cv"><a href="cv.html">CV</a></div> 
+            <div class="top-text top-contact"><a href="contact.html">Contact</a></div>  
+           <div class="top-text top-works"><a href="works.html">Works</a></div>
         </div>
     </header>
 
-    <div class="main-container">
-        <div class="left-panel">
+    <div class="main-content-wrapper">
+
+        <section class="left-panel">
+            <div class="cv-info">
+                <p class="indented-text deep-indent">Vestibulum et dignissim magna. Nullam et ultrices felis. Suspendisse facilisis sagittis sit amet sem tempor. Nam sit amet nibh et enim laoreet porta sit amet vel purus. Maecenas augue velit, feugiat in maximus id, auctor vel ex.</p>
+            </div>
+
             <div class="project-table">
-                <div class="table-header">
-                    <span class="exhibition">Type</span>
+                <div class="table-row header">
+                    <span class="Works">Works</span>
                     <span class="tilte">Title</span>
                     <span class="year">Year</span>
                 </div>
+                
                 <div class="table-row item">
-                    <span class="exhibition">Solo</span>
-                    <span class="tilte"><a href="#" data-project-id="Room of Convexity and Concavity" data-display-title="Room of Convexity and Concavity">Room of Convexity and Concavity</a></span>
-                    <span class="year">2023</span>
-                </div>
-                <div class="table-row item">
-                    <span class="exhibition">Group</span>
-                    <span class="tilte"><a href="#" data-project-id="Perigee Winter Show" data-display-title="Perigee Winter Show 2022">Perigee Winter Show 2022</a></span>
-                    <span class="year">2022</span>
+                    <span class="Works">Painting</span>
+                    <span class="tilte"><a href="#" data-project-id="the bottom of the wilderness" data-display-title="the bottom of the wilderness">the bottom of the wilderness</a></span>
+                    <span class="year">2025</span>
                 </div>
                 <div class="table-row item">
-                    <span class="exhibition">Group</span>
-                    <span class="tilte"><a href="#" data-project-id="Waiting Room" data-display-title="Waiting Room (Group, 2022)">Waiting Room</a></span>
-                    <span class="year">2022</span>
+                    <span class="Works"></span>
+                    <span class="tilte"><a href="#" data-project-id="Narcissus" data-display-title="Narcissus">Narcissus</a></span>
+                    <span class="year">2024</span>
                 </div>
                 <div class="table-row item">
-                    <span class="exhibition">Solo</span>
-                    <span class="tilte"><a href="#" data-project-id="Scenery Fragment" data-display-title="Scenery Fragment">Scenery Fragment</a></span>
-                    <span class="year">2020-2021</span>
+                    <span class="Works"></span>
+                    <span class="tilte"><a href="#" data-project-id="Eyebeam & Pulse" data-display-title="Eyebeam & Pulse">Eyebeam & Pulse</a></span>
+                    <span class="year">2022-2023</span>
                 </div>
                 <div class="table-row item">
-                    <span class="exhibition">Solo</span>
-                    <span class="tilte"><a href="#" data-project-id="The Bottom of the Wilderness" data-display-title="The Bottom of the Wilderness">The Bottom of the Wilderness</a></span>
-                    <span class="year">2019</span>
+                    <span class="Works"></span>
+                    <span class="tilte"><a href="#" data-project-id="Filch" data-display-title="Filch">Filch</a></span>
+                    <span class="year">2020-2022</span>
                 </div>
                 <div class="table-row item">
-                    <span class="exhibition">Solo</span>
-                    <span class="tilte"><a href="#" data-project-id="The Shadow" data-display-title="The Shadow">The Shadow</a></span>
-                    <span class="year">2018</span>
+                    <span class="Works">Drawing</span>
+                    <span class="tilte"><a href="#" data-project-id="Drawing" data-display-title="Drawing">Drawing</a></span>
+                    <span class="year">2020 - </span>
                 </div>
-                <div class="table-row item">
-                    <span class="exhibition">Group</span>
-                    <span class="tilte"><a href="#" data-project-id="Perigee Winter Show (2020)" data-display-title="Perigee Winter Show (2020)">Perigee Winter Show (2020)</a></span>
-                    <span class="year">2020</span>
-                </div>
-                <div class="table-row item">
-                    <span class="exhibition">Group</span>
-                    <span class="tilte"><a href="#" data-project-id="Waiting Room (2020)" data-display-title="Waiting Room (2020)">Waiting Room (2020)</a></span>
-                    <span class="year">2020</span>
-                </div>
-                </div>
-        </div>
-
-        <div class="right-panel">
-            <div class="image-placeholder">
-                <img id="main-visual" class="main-image" src="" alt="Main Image">
+               
             </div>
-        </div>
-    </div>
-
-    <div id="modal" class="modal">
-        <span class="modal-close" onclick="closeModal()">&times;</span>
-        <div class="modal-content">
-            <h2 class="modal-title"></h2>
-            <div id="modal-image-container">
-                </div>
             
-            <span id="prevBtn" class="modal-nav-btn prev-btn">&#10094;</span>
-            <span id="nextBtn" class="modal-nav-btn next-btn">&#10095;</span>
-            <div class="modal-caption"></div>
-        </div>
+        </section>
+
+        <section class="right-panel">
+            <div class="selected-work-list">
+                
+                       <div class="project-intro-text active" data-project-id="INDEX_DEFAULT">
+                   Recently Exhibition </div>
+                
+                <div class="project-intro-text" data-project-id="Loggia">
+                   Loggia (2025)<br><br>
+                    2025. 7. 31 ~ 2025. 8. 23<br>
+                    Hall1, 8, Yangpyeong-ro 22ma-gil, Yeongdeungpo-gu, Seoul, Korea
+                      <br><br>
+                    <span class="fade-text">Text by Soomin Lee<br>
+                    Poster by Jungin Won<br>
+                    Installation by Alwayslastdanceclub<br>
+                    Photography by San Choi<br>
+                    Support by Bongkyun Kwon, Gayoon Yong, Anha Lee<br><br>
+                   Supported by Seoul Foundation for Arts and Culture</span>
+                    <br><br>
+                    해방된 기둥이 있다. 구역을 만들어내는 기둥은 중심에서 장소를 구체화하고 있지만 그 무엇도 지지하지 않고 있다. 정확히는 어디를 지지하고 있는지 말할 수 없다. 기둥의 끝에서 빛이 솟아오른다. 기둥은 저기 있지만 빛은 다가와 마주침을 만들어낸다. 기둥과 빛은 보이지 않는 것을 마주하기 위해 공간과 시간을 뒤섞어 지금 이 자리에 있음을 느끼게 한다. 그곳은 재현되는 것이 아니라 스스로를 드러낸다. 기둥 속에서 반짝이는 추는 반복되는 소리를 흘려보낸다. 그 소리는 이곳이 우리와 또 다른 것임을 알려주는 듯하다.
+                   <br><br> A liberated pillar stands. Creating a distinct zone, the pillar gives substance to the space from its center, yet supports nothing. Precisely where it lends its support is undefinable. Light springs forth from the pillar's apex. The pillar remains distant, but the light approaches to orchestrate an encounter. The place does not merely reproduce; it reveals itself. Within the pillar, a shimmering pendulum releases a repeating sound. That sound seems to suggest this space is fundamentally separate from us.
+                  <br>
+                </div>
+
+                <div class="project-intro-text" data-project-id="Surgical Room">
+                    Surgical Room(2025)<br><br>
+                    2025. 5. 17 ~ 2025. 6. 15<br>
+                    CYLINDER TWO, 24, Hangang-daero 48-gil, Yongsan-gu, Seoul, Korea<br><br>
+
+                    <span class="fade-text">Participating Artists: Kolja Kärtner Sainz, Hyun Bhin Kwon, Jonghwan Lee, Heesu Choi, Lian Fu</span><br>
+                </div>
+
+                <div class="project-intro-text" data-project-id="South Parade">
+                    CYLINDER x South Parade (2024) <br><br>
+                    2024. 6. 27 ~ 2024. 8. 3<br>
+                    Griffin House, 79 Saffron Hill, ECIR 5BU, London, UK<br><br>
+                  <span class="fade-text"> Participating Artists: Aidan Duffy, Jonghwan Lee</span>
+                    <br>
+                </div>
+
+                <div class="project-intro-text" data-project-id="Hypercube">
+                Hypercube (2023)<br><br>
+                    2023. 7. 8 ~ 2023. 8. 13<br>
+                    CYLINDER TWO, 24, Hangang-daero 48-gil, Yongsan-gu, Seoul, Korea   <br><br>
+                  <span class="fade-text">   Supported by Seoul Foundation for Arts and Culture</span><br>
+                  <br><br>  인간의 지각 이전에 회화 자체의 지각이 역으로 생기를 발생시킬 수 있다는 가설과 함께, 지속적으로 형성되는 지각의 순환구조에서 작용하는 회화 속 물질들의 압축된 세계를 탐구한다. 그의 회화를 담아 내는 화판은 단순히 안료가 안착되는 표면이 아닌 회화로부터 파생된 존재들이 거주하며 회화의 확장성을 이끌어내는 유기적인 육면체이자 소우주이다. 화판의 표면에 그려진 회화는 음각으로 생겨난 균열을 통해 2차원과 3차원의 경계 사이에 머무르고, 나무의 깎인 자국이 만든 계곡과 그 주변의 풍경들은 캐스팅을 통해 물과 하얀 가루의 화학반응으로 만들어진 고체의 표면으로 서서히 이동한다. 그리고 정지해 있는 회화 및 석고와 달리 화판 내부에 식립된 진자는 주기운동을 통해 서로가 맞닿으며 미세한 파동을 일으키는데, 이 청각적인 진동을 동반한 추의 위치변화는 시계의 초침처럼 정지해있는 대상에 시간성을 부여하고, 이는 다시 석고를 매질 삼아 회화의 표면으로 도달해 그 주위로 흐르는 시간에 대한 고찰을 이끈다.
+                   <br><br> Jonghwan Lee delves into the condensed world of painting materials that exist within the continuously forming cyclical structure of perception based on the hypothesis that the perception of painting itself can generate vitality even prior to human perception. The wood panel that encapsulates his paintings goes beyond being a mere surface for pigments to settle and takes the form of an organic hexahedron and a microcosm inhabited by entities that originate from the paintings and lead to their extension. The carved traces on wood that create valleys and the surrounding landscapes gradually transition into solid surfaces through casting, facilitated by chemical reactions between water and white powder. Furthermore, a pendulum embedded within the panel undergoes periodic motion, colliding and creating waves. The pendulum’s positional shifts, accompanied by auditory vibrations, infuse a sense of temporality into the stationary subjects, akin to the movement of a clock's second hand. This, in turn, reaches the surface of the paintings using plaster as a medium, prompting contemplation on the passage of time.
+                    <br>
+                </div>
+                
+                <div class="project-intro-text" data-project-id="The Good Neighbor">
+                    The Good Neighbor (2023)<br><br>
+                    2023. 5. 25 ~ 2023. 6. 10<br>
+                    Art Space 3, 23, Hyoja-ro 7-gil, Jongno-gu, Seoul<br><br>
+                   <span class="fade-text"> Participating Artists: Dawool Lim, Hanna Lee, Ichae Shin, Jihyun Kim, Jonghwan Lee, Wanjun Jo, Yuso Moon</span><br>
+                </div>
+
+                <div class="project-intro-text" data-project-id="Cabinet">
+                   Cabinet (2023)<br><br>
+                    2023. 1. 17 ~ 2023. 1. 31<br>
+                    Sahangup gallery, 143, Eulji-ro, Jung-gu, Seoul, Korea<br><br>
+                   <span class="fade-text"> Poster by Hanbyul Joo<br>
+                    Installation by Alwayslastdanceclub<br>
+                    Photography by SES</span><br>
+                    <br><br>‘Cabinet’은 단순한 수납 구조가 아니라, 보이지 않는 것을 수집하고 보존하는 장소, 나아가 회화를 기록하는 새로운 방식에 대한 탐색의 장으로 제안된다. 고대의 ‘호기심의 방(Wunderkammer)’이 세계의 단면을 수집하고 배열하며 하나의 인식 구조를 만들어냈듯, 이 전시에서의 캐비닛은 회화를 감각적으로 기록하고 물리적으로 저장하는 장소로 작동한다. 기존의 사진 매체는 회화를 납작한 이미지로 환원시키며, 지지체의 물질성, 화면의 구조, 시간성과 같은 회화의 본질적 요소를 배제한다. 이에 반해, 프로타주는 회화와의 신체적 접촉을 통해 그 표면 너머의 두께, 굴곡, 질감, 잔여 정보 등을 비시각적 감각으로 기록하는 방식으로 기능한다. 이는 회화를 단순한 이미지가 아닌, 기록 가능한 물질이자 접촉 가능한 사건으로 인식하게 하며, 회화와 기록, 이미지와 구조 사이의 간극을 새롭게 사유하게 한다.
+                    <br><br>
+                    Cabinet is presented not merely as a structure for storage, but as a space for collecting and preserving what is invisible — a platform for exploring new methods of recording painting. Just as the historical Wunderkammer (cabinet of curiosities) gathered fragments of the world and organized them into a system of knowledge, the cabinet in this exhibition functions as a site for sensory recording and material archiving of painting. While traditional photography flattens painting into an image, excluding its material substrate, structural depth, and temporality, frottage offers an alternative approach. Through physical contact with the surface, frottage captures what lies beyond the visible — the thickness, texture, contours, and residual information of the work. In this context, painting is no longer approached merely as an image, but as a recordable material and a tactile event, opening a space to reflect on the gaps between painting and documentation, image and structure.
+                    <br>
+                </div>
+
+                 <div class="project-intro-text" data-project-id="Perigee Winter Show">
+                    Perigee Winter Show 2022<br><br>
+                    2022. 12. 1 ~2022. 12. 7<br>
+                     Perigee gallery, 18 Banpo-daero, Seocho-gu, Seoul, Korea
+                     <br>
+                </div>
+                
+                <div class="project-intro-text" data-project-id="Waiting Room">
+                   Waiting Room (2022)<br><br>
+                    2022. 12. 20 ~ 2022. 12. 31<br>
+                    Suchi, 5F, Rooftop, 63, Bomun-ro, Seongbuk-gu, Seoul, Korea<br>
+                </div>
+
+               
+                <div class="project-intro-text" data-project-id="The Wild Bunch">
+                   The Wild Bunch (2022)<br><br>
+                    2022. 9. 28 ~ 2022. 10. 09<br>
+                   ThisWeekendRoom, 30, Hannam-daero 42gil, Yongsan-gu, Seoul, Korea<br><br>
+                  <span class="fade-text">   Participating Artists: Jihyeong Son, Jonghwan Lee, Jisoo Lee, Jinyoung Lee, Yebin Chang, Moohyun Jo</span>
+                    <br>
+                </div>
+                
+                <div class="project-intro-text" data-project-id="Fonds">
+                    Fonds (2022)<br><br>
+                    2022.6.10 ~ 2022.6.19<br>
+                    Osisun, 26 Nonhyeon-ro 6-gil, Gangnam-gu, Seoul, Korea <br><br>
+                  <span class="fade-text">  Participating Artists: Jonghwan Lee, Jaegyun Im</span><br>
+                </div>
+                
+                <div class="project-intro-text" data-project-id="Room of Convexity and Concavity">
+                    Room of Convexity and Concavity (2022)<br><br>
+                    2022. 2. 26 ~ 2022. 3. 19<br>
+                    LaLaLab, 31 Seorae-ro, Seocho-gu, Seoul, Korea<br><br>
+                   <span class="fade-text"> Participating Artists: Jonghwan Lee, Sanggyun Lee</span><br>
+                </div>
+
+                <div class="project-intro-text" data-project-id="TORQUE 1">
+                    TORQUE 1 / GEAR SHIFT (2021) <br><br>
+                    2021. 2. 11 ~ 2021. 2. 26<br>
+                    CYLINDER ONE, 48 Yangnyeong-ro 1-gil, Gwanak-gu, Seoul, Korea<br><br>
+                   <span class="fade-text">  Participating Artists: Jonghwan Lee, Jaegyun Im, Eunbin Jeong</span><br>
+                    
+                </div>
+                
+                <div class="project-footer-text active" data-project-id="INDEX_DEFAULT">
+                    <p>Photo by San Choi</p>
+                </div>
+
+                <div class="project-footer-text" data-project-id="Loggia">
+                    <p>Photo by San Choi</p>
+                </div>
+
+                <div class="project-footer-text" data-project-id="Surgical Room">
+                    <p>Photo by CYLINDER</p>
+                </div>
+
+                <div class="project-footer-text" data-project-id="South Parade">
+                    <p>Photo by South Parade</p>
+                </div>
+
+                <div class="project-footer-text" data-project-id="Hypercube">
+                    <p>Photo by San Choi</p>
+                </div>
+                
+                <div class="project-footer-text" data-project-id="The Good Neighbor">
+                    <p>Photo by Euiriok Lee</p>
+                </div>
+
+                <div class="project-footer-text" data-project-id="Cabinet">
+                    <p>Photo by SES</p>
+                </div>
+                
+                <div class="project-footer-text" data-project-id="Waiting Room">
+                    <p></p>
+                </div>
+
+                <div class="project-footer-text" data-project-id="Perigee Winter Show">
+                    <p></p>
+                </div>
+
+                <div class="project-footer-text" data-project-id="The Wild Bunch">
+                    <p></p>
+                </div>
+                
+                <div class="project-footer-text" data-project-id="Fonds">
+                    <p>Photo by Ieon Yang</p>
+                </div>
+                
+                <div class="project-footer-text" data-project-id="Room of Convexity and Concavity">
+                    <p></p>
+                </div>
+
+                <div class="project-footer-text" data-project-id="TORQUE 1">
+                    <p>Photo by CYLINDER</p>
+                </div>
+
+
+            </div>
+            
+        </section>
+
     </div>
+    
+    <div id="fullscreen-modal" class="fullscreen-modal">
+        <span class="modal-close">&times;</span>
+        <div id="prev-btn" class="modal-nav-btn prev-btn">&#10094;</div>
+        <div id="modal-image-container" class="modal-content">
+            </div>
+        <div id="next-btn" class="modal-nav-btn next-btn">&#10095;</div>
+        <div id="modal-caption" class="modal-caption"></div> 
+
+</div>
 
     <script>
+        // 1. 이미지 데이터 정의
         const allImageData = [
-            // ⭐ 3. 사진 데이터 정리: 프로젝트당 1개씩만 유지 ⭐
-            // Room of Convexity and Concavity
-            { id: 'rcc_1', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'rcc', fileName: 'img1.jpg', description: 'Exhibition View, 2023', url: 'rcc/img1.jpg', isGroupMain: true },
-            
-            // Perigee Winter Show
-            { id: 'pws_1', projectId: 'Perigee Winter Show', isDefault: false, folder: 'pws', fileName: 'img1.jpg', description: 'Perigee Winter Show 2022 Exhibition View', url: 'pws/img1.jpg', isGroupMain: true },
-            
-            // Waiting Room
-            { id: 'wr_1', projectId: 'Waiting Room', isDefault: false, folder: 'wr', fileName: 'img1.jpg', description: 'Waiting Room Exhibition View, 2022', url: 'wr/img1.jpg', isGroupMain: true },
-            
-            // Scenery Fragment
-            { id: 'sf_1', projectId: 'Scenery Fragment', isDefault: false, folder: 'sf', fileName: 'img1.jpg', description: 'Scenery Fragment, 2021', url: 'sf/img1.jpg', isGroupMain: true },
+            // ⭐ 0. 인덱스 화면에 표시할 기본 작업물 (캐러셀 그룹으로 변경)
+            {   id: 'index_1', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_1.jpg', description: 'Loggia 2025', url: 'loggiaimages/loggia1.jpg',isGroupMain: true, groupId: 'INDEX_CAROUSEL'},
+            {   id: 'index_2', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_2.jpg', description: '', url: 'loggiaimages/loggia2.jpg',groupId: 'INDEX_CAROUSEL' },
+            {   id: 'index_3', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_3.jpg', description: '', url: 'loggiaimages/loggia3.jpg',groupId: 'INDEX_CAROUSEL' },
+            {   id: 'index_4', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_4.jpg', description: '', url: 'loggiaimages/loggia4.jpg',groupId: 'INDEX_CAROUSEL' },
+            {   id: 'index_5', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_5.jpg', description: '', url: 'loggiaimages/loggia5.jpg',groupId: 'INDEX_CAROUSEL' },
+            {   id: 'index_6', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_6.jpg', description: '', url: 'loggiaimages/loggia6.jpg',groupId: 'INDEX_CAROUSEL' },
+            {   id: 'index_7', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_7.jpg', description: '', url: 'loggiaimages/loggia7.jpg',groupId: 'INDEX_CAROUSEL' },
+            {   id: 'index_8', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_8.jpg', description: '', url: 'loggiaimages/loggia8.jpg',groupId: 'INDEX_CAROUSEL' },
+            {   id: 'index_9', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_9.jpg', description: '', url: 'loggiaimages/loggia9.jpg',groupId: 'INDEX_CAROUSEL' },
+            {   id: 'index_10', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_10.jpg', description: '', url: 'loggiaimages/loggia10.jpg',groupId: 'INDEX_CAROUSEL' },
+         
 
-            // The Bottom of the Wilderness
-            { id: 'tbw_1', projectId: 'The Bottom of the Wilderness', isDefault: false, folder: 'tbw', fileName: 'img1.jpg', description: 'The Bottom of the Wilderness, 2019', url: 'tbw/img1.jpg', isGroupMain: true },
+            // Loggia - 설치 전경 (Install_View_1)
+            { id: 'loggia_1', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia1.jpg', description: 'Installation View ', url: 'loggiaimages/loggia1.jpg', isGroupMain: true, groupId: 'Install_View_1'}, 
+            { id: 'loggia_2', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia2.jpg', description: '', url: 'loggiaimages/loggia2.jpg', groupId: 'Install_View_1'  },
+            { id: 'loggia_3', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia3.jpg', groupId: 'Install_View_1' },
+            { id: 'loggia_4', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia4.jpg', description: '', url: 'loggiaimages/loggia4.jpg', groupId: 'Install_View_1'},
+            { id: 'loggia_5', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia5.jpg', description: '', url: 'loggiaimages/loggia5.jpg', groupId: 'Install_View_1'},
+            { id: 'loggia_6', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia6.jpg',description: '',url: 'loggiaimages/loggia6.jpg', groupId: 'Install_View_1' },
+            { id: 'loggia_7', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia7.jpg',description: '',  url: 'loggiaimages/loggia7.jpg', groupId: 'Install_View_1' },
+            { id: 'loggia_8', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia8.jpg', description: '', url: 'loggiaimages/loggia8.jpg', groupId: 'Install_View_1' },
+            { id: 'loggia_9', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia9.jpg', description: '', url: 'loggiaimages/loggia9.jpg', groupId: 'Install_View_1' },
+            { id: 'loggia_10', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia10.jpg',description: '',url: 'loggiaimages/loggia10.jpg', groupId: 'Install_View_1'},
+                  
+            // Group 1: Breath of the Hollow (Breath_Hollow)
+            { id: 'loggia_12', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img1.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img1.jpg', isGroupMain: true, groupId: 'Breath_Hollow' },
+            { id: 'loggia_13', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img2.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img2.jpg', groupId: 'Breath_Hollow' },
+            { id: 'loggia_14', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img3.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img3.jpg', groupId: 'Breath_Hollow' },
+            { id: 'loggia_15', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img4.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img4.jpg', groupId: 'Breath_Hollow' },
+            { id: 'loggia_16', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img1-1.jpg', description: 'detail', url: '2025loggia1/img1-1.jpg', groupId: 'Breath_Hollow' },
+            { id: 'loggia_17', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img1-2.jpg', description: 'detail', url: '2025loggia1/img1-2.jpg', groupId: 'Breath_Hollow' },
             
-            // The Shadow
-            { id: 'ts_1', projectId: 'The Shadow', isDefault: false, folder: 'ts', fileName: 'img1.jpg', description: 'The Shadow, 2018', url: 'ts/img1.jpg', isGroupMain: true },
+            // Group: Threshold Guard (단일 이미지)
+            { id: 'loggia_18', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img5.jpg', description: 'Threshold Guard, 2025, Engraving and watercolor on panel, Iron Ball, 165x71cm', url: '2025loggia1/img5.jpg', isGroupMain: true, groupId: 'Threshold_Guard' },
+            
+            // Group 2: Silent Observer (Silent_Observer)
+            { id: 'loggia_21', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img6.jpg', description: 'Silent Observer, 2025, Engraving and watercolor on panel, Iron Ball, 175x62.5cm', url: '2025loggia1/img6.jpg', isGroupMain: true, groupId: 'Silent_Observer' },
+            { id: 'loggia_19', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img6-1.jpg', description: 'detail', url: '2025loggia1/img6-1.jpg', groupId: 'Silent_Observer' },
+            { id: 'loggia_20', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img6-2.jpg', description: 'detail', url: '2025loggia1/img6-2.jpg', groupId: 'Silent_Observer' },
+            
+            // Group: Echo Keeper (Echo_Keeper)
+            { id: 'loggia_24', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img7.jpg', description: 'Echo Keeper, 2025, Engraving and watercolor on panel, Iron Ball, 122.5x79cm', url: '2025loggia1/img7.jpg', isGroupMain: true, groupId: 'Echo_Keeper' },
+            { id: 'loggia_22', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img7-1.jpg', description: 'detail', url: '2025loggia1/img7-1.jpg', groupId: 'Echo_Keeper' },
+            { id: 'loggia_23', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img7-2.jpg', description: 'detail', url: '2025loggia1/img7-2.jpg', groupId: 'Echo_Keeper' },
+            
+            // Group: A Room Without Looking (A_Room_Without_Looking)
+            { id: 'loggia_25', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img8.jpg', description: 'A Room Without Looking, 2025, Paper(frotage), 41x164cm', url: '2025loggia2/img8.jpg', isGroupMain: true, groupId: 'A_Room_Without_Looking'  },
+            { id: 'loggia_26', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img9.jpg', description: 'detail', url: '2025loggia2/img9.jpg', groupId: 'A_Room_Without_Looking' },
+            { id: 'loggia_27', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img10.jpg', description: 'detail', url: '2025loggia2/img10.jpg', groupId: 'A_Room_Without_Looking' },
+            { id: 'loggia_28', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img11.jpg', description: 'detail', url: '2025loggia2/img11.jpg', groupId: 'A_Room_Without_Looking'},
+            
+            // Group: As It Sank In (As_It_Sank_In)
+            { id: 'loggia_29', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img12.jpg', description: 'As It Sank In, 2025, Plaster, 21x15.5cm', url: '2025loggia2/img12.jpg', isGroupMain: true, groupId: 'As_It_Sank_In'  },
+            { id: 'loggia_30', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img13.jpg', description: 'As It Sank In, 2025, Plaster, 21x15.5cm', url: '2025loggia2/img13.jpg', groupId: 'As_It_Sank_In'     },
+            
+            // Group: Shadowlight (Shadowlight)
+            { id: 'loggia_31', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img14.jpg', description: 'Shadowlight, 2025, Engraving and watercolor on panel, 30x30cm', url: '2025loggia2/img14.jpg', isGroupMain: true, groupId: 'Shadowlight'  },            
+            { id: 'loggia_32', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img14-1.jpg', description: 'detail', url: '2025loggia2/img14-1.jpg', groupId: 'Shadowlight' },
+            
+            // Group: Where Color Hesitates (Where_Color_Hesitates)
+            { id: 'loggia_33', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img15.jpg', description: 'Where Color Hesitates, 2025, Engraving and watercolor on panel, 39x160cm', url: '2025loggia2/img15.jpg', isGroupMain: true, groupId: 'Where_Color_Hesitates' },
+            
+            // Group: Through the Quiet Veil (Through_the_Quiet_Veil)
+            { id: 'loggia_34', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img16.jpg', description: 'Through the Quiet Veil, 2025, Engraving and watercolor on panel, Plaster, 170x60cm', url: '2025loggia2/img16.jpg', isGroupMain: true, groupId: 'Through_the_Quiet_Veil' },
+            
+            // Group: Beyond the Quiet Veil (Beyond_the_Quiet_Veil)
+            { id: 'loggia_35', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img17.jpg', description: 'Beyond the Quiet Veil, 2025, Engraving and watercolor on panel, Plaster, 170x60cm', url: '2025loggia2/img17.jpg', isGroupMain: true, groupId: 'Beyond_the_Quiet_Veil' },
 
-            // Perigee Winter Show (2020)
-            { id: 'pws20_1', projectId: 'Perigee Winter Show (2020)', isDefault: false, folder: 'pws20', fileName: 'img1.jpg', description: 'Perigee Winter Show 2020 Exhibition View', url: 'pws20/img1.jpg', isGroupMain: true },
+            // 나머지 프로젝트 (단일 이미지는 isGroupMain: true, groupId 없음)
 
-            // Waiting Room (2020)
-            { id: 'wr20_1', projectId: 'Waiting Room (2020)', isDefault: false, folder: 'wr20', fileName: 'img1.jpg', description: 'Waiting Room 2020 Exhibition View', url: 'wr20/img1.jpg', isGroupMain: true },
+
+            
+            { id: 'sr_1', projectId: 'Surgical Room', isDefault: false, folder: '2025surgicalroom', fileName: '1.jpg', description: 'Installation View', url: '2025surgicalroom/1.jpg', isGroupMain: true, groupId: 'Surgical_Group_A' },
+            { id: 'sr_2', projectId: 'Surgical Room', isDefault: false, folder: '2025surgicalroom', fileName: '4.jpg', description: '', url: '2025surgicalroom/4.jpg', groupId: 'Surgical_Group_A' },
+
+             { id: 'sr_3', projectId: 'Surgical Room', isDefault: false, folder: '2025surgicalroom', fileName: 'img1.jpg', description: 'As It Dissolves, 2025, Engraving and watercolour on panel, 79 x 45cm', url: '2025surgicalroom/img1.jpg', isGroupMain: true },
+              { id: 'sr_4', projectId: 'Surgical Room', isDefault: false, folder: '2025surgicalroom', fileName: 'img2.jpg', description: 'Pale Diaphanous Droplet, 2025, Engraving and watercolour on panel_122 x 60cm', url: '2025surgicalroom/img2.jpg', isGroupMain: true },
+              { id: 'sr_5', projectId: 'Surgical Room', isDefault: false, folder: '2025surgicalroom', fileName: 'img3.jpg', description: 'Before It falls, 2025, Engraving and watercolour on panel, 120 x 70cm', url: '2025surgicalroom/img3.jpg', isGroupMain: true },
+              { id: 'sr_6', projectId: 'Surgical Room', isDefault: false, folder: '2025surgicalroom', fileName: 'img4.jpg', description: 'The Breathing Stillness, 2025, Engraving and watercolour on panel, 23 x 18cm', url: '2025surgicalroom/img4.jpg', isGroupMain: true },
+            
+            
+            
+            { id: 'cyl_1', projectId: 'South Parade', isDefault: false, folder: 'cxs', fileName: '1.jpg', description: 'Installation View', url: 'cxs/1.jpg', isGroupMain: true, groupId: 'cxs_Group_A' },
+               { id: 'cyl_2', projectId: 'South Parade', isDefault: false, folder: 'cxs', fileName: '2.jpg', description: '', url: 'cxs/2.jpg', groupId: 'cxs_Group_A' },
+               { id: 'cyl_3', projectId: 'South Parade', isDefault: false, folder: 'cxs', fileName: 'img1.jpg', description: 'bulging forest, 2024, Engraving and watercolor on panel, 64.5 ×20 cm', url: 'cxs/img1.jpg', isGroupMain: true, groupId: 'cxs_Group_B' },
+               { id: 'cyl_4', projectId: 'South Parade', isDefault: false, folder: 'cxs', fileName: 'img1-1.jpg', description: 'detail', url: 'cxs/img1-1.jpg', groupId: 'cxs_Group_B' },
+               { id: 'cyl_5', projectId: 'South Parade', isDefault: false, folder: 'cxs', fileName: 'img2.jpg', description: 'Viscous tears trailed down the surface, 2024, Engraving and watercolor on panel, 89 ×53 cm', url: 'cxs/img2.jpg', isGroupMain: true },
+               { id: 'cyl_6', projectId: 'South Parade', isDefault: false, folder: 'cxs', fileName: 'img3.jpg', description: 'Eye Ⅶ, 2023, Engraving and watercolor on panel, 2 pieces of plaster, 131×119cm', url: 'cxs/img3.jpg', isGroupMain: true },
+
+
+            
+            { id: 'hyp_1', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube1.jpg', description: 'Exhibition View', url: 'hypercubeimages/hyercube1.jpg', isGroupMain: true,  groupId: 'hyp_Group_A' },
+             { id: 'hyp_2', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube2.jpg', description: '', url: 'hypercubeimages/hypercube2.jpg',   groupId: 'hyp_Group_A' },
+             { id: 'hyp_3', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube3.jpg', description: '', url: 'hypercubeimages/hypercube3.jpg',   groupId: 'hyp_Group_A' },
+             { id: 'hyp_4', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube4.jpg', description: '', url: 'hypercubeimages/hypercube4.jpg',   groupId: 'hyp_Group_A' },
+             { id: 'hyp_5', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube5.jpg', description: '', url: 'hypercubeimages/hypercube5.jpg',   groupId: 'hyp_Group_A' },
+             { id: 'hyp_6', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube6.jpg', description: '', url: 'hypercubeimages/hypercube6.jpg',   groupId: 'hyp_Group_A' },
+             { id: 'hyp_7', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube7.jpg', description: '', url: 'hypercubeimages/hypercube7.jpg',   groupId: 'hyp_Group_A' },
+             { id: 'hyp_8', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube8.jpg', description: '', url: 'hypercubeimages/hypercube8.jpg',   groupId: 'hyp_Group_A' },
+
+
+             { id: 'hyp_9', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img2.jpg', description: 'Eye Wave Ⅱ, 2023, Engraving and watercolour on panel, Plaster, Pendulum, 170 x 66cm', url: '2023hypercube/img2.jpg', isGroupMain: true},
+            
+            { id: 'hyp_10', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img3.jpg', description: 'Eye Wave Ⅰ, 2023, Engraving and watercolour on panel, Plaster, Pendulum, 170 x 66cm', url: '2023hypercube/img3.jpg', isGroupMain: true,  groupId: 'hyp_Group_B' },
+            { id: 'hyp_11', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img3-1.jpg', description: 'detail', url: '2023hypercube/img3-1.jpg', groupId: 'hyp_Group_B' },
+            
+            { id: 'hyp_12', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img4.jpg', description: 'EyeⅩⅠ,2023, Engraving and watercolour on panel, Plaster, 29 x 84cm', url: '2023hypercube/img4.jpg', isGroupMain: true   },
+            { id: 'hyp_13', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img5.jpg', description: 'Eye XⅢ, 2023, Engraving and watercolour on panel, 72 x 42cm', url: '2023hypercube/img5.jpg', isGroupMain: true },
+            
+            { id: 'hyp_14', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img6.jpg', description: 'Shadowy Waves, 2023, Engraving and watercolour on panel, Plaster, Pendulum, 39 x 285cm', url: '2023hypercube/img6.jpg', isGroupMain: true,  groupId: 'hyp_Group_D' },
+            { id: 'hyp_15', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img7.jpg', description: 'detail', url: '2023hypercube/img7.jpg',   groupId: 'hyp_Group_D' },
+            { id: 'hyp_16', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img8.jpg', description: 'detail', url: '2023hypercube/img8.jpg',   groupId: 'hyp_Group_D' },
+            { id: 'hyp_17', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img9.jpg', description: 'detail', url: '2023hypercube/img9.jpg',   groupId: 'hyp_Group_D' },
+            { id: 'hyp_18', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img10.jpg', description: 'detail', url: '2023hypercube/img10.jpg',   groupId: 'hyp_Group_D' },
+            
+            { id: 'hyp_19', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img11.jpg', description: 'EyeⅩ,2023, Engraving and watercolour on panel, plaster, 36 x 133cm', url: '2023hypercube/img11.jpg', isGroupMain: true },
+            { id: 'hyp_20', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img12.jpg', description: 'EyeⅩⅡ,2023, Engraving and watercolor on Panel, Plaster, 53x77cm', url: '2023hypercube/img12.jpg', isGroupMain: true },
+            { id: 'hyp_21', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img13.jpg', description: 'Narcissus V, 2023, Engraving and watercolour on panel, 28 x 74cm', url: '2023hypercube/img13.jpg', isGroupMain: true },
+            { id: 'hyp_22', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img14.jpg', description: 'Narcissus Ⅲ, 2023, Engraving, watercolour and graphite on panel, 28 x 23cm', url: '2023hypercube/img14.jpg', isGroupMain: true},
+            { id: 'hyp_23', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img15.jpg', description: 'Narcissus Ⅳ, 2023, Engraving, watercolour and graphite on panel, 28 x 23cm', url: '2023hypercube/img15.jpg', isGroupMain: true },
+
+
+            
+           { id: 'gn_1', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img1.jpg', description: 'Exhibition View', url: 'good/img1.jpg', isGroupMain: true,   groupId: 'gn_Group_A' },
+               { id: 'gn_2', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img2.jpg', description: '', url: 'good/img2.jpg',   groupId: 'gn_Group_A' },
+            
+               { id: 'gn_3', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img3.jpg', description: 'Eye VII, 2023, Engraving and watercolor on panel, 2 Pieces of plaster, 131×119cm', url: 'good/img3.jpg', isGroupMain: true },
+            
+               { id: 'gn_4', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img4.jpg', description: 'Eye VII(recode), 2023, Graphite on paper(Frottage), 140×129cm', url: 'good/img4.jpg', isGroupMain: true,   groupId: 'gn_Group_B' },
+               { id: 'gn_5', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img5.jpg', description: '', url: 'good/img5.jpg',   groupId: 'gn_Group_B'},
+            
+               { id: 'gn_6', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img6.jpg', description: 'Eye vii, 2023, Plaster casting, 30×21cm', url: 'good/img6.jpg', isGroupMain: true,   groupId: 'gn_Group_C' },
+               { id: 'gn_7', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img7.jpg', description: '', url: 'good/img7.jpg',   groupId: 'gn_Group_C'},
+               { id: 'gn_8', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img8.jpg', description: '', url: 'good/img8.jpg',   groupId: 'gn_Group_C' },
+               { id: 'gn_9', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img9.jpg', description: '', url: 'good/img9.jpg',   groupId: 'gn_Group_C' },
+               { id: 'gn_10', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img9-1.jpg', description: '', url: 'good/img9-1.jpg',   groupId: 'gn_Group_C' },
+
+
+            
+            { id: 'cb_1', projectId: 'Cabinet', isDefault: false, folder: 'cabineimages', fileName: 'cabinet1.jpg', description: 'Exhibition View', url: 'cabinetimages/cabinet1.jpg', isGroupMain: true },
+            
+                 { id: 'cb_3', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet3.jpg', description: '', url: 'cabinetimages/cabinet3.jpg', isGroupMain: true,   groupId: 'cab_Group_A' },
+                 { id: 'cb_4', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet4.jpg', description: '', url: 'cabinetimages/cabinet4.jpg',   groupId: 'cab_Group_A' },
+            
+                 { id: 'cb_8', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet8.jpg', description: '', url: 'cabinetimages/cabinet8.jpg', isGroupMain: true,   groupId: 'cab_Group_B' },
+                 { id: 'cb_7', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet7.jpg', description: '', url: 'cabinetimages/cabinet7.jpg',   groupId: 'cab_Group_B' },
+            
+                 { id: 'cb_5', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet5.jpg', description: '', url: 'cabinetimages/cabinet5.jpg', isGroupMain: true,   groupId: 'cab_Group_C' },
+                 { id: 'cb_6', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet6.jpg', description: '', url: 'cabinetimages/cabinet6.jpg' ,   groupId: 'cab_Group_C'},
+            
+                 { id: 'cb_9', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet9.jpg', description: 'detail', url: 'cabinetimages/cabinet9.jpg', isGroupMain: true,   groupId: 'cab_Group_F' },
+            
+                 { id: 'cb_10', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet10.jpg', description: '', url: 'cabinetimages/cabinet10.jpg',   groupId: 'cab_Group_F'  },
+            
+                 { id: 'cb_11', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet11.jpg', description: '', url: 'cabinetimages/cabinet11.jpg',   groupId: 'cab_Group_F'  },
+            
+                 { id: 'cb_12', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet12.jpg', description: '', url: 'cabinetimages/cabinet12.jpg', isGroupMain: true ,   groupId: 'cab_Group_D'},
+                 { id: 'cb_13', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet13.jpg', description: '', url: 'cabinetimages/cabinet13.jpg' ,   groupId: 'cab_Group_D'},
+         
+                 { id: 'cb_14', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet14.jpg', description: 'Exhibition View', url: 'cabinetimages/cabinet14.jpg', isGroupMain: true,   groupId: 'cab_Group_E' },
+                 { id: 'cb_15', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet15.jpg', description: '', url: 'cabinetimages/cabinet15.jpg',   groupId: 'cab_Group_E'},
+
+
+            
+            { id: 'wr_1', projectId: 'Waiting Room', isDefault: false, folder: 'waitingroom', fileName: 'wr_1.jpg', description: 'SED_DO / Waiting Room (Group) / 2022', url: 'https://placehold.co/600x600/f39c12/ffffff?text=WAITING_ROOM_1', isGroupMain: true },
+            { id: 'pws_1', projectId: 'Perigee Winter Show', isDefault: false, folder: 'perigee', fileName: 'pws_1.jpg', description: 'SED_DO / Perigee Winter Show 2022 / 2022', url: 'https://placehold.co/800x450/9b59b6/ffffff?text=PERIGEE_WINTER_1', isGroupMain: true },
+           
+            
+               { id: 'twb_1', projectId: 'The Wild Bunch', isDefault: false, folder: '2022TWR', fileName: '1.jpg', description: 'Exhibition View', url: '2022TWR/1.jpg', isGroupMain: true,   groupId: 'twr_Group_A' },
+            { id: 'twb_2', projectId: 'The Wild Bunch', isDefault: false, folder: '2022TWR', fileName: '2.jpg', description: '', url: '2022TWR/2.jpg',   groupId: 'twr_Group_A'},
+            { id: 'twb_3', projectId: 'The Wild Bunch', isDefault: false, folder: '2022TWR', fileName: 'img2.jpg', description: 'EyeⅠ, 2022, Engraving, watercolor and graphite on panel, Aluminum, Plaster, 24.2×40.9 cm', url: '2022TWR/img2.jpg', isGroupMain: true },
+            { id: 'twb_4', projectId: 'The Wild Bunch', isDefault: false, folder: '2022TWR', fileName: 'img3.jpg', description: 'EyeⅢ, 2022, Engraving, watercolor and graphite on panel, Aluminum, Plaster, 90×91 cm', url: '2022TWR/img3.jpg', isGroupMain: true },
+
+            
+            { id: 'fnd_1', projectId: 'Fonds', isDefault: false, folder: '2022fonds', fileName: '1.jpg', description: 'Exhibition View', url: '2022fonds/1.jpg', isGroupMain: true,   groupId: 'fon_Group_A' },
+             { id: 'fnd_2', projectId: 'Fonds', isDefault: false, folder: '2022fonds', fileName: '2.jpg', description: '', url: '2022fonds/2.jpg',   groupId: 'fon_Group_A' },
+             { id: 'fnd_3', projectId: 'Fonds', isDefault: false, folder: '2022fonds', fileName: '3.jpg', description: '', url: '2022fonds/3.jpg',   groupId: 'fon_Group_A' },
+
+             { id: 'fnd_4', projectId: 'Fonds', isDefault: false, folder: '2022fonds', fileName: 'img1.jpg', description: 'Eye, 2022, Engraving and watercolor on panel, Aluminum, Plaster, 145x145cm', url: '2022fonds/img1.jpg', isGroupMain: true,   groupId: 'fon_Group_B' },
+             { id: 'fnd_5', projectId: 'Fonds', isDefault: false, folder: '2022fonds', fileName: 'img1-1.jpg', description: 'detail', url: '2022fonds/img1-1.jpg',   groupId: 'fon_Group_B'},
+
+              { id: 'fnd_6', projectId: 'Fonds', isDefault: false, folder: '2022fonds', fileName: 'img2.jpg', description: 'Eye, 2022, Engraving and watercolor on panel, Aluminum, Plaster, 117x117cm', url: '2022fonds/img2.jpg', isGroupMain: true,   groupId: 'fon_Group_C' },
+             { id: 'fnd_7', projectId: 'Fonds', isDefault: false, folder: '2022fonds', fileName: 'img2-1.jpg', description: 'detail', url: '2022fonds/img2-1.jpg',   groupId: 'fon_Group_C' },
+           
+            
+            
+            { id: 'rcc_1', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img1.jpg', description: 'Exhibition View', url: 'lala/img1.jpg', isGroupMain: true,   groupId: 'la_Group_A' },
+            { id: 'rcc_2', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img1-1.jpg', description: '', url: 'lala/img1-1.jpg',  groupId: 'la_Group_A' },
+             { id: 'rcc_3', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img2.jpg', description: '', url: 'lala/img2.jpg',  groupId: 'la_Group_A' },
+             { id: 'rcc_4', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img3.jpg', description: '', url: 'lala/img3.jpg',  groupId: 'la_Group_A' },
+             { id: 'rcc_5', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img4.jpg', description: '', url: 'lala/img4.jpg',  groupId: 'la_Group_A' },
+             { id: 'rcc_6', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img5.jpg', description: '', url: 'lala/img5.jpg',  groupId: 'la_Group_A' },
+
+             { id: 'rcc_7', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img6-2.jpg', description: 'detail', url: 'lala/img6-2.jpg', isGroupMain: true,  groupId: 'la_Group_B' },
+            { id: 'rcc_8', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img6-3.jpg', description: 'detail', url: 'lala/img6-3.jpg',  groupId: 'la_Group_B' },
+            { id: 'rcc_9', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img6.jpg', description: '', url: 'lala/img6.jpg',  groupId: 'la_Group_B' },
+            { id: 'rcc_10', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img6-1.jpg', description: '', url: 'lala/img6-1.jpg',  groupId: 'la_Group_B' },
+
+            { id: 'rcc_11', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '1.jpg', description: 'Mirror, 2021, Engraving and watercolor on panel, 130.3x97cm', url: 'lala2/1.jpg', isGroupMain: true },
+                { id: 'rcc_12', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '2.jpg', description: '', url: 'lala2/2.jpg', isGroupMain: true },
+                { id: 'rcc_13', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '3.jpg', description: 'One more (translation),2021, Engraving and watercolor on panel, Graphite, 53x33.4cm', url: 'lala2/3.jpg', isGroupMain: true },
+                { id: 'rcc_14', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '4.jpg', description: 'One more (wrapping),2021, Engraving and watercolor on panel, Graphite, 53x33.4cm', url: 'lala2/4.jpg', isGroupMain: true },
+                { id: 'rcc_15', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '5.jpg', description: 'Frico, 2021, Engraving and watercolor on panel, Graphite, 35x35cm', url: 'lala2/5.jpg', isGroupMain: true },
+                { id: 'rcc_16', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '6.jpg', description: 'Still-life (wrapping), 2021, Engraving and watercolor on panel, Graphite, 45.5x37.5cm', url: 'lala2/6.jpg', isGroupMain: true },
+                { id: 'rcc_17', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '7.jpg', description: '찢어진 종이, 2021, Engraving and watercolor on panel, Graphite, 30x30cm', url: 'lala2/7.jpg', isGroupMain: true },
+
+                { id: 'rcc_18', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '8.jpg', description: 'Shadow, 2020, Graphite on paper, 72.7x53cm', url: 'lala2/8.jpg', isGroupMain: true,  groupId: 'la_Group_C'  },
+                { id: 'rcc_19', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '8-1.jpg', description: 'Shadow, 2020, Graphite on paper, 72.7x53cm', url: 'lala2/8-1.jpg',  groupId: 'la_Group_C' },
+
+                { id: 'rcc_20', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '9.jpg', description: '', url: 'lala2/9.jpg', isGroupMain: true },
+
+
+
+            
+            { id: 'rcc_21', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img7.jpg', description: 'Mazzochio, 2021, Scratching and watercolor on aluminum, Graphite, 29.7x21cm', url: 'lala/img7.jpg', isGroupMain: true },
+            
+            { id: 'rcc_22', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img8.jpg', description: 'David, 2021, Scratching and watercolor on aluminum, Graphite, 29.7x21cm', url: 'lala/img8.jpg', isGroupMain: true },
+            
+            { id: 'rcc_23', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img9.jpg', description: 'Mazzochio, 2021, Scratching and watercolor on aluminum, Graphite, 29.7x21cm', url: 'lala/img9.jpg', isGroupMain: true },
+
+            
+            
+            
+           
+ 
+
+
+            
+            { id: 'tq_1', projectId: 'TORQUE 1', isDefault: false, folder: 'cylinder', fileName: '1.jpg', description: 'Exhibition View', url: 'cylinder/1.jpg', isGroupMain: true ,   groupId: 'tor_Group_C'},
+             { id: 'tq_2', projectId: 'TORQUE 1', isDefault: false, folder: 'cylinder', fileName: '2.jpg', description: '', url: 'cylinder/2.jpg',   groupId: 'tor_Group_C' },
+
+             { id: 'tq_3', projectId: 'TORQUE 1', isDefault: false, folder: 'cylinder', fileName: 'img1.jpg', description: 'Image Swipe, 2020, Engraving and watercolor on panel, Graphite, 194x130cm', url: 'cylinder/img1.jpg', isGroupMain: true },
+             { id: 'tq_4', projectId: 'TORQUE 1', isDefault: false, folder: 'cylinder', fileName: 'img2.jpg', description: 'Wipe #1, 2020, Engraving and watercolor on panel, Graphite, 194x130cm', url: 'cylinder/img2.jpg', isGroupMain: true },
+
+            
         ];
-        // ⭐ 3. 사진 데이터 정리 끝 ⭐
 
-        let currentModalImageId = null;
-        let currentFilteredImages = [];
+        // ⭐ 1. 캐러셀 관련 전역 변수 설정
+        let groupCarouselTimeout = null; 
+        const groupCurrentIndexMap = {}; // 각 그룹 ID별 현재 이미지 인덱스를 추적
+        const CAROUSEL_INTERVAL_MS = 5000; // 5초 간격
+        const TRANSITION_DURATION_MS = 100; // ⭐ [수정] 전환 속도 0.1초 (100ms)로 변경
 
-        const modal = document.getElementById('modal');
-        const modalImageContainer = document.getElementById('modal-image-container');
-        const modalTitle = document.querySelector('.modal-title');
-        const mainVisual = document.getElementById('main-visual');
-
-        // ⭐ 2. 캐러셀 관련 함수는 2열 그리드 구현을 위해 제거되거나 대체됩니다. ⭐
-        // - transitionImage 함수 제거
-        // - updateModalContent 함수 제거 (openModal 내부에 통합)
-        // - showNextModalImage 함수 제거
-
-        /**
-         * @function openModal
-         * 모달을 열고 해당 프로젝트의 모든 이미지를 2열 그리드로 렌더링합니다. (핵심 수정)
-         */
-        const openModal = (projectId) => {
-            // 1. 해당 프로젝트 ID의 모든 이미지 데이터를 가져옵니다.
-            const targetProjectImages = allImageData.filter(item => item.projectId === projectId);
-            
-            if (targetProjectImages.length === 0) {
-                console.warn(`No images found for project ID: ${projectId}`);
-                alert(`Error: ${projectId} 프로젝트의 이미지를 찾을 수 없습니다. (데이터 누락)`);
-                return;
-            }
-            
-            // 2. 모달 컨테이너 초기화 및 제목 설정
-            modalImageContainer.innerHTML = '';
-            modalTitle.textContent = targetProjectImages[0].projectId; // 프로젝트 제목 표시
-            
-            // 3. 이미지들을 반복하여 그리드 아이템으로 추가
-            targetProjectImages.forEach(image => {
-                // 개별 이미지 아이템 컨테이너 (그리드 항목)
-                const gridItem = document.createElement('div');
-                gridItem.classList.add('gallery-grid-item');
-                
-                // 이미지 태그
-                const img = document.createElement('img');
-                img.classList.add('gallery-image');
-                img.src = image.url; 
-                img.alt = image.fileName;
-                
-                gridItem.appendChild(img);
-                
-                // 캡션 추가
-                if (image.description && image.description.trim() !== '') {
-                    const caption = document.createElement('div');
-                    caption.classList.add('gallery-item-caption');
-                    caption.innerHTML = image.description;
-                    gridItem.appendChild(caption);
-                }
-                
-                modalImageContainer.appendChild(gridItem);
-            });
-            
-            // 4. 모달 표시
-            modal.classList.add('show');
-            
-            // 5. URL 상태 업데이트 
-            history.pushState({ modalOpen: true, projectId: projectId }, 'Modal Open', `#modal-${projectId}`); 
-        };
-
-        const closeModal = () => {
-            modal.classList.remove('show');
-            
-            // 모달 닫기 시 URL에서 #modal 상태를 제거합니다.
-            if (history.state && history.state.modalOpen) {
-                history.back(); // history.pushState로 추가된 상태를 닫습니다.
-            }
-        }
-        
-        // 캐러셀 관련 기능은 2열 그리드에서 더 이상 사용하지 않으므로, 기존 함수를 빈 함수로 대체하여 오류를 방지합니다.
-        const updateModalContent = () => { /* 2열 갤러리에서는 사용하지 않습니다. */ };
-        const showNextModalImage = () => { /* 2열 갤러리에서는 사용하지 않습니다. */ };
-
-        /**
-         * @function updateMainVisual
-         * 왼쪽 목록을 스크롤할 때 오른쪽 메인 이미지를 업데이트합니다.
-         */
-        const updateMainVisual = () => {
-            const projectRows = document.querySelectorAll('.table-row.item a');
-            let mainVisualSet = false;
-
-            // 스크롤 위치를 기준으로 가장 위에 있는 프로젝트를 찾습니다.
-            for (let i = 0; i < projectRows.length; i++) {
-                const row = projectRows[i].closest('.table-row');
-                const rect = row.getBoundingClientRect();
-                
-                // 요소가 left-panel 상단 100px 이내에 들어왔을 때
-                if (rect.top >= 0 && rect.top <= 100) { 
-                    const projectId = projectRows[i].getAttribute('data-project-id');
-                    
-                    // 해당 프로젝트의 isGroupMain: true 이거나 첫 번째 이미지를 찾습니다.
-                    const mainImage = allImageData.find(item => 
-                        item.projectId === projectId && item.isGroupMain
-                    ) || allImageData.find(item => item.projectId === projectId);
-
-                    if (mainImage) {
-                        if (mainVisual.src !== mainImage.url) {
-                            mainVisual.style.opacity = 0;
-                            setTimeout(() => {
-                                mainVisual.src = mainImage.url;
-                                mainVisual.alt = mainImage.description;
-                                mainVisual.style.opacity = 1;
-                            }, 100); // 짧은 페이드 아웃 후 이미지 변경
-                        }
-                        mainVisualSet = true;
-                    }
-                    break;
-                }
-            }
-            
-            // 스크롤 위치가 맨 위에 있고 첫 이미지가 설정되지 않았다면, 첫 번째 프로젝트의 메인 이미지를 보여줍니다.
-            if (!mainVisualSet && mainVisual.src === '') {
-                const firstProjectId = projectRows[0].getAttribute('data-project-id');
-                const firstMainImage = allImageData.find(item => item.projectId === firstProjectId);
-                 if (firstMainImage) {
-                    mainVisual.src = firstMainImage.url;
-                    mainVisual.alt = firstMainImage.description;
-                }
-            }
-        };
-
-        // 초기 로드 시 메인 비주얼 설정 및 스크롤 이벤트 연결
         document.addEventListener('DOMContentLoaded', () => {
-            const leftPanel = document.querySelector('.left-panel');
-            const projectLinks = document.querySelectorAll('.table-row.item a');
+            const projectLinks = document.querySelectorAll('.project-table .tilte a');
+            const workListContainer = document.querySelector('.right-panel .selected-work-list'); 
+            const jhlReset = document.getElementById('jhl-reset');
             
-            // 1. 링크 클릭 이벤트 설정
+            const projectIntroTexts = document.querySelectorAll('.project-intro-text'); 
+            const projectFooterTexts = document.querySelectorAll('.project-footer-text'); 
+
+            let activeFilterId = null; 
+            
+            const modal = document.getElementById('fullscreen-modal');
+            const modalImageContainer = document.getElementById('modal-image-container');
+            const modalClose = modal.querySelector('.modal-close');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const modalCaption = document.getElementById('modal-caption'); 
+
+            let currentModalImageId = null;
+            let currentFilteredImages = []; 
+            
+            
+            /**
+             * 특정 그룹 ID에 속한 모든 이미지 데이터를 반환합니다.
+             */
+            const getGroupImages = (groupId) => {
+                const groupItems = allImageData.filter(item => item.groupId === groupId);
+                
+                // ⭐ [수정 1] Install_View_1 그룹에 대해 숫자 기반 정렬을 수행합니다.
+                if (groupId === 'Install_View_1') {
+                    return groupItems.sort((a, b) => {
+                        // loggia_1, loggia_2, ... loggia_10에서 숫자 부분만 추출하여 정렬
+                        const numA = parseInt(a.id.split('_')[1]);
+                        const numB = parseInt(b.id.split('_')[1]);
+                        return numA - numB;
+                    });
+                } else {
+                    // 그 외 그룹은 기존의 문자열 기반 정렬을 유지합니다.
+                    return groupItems.sort((a, b) => a.id.localeCompare(b.id)); 
+                }
+            };
+            
+            
+            // ⭐ 2. 캐러셀 중지 함수 (Update: clearTimeout 사용)
+            const stopCarousel = () => {
+                if (groupCarouselTimeout) {
+                    clearTimeout(groupCarouselTimeout);
+                    groupCarouselTimeout = null;
+                }
+            };
+            
+            /**
+             * ⭐ 3. 개별 그룹 이미지 순환 함수 (크로스 페이드 구현)
+             */
+            const cycleGroupImage = () => {
+                const mainGroupItems = document.querySelectorAll('.work-item[data-group-main="true"][data-group-id]');
+                const transitionPromises = []; 
+
+                mainGroupItems.forEach(item => {
+                    const groupId = item.dataset.groupId;
+                    if (!groupId) return;
+
+                    const groupImages = getGroupImages(groupId);
+                    if (groupImages.length <= 1) return; 
+
+                    let currentIndex = groupCurrentIndexMap[groupId] !== undefined ? groupCurrentIndexMap[groupId] : 0;
+                    
+                    const nextIndex = (currentIndex + 1) % groupImages.length;
+                    const nextImage = groupImages[nextIndex];
+                    
+                    const visualContainer = item.querySelector('.work-visual');
+                    // 현재 활성화된 이미지를 찾습니다. (초기 렌더링 시 .active 클래스를 부여함)
+                    const activeImgElement = visualContainer.querySelector('img.active');
+                    if (!activeImgElement) return;
+
+                    const transitionPromise = new Promise(resolve => {
+                        // 1. 다음 이미지를 미리 로드할 Image 객체 생성
+                        const preloader = new Image();
+                        preloader.src = nextImage.url;
+                        
+                        // 2. ⭐ 로딩 완료 시 처리: 겹쳐지는 크로스 페이드 전환 시작
+                        preloader.onload = () => {
+                            // a. 새 이미지 요소 생성 및 컨테이너에 추가 (opacity: 0 상태)
+                            const newImgElement = document.createElement('img');
+                            newImgElement.src = preloader.src; // 이미 로드된 URL 설정
+                            newImgElement.alt = `${nextImage.folder}/${nextImage.fileName}`;
+                            newImgElement.classList.add('active'); // 새 이미지에 'active' 클래스 부여
+                            newImgElement.style.opacity = '0'; // 초기 투명 상태
+
+                            // 새 이미지를 DOM에 추가하여 기존 이미지 위에 겹치게 함
+                            visualContainer.appendChild(newImgElement);
+
+                            // b. DOM이 업데이트된 후, 다음 프레임에서 트랜지션을 시작합니다.
+                            // 렌더링 시간 확보를 위한 짧은 딜레이
+                            setTimeout(() => {
+                                // 새 이미지 페이드 인 시작
+                                newImgElement.style.opacity = '1';
+                                // 기존 이미지 페이드 아웃 시작 (겹치기)
+                                activeImgElement.style.opacity = '0'; 
+                                activeImgElement.classList.remove('active'); // 기존 이미지 'active' 제거
+                                
+                                // c. ⭐ 전환 시간(0.1s) 후 정리 작업 수행
+                                setTimeout(() => {
+                                    // 완전히 페이드 아웃된 기존 이미지 요소 제거
+                                    activeImgElement.remove();
+                                    
+                                    // d. 인덱스 업데이트
+                                    groupCurrentIndexMap[groupId] = nextIndex;
+                                    
+                                    // e. 다음 주기를 예약하기 위해 resolve
+                                    resolve(); 
+                                }, TRANSITION_DURATION_MS); // 0.1s
+                            }, 50); // 짧은 딜레이로 DOM 적용 대기
+                        };
+
+                        // 3. 로딩 실패 시: 인덱스만 업데이트하고 즉시 완료 처리
+                        preloader.onerror = () => {
+                            console.error(`Failed to load image: ${nextImage.url}`);
+                            groupCurrentIndexMap[groupId] = nextIndex; // 다음 인덱스로 넘김
+                            resolve(); 
+                        };
+                    });
+                    
+                    transitionPromises.push(transitionPromise);
+                });
+                
+                // 모든 그룹의 전환 완료 Promise를 반환
+                return Promise.all(transitionPromises);
+            };
+
+
+            // ⭐ 4. 캐러셀 시작 함수 (Update: 재귀적 setTimeout 루프 관리)
+            const startCarousel = () => {
+                stopCarousel(); // 이중 실행 방지
+                
+                // [수정 2-B] 캐러셀 시작 조건 변경: activeFilterId가 'INDEX_DEFAULT'여도 그룹이 있으면 시작
+                const hasGroupItems = allImageData.filter(item => 
+                    item.projectId === activeFilterId && item.groupId
+                ).length > 0;
+
+                const shouldStart = hasGroupItems; // 그룹 항목 존재 여부만 확인하여 전환 시작
+                                           
+                if (!shouldStart) return;
+
+                // 재귀 루프 정의
+                const loop = () => {
+                    // cycleGroupImage는 이미지 로드 + 전환 완료 후 resolve되는 Promise를 반환합니다.
+                    cycleGroupImage() 
+                        .then(() => {
+                            // 전환이 완료되면, 3초의 대기 시간을 가집니다.
+                            groupCarouselTimeout = setTimeout(loop, CAROUSEL_INTERVAL_MS);
+                        })
+                        .catch(error => {
+                            console.error("Carousel transition error:", error);
+                            // 오류 발생 시에도 다음 주기 시도를 위해 대기 후 재호출
+                            groupCarouselTimeout = setTimeout(loop, CAROUSEL_INTERVAL_MS);
+                        });
+                };
+                
+                // 최초 실행
+                loop();
+            };
+
+
+            /**
+             * 오른쪽 패널의 작업물 목록을 렌더링하고 상단/하단 텍스트 가시성을 업데이트합니다.
+             */
+            const renderWorkList = (filterId = 'INDEX_DEFAULT') => {
+                
+                // 1. ⭐ 기존 캐러셀 중지
+                stopCarousel();
+                activeFilterId = filterId; // 활성 필터 ID 업데이트
+                
+                // 2. 필터링된 데이터 준비 (모달 내비게이션용)
+                let filteredData;
+                
+                // INDEX_DEFAULT는 isDefault가 true인 항목, 나머지는 projectId가 일치하는 항목을 사용
+                if (filterId === 'INDEX_DEFAULT') {
+                    filteredData = allImageData.filter(item => item.isDefault);
+                } else {
+                    filteredData = allImageData.filter(item => item.projectId === filterId);
+                }
+                
+                // ⭐ [수정 1 반영] Loggia 등 새로 진입한 프로젝트의 모든 그룹 인덱스를 0으로 초기화
+                 filteredData.forEach(item => {
+                    if (item.groupId) {
+                        groupCurrentIndexMap[item.groupId] = 0;
+                    }
+                });
+
+                
+                // 3. ⭐ 메인 패널에 렌더링할 항목을 필터링합니다. (isGroupMain: true 항목만)
+                let itemsToRenderInMain = [];
+                
+                // isGroupMain이 true인 항목만 렌더링 (즉, 캐러셀 그룹의 대표 이미지만)
+                const mainItems = filteredData.filter(item => item.isGroupMain === true);
+                
+                // isGroupMain 항목이 있다면 그것만 렌더링, 없다면 전체를 렌더링 (후자를 통해 데이터 오류 방지)
+                itemsToRenderInMain = mainItems.length > 0 ? mainItems : filteredData;
+
+                
+                // 4. 렌더링할 항목들을 HTML로 변환합니다.
+                let workItemsHtml = itemsToRenderInMain.map(image => {
+                    const isDefaultAttr = image.isDefault ? 'data-is-default="true"' : '';
+                    // ⭐ groupId 속성 추가
+                    const groupIdAttr = image.groupId ? `data-group-id="${image.groupId}"` : '';
+                    // ⭐ isGroupMain 속성도 명시적으로 추가
+                    const isGroupMainAttr = image.isGroupMain ? 'data-group-main="true"' : '';
+                    
+                    // ⭐ 그룹의 첫 번째 이미지 URL을 가져옵니다.
+                    const initialImageUrl = image.groupId && image.isGroupMain 
+                        ? getGroupImages(image.groupId)[0].url // 안전하게 첫 번째 이미지 URL을 가져옴
+                        : image.url;
+
+                    // ⭐ [수정] 초기 이미지에 active 클래스를 부여하여 시작 시점의 '현재' 이미지를 식별합니다.
+                    return `
+                        <article class="work-item" data-project-id="${image.projectId}" data-image-id="${image.id}" ${isDefaultAttr} ${groupIdAttr} ${isGroupMainAttr}>
+                            <div class="work-visual">
+                                <img src="${initialImageUrl}" 
+                                     alt="${image.folder}/${image.fileName}" 
+                                     class="active"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/600x300/CCCCCC/333333?text=Image+Load+Failed';">
+                            </div>
+                            <div class="work-header">
+                                <span class="full-description">${image.description}</span>
+                            </div>
+                        </article>
+                    `;
+                }).join('');
+                
+                // 5. 정적 텍스트 블록들을 분리하고 다시 추가합니다.
+                const introTexts = Array.from(workListContainer.querySelectorAll('.project-intro-text'));
+                const footerTexts = Array.from(workListContainer.querySelectorAll('.project-footer-text')); 
+                
+                workListContainer.innerHTML = '';
+                introTexts.forEach(text => workListContainer.appendChild(text));
+                
+                workListContainer.insertAdjacentHTML('beforeend', workItemsHtml);
+
+                footerTexts.forEach(text => workListContainer.appendChild(text));
+
+                document.querySelector('.right-panel').scrollTop = 0;
+                
+                // 6. 상단/하단 텍스트 가시성 관리
+                projectIntroTexts.forEach(textBlock => {
+                    textBlock.classList.remove('active');
+                    if (textBlock.dataset.projectId === filterId) {
+                        textBlock.classList.add('active');
+                    }
+                });
+                
+                projectFooterTexts.forEach(textBlock => {
+                    textBlock.classList.remove('active');
+                    if (textBlock.dataset.projectId === filterId) {
+                        textBlock.classList.add('active');
+                    }
+                });
+
+                // 7. 모달용으로 전체 필터링된 데이터(숨겨진 이미지 포함)를 저장합니다.
+                currentFilteredImages = filteredData;
+                
+                // 8. ⭐ 캐러셀 시작
+                startCarousel();
+            };
+
+  // =========================================================================
+// ⭐ [최종] 전체화면 모달 전환 함수 (로딩 완료 후 즉시 전환) ⭐
+// =========================================================================
+const updateModalContent = (imageId) => {
+    // 주의: currentFilteredImages는 현재 그룹의 이미지 목록입니다.
+    const targetImage = currentFilteredImages.find(item => item.id === imageId);
+    
+    if (!targetImage) return;
+
+    // 1. 새 이미지 로드를 위한 임시 객체 생성
+    const tempLoader = new Image();
+    tempLoader.alt = `${targetImage.folder}/${targetImage.fileName}`;
+    
+    // ⭐ 2. 로딩 완료 시 실행할 함수 (이전 사진을 대체)
+    tempLoader.onload = () => {
+        // 로드가 완료되었으므로 이제 DOM을 업데이트합니다.
+        
+        // A. 새 이미지 DOM 요소 생성
+        const newImg = document.createElement('img');
+        newImg.alt = tempLoader.alt; 
+        newImg.src = tempLoader.src; 
+        newImg.style.objectFit = 'contain'; 
+        newImg.style.transition = 'none'; // 겹침 방지를 위해 전환 효과 제거
+        newImg.style.opacity = '1'; 
+        newImg.style.transform = 'scale(1)'; 
+
+        // B. 이전 이미지 제거 및 새 이미지 추가
+        // 이전 이미지를 제거하고 (로드가 완료될 때까지 이전 이미지가 유지됨)
+        modalImageContainer.innerHTML = ''; 
+        // 새 이미지를 컨테이너에 추가 (즉시 전환)
+        modalImageContainer.appendChild(newImg);
+        
+        // C. 캡션 및 ID 업데이트
+        currentModalImageId = targetImage.id;
+        modalCaption.innerHTML = `<div class="work-header"><span class="full-description">${targetImage.description}</span></div>`;
+        
+        // D. 내비게이션 버튼 업데이트
+        updateNavButtons();
+    };
+    
+    // ⭐ 3. 로드 실패 시
+    tempLoader.onerror = () => {
+        console.error(`이미지 로드 실패: ${targetImage.url}`);
+        // 로드 실패 시 아무것도 하지 않아 이전 사진이 유지되도록 함
+    };
+
+    // 4. 로드 시작 (src를 할당하여 로딩 시작)
+    tempLoader.src = targetImage.url; 
+    
+    // ⭐ 중요: 로딩이 완료될 때까지 DOM(modalImageContainer)은 업데이트하지 않습니다.
+    // 따라서 로딩 중에는 이전 이미지가 그대로 화면에 남아있게 됩니다.
+};
+// =========================================================================
+            
+            // ⭐ 모달 버튼 상태 업데이트 함수: groupId 기반으로 모달 순서 결정
+            const updateNavButtons = () => {
+                // currentFilteredImages는 이미 모달 열기 시 그룹 데이터로 설정되어 있습니다.
+                const navigableImages = currentFilteredImages;
+                const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
+                
+                // 모바일이 아닐 때만 버튼을 표시
+                if (window.innerWidth > 768) { 
+                    prevBtn.style.display = (currentIndex > 0) ? 'block' : 'none';
+                    nextBtn.style.display = (currentIndex < navigableImages.length - 1) ? 'block' : 'none';
+                } else {
+                    // 모바일에서는 항상 숨김 (CSS에서도 처리하지만 JS에서도 안전하게 처리)
+                    prevBtn.style.display = 'none';
+                    nextBtn.style.display = 'none';
+                }
+            };
+            
+            // ⭐ 모달 열기 시 그룹 데이터로 필터링
+            const openModal = (imageId) => {
+                
+                // 1. 클릭된 이미지 정보 획득
+                const clickedImage = allImageData.find(item => item.id === imageId);
+                if (!clickedImage) return;
+
+                // 2. ⭐ 캐러셀 중지
+                stopCarousel();
+                
+                // 3. 모달에 사용할 이미지 리스트 결정:
+                let modalImages;
+                if (clickedImage.groupId) {
+                    // groupId가 있으면, 해당 그룹의 모든 이미지를 모달 이미지로 사용
+                    modalImages = getGroupImages(clickedImage.groupId); // Helper function 사용
+                } else if (activeFilterId === 'INDEX_DEFAULT') {
+                     // INDEX_DEFAULT는 isDefault가 true인 항목 전체를 모달 데이터로 사용 (그룹핑 무시)
+                     modalImages = allImageData.filter(item => item.isDefault);
+                } else {
+                    // 그 외 (groupId가 없지만 프로젝트가 활성화된 경우), 해당 프로젝트의 모든 이미지를 모달 이미지로 사용
+                    modalImages = allImageData.filter(item => item.projectId === activeFilterId);
+                }
+                
+                // 4. currentFilteredImages를 모달 내비게이션 리스트로 업데이트
+                currentFilteredImages = modalImages;
+                
+                // 5. 모달 콘텐츠 업데이트 및 표시
+                updateModalContent(imageId);
+                modal.classList.add('show');
+                
+                // ⭐ [수정 2-A] 모달 열기 시 history.pushState를 사용하여 URL에 상태를 추가합니다.
+                history.pushState({ modalOpen: true }, 'Modal Open', '#modal');
+            }
+
+
+            // 초기 필터링 및 렌더링
+            const resetFilter = () => {
+                renderWorkList('INDEX_DEFAULT');
+                projectLinks.forEach(l => l.style.fontWeight = 'normal');
+                activeFilterId = 'INDEX_DEFAULT'; // 초기값 설정
+            };
+
+            resetFilter(); 
+            
+            // 모달 닫기 공통 함수
+            const closeModal = () => {
+                 modal.classList.remove('show');
+                 startCarousel(); // ⭐ 모달 닫기 시 캐러셀 재시작
+                 
+                 // ⭐ [수정 2-B] 모달 닫기 시 URL에서 #modal 상태를 제거합니다.
+                 if (history.state && history.state.modalOpen) {
+                     history.back(); // history.pushState로 추가된 상태를 닫습니다.
+                 }
+            }
+
+
+            // 2. 프로젝트 링크 클릭 이벤트
             projectLinks.forEach(link => {
                 link.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    const projectId = link.getAttribute('data-project-id');
-                    openModal(projectId);
+                    event.preventDefault(); 
+                    const projectId = event.currentTarget.dataset.projectId;
+                    
+                    projectLinks.forEach(l => l.style.fontWeight = 'normal');
+
+                    if (projectId === activeFilterId) {
+                        // 현재 활성화된 프로젝트를 다시 클릭하면 리셋 (토글 기능 유지)
+                        resetFilter();
+                    } else {
+                        renderWorkList(projectId);
+                        // activeFilterId는 renderWorkList 내에서 업데이트됨
+                        event.currentTarget.style.fontWeight = 'bold';
+                    }
                 });
             });
 
-            // 2. 스크롤 이벤트 리스너
-            leftPanel.addEventListener('scroll', updateMainVisual);
+            // 3. JHL(리셋) 클릭 이벤트
+            if (jhlReset) {
+                jhlReset.addEventListener('click', (event) => {
+                    event.preventDefault(); 
+                    resetFilter();
+                });
+            }
             
-            // 3. 초기 메인 비주얼 설정
-            updateMainVisual();
+            // 4. 작업물 비주얼 클릭 이벤트 (모달 열기)
+            workListContainer.addEventListener('click', (event) => {
+                const visual = event.target.closest('.work-visual');
+                if (visual) {
+                    const workItem = visual.closest('.work-item');
+                    if (workItem) {
+                        const imageId = workItem.dataset.imageId;
+                        
+                        openModal(imageId); // openModal 함수 호출
+                    }
+                }
+            });
+            
+            // 5. 모달 닫기 이벤트
+            modalClose.addEventListener('click', closeModal);
 
-            // 4. 뒤로가기/앞으로가기 버튼 처리
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            // ⭐ [추가 2-D] 모바일 뒤로가기 버튼(popstate 이벤트) 처리
             window.addEventListener('popstate', (event) => {
-                if (event.state && event.state.modalOpen) {
-                    const projectId = event.state.projectId.replace('modal-', '');
-                    openModal(projectId);
-                } else {
+                // 외부(모바일 버튼)에서 popstate 이벤트가 발생했고, 모달이 열려 있는 상태라면 모달을 닫습니다.
+                if (modal.classList.contains('show')) {
                     modal.classList.remove('show');
+                    startCarousel();
+                    // history.back()이 이미 실행된 상태이므로 추가적인 history.back()은 호출하지 않습니다.
                 }
             });
 
-            // ⭐ 2. 캐러셀 관련 이벤트 리스너 제거 (2열 그리드에서 필요 없음) ⭐
-            // 기존 코드에 있던 모달 이미지 컨테이너 클릭 이벤트, prevBtn, nextBtn 이벤트 리스너는 제거되었습니다.
-            // 대신 모달의 닫기 버튼(modal-close)과 배경 클릭 시 모달이 닫히는 기능은 유지됩니다.
-
-            // 모달 이미지 컨테이너 클릭 이벤트 리스너 (기존 캐러셀 로직 제거)
+            // 6. 키보드 및 내비게이션 버튼 이벤트
+            document.addEventListener('keydown', (event) => {
+                if (modal.classList.contains('show')) {
+                    if (event.key === 'Escape') {
+                        closeModal(); // ⭐ [수정 2-E] Esc 키 시에도 history 상태 정리 포함
+                    } else if (event.key === 'ArrowLeft' && window.innerWidth > 768) {
+                        prevBtn.click();
+                    } else if (event.key === 'ArrowRight' && window.innerWidth > 768) {
+                        nextBtn.click();
+                    }
+                }
+            });
+            
+            // ⭐ [추가 4-B] 모달 이미지 컨테이너 클릭 이벤트 (모바일 터치 넘기기)
             modalImageContainer.addEventListener('click', (event) => {
-                // 이 영역 클릭 시 모달 닫힘 방지 (모달 배경 클릭 시 닫히는 기본 동작 유지)
-                event.stopPropagation();
+                // 모바일 환경 (768px 이하)에서만 로직 실행
+                if (window.innerWidth <= 768 && modal.classList.contains('show')) {
+                    const containerRect = modalImageContainer.getBoundingClientRect();
+                    const clickX = event.clientX - containerRect.left; // 컨테이너 내 X 좌표
+                    const width = containerRect.width;
+                    const navigableImages = currentFilteredImages;
+                    const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
+                    
+                    // 왼쪽 1/3 클릭 시 (Prev)
+                    if (currentIndex > 0 && clickX < width / 3) {
+                        const prevImage = navigableImages[currentIndex - 1];
+                        updateModalContent(prevImage.id);
+                        event.stopPropagation(); // 모달 닫힘 방지
+                    } 
+                    // 오른쪽 1/3 클릭 시 (Next)
+                    else if (currentIndex < navigableImages.length - 1 && clickX > width * 2 / 3) {
+                        const nextImage = navigableImages[currentIndex + 1];
+                        updateModalContent(nextImage.id);
+                        event.stopPropagation(); // 모달 닫힘 방지
+                    }
+                    // 중앙 1/3 클릭 시는 모달 배경 클릭으로 처리되지 않도록 stopPropagation을 추가하지 않습니다.
+                }
+            });
+
+            // ⭐ 이전 버튼 이벤트 리스너
+            prevBtn.addEventListener('click', () => {
+                const navigableImages = currentFilteredImages;
+                const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
+                if (currentIndex > 0) {
+                    const prevImage = navigableImages[currentIndex - 1];
+                    updateModalContent(prevImage.id);
+                }
+            });
+
+            // ⭐ 다음 버튼 이벤트 리스너
+            nextBtn.addEventListener('click', () => {
+                const navigableImages = currentFilteredImages;
+                const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
+                if (currentIndex < navigableImages.length - 1) {
+                    const nextImage = navigableImages[currentIndex + 1];
+                    updateModalContent(nextImage.id);
+                }
             });
         });
     </script>
