@@ -985,13 +985,15 @@
             let opacityStyle = activeClass ? 'opacity: 1;' : 'opacity: 0;';
 
             return `
-                <div class="work-item" data-project-id="${item.projectId}" data-id="${item.id}" ${isMain} ${groupIdAttr}>
-                    ${headerHtml}
-                    <div class="work-visual">
-                        <img src="${item.url}" alt="${item.description}" class="${activeClass}" style="${opacityStyle}">
-                    </div>
-                </div>`;
-        };
+              <div class="work-item" data-project-id="${item.projectId}" data-image-id="${item.id}" data-group-id="${item.groupId || ''}" data-group-main="${item.isGroupMain ? 'true' : 'false'}">
+                <div class="work-visual">
+                    <img src="${item.url}" alt="${item.description}">
+                </div>
+                <div class="work-header">
+                    <span class="full-description">${item.description}</span>
+                </div>
+            </div>
+        `;
         // ⭐ [추가 끝]
 
 
