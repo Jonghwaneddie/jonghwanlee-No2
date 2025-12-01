@@ -826,654 +826,583 @@
         // 1. 이미지 데이터 정의
         const allImageData = [
             // ⭐ 0. 인덱스 화면에 표시할 기본 작업물 (캐러셀 그룹으로 변경)
-            {   id: 'index_1', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_1.jpg', description: 'Loggia 2025', url: 'loggiaimages/loggia1.jpg',isGroupMain: true, groupId: 'INDEX_CAROUSEL'},
-            {   id: 'index_2', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_2.jpg', description: '', url: 'loggiaimages/loggia2.jpg',groupId: 'INDEX_CAROUSEL' },
-            {   id: 'index_3', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_3.jpg', description: '', url: 'loggiaimages/loggia3.jpg',groupId: 'INDEX_CAROUSEL' },
-            {   id: 'index_4', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_4.jpg', description: '', url: 'loggiaimages/loggia4.jpg',groupId: 'INDEX_CAROUSEL' },
-            {   id: 'index_5', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_5.jpg', description: '', url: 'loggiaimages/loggia5.jpg',groupId: 'INDEX_CAROUSEL' },
-            {   id: 'index_6', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_6.jpg', description: '', url: 'loggiaimages/loggia6.jpg',groupId: 'INDEX_CAROUSEL' },
-            {   id: 'index_7', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_7.jpg', description: '', url: 'loggiaimages/loggia7.jpg',groupId: 'INDEX_CAROUSEL' },
-            {   id: 'index_8', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_8.jpg', description: '', url: 'loggiaimages/loggia8.jpg',groupId: 'INDEX_CAROUSEL' },
-            {   id: 'index_9', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_9.jpg', description: '', url: 'loggiaimages/loggia9.jpg',groupId: 'INDEX_CAROUSEL' },
-            {   id: 'index_10', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_10.jpg', description: '', url: 'loggiaimages/loggia10.jpg',groupId: 'INDEX_CAROUSEL' },
-         
-
+            {   id: 'index_1', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_1.jpg', description: 'Cabinet, 2023, Exhibition View, Engraving and watercolour on panel, Plaster, Pendulum, 37.5 x 150 cm', url: 'cabinetimages/cabinet1.jpg', isGroupMain: true, groupId: 'INDEX_CAROUSEL' },
+            { id: 'index_2', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_2.jpg', description: '', url: 'cabinetimages/cabinet2.jpg', groupId: 'INDEX_CAROUSEL' },
+            { id: 'index_3', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_3.jpg', description: '', url: 'cabinetimages/cabinet3.jpg', groupId: 'INDEX_CAROUSEL' },
+            { id: 'index_4', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_4.jpg', description: '', url: 'cabinetimages/cabinet4.jpg', groupId: 'INDEX_CAROUSEL' },
+            { id: 'index_5', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_5.jpg', description: 'Loggia, 2025, Installation View', url: 'loggiaimages/loggia1.jpg', isGroupMain: true, groupId: 'INDEX_CAROUSEL' },
+            { id: 'index_6', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_6.jpg', description: '', url: 'loggiaimages/loggia2.jpg', groupId: 'INDEX_CAROUSEL' },
+            { id: 'index_7', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_7.jpg', description: '', url: 'loggiaimages/loggia3.jpg', groupId: 'INDEX_CAROUSEL' },
+            { id: 'index_8', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_8.jpg', description: '', url: 'loggiaimages/loggia4.jpg', groupId: 'INDEX_CAROUSEL' },
+            { id: 'index_9', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_9.jpg', description: 'Hypercube, 2023, Installation View', url: '2023hypercube/img1.jpg', isGroupMain: true, groupId: 'INDEX_CAROUSEL' },
+            { id: 'index_10', projectId: 'INDEX_DEFAULT', isDefault: true, folder: 'index', fileName: 'index_10.jpg', description: '', url: 'loggiaimages/loggia10.jpg', groupId: 'INDEX_CAROUSEL' },
+            
             // Loggia - 설치 전경 (Install_View_1)
-            { id: 'loggia_1', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia1.jpg', description: 'Installation View ', url: 'loggiaimages/loggia1.jpg', isGroupMain: true, groupId: 'Install_View_1'}, 
-            { id: 'loggia_2', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia2.jpg', description: '', url: 'loggiaimages/loggia2.jpg', groupId: 'Install_View_1'  },
+            { id: 'loggia_1', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia1.jpg', description: 'Installation View ', url: 'loggiaimages/loggia1.jpg', isGroupMain: true, groupId: 'Install_View_1'},
+            { id: 'loggia_2', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia2.jpg', description: '', url: 'loggiaimages/loggia2.jpg', groupId: 'Install_View_1' },
             { id: 'loggia_3', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia3.jpg', description: '', url: 'loggiaimages/loggia3.jpg', groupId: 'Install_View_1' },
             { id: 'loggia_4', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia4.jpg', description: '', url: 'loggiaimages/loggia4.jpg', groupId: 'Install_View_1'},
             { id: 'loggia_5', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia5.jpg', description: '', url: 'loggiaimages/loggia5.jpg', groupId: 'Install_View_1'},
             { id: 'loggia_6', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia6.jpg',description: '',url: 'loggiaimages/loggia6.jpg', groupId: 'Install_View_1' },
-            { id: 'loggia_7', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia7.jpg',description: '',  url: 'loggiaimages/loggia7.jpg', groupId: 'Install_View_1' },
-            { id: 'loggia_8', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia8.jpg', description: '', url: 'loggiaimages/loggia8.jpg', groupId: 'Install_View_1' },
-            { id: 'loggia_9', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia9.jpg', description: '', url: 'loggiaimages/loggia9.jpg', groupId: 'Install_View_1' },
-            { id: 'loggia_10', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia10.jpg',description: '',url: 'loggiaimages/loggia10.jpg', groupId: 'Install_View_1'},
-                  
-            // Group 1: Breath of the Hollow (Breath_Hollow)
-            { id: 'loggia_12', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img1.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img1.jpg', isGroupMain: true, groupId: 'Breath_Hollow' },
-            { id: 'loggia_13', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img2.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img2.jpg', groupId: 'Breath_Hollow' },
-            { id: 'loggia_14', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img3.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img3.jpg', groupId: 'Breath_Hollow' },
-            { id: 'loggia_15', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img4.jpg', description: 'Breath of the Hollow, 2025, Engraving and watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img4.jpg', groupId: 'Breath_Hollow' },
-            { id: 'loggia_16', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img1-1.jpg', description: 'detail', url: '2025loggia1/img1-1.jpg', groupId: 'Breath_Hollow' },
-            { id: 'loggia_17', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img1-2.jpg', description: 'detail', url: '2025loggia1/img1-2.jpg', groupId: 'Breath_Hollow' },
+            { id: 'loggia_7', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia7.jpg',description: '', url: 'loggiaimages/loggia7.jpg', groupId: 'Install_View_1' },
+            { id: 'loggia_8', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'loggia8.jpg',description: '', url: 'loggiaimages/loggia8.jpg', groupId: 'Install_View_1' },
             
-            // Group: Threshold Guard (단일 이미지)
-            { id: 'loggia_18', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img5.jpg', description: 'Threshold Guard, 2025, Engraving and watercolor on panel, Iron Ball, 165x71cm', url: '2025loggia1/img5.jpg', isGroupMain: true, groupId: 'Threshold_Guard' },
-            
+            // Loggia - 작업물 (Threshold_Guard) (단일 이미지)
+            { id: 'loggia_18', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img5.jpg', description: 'Threshold Guard, 2025, Engraving and watercolor on panel, Iron Ball, 165x71cm', url: '2025loggia1/img5.jpg', isGroupMain: true, groupId: 'Threshold_Guard' }, 
+
             // Group 2: Silent Observer (Silent_Observer)
             { id: 'loggia_21', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img6.jpg', description: 'Silent Observer, 2025, Engraving and watercolor on panel, Iron Ball, 175x62.5cm', url: '2025loggia1/img6.jpg', isGroupMain: true, groupId: 'Silent_Observer' },
             { id: 'loggia_19', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img6-1.jpg', description: 'detail', url: '2025loggia1/img6-1.jpg', groupId: 'Silent_Observer' },
             { id: 'loggia_20', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img6-2.jpg', description: 'detail', url: '2025loggia1/img6-2.jpg', groupId: 'Silent_Observer' },
-            
+
             // Group: Echo Keeper (Echo_Keeper)
             { id: 'loggia_24', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img7.jpg', description: 'Echo Keeper, 2025, Engraving and watercolor on panel, Iron Ball, 122.5x79cm', url: '2025loggia1/img7.jpg', isGroupMain: true, groupId: 'Echo_Keeper' },
             { id: 'loggia_22', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img7-1.jpg', description: 'detail', url: '2025loggia1/img7-1.jpg', groupId: 'Echo_Keeper' },
             { id: 'loggia_23', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img7-2.jpg', description: 'detail', url: '2025loggia1/img7-2.jpg', groupId: 'Echo_Keeper' },
-            
-            // Group: A Room Without Looking (A_Room_Without_Looking)
-            { id: 'loggia_25', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img8.jpg', description: 'A Room Without Looking, 2025, Paper(frotage), 41x164cm', url: '2025loggia2/img8.jpg', isGroupMain: true, groupId: 'A_Room_Without_Looking'  },
-            { id: 'loggia_26', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img9.jpg', description: 'detail', url: '2025loggia2/img9.jpg', groupId: 'A_Room_Without_Looking' },
-            { id: 'loggia_27', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img10.jpg', description: 'detail', url: '2025loggia2/img10.jpg', groupId: 'A_Room_Without_Looking' },
-            { id: 'loggia_28', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img11.jpg', description: 'detail', url: '2025loggia2/img11.jpg', groupId: 'A_Room_Without_Looking'},
-            
-            // Group: As It Sank In (As_It_Sank_In)
-            { id: 'loggia_29', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img12.jpg', description: 'As It Sank In, 2025, Plaster, 21x15.5cm', url: '2025loggia2/img12.jpg', isGroupMain: true, groupId: 'As_It_Sank_In'  },
-            { id: 'loggia_30', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img13.jpg', description: 'As It Sank In, 2025, Plaster, 21x15.5cm', url: '2025loggia2/img13.jpg', groupId: 'As_It_Sank_In'     },
-            
+
             // Group: Shadowlight (Shadowlight)
-            { id: 'loggia_31', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img14.jpg', description: 'Shadowlight, 2025, Engraving and watercolor on panel, 30x30cm', url: '2025loggia2/img14.jpg', isGroupMain: true, groupId: 'Shadowlight'  },            
-            { id: 'loggia_32', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img14-1.jpg', description: 'detail', url: '2025loggia2/img14-1.jpg', groupId: 'Shadowlight' },
-            
-            // Group: Where Color Hesitates (Where_Color_Hesitates)
+            { id: 'loggia_25', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img14.jpg', description: 'Shadowlight, 2025, Engraving and watercolor on panel, Plaster, 160x79cm', url: '2025loggia2/img14.jpg', isGroupMain: true, groupId: 'Shadowlight' },
+            { id: 'loggia_26', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img14-1.jpg', description: 'detail', url: '2025loggia2/img14-1.jpg', groupId: 'Shadowlight' },
+
+            // Group: Where Color Hesitates (Where_Color_Hesitates) (단일 이미지)
             { id: 'loggia_33', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img15.jpg', description: 'Where Color Hesitates, 2025, Engraving and watercolor on panel, 39x160cm', url: '2025loggia2/img15.jpg', isGroupMain: true, groupId: 'Where_Color_Hesitates' },
-            
-            // Group: Through the Quiet Veil (Through_the_Quiet_Veil)
+
+            // Group: Through the Quiet Veil (Through_the_Quiet_Veil) (단일 이미지)
             { id: 'loggia_34', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img16.jpg', description: 'Through the Quiet Veil, 2025, Engraving and watercolor on panel, Plaster, 170x60cm', url: '2025loggia2/img16.jpg', isGroupMain: true, groupId: 'Through_the_Quiet_Veil' },
-            
-            // Group: Beyond the Quiet Veil (Beyond_the_Quiet_Veil)
-            { id: 'loggia_35', projectId: 'Loggia', isDefault: false, folder: 'loggiaimages', fileName: 'img17.jpg', description: 'Beyond the Quiet Veil, 2025, Engraving and watercolor on panel, Plaster, 170x60cm', url: '2025loggia2/img17.jpg', isGroupMain: true, groupId: 'Beyond_the_Quiet_Veil' },
-
-            // 나머지 프로젝트 (단일 이미지는 isGroupMain: true, groupId 없음)
 
 
-            
-            { id: 'sr_1', projectId: 'Surgical Room', isDefault: false, folder: '2025surgicalroom', fileName: '1.jpg', description: 'Installation View', url: '2025surgicalroom/1.jpg', isGroupMain: true, groupId: 'Surgical_Group_A' },
-            { id: 'sr_2', projectId: 'Surgical Room', isDefault: false, folder: '2025surgicalroom', fileName: '4.jpg', description: '', url: '2025surgicalroom/4.jpg', groupId: 'Surgical_Group_A' },
+            // Surgical Room (단일 이미지)
+            { id: 'surgical_1', projectId: 'Surgical Room', isDefault: false, folder: 'surgical', fileName: 'img1.jpg', description: 'Installation View (Surgical Room, 2025)', url: 'surgical/img1.jpg', isGroupMain: true },
+            { id: 'surgical_2', projectId: 'Surgical Room', isDefault: false, folder: 'surgical', fileName: 'img2.jpg', description: 'Fragment of a Place, 2025, Engraving and watercolour on panel, Plaster, 29 x 21cm', url: 'surgical/img2.jpg', isGroupMain: true },
 
-             { id: 'sr_3', projectId: 'Surgical Room', isDefault: false, folder: '2025surgicalroom', fileName: 'img1.jpg', description: 'As It Dissolves, 2025, Engraving and watercolour on panel, 79 x 45cm', url: '2025surgicalroom/img1.jpg', isGroupMain: true },
-              { id: 'sr_4', projectId: 'Surgical Room', isDefault: false, folder: '2025surgicalroom', fileName: 'img2.jpg', description: 'Pale Diaphanous Droplet, 2025, Engraving and watercolour on panel_122 x 60cm', url: '2025surgicalroom/img2.jpg', isGroupMain: true },
-              { id: 'sr_5', projectId: 'Surgical Room', isDefault: false, folder: '2025surgicalroom', fileName: 'img3.jpg', description: 'Before It falls, 2025, Engraving and watercolour on panel, 120 x 70cm', url: '2025surgicalroom/img3.jpg', isGroupMain: true },
-              { id: 'sr_6', projectId: 'Surgical Room', isDefault: false, folder: '2025surgicalroom', fileName: 'img4.jpg', description: 'The Breathing Stillness, 2025, Engraving and watercolour on panel, 23 x 18cm', url: '2025surgicalroom/img4.jpg', isGroupMain: true },
-            
-            
-            
-            { id: 'cyl_1', projectId: 'South Parade', isDefault: false, folder: 'cxs', fileName: '1.jpg', description: 'Installation View', url: 'cxs/1.jpg', isGroupMain: true, groupId: 'cxs_Group_A' },
-               { id: 'cyl_2', projectId: 'South Parade', isDefault: false, folder: 'cxs', fileName: '2.jpg', description: '', url: 'cxs/2.jpg', groupId: 'cxs_Group_A' },
-               { id: 'cyl_3', projectId: 'South Parade', isDefault: false, folder: 'cxs', fileName: 'img1.jpg', description: 'bulging forest, 2024, Engraving and watercolor on panel, 64.5 ×20 cm', url: 'cxs/img1.jpg', isGroupMain: true, groupId: 'cxs_Group_B' },
-               { id: 'cyl_4', projectId: 'South Parade', isDefault: false, folder: 'cxs', fileName: 'img1-1.jpg', description: 'detail', url: 'cxs/img1-1.jpg', groupId: 'cxs_Group_B' },
-               { id: 'cyl_5', projectId: 'South Parade', isDefault: false, folder: 'cxs', fileName: 'img2.jpg', description: 'Viscous tears trailed down the surface, 2024, Engraving and watercolor on panel, 89 ×53 cm', url: 'cxs/img2.jpg', isGroupMain: true },
-               { id: 'cyl_6', projectId: 'South Parade', isDefault: false, folder: 'cxs', fileName: 'img3.jpg', description: 'Eye Ⅶ, 2023, Engraving and watercolor on panel, 2 pieces of plaster, 131×119cm', url: 'cxs/img3.jpg', isGroupMain: true },
+            // South Parade (Group)
+            { id: 'sp_1', projectId: 'South Parade', isDefault: false, folder: 'southparade', fileName: 'img1.jpg', description: 'Installation View (CYLINDER x South Parade, 2024)', url: 'southparade/img1.jpg', isGroupMain: true, groupId: 'sp_Group_A' },
+            { id: 'sp_2', projectId: 'South Parade', isDefault: false, folder: 'southparade', fileName: 'img2.jpg', description: '', url: 'southparade/img2.jpg', groupId: 'sp_Group_A' },
+            { id: 'sp_3', projectId: 'South Parade', isDefault: false, folder: 'southparade', fileName: 'img3.jpg', description: 'Fragment of a Place, 2024, Engraving and watercolour on panel, Plaster, 29 x 21cm', url: 'southparade/img3.jpg', isGroupMain: true, groupId: 'sp_Group_B' },
+            { id: 'sp_4', projectId: 'South Parade', isDefault: false, folder: 'southparade', fileName: 'img4.jpg', description: 'detail', url: 'southparade/img4.jpg', groupId: 'sp_Group_B' },
 
-
-            
-            { id: 'hyp_1', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube1.jpg', description: 'Exhibition View', url: 'hypercubeimages/hyercube1.jpg', isGroupMain: true,  groupId: 'hyp_Group_A' },
-             { id: 'hyp_2', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube2.jpg', description: '', url: 'hypercubeimages/hypercube2.jpg',   groupId: 'hyp_Group_A' },
-             { id: 'hyp_3', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube3.jpg', description: '', url: 'hypercubeimages/hypercube3.jpg',   groupId: 'hyp_Group_A' },
-             { id: 'hyp_4', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube4.jpg', description: '', url: 'hypercubeimages/hypercube4.jpg',   groupId: 'hyp_Group_A' },
-             { id: 'hyp_5', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube5.jpg', description: '', url: 'hypercubeimages/hypercube5.jpg',   groupId: 'hyp_Group_A' },
-             { id: 'hyp_6', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube6.jpg', description: '', url: 'hypercubeimages/hypercube6.jpg',   groupId: 'hyp_Group_A' },
-             { id: 'hyp_7', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube7.jpg', description: '', url: 'hypercubeimages/hypercube7.jpg',   groupId: 'hyp_Group_A' },
-             { id: 'hyp_8', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube8.jpg', description: '', url: 'hypercubeimages/hypercube8.jpg',   groupId: 'hyp_Group_A' },
-
-
-             { id: 'hyp_9', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img2.jpg', description: 'Eye Wave Ⅱ, 2023, Engraving and watercolour on panel, Plaster, Pendulum, 170 x 66cm', url: '2023hypercube/img2.jpg', isGroupMain: true},
-            
-            { id: 'hyp_10', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img3.jpg', description: 'Eye Wave Ⅰ, 2023, Engraving and watercolour on panel, Plaster, Pendulum, 170 x 66cm', url: '2023hypercube/img3.jpg', isGroupMain: true,  groupId: 'hyp_Group_B' },
-            { id: 'hyp_11', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img3-1.jpg', description: 'detail', url: '2023hypercube/img3-1.jpg', groupId: 'hyp_Group_B' },
-            
-            { id: 'hyp_12', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img4.jpg', description: 'EyeⅩⅠ,2023, Engraving and watercolour on panel, Plaster, 29 x 84cm', url: '2023hypercube/img4.jpg', isGroupMain: true   },
-            { id: 'hyp_13', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img5.jpg', description: 'Eye XⅢ, 2023, Engraving and watercolour on panel, 72 x 42cm', url: '2023hypercube/img5.jpg', isGroupMain: true },
-            
-            { id: 'hyp_14', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img6.jpg', description: 'Shadowy Waves, 2023, Engraving and watercolour on panel, Plaster, Pendulum, 39 x 285cm', url: '2023hypercube/img6.jpg', isGroupMain: true,  groupId: 'hyp_Group_D' },
-            { id: 'hyp_15', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img7.jpg', description: 'detail', url: '2023hypercube/img7.jpg',   groupId: 'hyp_Group_D' },
-            { id: 'hyp_16', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img8.jpg', description: 'detail', url: '2023hypercube/img8.jpg',   groupId: 'hyp_Group_D' },
-            { id: 'hyp_17', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img9.jpg', description: 'detail', url: '2023hypercube/img9.jpg',   groupId: 'hyp_Group_D' },
-            { id: 'hyp_18', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img10.jpg', description: 'detail', url: '2023hypercube/img10.jpg',   groupId: 'hyp_Group_D' },
-            
+            // Hypercube (Group)
+            { id: 'hyp_1', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img1.jpg', description: 'Installation View (Hypercube, 2023)', url: '2023hypercube/img1.jpg', isGroupMain: true, groupId: 'hyp_Group_A' },
+            { id: 'hyp_2', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img2.jpg', description: '', url: '2023hypercube/img2.jpg', groupId: 'hyp_Group_A' },
+            { id: 'hyp_3', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img3.jpg', description: '', url: '2023hypercube/img3.jpg', groupId: 'hyp_Group_A' },
+            { id: 'hyp_4', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img4.jpg', description: '', url: '2023hypercube/img4.jpg', groupId: 'hyp_Group_A' },
+            { id: 'hyp_5', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img5.jpg', description: 'Fragment of a Place, 2023, Engraving and watercolour on panel, Plaster, 29 x 21cm', url: '2023hypercube/img5.jpg', isGroupMain: true },
+            { id: 'hyp_14', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img6.jpg', description: 'Shadowy Waves, 2023, Engraving and watercolour on panel, Plaster, Pendulum, 39 x 285cm', url: '2023hypercube/img6.jpg', isGroupMain: true, groupId: 'hyp_Group_D' },
+            { id: 'hyp_15', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img7.jpg', description: 'detail', url: '2023hypercube/img7.jpg', groupId: 'hyp_Group_D' },
+            { id: 'hyp_16', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img8.jpg', description: 'detail', url: '2023hypercube/img8.jpg', groupId: 'hyp_Group_D' },
+            { id: 'hyp_17', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img9.jpg', description: 'detail', url: '2023hypercube/img9.jpg', groupId: 'hyp_Group_D' },
+            { id: 'hyp_18', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img10.jpg', description: 'detail', url: '2023hypercube/img10.jpg', groupId: 'hyp_Group_D' },
             { id: 'hyp_19', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img11.jpg', description: 'EyeⅩ,2023, Engraving and watercolour on panel, plaster, 36 x 133cm', url: '2023hypercube/img11.jpg', isGroupMain: true },
-            { id: 'hyp_20', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img12.jpg', description: 'EyeⅩⅡ,2023, Engraving and watercolor on Panel, Plaster, 53x77cm', url: '2023hypercube/img12.jpg', isGroupMain: true },
-            { id: 'hyp_21', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img13.jpg', description: 'Narcissus V, 2023, Engraving and watercolour on panel, 28 x 74cm', url: '2023hypercube/img13.jpg', isGroupMain: true },
-            { id: 'hyp_22', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img14.jpg', description: 'Narcissus Ⅲ, 2023, Engraving, watercolour and graphite on panel, 28 x 23cm', url: '2023hypercube/img14.jpg', isGroupMain: true},
-            { id: 'hyp_23', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img15.jpg', description: 'Narcissus Ⅳ, 2023, Engraving, watercolour and graphite on panel, 28 x 23cm', url: '2023hypercube/img15.jpg', isGroupMain: true },
+            { id: 'hyp_20', projectId: 'Hypercube', isDefault: false, folder: '2023hypercube', fileName: 'img12.jpg', description: 'Eye IX, 2023, Engraving and watercolour on panel, plaster, 36 x 133cm', url: '2023hypercube/img12.jpg', isGroupMain: true },
 
+            // The Good Neighbor (Group)
+            { id: 'gn_1', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img1.jpg', description: 'Installation View (The Good Neighbor, 2023)', url: 'good/img1.jpg', isGroupMain: true, groupId: 'gn_Group_A' },
+            { id: 'gn_2', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img2.jpg', description: '', url: 'good/img2.jpg', groupId: 'gn_Group_A' },
+            { id: 'gn_3', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img3.jpg', description: '', url: 'good/img3.jpg', groupId: 'gn_Group_A' },
+            { id: 'gn_4', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img4.jpg', description: 'EyeⅢ, 2023, Plaster casting, 30×21cm', url: 'good/img4.jpg', isGroupMain: true, groupId: 'gn_Group_B' },
+            { id: 'gn_5', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img5.jpg', description: '', url: 'good/img5.jpg', groupId: 'gn_Group_B'},
+            { id: 'gn_6', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img6.jpg', description: 'Eye vii, 2023, Plaster casting, 30×21cm', url: 'good/img6.jpg', isGroupMain: true, groupId: 'gn_Group_C' },
+            { id: 'gn_7', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img7.jpg', description: '', url: 'good/img7.jpg', groupId: 'gn_Group_C'},
+            { id: 'gn_8', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img8.jpg', description: '', url: 'good/img8.jpg', groupId: 'gn_Group_C' },
+            { id: 'gn_9', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img9.jpg', description: '', url: 'good/img9.jpg', groupId: 'gn_Group_C' },
+            { id: 'gn_10', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img9-1.jpg', description: '', url: 'good/img9-1.jpg', groupId: 'gn_Group_C' },
 
-            
-           { id: 'gn_1', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img1.jpg', description: 'Exhibition View', url: 'good/img1.jpg', isGroupMain: true,   groupId: 'gn_Group_A' },
-               { id: 'gn_2', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img2.jpg', description: '', url: 'good/img2.jpg',   groupId: 'gn_Group_A' },
-            
-               { id: 'gn_3', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img3.jpg', description: 'Eye VII, 2023, Engraving and watercolor on panel, 2 Pieces of plaster, 131×119cm', url: 'good/img3.jpg', isGroupMain: true },
-            
-               { id: 'gn_4', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img4.jpg', description: 'Eye VII(recode), 2023, Graphite on paper(Frottage), 140×129cm', url: 'good/img4.jpg', isGroupMain: true,   groupId: 'gn_Group_B' },
-               { id: 'gn_5', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img5.jpg', description: '', url: 'good/img5.jpg',   groupId: 'gn_Group_B'},
-            
-               { id: 'gn_6', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img6.jpg', description: 'Eye vii, 2023, Plaster casting, 30×21cm', url: 'good/img6.jpg', isGroupMain: true,   groupId: 'gn_Group_C' },
-               { id: 'gn_7', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img7.jpg', description: '', url: 'good/img7.jpg',   groupId: 'gn_Group_C'},
-               { id: 'gn_8', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img8.jpg', description: '', url: 'good/img8.jpg',   groupId: 'gn_Group_C' },
-               { id: 'gn_9', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img9.jpg', description: '', url: 'good/img9.jpg',   groupId: 'gn_Group_C' },
-               { id: 'gn_10', projectId: 'The Good Neighbor', isDefault: false, folder: 'good', fileName: 'img9-1.jpg', description: '', url: 'good/img9-1.jpg',   groupId: 'gn_Group_C' },
-
-
-            
+            // Cabinet (Group)
             { id: 'cb_1', projectId: 'Cabinet', isDefault: false, folder: 'cabineimages', fileName: 'cabinet1.jpg', description: 'Exhibition View', url: 'cabinetimages/cabinet1.jpg', isGroupMain: true },
+            { id: 'cb_3', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet3.jpg', description: '', url: 'cabinetimages/cabinet3.jpg', isGroupMain: true, groupId: 'cab_Group_A' },
+            { id: 'cb_4', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet4.jpg', description: '', url: 'cabinetimages/cabinet4.jpg', groupId: 'cab_Group_A'},
+            { id: 'cb_5', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet5.jpg', description: '', url: 'cabinetimages/cabinet5.jpg', groupId: 'cab_Group_A'},
+            { id: 'cb_6', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet6.jpg', description: '', url: 'cabinetimages/cabinet6.jpg', isGroupMain: true, groupId: 'cab_Group_B' },
+            { id: 'cb_7', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet7.jpg', description: 'detail', url: 'cabinetimages/cabinet7.jpg', groupId: 'cab_Group_B'},
+            { id: 'cb_8', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet8.jpg', description: 'detail', url: 'cabinetimages/cabinet8.jpg', groupId: 'cab_Group_B'},
+            { id: 'cb_9', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet9.jpg', description: 'detail', url: 'cabinetimages/cabinet9.jpg', isGroupMain: true, groupId: 'cab_Group_C' },
+            { id: 'cb_10', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet10.jpg', description: 'detail', url: 'cabinetimages/cabinet10.jpg', groupId: 'cab_Group_C'},
+            { id: 'cb_11', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet11.jpg', description: 'detail', url: 'cabinetimages/cabinet11.jpg', groupId: 'cab_Group_C'},
+            { id: 'cb_12', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet12.jpg', description: 'detail', url: 'cabinetimages/cabinet12.jpg', isGroupMain: true, groupId: 'cab_Group_D' },
+            { id: 'cb_13', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet13.jpg', description: 'detail', url: 'cabinetimages/cabinet13.jpg', isGroupMain: true, groupId: 'cab_Group_E' },
+            { id: 'cb_14', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet14.jpg', description: '', url: 'cabinetimages/cabinet14.jpg', groupId: 'cab_Group_E' },
+            { id: 'cb_15', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet15.jpg', description: '', url: 'cabinetimages/cabinet15.jpg', groupId: 'cab_Group_E'},
             
-                 { id: 'cb_3', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet3.jpg', description: '', url: 'cabinetimages/cabinet3.jpg', isGroupMain: true,   groupId: 'cab_Group_A' },
-                 { id: 'cb_4', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet4.jpg', description: '', url: 'cabinetimages/cabinet4.jpg',   groupId: 'cab_Group_A' },
-            
-                 { id: 'cb_8', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet8.jpg', description: '', url: 'cabinetimages/cabinet8.jpg', isGroupMain: true,   groupId: 'cab_Group_B' },
-                 { id: 'cb_7', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet7.jpg', description: '', url: 'cabinetimages/cabinet7.jpg',   groupId: 'cab_Group_B' },
-            
-                 { id: 'cb_5', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet5.jpg', description: '', url: 'cabinetimages/cabinet5.jpg', isGroupMain: true,   groupId: 'cab_Group_C' },
-                 { id: 'cb_6', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet6.jpg', description: '', url: 'cabinetimages/cabinet6.jpg' ,   groupId: 'cab_Group_C'},
-            
-                 { id: 'cb_9', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet9.jpg', description: 'detail', url: 'cabinetimages/cabinet9.jpg', isGroupMain: true,   groupId: 'cab_Group_F' },
-            
-                 { id: 'cb_10', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet10.jpg', description: '', url: 'cabinetimages/cabinet10.jpg',   groupId: 'cab_Group_F'  },
-            
-                 { id: 'cb_11', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet11.jpg', description: '', url: 'cabinetimages/cabinet11.jpg',   groupId: 'cab_Group_F'  },
-            
-                 { id: 'cb_12', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet12.jpg', description: '', url: 'cabinetimages/cabinet12.jpg', isGroupMain: true ,   groupId: 'cab_Group_D'},
-                 { id: 'cb_13', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet13.jpg', description: '', url: 'cabinetimages/cabinet13.jpg' ,   groupId: 'cab_Group_D'},
-         
-                 { id: 'cb_14', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet14.jpg', description: 'Exhibition View', url: 'cabinetimages/cabinet14.jpg', isGroupMain: true,   groupId: 'cab_Group_E' },
-                 { id: 'cb_15', projectId: 'Cabinet', isDefault: false, folder: 'cabinetimages', fileName: 'cabinet15.jpg', description: '', url: 'cabinetimages/cabinet15.jpg',   groupId: 'cab_Group_E'},
-
-
-            
+            // Waiting Room (Placeholder)
             { id: 'wr_1', projectId: 'Waiting Room', isDefault: false, folder: 'waitingroom', fileName: 'wr_1.jpg', description: 'SED_DO / Waiting Room (Group) / 2022', url: 'https://placehold.co/600x600/f39c12/ffffff?text=WAITING_ROOM_1', isGroupMain: true },
+            
+            // Perigee Winter Show (Placeholder)
             { id: 'pws_1', projectId: 'Perigee Winter Show', isDefault: false, folder: 'perigee', fileName: 'pws_1.jpg', description: 'SED_DO / Perigee Winter Show 2022 / 2022', url: 'https://placehold.co/800x450/9b59b6/ffffff?text=PERIGEE_WINTER_1', isGroupMain: true },
-           
             
-               { id: 'twb_1', projectId: 'The Wild Bunch', isDefault: false, folder: '2022TWR', fileName: '1.jpg', description: 'Exhibition View', url: '2022TWR/1.jpg', isGroupMain: true,   groupId: 'twr_Group_A' },
-            { id: 'twb_2', projectId: 'The Wild Bunch', isDefault: false, folder: '2022TWR', fileName: '2.jpg', description: '', url: '2022TWR/2.jpg',   groupId: 'twr_Group_A'},
-            { id: 'twb_3', projectId: 'The Wild Bunch', isDefault: false, folder: '2022TWR', fileName: 'img2.jpg', description: 'EyeⅠ, 2022, Engraving, watercolor and graphite on panel, Aluminum, Plaster, 24.2×40.9 cm', url: '2022TWR/img2.jpg', isGroupMain: true },
-            { id: 'twb_4', projectId: 'The Wild Bunch', isDefault: false, folder: '2022TWR', fileName: 'img3.jpg', description: 'EyeⅢ, 2022, Engraving, watercolor and graphite on panel, Aluminum, Plaster, 90×91 cm', url: '2022TWR/img3.jpg', isGroupMain: true },
-
+            // The Wild Bunch (Group)
+            { id: 'twb_1', projectId: 'The Wild Bunch', isDefault: false, folder: '2022TWR', fileName: '1.jpg', description: 'Exhibition View', url: '2022TWR/1.jpg', isGroupMain: true, groupId: 'twr_Group_A' },
+            { id: 'twb_2', projectId: 'The Wild Bunch', isDefault: false, folder: '2022TWR', fileName: '2.jpg', description: '', url: '2022TWR/2.jpg', groupId: 'twr_Group_A'},
+            { id: 'twb_3', projectId: 'The Wild Bunch', isDefault: false, folder: '2022TWR', fileName: 'img2.jpg', description: 'EyeⅠ, 2022, Plaster casting, 30×21cm', url: '2022TWR/img2.jpg', isGroupMain: true, groupId: 'twr_Group_B' },
+            { id: 'twb_4', projectId: 'The Wild Bunch', isDefault: false, folder: '2022TWR', fileName: 'img3.jpg', description: '', url: '2022TWR/img3.jpg', groupId: 'twr_Group_B'},
+            { id: 'twb_5', projectId: 'The Wild Bunch', isDefault: false, folder: '2022TWR', fileName: 'img4.jpg', description: '', url: '2022TWR/img4.jpg', groupId: 'twr_Group_B'},
             
-            { id: 'fnd_1', projectId: 'Fonds', isDefault: false, folder: '2022fonds', fileName: '1.jpg', description: 'Exhibition View', url: '2022fonds/1.jpg', isGroupMain: true,   groupId: 'fon_Group_A' },
-             { id: 'fnd_2', projectId: 'Fonds', isDefault: false, folder: '2022fonds', fileName: '2.jpg', description: '', url: '2022fonds/2.jpg',   groupId: 'fon_Group_A' },
-             { id: 'fnd_3', projectId: 'Fonds', isDefault: false, folder: '2022fonds', fileName: '3.jpg', description: '', url: '2022fonds/3.jpg',   groupId: 'fon_Group_A' },
+            // Fonds (Group)
+            { id: 'fonds_1', projectId: 'Fonds', isDefault: false, folder: 'fonds', fileName: '1.jpg', description: 'Installation View (Fonds, 2022)', url: 'fonds/1.jpg', isGroupMain: true, groupId: 'fonds_Group_A' },
+            { id: 'fonds_2', projectId: 'Fonds', isDefault: false, folder: 'fonds', fileName: '2.jpg', description: 'detail', url: 'fonds/2.jpg', groupId: 'fonds_Group_A' },
+            { id: 'fonds_3', projectId: 'Fonds', isDefault: false, folder: 'fonds', fileName: '3.jpg', description: 'detail', url: 'fonds/3.jpg', groupId: 'fonds_Group_A' },
+            { id: 'fonds_4', projectId: 'Fonds', isDefault: false, folder: 'fonds', fileName: 'img1.jpg', description: 'The Wall, 2022, Engraving and watercolour on panel, Plaster, 137x67cm', url: 'fonds/img1.jpg', isGroupMain: true },
 
-             { id: 'fnd_4', projectId: 'Fonds', isDefault: false, folder: '2022fonds', fileName: 'img1.jpg', description: 'Eye, 2022, Engraving and watercolor on panel, Aluminum, Plaster, 145x145cm', url: '2022fonds/img1.jpg', isGroupMain: true,   groupId: 'fon_Group_B' },
-             { id: 'fnd_5', projectId: 'Fonds', isDefault: false, folder: '2022fonds', fileName: 'img1-1.jpg', description: 'detail', url: '2022fonds/img1-1.jpg',   groupId: 'fon_Group_B'},
-
-              { id: 'fnd_6', projectId: 'Fonds', isDefault: false, folder: '2022fonds', fileName: 'img2.jpg', description: 'Eye, 2022, Engraving and watercolor on panel, Aluminum, Plaster, 117x117cm', url: '2022fonds/img2.jpg', isGroupMain: true,   groupId: 'fon_Group_C' },
-             { id: 'fnd_7', projectId: 'Fonds', isDefault: false, folder: '2022fonds', fileName: 'img2-1.jpg', description: 'detail', url: '2022fonds/img2-1.jpg',   groupId: 'fon_Group_C' },
-           
-            
-            
-            { id: 'rcc_1', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img1.jpg', description: 'Exhibition View', url: 'lala/img1.jpg', isGroupMain: true,   groupId: 'la_Group_A' },
-            { id: 'rcc_2', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img1-1.jpg', description: '', url: 'lala/img1-1.jpg',  groupId: 'la_Group_A' },
-             { id: 'rcc_3', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img2.jpg', description: '', url: 'lala/img2.jpg',  groupId: 'la_Group_A' },
-             { id: 'rcc_4', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img3.jpg', description: '', url: 'lala/img3.jpg',  groupId: 'la_Group_A' },
-             { id: 'rcc_5', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img4.jpg', description: '', url: 'lala/img4.jpg',  groupId: 'la_Group_A' },
-             { id: 'rcc_6', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img5.jpg', description: '', url: 'lala/img5.jpg',  groupId: 'la_Group_A' },
-
-             { id: 'rcc_7', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img6-2.jpg', description: 'detail', url: 'lala/img6-2.jpg', isGroupMain: true,  groupId: 'la_Group_B' },
-            { id: 'rcc_8', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img6-3.jpg', description: 'detail', url: 'lala/img6-3.jpg',  groupId: 'la_Group_B' },
-            { id: 'rcc_9', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img6.jpg', description: '', url: 'lala/img6.jpg',  groupId: 'la_Group_B' },
-            { id: 'rcc_10', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img6-1.jpg', description: '', url: 'lala/img6-1.jpg',  groupId: 'la_Group_B' },
-
-            { id: 'rcc_11', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '1.jpg', description: 'Mirror, 2021, Engraving and watercolor on panel, 130.3x97cm', url: 'lala2/1.jpg', isGroupMain: true },
-                { id: 'rcc_12', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '2.jpg', description: '', url: 'lala2/2.jpg', isGroupMain: true },
-                { id: 'rcc_13', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '3.jpg', description: 'One more (translation),2021, Engraving and watercolor on panel, Graphite, 53x33.4cm', url: 'lala2/3.jpg', isGroupMain: true },
-                { id: 'rcc_14', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '4.jpg', description: 'One more (wrapping),2021, Engraving and watercolor on panel, Graphite, 53x33.4cm', url: 'lala2/4.jpg', isGroupMain: true },
-                { id: 'rcc_15', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '5.jpg', description: 'Frico, 2021, Engraving and watercolor on panel, Graphite, 35x35cm', url: 'lala2/5.jpg', isGroupMain: true },
-                { id: 'rcc_16', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '6.jpg', description: 'Still-life (wrapping), 2021, Engraving and watercolor on panel, Graphite, 45.5x37.5cm', url: 'lala2/6.jpg', isGroupMain: true },
-                { id: 'rcc_17', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '7.jpg', description: '찢어진 종이, 2021, Engraving and watercolor on panel, Graphite, 30x30cm', url: 'lala2/7.jpg', isGroupMain: true },
-
-                { id: 'rcc_18', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '8.jpg', description: 'Shadow, 2020, Graphite on paper, 72.7x53cm', url: 'lala2/8.jpg', isGroupMain: true,  groupId: 'la_Group_C'  },
-                { id: 'rcc_19', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '8-1.jpg', description: 'Shadow, 2020, Graphite on paper, 72.7x53cm', url: 'lala2/8-1.jpg',  groupId: 'la_Group_C' },
-
-                { id: 'rcc_20', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '9.jpg', description: '', url: 'lala2/9.jpg', isGroupMain: true },
-
-
-
-            
+            // Room of Convexity and Concavity (Group)
+            { id: 'rcc_1', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img1.jpg', description: 'Installation View (Room of Convexity and Concavity, 2022)', url: 'lala/img1.jpg', isGroupMain: true, groupId: 'la_Group_A' },
+            { id: 'rcc_2', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img1-1.jpg', description: '', url: 'lala/img1-1.jpg', groupId: 'la_Group_A' },
+            { id: 'rcc_3', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img2.jpg', description: '', url: 'lala/img2.jpg', groupId: 'la_Group_A' },
+            { id: 'rcc_4', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img3.jpg', description: '', url: 'lala/img3.jpg', groupId: 'la_Group_A' },
+            { id: 'rcc_5', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img4.jpg', description: '', url: 'lala/img4.jpg', groupId: 'la_Group_A' },
+            { id: 'rcc_6', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img5.jpg', description: '', url: 'lala/img5.jpg', groupId: 'la_Group_A' },
+            { id: 'rcc_7', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img6-2.jpg', description: 'detail', url: 'lala/img6-2.jpg', isGroupMain: true, groupId: 'la_Group_B' },
+            { id: 'rcc_8', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img6-3.jpg', description: 'detail', url: 'lala/img6-3.jpg', groupId: 'la_Group_B' },
+            { id: 'rcc_9', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img6-4.jpg', description: 'detail', url: 'lala/img6-4.jpg', groupId: 'la_Group_B' },
+            { id: 'rcc_10', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img6.jpg', description: 'detail', url: 'lala/img6.jpg', isGroupMain: true },
+            { id: 'rcc_11', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '1.jpg', description: 'Fragment of a Place, 2021, Engraving and watercolor on panel, Plaster, 29x21cm', url: 'lala2/1.jpg', isGroupMain: true },
+            { id: 'rcc_12', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '2.jpg', description: 'Fragment of a Place, 2021, Engraving and watercolor on panel, Plaster, 29x21cm', url: 'lala2/2.jpg', isGroupMain: true },
+            { id: 'rcc_13', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '3.jpg', description: 'Fragment of a Place, 2021, Engraving and watercolor on panel, Plaster, 29x21cm', url: 'lala2/3.jpg', isGroupMain: true },
+            { id: 'rcc_14', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '4.jpg', description: 'Fragment of a Place, 2021, Engraving and watercolor on panel, Plaster, 29x21cm', url: 'lala2/4.jpg', isGroupMain: true },
+            { id: 'rcc_15', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '5.jpg', description: 'Torn Paper, 2021, Engraving and watercolor on panel, Graphite, 30x30cm', url: 'lala2/5.jpg', isGroupMain: true },
+            { id: 'rcc_16', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '6.jpg', description: 'Torn Paper, 2021, Engraving and watercolor on panel, Graphite, 30x30cm', url: 'lala2/6.jpg', isGroupMain: true },
+            { id: 'rcc_17', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '7.jpg', description: '찢어진 종이, 2021, Engraving and watercolor on panel, Graphite, 30x30cm', url: 'lala2/7.jpg', isGroupMain: true },
+            { id: 'rcc_18', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '8.jpg', description: 'Shadow, 2020, Graphite on paper, 72.7x53cm', url: 'lala2/8.jpg', isGroupMain: true, groupId: 'la_Group_C' },
+            { id: 'rcc_19', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '8-1.jpg', description: 'Shadow, 2020, Graphite on paper, 72.7x53cm', url: 'lala2/8-1.jpg', groupId: 'la_Group_C' },
+            { id: 'rcc_20', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala2', fileName: '9.jpg', description: '', url: 'lala2/9.jpg', isGroupMain: true },
             { id: 'rcc_21', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img7.jpg', description: 'Mazzochio, 2021, Scratching and watercolor on aluminum, Graphite, 29.7x21cm', url: 'lala/img7.jpg', isGroupMain: true },
-            
-            { id: 'rcc_22', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img8.jpg', description: 'David, 2021, Scratching and watercolor on aluminum, Graphite, 29.7x21cm', url: 'lala/img8.jpg', isGroupMain: true },
-            
-            { id: 'rcc_23', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img9.jpg', description: 'Mazzochio, 2021, Scratching and watercolor on aluminum, Graphite, 29.7x21cm', url: 'lala/img9.jpg', isGroupMain: true },
+            { id: 'rcc_22', projectId: 'Room of Convexity and Concavity', isDefault: false, folder: 'lala', fileName: 'img8.jpg', description: 'Detail of Mazzochio', url: 'lala/img8.jpg', isGroupMain: true },
 
-            
-            
-            
-           
- 
-
-
-            
-            { id: 'tq_1', projectId: 'TORQUE 1', isDefault: false, folder: 'cylinder', fileName: '1.jpg', description: 'Exhibition View', url: 'cylinder/1.jpg', isGroupMain: true ,   groupId: 'tor_Group_C'},
-             { id: 'tq_2', projectId: 'TORQUE 1', isDefault: false, folder: 'cylinder', fileName: '2.jpg', description: '', url: 'cylinder/2.jpg',   groupId: 'tor_Group_C' },
-
-             { id: 'tq_3', projectId: 'TORQUE 1', isDefault: false, folder: 'cylinder', fileName: 'img1.jpg', description: 'Image Swipe, 2020, Engraving and watercolor on panel, Graphite, 194x130cm', url: 'cylinder/img1.jpg', isGroupMain: true },
-             { id: 'tq_4', projectId: 'TORQUE 1', isDefault: false, folder: 'cylinder', fileName: 'img2.jpg', description: 'Wipe #1, 2020, Engraving and watercolor on panel, Graphite, 194x130cm', url: 'cylinder/img2.jpg', isGroupMain: true },
-
-            
+            // TORQUE 1 (Group)
+            { id: 'tor_1', projectId: 'TORQUE 1', isDefault: false, folder: 'torque1', fileName: '1.jpg', description: 'Installation View (TORQUE 1 / GEAR SHIFT, 2021)', url: 'torque1/1.jpg', isGroupMain: true, groupId: 'tor_Group_A' },
+            { id: 'tor_2', projectId: 'TORQUE 1', isDefault: false, folder: 'torque1', fileName: '2.jpg', description: 'detail', url: 'torque1/2.jpg', groupId: 'tor_Group_A' },
+            { id: 'tor_3', projectId: 'TORQUE 1', isDefault: false, folder: 'torque1', fileName: '3.jpg', description: 'detail', url: 'torque1/3.jpg', groupId: 'tor_Group_A' },
+            { id: 'tor_4', projectId: 'TORQUE 1', isDefault: false, folder: 'torque1', fileName: '4.jpg', description: 'detail', url: 'torque1/4.jpg', groupId: 'tor_Group_A' },
+            { id: 'tor_5', projectId: 'TORQUE 1', isDefault: false, folder: 'torque1', fileName: '5.jpg', description: 'detail', url: 'torque1/5.jpg', groupId: 'tor_Group_A' },
+            { id: 'tor_6', projectId: 'TORQUE 1', isDefault: false, folder: 'torque1', fileName: '6.jpg', description: 'detail', url: 'torque1/6.jpg', isGroupMain: true, groupId: 'tor_Group_B' },
+            { id: 'tor_7', projectId: 'TORQUE 1', isDefault: false, folder: 'torque1', fileName: '7.jpg', description: 'detail', url: 'torque1/7.jpg', groupId: 'tor_Group_B' },
+            { id: 'tor_8', projectId: 'TORQUE 1', isDefault: false, folder: 'torque1', fileName: '8.jpg', description: 'detail', url: 'torque1/8.jpg', groupId: 'tor_Group_B' },
+            { id: 'tor_9', projectId: 'TORQUE 1', isDefault: false, folder: 'torque1', fileName: '9.jpg', description: 'detail', url: 'torque1/9.jpg', groupId: 'tor_Group_B' },
+            { id: 'tor_10', projectId: 'TORQUE 1', isDefault: false, folder: 'torque1', fileName: '10.jpg', description: 'detail', url: 'torque1/10.jpg', groupId: 'tor_Group_B' },
+            { id: 'tor_11', projectId: 'TORQUE 1', isDefault: false, folder: 'torque1', fileName: '11.jpg', description: 'detail', url: 'torque1/11.jpg', isGroupMain: true },
         ];
 
-        // ⭐ 1. 캐러셀 관련 전역 변수 설정
+
+        // 2. 전역 변수 설정
+        const CAROUSEL_INTERVAL_MS = 3000; 
+        const TRANSITION_DURATION_MS = 100; // 0.1s
         let groupCarouselTimeout = null; 
-        const groupCurrentIndexMap = {}; // 각 그룹 ID별 현재 이미지 인덱스를 추적
-        const CAROUSEL_INTERVAL_MS = 5000; // 5초 간격
-        const TRANSITION_DURATION_MS = 100; // ⭐ [수정] 전환 속도 0.1초 (100ms)로 변경
+        const groupCurrentIndexMap = {}; 
+        
+        const workListContainer = document.querySelector('.selected-work-list');
+        const projectLinks = document.querySelectorAll('.project-table a');
+        const jhlReset = document.getElementById('jhl-reset');
+        const projectIntroTexts = document.querySelectorAll('.project-intro-text');
+        const projectFooterTexts = document.querySelectorAll('.project-footer-text');
+        let activeFilterId = null; 
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const projectLinks = document.querySelectorAll('.project-table .tilte a');
-            const workListContainer = document.querySelector('.right-panel .selected-work-list'); 
-            const jhlReset = document.getElementById('jhl-reset');
-            
-            const projectIntroTexts = document.querySelectorAll('.project-intro-text'); 
-            const projectFooterTexts = document.querySelectorAll('.project-footer-text'); 
+        const modal = document.getElementById('fullscreen-modal');
+        const modalImageContainer = document.getElementById('modal-image-container');
+        const modalClose = modal.querySelector('.modal-close');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const modalCaption = document.getElementById('modal-caption');
+        let currentModalImageId = null;
+        let currentFilteredImages = []; // 현재 모달에서 네비게이션에 사용되는 이미지 목록 (그룹 상세 포함)
 
-            let activeFilterId = null; 
-            
-            const modal = document.getElementById('fullscreen-modal');
-            const modalImageContainer = document.getElementById('modal-image-container');
-            const modalClose = modal.querySelector('.modal-close');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const modalCaption = document.getElementById('modal-caption'); 
+        /**
+         * 특정 그룹 ID에 속한 모든 이미지 데이터를 반환합니다.
+         */
+        const getGroupImages = (groupId) => {
+            const groupItems = allImageData.filter(item => item.groupId === groupId);
+            // ⭐ [수정 1] Install_View_1 그룹에 대해 숫자 기반 정렬을 수행합니다.
+            if (groupId === 'Install_View_1') {
+                return groupItems.sort((a, b) => {
+                    // loggia_1, loggia_2, ... loggia_10에서 숫자 부분만 추출하여 정렬
+                    const numA = parseInt(a.id.split('_')[1]);
+                    const numB = parseInt(b.id.split('_')[1]);
+                    return numA - numB;
+                });
+            } else {
+                // 그 외 그룹은 기존의 문자열 기반 정렬을 유지합니다.
+                return groupItems.sort((a, b) => a.id.localeCompare(b.id));
+            }
+        };
 
-            let currentModalImageId = null;
-            let currentFilteredImages = []; 
-            
-            
-            /**
-             * 특정 그룹 ID에 속한 모든 이미지 데이터를 반환합니다.
-             */
-            const getGroupImages = (groupId) => {
-                const groupItems = allImageData.filter(item => item.groupId === groupId);
-                
-                // ⭐ [수정 1] Install_View_1 그룹에 대해 숫자 기반 정렬을 수행합니다.
-                if (groupId === 'Install_View_1') {
-                    return groupItems.sort((a, b) => {
-                        // loggia_1, loggia_2, ... loggia_10에서 숫자 부분만 추출하여 정렬
-                        const numA = parseInt(a.id.split('_')[1]);
-                        const numB = parseInt(b.id.split('_')[1]);
-                        return numA - numB;
-                    });
-                } else {
-                    // 그 외 그룹은 기존의 문자열 기반 정렬을 유지합니다.
-                    return groupItems.sort((a, b) => a.id.localeCompare(b.id)); 
-                }
-            };
-            
-            
-            // ⭐ 2. 캐러셀 중지 함수 (Update: clearTimeout 사용)
-            const stopCarousel = () => {
-                if (groupCarouselTimeout) {
-                    clearTimeout(groupCarouselTimeout);
-                    groupCarouselTimeout = null;
-                }
-            };
-            
-            /**
-             * ⭐ 3. 개별 그룹 이미지 순환 함수 (크로스 페이드 구현)
-             */
-            const cycleGroupImage = () => {
-                const mainGroupItems = document.querySelectorAll('.work-item[data-group-main="true"][data-group-id]');
-                const transitionPromises = []; 
 
-                mainGroupItems.forEach(item => {
-                    const groupId = item.dataset.groupId;
-                    if (!groupId) return;
+        /**
+         * ⭐ [추가 1] 현재 필터링된 프로젝트 내에서 그룹을 풀고 순차적인 이미지 목록을 반환합니다.
+         * 그룹 내의 이미지를 포함하여 모든 이미지를 연속적으로 탐색할 수 있도록 합니다.
+         * @param {string} projectId 현재 활성화된 프로젝트 ID
+         * @returns {Array<Object>} 네비게이션에 사용될 이미지 데이터 배열
+         */
+        const getProjectFlattenedImages = (projectId) => {
+            // projectId가 INDEX_DEFAULT이거나 정의되지 않은 경우, 기본 인덱스 항목만 반환
+            if (projectId === 'INDEX_DEFAULT' || !projectId) {
+                return allImageData.filter(item => item.isDefault);
+            }
 
+            const projectItems = allImageData.filter(item => item.projectId === projectId);
+            let flattenedList = [];
+            const processedGroupIds = new Set();
+
+            // isGroupMain: true이거나 groupId가 없는 항목들을 렌더링 순서대로 순회합니다.
+            // ID 순으로 정렬하여 렌더링 순서를 흉내냅니다.
+            const mainItemsOrder = projectItems
+                .filter(item => item.isGroupMain || !item.groupId)
+                .sort((a, b) => a.id.localeCompare(b.id)); 
+
+            mainItemsOrder.forEach(item => {
+                const groupId = item.groupId;
+
+                if (groupId && !processedGroupIds.has(groupId)) {
+                    // 그룹 메인 이미지를 찾았고, 아직 처리되지 않은 그룹이라면,
+                    // getGroupImages 함수를 사용하여 그룹 내 모든 이미지(순서대로 정렬됨)를 가져와 펼쳐서 추가합니다.
                     const groupImages = getGroupImages(groupId);
-                    if (groupImages.length <= 1) return; 
+                    flattenedList.push(...groupImages);
+                    processedGroupIds.add(groupId);
+                } else if (!groupId) {
+                    // 그룹이 없는 단일 이미지
+                    flattenedList.push(item);
+                }
+            });
 
-                    let currentIndex = groupCurrentIndexMap[groupId] !== undefined ? groupCurrentIndexMap[groupId] : 0;
-                    
-                    const nextIndex = (currentIndex + 1) % groupImages.length;
-                    const nextImage = groupImages[nextIndex];
-                    
-                    const visualContainer = item.querySelector('.work-visual');
-                    // 현재 활성화된 이미지를 찾습니다. (초기 렌더링 시 .active 클래스를 부여함)
-                    const activeImgElement = visualContainer.querySelector('img.active');
-                    if (!activeImgElement) return;
+            // 네비게이션 목록이 비어있을 경우 (오류 방지)
+            return flattenedList.length > 0 ? flattenedList : projectItems.filter(item => !item.isDefault);
+        };
+        
+        // ⭐ 2. 캐러셀 중지 함수 (Update: clearTimeout 사용)
+        const stopCarousel = () => {
+            if (groupCarouselTimeout) {
+                clearTimeout(groupCarouselTimeout);
+                groupCarouselTimeout = null;
+            }
+        };
 
-                    const transitionPromise = new Promise(resolve => {
-                        // 1. 다음 이미지를 미리 로드할 Image 객체 생성
-                        const preloader = new Image();
-                        preloader.src = nextImage.url;
+        /**
+         * ⭐ 3. 개별 그룹 이미지 순환 함수 (크로스 페이드 구현)
+         */
+        const cycleGroupImage = () => {
+            const mainGroupItems = document.querySelectorAll('.work-item[data-group-main="true"][data-group-id]');
+            const transitionPromises = [];
+            
+            mainGroupItems.forEach(item => {
+                const groupId = item.dataset.groupId;
+                if (!groupId) return;
+
+                const groupImages = getGroupImages(groupId);
+                if (groupImages.length <= 1) return;
+
+                // 맵에 현재 인덱스가 없으면 0으로 초기화
+                let currentIndex = groupCurrentIndexMap[groupId] === undefined ? 0 : groupCurrentIndexMap[groupId];
+                let nextIndex = (currentIndex + 1) % groupImages.length;
+                const nextImage = groupImages[nextIndex];
+
+                const activeImgElement = item.querySelector('img.active');
+                if (!activeImgElement) {
+                    // active 클래스가 없는 경우, 첫 번째 이미지를 다시 활성화
+                    const initialImageUrl = groupImages[0].url;
+                    item.querySelector('.work-visual').innerHTML = `<img src="${initialImageUrl}" alt="${groupImages[0].folder}/${groupImages[0].fileName}" class="active" onerror="this.onerror=null; this.src='https://placehold.co/600x300/CCCCCC/333333?text=Image+Load+Failed';">`;
+                    groupCurrentIndexMap[groupId] = 0;
+                    return;
+                }
+
+                const transitionPromise = new Promise(resolve => {
+                    // 1. 새 이미지 로드를 위한 임시 Preloader 생성
+                    const preloader = new Image();
+                    
+                    // 2. 로드 완료 시: 크로스 페이드 시작
+                    preloader.onload = () => {
+                        const newImgElement = document.createElement('img');
+                        // a. 새 이미지 요소 설정
+                        newImgElement.src = nextImage.url;
+                        newImgElement.alt = `${nextImage.folder}/${nextImage.fileName}`;
+                        newImgElement.classList.add('active'); // 새 이미지를 'active'로 설정
+                        newImgElement.style.opacity = '0'; // 초기 투명도는 0
                         
-                        // 2. ⭐ 로딩 완료 시 처리: 겹쳐지는 크로스 페이드 전환 시작
-                        preloader.onload = () => {
-                            // a. 새 이미지 요소 생성 및 컨테이너에 추가 (opacity: 0 상태)
-                            const newImgElement = document.createElement('img');
-                            newImgElement.src = preloader.src; // 이미 로드된 URL 설정
-                            newImgElement.alt = `${nextImage.folder}/${nextImage.fileName}`;
-                            newImgElement.classList.add('active'); // 새 이미지에 'active' 클래스 부여
-                            newImgElement.style.opacity = '0'; // 초기 투명 상태
+                        // b. DOM에 새 이미지 추가 (기존 이미지 위에 겹쳐지도록)
+                        const visualContainer = item.querySelector('.work-visual');
+                        visualContainer.appendChild(newImgElement);
 
-                            // 새 이미지를 DOM에 추가하여 기존 이미지 위에 겹치게 함
-                            visualContainer.appendChild(newImgElement);
+                        // 짧은 딜레이로 DOM 적용 대기
+                        setTimeout(() => {
+                            // 새 이미지 페이드 인 시작
+                            newImgElement.style.opacity = '1';
+                            // 기존 이미지 페이드 아웃 시작 (겹치기)
+                            activeImgElement.style.opacity = '0';
+                            activeImgElement.classList.remove('active'); // 기존 이미지 'active' 제거
 
-                            // b. DOM이 업데이트된 후, 다음 프레임에서 트랜지션을 시작합니다.
-                            // 렌더링 시간 확보를 위한 짧은 딜레이
+                            // c. ⭐ 전환 시간(0.1s) 후 정리 작업 수행
                             setTimeout(() => {
-                                // 새 이미지 페이드 인 시작
-                                newImgElement.style.opacity = '1';
-                                // 기존 이미지 페이드 아웃 시작 (겹치기)
-                                activeImgElement.style.opacity = '0'; 
-                                activeImgElement.classList.remove('active'); // 기존 이미지 'active' 제거
-                                
-                                // c. ⭐ 전환 시간(0.1s) 후 정리 작업 수행
-                                setTimeout(() => {
-                                    // 완전히 페이드 아웃된 기존 이미지 요소 제거
-                                    activeImgElement.remove();
-                                    
-                                    // d. 인덱스 업데이트
-                                    groupCurrentIndexMap[groupId] = nextIndex;
-                                    
-                                    // e. 다음 주기를 예약하기 위해 resolve
-                                    resolve(); 
-                                }, TRANSITION_DURATION_MS); // 0.1s
-                            }, 50); // 짧은 딜레이로 DOM 적용 대기
-                        };
+                                // 완전히 페이드 아웃된 기존 이미지 요소 제거
+                                activeImgElement.remove();
+                                // d. 인덱스 업데이트
+                                groupCurrentIndexMap[groupId] = nextIndex;
+                                // e. 다음 주기를 예약하기 위해 resolve
+                                resolve();
+                            }, TRANSITION_DURATION_MS); // 0.1s
+                        }, 50); // 짧은 딜레이로 DOM 적용 대기
+                    };
 
-                        // 3. 로딩 실패 시: 인덱스만 업데이트하고 즉시 완료 처리
-                        preloader.onerror = () => {
-                            console.error(`Failed to load image: ${nextImage.url}`);
-                            groupCurrentIndexMap[groupId] = nextIndex; // 다음 인덱스로 넘김
-                            resolve(); 
-                        };
+                    // 3. 로딩 실패 시: 인덱스만 업데이트하고 즉시 완료 처리
+                    preloader.onerror = () => {
+                        console.error(`Failed to load image: ${nextImage.url}`);
+                        groupCurrentIndexMap[groupId] = nextIndex; // 다음 인덱스로 넘김
+                        resolve();
+                    };
+
+                    // 4. 로드 시작
+                    preloader.src = nextImage.url; 
+                });
+
+                transitionPromises.push(transitionPromise);
+            });
+            // 모든 그룹의 전환 완료 Promise를 반환
+            return Promise.all(transitionPromises);
+        };
+
+        // ⭐ 4. 캐러셀 시작 함수 (Update: 재귀적 setTimeout 루프 관리)
+        const startCarousel = () => {
+            stopCarousel(); // 이중 실행 방지
+            // [수정 2-B] 캐러셀 시작 조건 변경: activeFilterId가 'INDEX_DEFAULT'여도 그룹이 있으면 시작
+            const hasGroupItems = allImageData.filter(item => item.projectId === activeFilterId && item.groupId ).length > 0;
+            const shouldStart = hasGroupItems || activeFilterId === 'INDEX_DEFAULT'; // 기본 인덱스도 그룹이므로 시작
+            
+            if (!shouldStart) return;
+
+            // 재귀 루프 정의
+            const loop = () => {
+                // cycleGroupImage는 이미지 로드 + 전환 완료 후 resolve되는 Promise를 반환합니다.
+                cycleGroupImage()
+                    .then(() => {
+                        // 전환이 완료되면, 3초의 대기 시간을 가집니다.
+                        groupCarouselTimeout = setTimeout(loop, CAROUSEL_INTERVAL_MS);
+                    })
+                    .catch(error => {
+                        console.error("Carousel transition error:", error);
+                        // 오류 발생 시에도 다음 주기 시도를 위해 대기 후 재호출
+                        groupCarouselTimeout = setTimeout(loop, CAROUSEL_INTERVAL_MS);
                     });
+            };
+            // 최초 실행
+            loop();
+        };
+
+        /**
+         * 오른쪽 패널의 작업물 목록을 렌더링하고 상단/하단 텍스트를 업데이트합니다.
+         */
+        const renderWorkList = (projectId) => {
+            // 1. 활성 필터 ID 업데이트 및 캐러셀 중지/재시작
+            activeFilterId = projectId; 
+            stopCarousel(); // 새 프로젝트를 로드하기 전에 캐러셀 중지
+
+            // 2. 필터링 로직: 현재 프로젝트 ID에 해당하는 항목만 필터링합니다.
+            const filteredData = allImageData.filter(item => item.projectId === projectId && !item.isDefault);
+
+            // 3. 렌더링할 메인 아이템 결정: isGroupMain이 true인 항목만 렌더링 (즉, 캐러셀 그룹의 대표 이미지만)
+            const mainItems = filteredData.filter(item => item.isGroupMain === true);
+            // isGroupMain 항목이 있다면 그것만 렌더링, 없다면 전체를 렌더링 (후자를 통해 데이터 오류 방지)
+            let itemsToRenderInMain = mainItems.length > 0 ? mainItems : filteredData;
+
+            // 4. 렌더링할 항목들을 HTML로 변환합니다.
+            let workItemsHtml = itemsToRenderInMain.map(image => {
+                const isDefaultAttr = image.isDefault ? 'data-is-default="true"' : '';
+                // ⭐ groupId 속성 추가
+                const groupIdAttr = image.groupId ? `data-group-id="${image.groupId}"` : '';
+                // ⭐ isGroupMain 속성도 명시적으로 추가
+                const isGroupMainAttr = image.isGroupMain ? 'data-group-main="true"' : '';
+                
+                // ⭐ 그룹의 첫 번째 이미지 URL을 가져옵니다.
+                const initialImageUrl = image.groupId && image.isGroupMain 
+                    ? getGroupImages(image.groupId)[0].url // 안전하게 첫 번째 이미지 URL을 가져옴
+                    : image.url;
+                
+                // ⭐ [수정] 초기 이미지에 active 클래스를 부여하여 시작 시점의 '현재' 이미지를 식별합니다.
+                return `
+                    <article class="work-item" data-project-id="${image.projectId}" data-image-id="${image.id}" ${isDefaultAttr} ${groupIdAttr} ${isGroupMainAttr}>
+                        <div class="work-visual">
+                            <img src="${initialImageUrl}" alt="${image.folder}/${image.fileName}" class="active" onerror="this.onerror=null; this.src='https://placehold.co/600x300/CCCCCC/333333?text=Image+Load+Failed';">
+                        </div>
+                        <div class="work-header">
+                            <span class="full-description">${image.description}</span>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+
+            // 5. 정적 텍스트 블록들을 분리하고 다시 추가합니다.
+            const introTexts = Array.from(workListContainer.querySelectorAll('.project-intro-text'));
+            const footerTexts = Array.from(workListContainer.querySelectorAll('.project-footer-text'));
+            
+            workListContainer.innerHTML = '';
+            
+            introTexts.forEach(text => {
+                workListContainer.appendChild(text);
+                text.classList.remove('active');
+                if (text.dataset.projectId === projectId) {
+                    text.classList.add('active');
+                }
+            });
+
+            workListContainer.insertAdjacentHTML('beforeend', workItemsHtml);
+
+            footerTexts.forEach(text => {
+                workListContainer.appendChild(text);
+                text.classList.remove('active');
+                if (text.dataset.projectId === projectId) {
+                    text.classList.add('active');
+                }
+            });
+
+
+            // 6. 캐러셀 재시작 (새로 렌더링된 항목에 대해)
+            startCarousel();
+
+            // 7. 스크롤을 맨 위로 이동
+            document.querySelector('.right-panel').scrollTop = 0;
+        };
+
+        const resetFilter = () => {
+            projectLinks.forEach(l => l.style.fontWeight = 'normal');
+            renderWorkList('INDEX_DEFAULT'); // 기본 인덱스 항목을 로드
+            activeFilterId = 'INDEX_DEFAULT'; // 초기값 설정
+        };
+
+
+        // 모달에서 다음/이전 버튼 클릭 시 이미지 업데이트
+        const updateModalContent = (imageId) => {
+            // 1. 타겟 이미지 정보 획득
+            const targetImage = allImageData.find(item => item.id === imageId);
+            if (!targetImage) return;
+
+            // 2. 크로스 페이드를 위한 이미지 로드 (Preloader 사용)
+            const tempLoader = new Image();
+
+            // ⭐ 3. 로드 완료 시
+            tempLoader.onload = () => {
+                const newImg = document.createElement('img');
+                newImg.src = targetImage.url;
+                newImg.alt = `${targetImage.folder}/${targetImage.fileName}`;
+                newImg.style.opacity = '0'; // 초기에는 투명하게 설정
+                
+                // A. 기존 이미지 페이드 아웃
+                Array.from(modalImageContainer.children).forEach(child => {
+                    if (child.tagName === 'IMG') {
+                        child.style.opacity = '0'; // 기존 이미지 페이드 아웃 시작
+                    }
+                });
+
+                // B. 새로운 이미지 추가 및 페이드 인
+                // 짧은 딜레이 후 DOM 조작 (CSS 전환이 적용되도록)
+                setTimeout(() => {
+                    // DOM 업데이트
+                    // (로드가 완료될 때까지 이전 이미지가 유지됨)
+                    modalImageContainer.innerHTML = ''; // 새 이미지를 컨테이너에 추가 (즉시 전환)
+                    modalImageContainer.appendChild(newImg);
                     
-                    transitionPromises.push(transitionPromise);
-                });
-                
-                // 모든 그룹의 전환 완료 Promise를 반환
-                return Promise.all(transitionPromises);
+                    // 새 이미지 페이드 인
+                    setTimeout(() => {
+                        newImg.style.opacity = '1'; 
+                    }, 20); // 아주 짧은 딜레이 후 opacity 변경으로 전환 시작
+
+                    // C. 캡션 및 ID 업데이트
+                    currentModalImageId = targetImage.id;
+                    modalCaption.innerHTML = `<div class="work-header"><span class="full-description">${targetImage.description}</span></div>`;
+
+                    // D. 내비게이션 버튼 업데이트
+                    updateNavButtons();
+                }, TRANSITION_DURATION_MS); // 기존 이미지 페이드 아웃 시간에 맞춰 정리
+
             };
 
-
-            // ⭐ 4. 캐러셀 시작 함수 (Update: 재귀적 setTimeout 루프 관리)
-            const startCarousel = () => {
-                stopCarousel(); // 이중 실행 방지
-                
-                // [수정 2-B] 캐러셀 시작 조건 변경: activeFilterId가 'INDEX_DEFAULT'여도 그룹이 있으면 시작
-                const hasGroupItems = allImageData.filter(item => 
-                    item.projectId === activeFilterId && item.groupId
-                ).length > 0;
-
-                const shouldStart = hasGroupItems; // 그룹 항목 존재 여부만 확인하여 전환 시작
-                                           
-                if (!shouldStart) return;
-
-                // 재귀 루프 정의
-                const loop = () => {
-                    // cycleGroupImage는 이미지 로드 + 전환 완료 후 resolve되는 Promise를 반환합니다.
-                    cycleGroupImage() 
-                        .then(() => {
-                            // 전환이 완료되면, 3초의 대기 시간을 가집니다.
-                            groupCarouselTimeout = setTimeout(loop, CAROUSEL_INTERVAL_MS);
-                        })
-                        .catch(error => {
-                            console.error("Carousel transition error:", error);
-                            // 오류 발생 시에도 다음 주기 시도를 위해 대기 후 재호출
-                            groupCarouselTimeout = setTimeout(loop, CAROUSEL_INTERVAL_MS);
-                        });
-                };
-                
-                // 최초 실행
-                loop();
+            // ⭐ 3. 로드 실패 시
+            tempLoader.onerror = () => {
+                console.error(`이미지 로드 실패: ${targetImage.url}`);
+                // 로드 실패 시 아무것도 하지 않아 이전 사진이 유지되도록 함
             };
 
+            // 4. 로드 시작 (src를 할당하여 로딩 시작)
+            tempLoader.src = targetImage.url;
+            // ⭐ 중요: 로딩이 완료될 때까지 DOM(modalImageContainer)은 업데이트하지 않습니다.
+            // 따라서 로딩 중에는 이전 이미지가 그대로 화면에 남아있게 됩니다.
+        };
 
-            /**
-             * 오른쪽 패널의 작업물 목록을 렌더링하고 상단/하단 텍스트 가시성을 업데이트합니다.
-             */
-            const renderWorkList = (filterId = 'INDEX_DEFAULT') => {
-                
-                // 1. ⭐ 기존 캐러셀 중지
-                stopCarousel();
-                activeFilterId = filterId; // 활성 필터 ID 업데이트
-                
-                // 2. 필터링된 데이터 준비 (모달 내비게이션용)
-                let filteredData;
-                
-                // INDEX_DEFAULT는 isDefault가 true인 항목, 나머지는 projectId가 일치하는 항목을 사용
-                if (filterId === 'INDEX_DEFAULT') {
-                    filteredData = allImageData.filter(item => item.isDefault);
-                } else {
-                    filteredData = allImageData.filter(item => item.projectId === filterId);
-                }
-                
-                // ⭐ [수정 1 반영] Loggia 등 새로 진입한 프로젝트의 모든 그룹 인덱스를 0으로 초기화
-                 filteredData.forEach(item => {
-                    if (item.groupId) {
-                        groupCurrentIndexMap[item.groupId] = 0;
-                    }
-                });
+        // =========================================================================
+        // ⭐ 모달 버튼 상태 업데이트 함수: groupId 기반으로 모달 순서 결정
+        const updateNavButtons = () => {
+            // currentFilteredImages는 이미 모달 열기 시 그룹 데이터로 설정되어 있습니다.
+            const navigableImages = currentFilteredImages;
+            const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
 
-                
-                // 3. ⭐ 메인 패널에 렌더링할 항목을 필터링합니다. (isGroupMain: true 항목만)
-                let itemsToRenderInMain = [];
-                
-                // isGroupMain이 true인 항목만 렌더링 (즉, 캐러셀 그룹의 대표 이미지만)
-                const mainItems = filteredData.filter(item => item.isGroupMain === true);
-                
-                // isGroupMain 항목이 있다면 그것만 렌더링, 없다면 전체를 렌더링 (후자를 통해 데이터 오류 방지)
-                itemsToRenderInMain = mainItems.length > 0 ? mainItems : filteredData;
-
-                
-                // 4. 렌더링할 항목들을 HTML로 변환합니다.
-                let workItemsHtml = itemsToRenderInMain.map(image => {
-                    const isDefaultAttr = image.isDefault ? 'data-is-default="true"' : '';
-                    // ⭐ groupId 속성 추가
-                    const groupIdAttr = image.groupId ? `data-group-id="${image.groupId}"` : '';
-                    // ⭐ isGroupMain 속성도 명시적으로 추가
-                    const isGroupMainAttr = image.isGroupMain ? 'data-group-main="true"' : '';
-                    
-                    // ⭐ 그룹의 첫 번째 이미지 URL을 가져옵니다.
-                    const initialImageUrl = image.groupId && image.isGroupMain 
-                        ? getGroupImages(image.groupId)[0].url // 안전하게 첫 번째 이미지 URL을 가져옴
-                        : image.url;
-
-                    // ⭐ [수정] 초기 이미지에 active 클래스를 부여하여 시작 시점의 '현재' 이미지를 식별합니다.
-                    return `
-                        <article class="work-item" data-project-id="${image.projectId}" data-image-id="${image.id}" ${isDefaultAttr} ${groupIdAttr} ${isGroupMainAttr}>
-                            <div class="work-visual">
-                                <img src="${initialImageUrl}" 
-                                     alt="${image.folder}/${image.fileName}" 
-                                     class="active"
-                                     onerror="this.onerror=null; this.src='https://placehold.co/600x300/CCCCCC/333333?text=Image+Load+Failed';">
-                            </div>
-                            <div class="work-header">
-                                <span class="full-description">${image.description}</span>
-                            </div>
-                        </article>
-                    `;
-                }).join('');
-                
-                // 5. 정적 텍스트 블록들을 분리하고 다시 추가합니다.
-                const introTexts = Array.from(workListContainer.querySelectorAll('.project-intro-text'));
-                const footerTexts = Array.from(workListContainer.querySelectorAll('.project-footer-text')); 
-                
-                workListContainer.innerHTML = '';
-                introTexts.forEach(text => workListContainer.appendChild(text));
-                
-                workListContainer.insertAdjacentHTML('beforeend', workItemsHtml);
-
-                footerTexts.forEach(text => workListContainer.appendChild(text));
-
-                document.querySelector('.right-panel').scrollTop = 0;
-                
-                // 6. 상단/하단 텍스트 가시성 관리
-                projectIntroTexts.forEach(textBlock => {
-                    textBlock.classList.remove('active');
-                    if (textBlock.dataset.projectId === filterId) {
-                        textBlock.classList.add('active');
-                    }
-                });
-                
-                projectFooterTexts.forEach(textBlock => {
-                    textBlock.classList.remove('active');
-                    if (textBlock.dataset.projectId === filterId) {
-                        textBlock.classList.add('active');
-                    }
-                });
-
-                // 7. 모달용으로 전체 필터링된 데이터(숨겨진 이미지 포함)를 저장합니다.
-                currentFilteredImages = filteredData;
-                
-                // 8. ⭐ 캐러셀 시작
-                startCarousel();
-            };
-
-  // =========================================================================
-// ⭐ [최종] 전체화면 모달 전환 함수 (로딩 완료 후 즉시 전환) ⭐
-// =========================================================================
-const updateModalContent = (imageId) => {
-    // 주의: currentFilteredImages는 현재 그룹의 이미지 목록입니다.
-    const targetImage = currentFilteredImages.find(item => item.id === imageId);
-    
-    if (!targetImage) return;
-
-    // 1. 새 이미지 로드를 위한 임시 객체 생성
-    const tempLoader = new Image();
-    tempLoader.alt = `${targetImage.folder}/${targetImage.fileName}`;
-    
-    // ⭐ 2. 로딩 완료 시 실행할 함수 (이전 사진을 대체)
-    tempLoader.onload = () => {
-        // 로드가 완료되었으므로 이제 DOM을 업데이트합니다.
-        
-        // A. 새 이미지 DOM 요소 생성
-        const newImg = document.createElement('img');
-        newImg.alt = tempLoader.alt; 
-        newImg.src = tempLoader.src; 
-        newImg.style.objectFit = 'contain'; 
-        newImg.style.transition = 'none'; // 겹침 방지를 위해 전환 효과 제거
-        newImg.style.opacity = '1'; 
-        newImg.style.transform = 'scale(1)'; 
-
-        // B. 이전 이미지 제거 및 새 이미지 추가
-        // 이전 이미지를 제거하고 (로드가 완료될 때까지 이전 이미지가 유지됨)
-        modalImageContainer.innerHTML = ''; 
-        // 새 이미지를 컨테이너에 추가 (즉시 전환)
-        modalImageContainer.appendChild(newImg);
-        
-        // C. 캡션 및 ID 업데이트
-        currentModalImageId = targetImage.id;
-        modalCaption.innerHTML = `<div class="work-header"><span class="full-description">${targetImage.description}</span></div>`;
-        
-        // D. 내비게이션 버튼 업데이트
-        updateNavButtons();
-    };
-    
-    // ⭐ 3. 로드 실패 시
-    tempLoader.onerror = () => {
-        console.error(`이미지 로드 실패: ${targetImage.url}`);
-        // 로드 실패 시 아무것도 하지 않아 이전 사진이 유지되도록 함
-    };
-
-    // 4. 로드 시작 (src를 할당하여 로딩 시작)
-    tempLoader.src = targetImage.url; 
-    
-    // ⭐ 중요: 로딩이 완료될 때까지 DOM(modalImageContainer)은 업데이트하지 않습니다.
-    // 따라서 로딩 중에는 이전 이미지가 그대로 화면에 남아있게 됩니다.
-};
-// =========================================================================
-            
-            // ⭐ 모달 버튼 상태 업데이트 함수: groupId 기반으로 모달 순서 결정
-            const updateNavButtons = () => {
-                // currentFilteredImages는 이미 모달 열기 시 그룹 데이터로 설정되어 있습니다.
-                const navigableImages = currentFilteredImages;
-                const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
-                
-                // 모바일이 아닐 때만 버튼을 표시
-                if (window.innerWidth > 768) { 
-                    prevBtn.style.display = (currentIndex > 0) ? 'block' : 'none';
-                    nextBtn.style.display = (currentIndex < navigableImages.length - 1) ? 'block' : 'none';
-                } else {
-                    // 모바일에서는 항상 숨김 (CSS에서도 처리하지만 JS에서도 안전하게 처리)
-                    prevBtn.style.display = 'none';
-                    nextBtn.style.display = 'none';
-                }
-            };
-            
-            // ⭐ 모달 열기 시 그룹 데이터로 필터링
-            const openModal = (imageId) => {
-                
-                // 1. 클릭된 이미지 정보 획득
-                const clickedImage = allImageData.find(item => item.id === imageId);
-                if (!clickedImage) return;
-
-                // 2. ⭐ 캐러셀 중지
-                stopCarousel();
-                
-                // 3. 모달에 사용할 이미지 리스트 결정:
-                let modalImages;
-                if (clickedImage.groupId) {
-                    // groupId가 있으면, 해당 그룹의 모든 이미지를 모달 이미지로 사용
-                    modalImages = getGroupImages(clickedImage.groupId); // Helper function 사용
-                } else if (activeFilterId === 'INDEX_DEFAULT') {
-                     // INDEX_DEFAULT는 isDefault가 true인 항목 전체를 모달 데이터로 사용 (그룹핑 무시)
-                     modalImages = allImageData.filter(item => item.isDefault);
-                } else {
-                    // 그 외 (groupId가 없지만 프로젝트가 활성화된 경우), 해당 프로젝트의 모든 이미지를 모달 이미지로 사용
-                    modalImages = allImageData.filter(item => item.projectId === activeFilterId);
-                }
-                
-                // 4. currentFilteredImages를 모달 내비게이션 리스트로 업데이트
-                currentFilteredImages = modalImages;
-                
-                // 5. 모달 콘텐츠 업데이트 및 표시
-                updateModalContent(imageId);
-                modal.classList.add('show');
-                
-                // ⭐ [수정 2-A] 모달 열기 시 history.pushState를 사용하여 URL에 상태를 추가합니다.
-                history.pushState({ modalOpen: true }, 'Modal Open', '#modal');
+            // 모바일이 아닐 때만 버튼을 표시
+            if (window.innerWidth > 768) {
+                prevBtn.style.display = (currentIndex > 0) ? 'block' : 'none';
+                nextBtn.style.display = (currentIndex < navigableImages.length - 1) ? 'block' : 'none';
+            } else {
+                // 모바일에서는 항상 숨김 (CSS에서도 처리하지만 JS에서도 안전하게 처리)
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
             }
+        };
 
+        // ⭐ 모달 열기 시 그룹 데이터로 필터링
+        const openModal = (imageId) => {
+            // 1. 클릭된 이미지 정보 획득
+            const clickedImage = allImageData.find(item => item.id === imageId);
+            if (!clickedImage) return;
 
-            // 초기 필터링 및 렌더링
-            const resetFilter = () => {
-                renderWorkList('INDEX_DEFAULT');
-                projectLinks.forEach(l => l.style.fontWeight = 'normal');
-                activeFilterId = 'INDEX_DEFAULT'; // 초기값 설정
-            };
+            // 2. ⭐ 캐러셀 중지
+            stopCarousel();
 
-            resetFilter(); 
+            // 3. 네비게이션 목록 설정
+            // ⭐ [수정 2-A] 그룹/프로젝트 구분 없이 현재 활성 프로젝트의 모든 이미지를 포함하도록 네비게이션 목록을 설정
+            const projectIdForNav = activeFilterId || 'INDEX_DEFAULT'; 
+            currentFilteredImages = getProjectFlattenedImages(projectIdForNav);
             
-            // 모달 닫기 공통 함수
-            const closeModal = () => {
-                 modal.classList.remove('show');
-                 startCarousel(); // ⭐ 모달 닫기 시 캐러셀 재시작
-                 
-                 // ⭐ [수정 2-B] 모달 닫기 시 URL에서 #modal 상태를 제거합니다.
-                 if (history.state && history.state.modalOpen) {
-                     history.back(); // history.pushState로 추가된 상태를 닫습니다.
-                 }
+            // 클릭된 이미지가 목록에 포함되어 있는지 확인 (오류 방지)
+            const initialIndex = currentFilteredImages.findIndex(item => item.id === imageId);
+            if (initialIndex === -1) {
+                // 만약 목록에 없다면, 클릭된 이미지 하나만 네비게이션 목록으로 사용
+                currentFilteredImages = [clickedImage]; 
             }
+            
+            // 4. 모달 표시 및 이미지 업데이트
+            modal.classList.add('show');
+            // 모달을 열 때, 이전에 표시되던 이미지의 투명도를 0으로 설정하여 새 이미지가 부드럽게 나타나도록 합니다.
+            // (크로스 페이드 효과를 위해 중요)
+            Array.from(modalImageContainer.children).forEach(child => {
+                if (child.tagName === 'IMG') {
+                    child.style.opacity = '0';
+                }
+            });
 
+            updateModalContent(imageId);
+            
+            // ⭐ [추가 2-B] history.pushState를 사용하여 모달 상태를 URL에 기록
+            if (!history.state || !history.state.modalOpen) {
+                // 뒤로 가기 버튼을 눌렀을 때 닫히게 하기 위해 상태를 추가합니다.
+                history.pushState({ modalOpen: true, imageId: imageId, projectId: projectIdForNav }, null, '#modal');
+            }
+        };
+
+        // 모달 닫기 공통 함수
+        const closeModal = () => {
+            modal.classList.remove('show');
+            startCarousel(); // ⭐ 모달 닫기 시 캐러셀 재시작
+            // ⭐ [수정 2-B] 모달 닫기 시 URL에서 #modal 상태를 제거합니다.
+            if (history.state && history.state.modalOpen) {
+                history.back(); // history.pushState로 추가된 상태를 닫습니다.
+            }
+        }
+
+        // 초기 로드 시 기본 필터 적용
+        document.addEventListener('DOMContentLoaded', () => {
+            resetFilter();
 
             // 2. 프로젝트 링크 클릭 이벤트
             projectLinks.forEach(link => {
                 link.addEventListener('click', (event) => {
-                    event.preventDefault(); 
+                    event.preventDefault();
                     const projectId = event.currentTarget.dataset.projectId;
-                    
                     projectLinks.forEach(l => l.style.fontWeight = 'normal');
-
                     if (projectId === activeFilterId) {
                         // 현재 활성화된 프로젝트를 다시 클릭하면 리셋 (토글 기능 유지)
                         resetFilter();
                     } else {
-                        renderWorkList(projectId);
-                        // activeFilterId는 renderWorkList 내에서 업데이트됨
+                        renderWorkList(projectId); // activeFilterId는 renderWorkList 내에서 업데이트됨
                         event.currentTarget.style.fontWeight = 'bold';
                     }
                 });
@@ -1482,76 +1411,50 @@ const updateModalContent = (imageId) => {
             // 3. JHL(리셋) 클릭 이벤트
             if (jhlReset) {
                 jhlReset.addEventListener('click', (event) => {
-                    event.preventDefault(); 
+                    event.preventDefault();
                     resetFilter();
                 });
             }
-            
+
             // 4. 작업물 비주얼 클릭 이벤트 (모달 열기)
             workListContainer.addEventListener('click', (event) => {
                 const visual = event.target.closest('.work-visual');
                 if (visual) {
                     const workItem = visual.closest('.work-item');
                     if (workItem) {
+                        // 그룹 내 상세 이미지가 아닌 메인 아이템을 클릭했을 때만 모달을 엽니다.
+                        // (현재 렌더링 방식은 isGroupMain만 렌더링 하므로, isGroupMain이 true인 항목만 클릭 가능)
                         const imageId = workItem.dataset.imageId;
-                        
                         openModal(imageId); // openModal 함수 호출
                     }
                 }
             });
-            
+
             // 5. 모달 닫기 이벤트
             modalClose.addEventListener('click', closeModal);
 
-            modal.addEventListener('click', (event) => {
-                if (event.target === modal) {
-                    closeModal();
+            // 6. 이전 버튼 이벤트 리스너
+            prevBtn.addEventListener('click', () => {
+                const navigableImages = currentFilteredImages;
+                const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
+                if (currentIndex > 0) {
+                    const prevImage = navigableImages[currentIndex - 1];
+                    updateModalContent(prevImage.id);
                 }
             });
 
-            // ⭐ [추가] 키보드 이벤트 리스너 (ESC, ←, →) 통합
-            document.addEventListener('keydown', (e) => {
-                // 모달이 보이는 상태일 때만 작동
-                if (modal.classList.contains('show')) {
-                    
-                    // 1. ESC 키로 닫기
-                    if (e.key === 'Escape') {
-                        closeModal();
-                        return; // 닫은 후 추가 작업 방지
-                    }
-
-                    // 2. 화살표 키로 탐색 (←, →)
-                    // 'currentFilteredImages'와 'currentModalImageId'는 이미 스크립트 상단에 정의된 변수입니다.
-                    const navigableImages = currentFilteredImages;
-                    const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
-                    
-                    if (e.key === 'ArrowLeft' || e.key === 'Left') { // 왼쪽 화살표 (이전)
-                        if (currentIndex > 0) {
-                            const prevImage = navigableImages[currentIndex - 1];
-                            updateModalContent(prevImage.id);
-                            e.preventDefault(); // 스크롤 방지
-                        }
-                    } else if (e.key === 'ArrowRight' || e.key === 'Right') { // 오른쪽 화살표 (다음)
-                        if (currentIndex < navigableImages.length - 1) {
-                            const nextImage = navigableImages[currentIndex + 1];
-                            updateModalContent(nextImage.id);
-                            e.preventDefault(); // 스크롤 방지
-                        }
-                    }
-                }
-            });
-            
-            // ⭐ [추가 2-D] 모바일 뒤로가기 버튼(popstate 이벤트) 처리
-            window.addEventListener('popstate', (event) => {
-                // 외부(모바일 버튼)에서 popstate 이벤트가 발생했고, 모달이 열려 있는 상태라면 모달을 닫습니다.
-                if (modal.classList.contains('show')) {
-                    modal.classList.remove('show');
-                    startCarousel();
-                    // history.back()이 이미 실행된 상태이므로 추가적인 history.back()은 호출하지 않습니다.
+            // 7. 다음 버튼 이벤트 리스너
+            nextBtn.addEventListener('click', () => {
+                const navigableImages = currentFilteredImages;
+                const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
+                // ⭐ [수정 3] 그룹의 마지막 이미지 이후에도 다음 이미지로 이동 가능하도록 수정됨
+                if (currentIndex < navigableImages.length - 1) {
+                    const nextImage = navigableImages[currentIndex + 1];
+                    updateModalContent(nextImage.id);
                 }
             });
 
-            // 6. 키보드 및 내비게이션 버튼 이벤트
+            // 8. 키보드 내비게이션 버튼 이벤트
             document.addEventListener('keydown', (event) => {
                 if (modal.classList.contains('show')) {
                     if (event.key === 'Escape') {
@@ -1563,17 +1466,16 @@ const updateModalContent = (imageId) => {
                     }
                 }
             });
-            
+
             // ⭐ [추가 4-B] 모달 이미지 컨테이너 클릭 이벤트 (모바일 터치 넘기기)
             modalImageContainer.addEventListener('click', (event) => {
-                // 모바일 환경 (768px 이하)에서만 로직 실행
-                if (window.innerWidth <= 768 && modal.classList.contains('show')) {
-                    const containerRect = modalImageContainer.getBoundingClientRect();
-                    const clickX = event.clientX - containerRect.left; // 컨테이너 내 X 좌표
-                    const width = containerRect.width;
+                if (window.innerWidth <= 768) { // 모바일 환경에서만 활성화
+                    const rect = modalImageContainer.getBoundingClientRect();
+                    const width = rect.width;
+                    const clickX = event.clientX - rect.left;
                     const navigableImages = currentFilteredImages;
                     const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
-                    
+
                     // 왼쪽 1/3 클릭 시 (Prev)
                     if (currentIndex > 0 && clickX < width / 3) {
                         const prevImage = navigableImages[currentIndex - 1];
