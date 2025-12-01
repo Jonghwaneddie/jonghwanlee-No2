@@ -1290,7 +1290,13 @@
                     closeModal();
                 }
             });
-
+// ⭐ [추가] ESC 키로 모달 닫기 이벤트 리스너
+            document.addEventListener('keydown', (e) => {
+                // 'Escape' 키가 눌렸고, 모달이 현재 보이는 상태라면 (show 클래스가 있다면)
+                if (e.key === 'Escape' && modal.classList.contains('show')) {
+                    closeModal();
+                }
+            });
             // ⭐ 모달 이미지 영역 클릭으로 페이지 전환
             modalImageContainer.addEventListener('click', (event) => {
                 if (currentFilteredImages.length > 1) {
