@@ -1457,20 +1457,28 @@ const updateModalContent = (imageId) => {
                 stopCarousel();
                 
                 // 3. 모달에 사용할 이미지 리스트 결정:
-                let modalImages;
-                if (clickedImage.groupId) {
-                    // groupId가 있으면, 해당 그룹의 모든 이미지를 모달 이미지로 사용
-                    modalImages = getGroupImages(clickedImage.groupId); // Helper function 사용
-                } else if (activeFilterId === 'INDEX_DEFAULT') {
-                     // INDEX_DEFAULT는 isDefault가 true인 항목 전체를 모달 데이터로 사용 (그룹핑 무시)
-                     modalImages = allImageData.filter(item => item.isDefault);
-                } else {
-                    // 그 외 (groupId가 없지만 프로젝트가 활성화된 경우), 해당 프로젝트의 모든 이미지를 모달 이미지로 사용
-                    modalImages = allImageData.filter(item => item.projectId === activeFilterId);
-                }
-                
-                // 4. currentFilteredImages를 모달 내비게이션 리스트로 업데이트
-               currentFilteredImages = getProjectFlattenedImages(projectIdForNav);
+              let modalImages;
+    if (clickedImage.groupId) {
+        // groupId가 있으면, 해당 그룹의 모든 이미지를 모달 컨텐츠 이미지로 사용
+        modalImages = getGroupImages(clickedImage.groupId); // Helper function 사용
+    } else if (activeFilterId === 'INDEX_DEFAULT') {
+        // INDEX_DEFAULT는 isDefault가 true인 항목 전체를 모달 컨텐츠 데이터로 사용
+        modalImages = allImageData.filter(item => item.isDefault);
+    } else {
+        // 그 외, 해당 프로젝트의 모든 이미지를 모달 컨텐츠 이미지로 사용
+        modalImages = allImageData.filter(item => item.projectId === activeFilterId);
+    }
+    
+    // 4. 내비게이션 목록 설정 (전체 프로젝트를 순회하도록 평탄화된 목록 사용)
+    const projectIdForNav = activeFilterId || 'INDEX_DEFAULT'; // navigation list filter ID
+    currentFilteredImages = getProjectFlattenedImages(projectIdForNav);
+    
+    // 5. 클릭된 이미지가 내비게이션 목록에 포함되어 있는지 확인 (오류 방지)
+    const initialIndex = currentFilteredImages.findIndex(item => item.id === imageId);
+    if (initialIndex === -1) {
+        // 만약 목록에 없다면, 클릭된 이미지 하나만 내비게이션 목록으로 사용 (오류 발생 시)
+        currentFilteredImages = [clickedImage]; 
+    }
                 
                 // 5. 모달 콘텐츠 업데이트 및 표시
                 updateModalContent(imageId);
