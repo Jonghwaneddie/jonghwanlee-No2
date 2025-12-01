@@ -1415,17 +1415,15 @@ const updateModalContent = (imageId) => {
                 stopCarousel();
                 
                 // 3. 모달에 사용할 이미지 리스트 결정:
-                let modalImages;
-                if (clickedImage.groupId) {
-                    // groupId가 있으면, 해당 그룹의 모든 이미지를 모달 이미지로 사용
-                    modalImages = getGroupImages(clickedImage.groupId); // Helper function 사용
-                } else if (activeFilterId === 'INDEX_DEFAULT') {
-                     // INDEX_DEFAULT는 isDefault가 true인 항목 전체를 모달 데이터로 사용 (그룹핑 무시)
-                     modalImages = allImageData.filter(item => item.isDefault);
-                } else {
-                    // 그 외 (groupId가 없지만 프로젝트가 활성화된 경우), 해당 프로젝트의 모든 이미지를 모달 이미지로 사용
-                    modalImages = allImageData.filter(item => item.projectId === activeFilterId);
-                }
+               let modalImages;
+            if (activeFilterId === 'INDEX_DEFAULT') {
+                // INDEX_DEFAULT 화면에서는 기본 이미지들만 사용
+                modalImages = allImageData.filter(item => item.isDefault);
+            } else {
+                // ⭐특정 프로젝트(activeFilterId)가 활성화된 경우, 
+                // 해당 프로젝트 ID의 모든 이미지를 내비게이션 리스트로 사용합니다.
+                modalImages = allImageData.filter(item => item.projectId === activeFilterId);
+            }
                 
                 // 4. currentFilteredImages를 모달 내비게이션 리스트로 업데이트
                 currentFilteredImages = modalImages;
