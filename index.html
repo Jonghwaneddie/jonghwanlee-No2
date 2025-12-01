@@ -1508,6 +1508,38 @@ const updateModalContent = (imageId) => {
                     closeModal();
                 }
             });
+
+            // ⭐ [추가] 키보드 이벤트 리스너 (ESC, ←, →) 통합
+            document.addEventListener('keydown', (e) => {
+                // 모달이 보이는 상태일 때만 작동
+                if (modal.classList.contains('show')) {
+                    
+                    // 1. ESC 키로 닫기
+                    if (e.key === 'Escape') {
+                        closeModal();
+                        return; // 닫은 후 추가 작업 방지
+                    }
+
+                    // 2. 화살표 키로 탐색 (←, →)
+                    // 'currentFilteredImages'와 'currentModalImageId'는 이미 스크립트 상단에 정의된 변수입니다.
+                    const navigableImages = currentFilteredImages;
+                    const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
+                    
+                    if (e.key === 'ArrowLeft' || e.key === 'Left') { // 왼쪽 화살표 (이전)
+                        if (currentIndex > 0) {
+                            const prevImage = navigableImages[currentIndex - 1];
+                            updateModalContent(prevImage.id);
+                            e.preventDefault(); // 스크롤 방지
+                        }
+                    } else if (e.key === 'ArrowRight' || e.key === 'Right') { // 오른쪽 화살표 (다음)
+                        if (currentIndex < navigableImages.length - 1) {
+                            const nextImage = navigableImages[currentIndex + 1];
+                            updateModalContent(nextImage.id);
+                            e.preventDefault(); // 스크롤 방지
+                        }
+                    }
+                }
+            });
             
             // ⭐ [추가 2-D] 모바일 뒤로가기 버튼(popstate 이벤트) 처리
             window.addEventListener('popstate', (event) => {
