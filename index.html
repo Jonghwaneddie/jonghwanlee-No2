@@ -1337,61 +1337,41 @@
 // ⭐ [최종] 전체화면 모달 전환 함수 (로딩 완료 후 즉시 전환) ⭐
 // =========================================================================
 const updateModalContent = (imageId) => {
-            // 주의: currentFilteredImages는 현재 그룹의 이미지 목록입니다.
-            const targetImage = currentFilteredImages.find(item => item.id === imageId);
-            if (!targetImage) return;
+    // 주의: currentFilteredImages는 현재 그룹의 이미지 목록입니다.
+    const targetImage = currentFilteredImages.find(item => item.id === imageId);
+    
+    if (!targetImage) return;
 
-            const container = document.getElementById('modal-image-container');
-            const modalCaption = document.getElementById('modal-caption');
-            const oldImg = container.querySelector('img.current'); // 현재 활성 이미지
+    // 1. 새 이미지 로드를 위한 임시 객체 생성
+    const tempLoader = new Image();
+    tempLoader.alt = `${targetImage.folder}/${targetImage.fileName}`;
+    
+    // ⭐ 2. 로딩 완료 시 실행할 함수 (이전 사진을 대체)
+    tempLoader.onload = () => {
+        // 로드가 완료되었으므로 이제 DOM을 업데이트합니다.
+        
+        // A. 새 이미지 DOM 요소 생성
+        const newImg = document.createElement('img');
+        newImg.alt = tempLoader.alt; 
+        newImg.src = tempLoader.src; 
+        newImg.style.objectFit = 'contain'; 
+        newImg.style.transition = 'none'; // 겹침 방지를 위해 전환 효과 제거
+        newImg.style.opacity = '1'; 
+        newImg.style.transform = 'scale(1)'; 
 
-            // 1. 새 이미지 로드를 위한 임시 객체 생성
-            const tempLoader = new Image();
-            tempLoader.alt = `${targetImage.folder}/${targetImage.fileName}`;
-            tempLoader.src = targetImage.url;
-
-            // 2. 로딩 완료 시 실행할 함수 (이전 사진을 대체)
-            tempLoader.onload = () => {
-                
-                // A. 새 이미지 DOM 요소 생성
-                const newImg = document.createElement('img');
-                newImg.alt = tempLoader.alt;
-                newImg.src = tempLoader.src;
-                newImg.style.opacity = '0'; // 초기 투명하게 설정
-                newImg.classList.add('current'); // ⭐[수정] 새 이미지에 'current' 클래스 미리 부여
-
-                // B. 컨테이너에 새 이미지 추가 (아래에 깔림)
-                container.appendChild(newImg);
-
-                // C. 캡션 업데이트
-                modalCaption.innerHTML = `<div class="work-header"><span class="full-description">${targetImage.description}</span></div>`;
-
-                // D. 크로스 페이드 시작
-                // 10ms 지연 후 전환 시작
-                setTimeout(() => {
-                    if (oldImg) {
-                        // 기존 이미지를 투명하게 만들고 'current' 클래스 제거
-                        oldImg.style.opacity = '0';
-                        oldImg.classList.remove('current');
-                    }
-                    // 새 이미지를 불투명하게 만듦 (transition이 적용됨)
-                    newImg.style.opacity = '1';
-                }, 10);
-
-                // E. 전환 완료 후 이전 이미지 제거
-                // CSS transition 시간(0.1s)보다 긴 200ms 후 제거하여 안정성 확보
-                setTimeout(() => {
-                    // 이전에 활성 이미지였던 요소만 제거
-                    if (oldImg && oldImg.parentNode === container) {
-                         oldImg.remove();
-                    }
-                }, 200); 
-
-                // F. 전역 ID 업데이트 및 네비게이션 버튼 업데이트
-                currentModalImageId = imageId;
-                updateModalNavButtons();
-            };
-        };
+        // B. 이전 이미지 제거 및 새 이미지 추가
+        // 이전 이미지를 제거하고 (로드가 완료될 때까지 이전 이미지가 유지됨)
+        modalImageContainer.innerHTML = ''; 
+        // 새 이미지를 컨테이너에 추가 (즉시 전환)
+        modalImageContainer.appendChild(newImg);
+        
+        // C. 캡션 및 ID 업데이트
+        currentModalImageId = targetImage.id;
+        modalCaption.innerHTML = `<div class="work-header"><span class="full-description">${targetImage.description}</span></div>`;
+        
+        // D. 내비게이션 버튼 업데이트
+        updateNavButtons();
+    };
     
     // ⭐ 3. 로드 실패 시
     tempLoader.onerror = () => {
@@ -1435,15 +1415,17 @@ const updateModalContent = (imageId) => {
                 stopCarousel();
                 
                 // 3. 모달에 사용할 이미지 리스트 결정:
-               let modalImages;
-            if (activeFilterId === 'INDEX_DEFAULT') {
-                // INDEX_DEFAULT 화면에서는 기본 이미지들만 사용
-                modalImages = allImageData.filter(item => item.isDefault);
-            } else {
-                // ⭐특정 프로젝트(activeFilterId)가 활성화된 경우, 
-                // 해당 프로젝트 ID의 모든 이미지를 내비게이션 리스트로 사용합니다.
-                modalImages = allImageData.filter(item => item.projectId === activeFilterId);
-            }
+                let modalImages;
+                if (clickedImage.groupId) {
+                    // groupId가 있으면, 해당 그룹의 모든 이미지를 모달 이미지로 사용
+                    modalImages = getGroupImages(clickedImage.groupId); // Helper function 사용
+                } else if (activeFilterId === 'INDEX_DEFAULT') {
+                     // INDEX_DEFAULT는 isDefault가 true인 항목 전체를 모달 데이터로 사용 (그룹핑 무시)
+                     modalImages = allImageData.filter(item => item.isDefault);
+                } else {
+                    // 그 외 (groupId가 없지만 프로젝트가 활성화된 경우), 해당 프로젝트의 모든 이미지를 모달 이미지로 사용
+                    modalImages = allImageData.filter(item => item.projectId === activeFilterId);
+                }
                 
                 // 4. currentFilteredImages를 모달 내비게이션 리스트로 업데이트
                 currentFilteredImages = modalImages;
