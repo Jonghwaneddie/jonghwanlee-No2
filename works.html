@@ -1193,8 +1193,8 @@
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
 
-            if (currentFilteredImages.length > 0) {
-               const navigableImages = allImageData;
+            if (allImageData.length > 0) {
+            const navigableImages = allImageData;
                 const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
                 
                 // 데스크톱에서만 버튼 표시
@@ -1333,7 +1333,7 @@
                     const rect = modalImageContainer.getBoundingClientRect();
                     const width = rect.width;
                     const clickX = event.clientX - rect.left;
-                    const navigableImages = currentFilteredImages;
+                   const navigableImages = allImageData;
                     const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
                     
                     // 왼쪽 1/3 클릭 시 (Prev)
