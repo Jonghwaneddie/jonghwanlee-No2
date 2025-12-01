@@ -899,7 +899,7 @@
         let groupCurrentIndexMap = {}; // 각 그룹의 현재 이미지 인덱스를 저장
         let groupCarouselTimeout = null; // setTimeout ID를 저장
         let activeFilterId = 'INDEX_DEFAULT'; // 현재 활성화된 필터 ID (프로젝트 ID)
-        let currentFilteredImages = []; // 모달 및 캐러셀용으로 필터링된 현재 이미지 목록
+        let  = []; // 모달 및 캐러셀용으로 필터링된 현재 이미지 목록
         let currentModalImageId = null; // 현재 모달에 표시된 이미지 ID
 
         // ⭐ 헬퍼 함수: groupId를 기준으로 이미지 목록을 가져옵니다.
@@ -1117,7 +1117,7 @@
             });
 
             // 7. 모달용으로 전체 필터링된 데이터(숨겨진 이미지 포함)를 저장합니다.
-            currentFilteredImages = filteredData;
+             = filteredData;
 
             // 8. ⭐ 캐러셀 시작
             startCarousel();
@@ -1135,7 +1135,7 @@
         // ⭐ [최종] 전체화면 모달 전환 함수 (로딩 완료 후 즉시 전환) ⭐
         // =========================================================================
         const updateModalContent = (imageId) => {
-            // 주의: currentFilteredImages는 현재 그룹의 이미지 목록입니다.
+            // 주의: 는 현재 그룹의 이미지 목록입니다.
             const targetImage = currentFilteredImages.find(item => item.id === imageId);
             if (!targetImage) return;
 
@@ -1194,7 +1194,7 @@
             const nextBtn = document.getElementById('next-btn');
 
             if (currentFilteredImages.length > 0) {
-                const navigableImages = currentFilteredImages;
+                const navigableImages = allImageData;
                 const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
                 
                 // 데스크톱에서만 버튼 표시
@@ -1310,7 +1310,7 @@
             // ⭐ [추가 2] 키보드 화살표 키 (←, →)로 모달 사진 전환
             document.addEventListener('keydown', (e) => {
                 if (modal.classList.contains('show')) {
-                    const navigableImages = currentFilteredImages;
+                    const navigableImages = allImageData;
                     const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
 
                     if (e.key === 'ArrowLeft' || e.key === 'Left') { // 왼쪽 화살표 (이전)
@@ -1333,7 +1333,7 @@
                     const rect = modalImageContainer.getBoundingClientRect();
                     const width = rect.width;
                     const clickX = event.clientX - rect.left;
-                    const navigableImages = currentFilteredImages;
+                    const navigableImages = allImageData;
                     const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
                     
                     // 왼쪽 1/3 클릭 시 (Prev)
@@ -1354,7 +1354,7 @@
 
             // ⭐ 이전 버튼 이벤트 리스너
             prevBtn.addEventListener('click', () => {
-                const navigableImages = currentFilteredImages;
+                const navigableImages = allImageData;
                 const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
                 if (currentIndex > 0) {
                     const prevImage = navigableImages[currentIndex - 1];
@@ -1364,7 +1364,7 @@
 
             // ⭐ 다음 버튼 이벤트 리스너
             nextBtn.addEventListener('click', () => {
-                const navigableImages = currentFilteredImages;
+                const navigableImages = allImageData;
                 const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
                 if (currentIndex < navigableImages.length - 1) {
                     const nextImage = navigableImages[currentIndex + 1];
