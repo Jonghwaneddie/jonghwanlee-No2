@@ -1301,29 +1301,33 @@
                     closeModal();
                 }
             });
-// ⭐ [추가] ESC 키로 모달 닫기 이벤트 리스너
-            document.addEventListener('keydown', (e) => {
-                // 'Escape' 키가 눌렸고, 모달이 현재 보이는 상태라면 (show 클래스가 있다면)
-                if (e.key === 'Escape' && modal.classList.contains('show')) {
-                    closeModal();
-                }
-            });
+document.addEventListener('keydown', (e) => {
+                const modal = document.getElementById('fullscreen-modal');
 
-            // ⭐ [추가 2] 키보드 화살표 키 (←, →)로 모달 사진 전환
-            document.addEventListener('keydown', (e) => {
+                // 모달이 활성화된 상태('show' 클래스)에만 작동
                 if (modal.classList.contains('show')) {
-                   const navigableImages = allImageData;
+                    
+                    // 1. Escape 키로 모달 닫기
+                    if (e.key === 'Escape') {
+                        closeModal();
+                        return; // 모달 닫힘 후 추가 로직 불필요
+                    }
+                    
+                    // 2. ArrowLeft / ArrowRight로 사진 전환
+                    const navigableImages = allImageData; // 전체 이미지 목록 사용
                     const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
 
                     if (e.key === 'ArrowLeft' || e.key === 'Left') { // 왼쪽 화살표 (이전)
                         if (currentIndex > 0) {
                             const prevImage = navigableImages[currentIndex - 1];
                             updateModalContent(prevImage.id);
+                            e.preventDefault(); // 기본 스크롤 동작 방지
                         }
                     } else if (e.key === 'ArrowRight' || e.key === 'Right') { // 오른쪽 화살표 (다음)
                         if (currentIndex < navigableImages.length - 1) {
                             const nextImage = navigableImages[currentIndex + 1];
                             updateModalContent(nextImage.id);
+                            e.preventDefault(); // 기본 스크롤 동작 방지
                         }
                     }
                 }
