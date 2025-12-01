@@ -104,7 +104,11 @@
             grid-template-columns: 1fr 2fr 0.5fr; 
             padding: 5px 0;
         }
+.table-row.active-project {
+            font-weight: bold; /* 굵은 글씨 적용 */
+        }
 
+        
         /* 테이블 헤더 스타일 */
         .table-row.header {
             font-weight: bold;
@@ -1257,11 +1261,15 @@
                     const projectId = e.currentTarget.dataset.projectId;
                     renderWorkList(projectId);
 
+                    
+
                     // 메뉴 항목 활성화 상태 업데이트
-                    document.querySelectorAll('.table-row a').forEach(otherLink => {
-                        otherLink.parentElement.parentElement.classList.remove('active-project');
+                   document.querySelectorAll('.table-row').forEach(row => {
+                        row.classList.remove('active-project'); // 모든 항목의 활성 클래스 제거
                     });
-                    e.currentTarget.parentElement.parentElement.classList.add('active-project');
+                    
+                    // 클릭된 항목의 부모 `.table-row`에 활성 클래스 추가
+                    e.currentTarget.closest('.table-row').classList.add('active-project');
                 });
             });
 
