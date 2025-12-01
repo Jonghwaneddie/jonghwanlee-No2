@@ -1297,6 +1297,27 @@
                     closeModal();
                 }
             });
+
+            // ⭐ [추가 2] 키보드 화살표 키 (←, →)로 모달 사진 전환
+            document.addEventListener('keydown', (e) => {
+                if (modal.classList.contains('show')) {
+                    const navigableImages = currentFilteredImages;
+                    const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
+
+                    if (e.key === 'ArrowLeft' || e.key === 'Left') { // 왼쪽 화살표 (이전)
+                        if (currentIndex > 0) {
+                            const prevImage = navigableImages[currentIndex - 1];
+                            updateModalContent(prevImage.id);
+                        }
+                    } else if (e.key === 'ArrowRight' || e.key === 'Right') { // 오른쪽 화살표 (다음)
+                        if (currentIndex < navigableImages.length - 1) {
+                            const nextImage = navigableImages[currentIndex + 1];
+                            updateModalContent(nextImage.id);
+                        }
+                    }
+                }
+            });
+            
             // ⭐ 모달 이미지 영역 클릭으로 페이지 전환
             modalImageContainer.addEventListener('click', (event) => {
                 if (currentFilteredImages.length > 1) {
