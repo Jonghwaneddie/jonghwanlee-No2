@@ -98,7 +98,13 @@
         .project-table {
             margin-top: 20px;
         }
+.hidden-works {
+    font-size: 0; /* 폰트 크기를 0으로 만들어 텍스트를 숨깁니다. */
+    padding: 0; /* 패딩도 제거하여 공간을 차지하지 않게 합니다. */
+    line-height: 0;
+    width: 0; /* 열 너비를 0으로 강제합니다. */
 
+    
         .table-row {
             display: grid;
             grid-template-columns: 0.77fr 2.23fr 0.5fr; 
@@ -612,7 +618,7 @@
                     <span class="year">2025</span>
                 </div>
                 <div class="table-row item">
-                    <span class="Works"></span>
+                    <span class="Works hidden-works">Notes</span>
                     <span class="tilte"><a href="#" data-project-id="painting n" data-display-title="painting n"> Painting n, Hyeokgyu Kwon </a></span>
                     <span class="year">2023</span>
                 </div>
@@ -622,7 +628,7 @@
                     <span class="year">2025</span>
                 </div>
                 <div class="table-row item">
-                    <span class="Works"></span>
+                    <span class="Works hidden-works">Notes</span>
                     <span class="tilte"><a href="#" data-project-id="Airway" data-display-title="Airway">Airway</a></span>
                     <span class="year">2024</span>
                 </div>
