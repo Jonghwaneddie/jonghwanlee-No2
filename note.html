@@ -953,8 +953,8 @@ const loadProjectContent = (projectId, fileExtension = 'html') => {
             
             // 5. HTML 업데이트
             const workListContainer = document.querySelector('.selected-work-list');
-            const projectIntroTexts = workListContainer.querySelectorAll('.project-intro-text');
-            const projectFooterTexts = workListContainer.querySelectorAll('.project-footer-text');
+            const projectIntroTexts = document.querySelectorAll('.project-intro-text');
+            const projectFooterTexts = document.querySelectorAll('.project-footer-text');
 
             // 정적 텍스트 블록들을 분리하고 다시 추가합니다.
             const introTexts = Array.from(projectIntroTexts);
