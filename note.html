@@ -130,271 +130,30 @@
             padding: 0px;
         }
 
-        /* ⭐ 정적 프로젝트 소개 텍스트 스타일 (상단) ⭐ */
-        .project-intro-text {
-            text-align: left; 
-            font-size: 14px;
-            font-weight: normal; 
-            margin-bottom: 20px; 
-            padding-top: 5px; 
-            padding-left: 5px; 
-            
-            display: none; /* 기본 숨김 */
-              
-        }
-
-        .project-intro-text.active {
-            display: block; /* 활성화 시 보임 */
-        }
-        .project-intro-text[data-project-id="INDEX_DEFAULT"] {
-            margin-bottom: 110px; /* 기존 20px에서 60px로 증가 */
-        }
-
-        /* 7. 작업물 목록 하단 푸터 스타일 (새로 추가됨) */
-        .project-footer-text { 
-            margin-top: 60px; /* 위쪽 여백으로 이미지와 분리 */
-            margin-bottom: 20px;
-            padding: 10px 15px;
-            font-size: 12px;
-            color: #444;
-            border-top: 1px solid #eee; /* 가벼운 구분선 */
-            text-align: right;
-            display: none; /* 기본 숨김 */
-        }
-
-        .project-footer-text.active {
-            display: block; /* 활성화 시 보임 */
-        }
-
-        /* 작업물 항목 스타일링 */
-        .work-item {
-            margin-bottom: 5px; 
-            padding: 0px;
-        }
-
-        .work-pair {
-            display: flex;       /* Flexbox 활성화 */
-            gap: 10px;           /* 두 이미지 항목 사이의 간격 */
-            margin-bottom: 10px; /* work-pair 자체의 하단 간격 */
-        }
-
-        /* ⭐ 그룹 내의 각 이미지 항목의 너비 설정 ⭐ */
-        .work-pair .work-item {
-            flex: 1 1 50%; /* 컨테이너 너비의 50%를 차지 */
-            width: 50%;
-        }
-
-        /* 4개의 이미지를 그룹화하여 가로로 나열 */
-        .work-row-4 {
-            display: flex;         /* Flexbox 활성화 */
-            gap: 5px;              /* 4개 이미지 항목 사이의 간격 (원하는 값으로 조정) */
-            margin-bottom: 10px;   /* work-row-4 자체의 하단 간격 */
-        }
-
-        /* 그룹 내의 각 이미지 항목의 너비 설정 (100% / 4 = 25%) */
-       .work-row-4 .work-item {
-    /* flex: 0 0 calc((100% - (간격 * 3)) / 4); -> 4개 항목, 3개 간격 */
-    flex: 0 0 calc((100% - 15px) / 4); /* grow: 0으로 늘어나지 않도록 수정 */
-    width: calc((100% - 15px) / 4);
-}
-
-        /* ⭐ [추가 시작] 3개의 이미지를 그룹화하여 가로로 나열 (.work-row-3) ⭐ */
-        .work-row-3 {
-            display: flex;         /* Flexbox 활성화 */
-            gap: 5px;              /* 3개 이미지 항목 사이의 간격 */
-            margin-bottom: 10px;   /* work-row-3 자체의 하단 간격 */
-        }
-
-        /* ⭐ [추가] 그룹 내의 각 이미지 항목의 너비 설정 (100% / 3) ⭐ */
-      .work-row-3 .work-item {
-    /* flex: 0 0 calc((100% - (간격 * 2)) / 3); -> 3개 항목, 2개 간격 */
-    flex: 0 0 calc((100% - 10px) / 3); 
-    width: calc((100% - 10px) / 3);
-}
-        /* ⭐ [추가 끝] ⭐ */
-
-        
-        /* 작업물 헤더 (텍스트): 한 줄 왼쪽 정렬로 변경 */
-        .work-header {
-            display: flex; 
-            justify-content: center;
-            font-size: 14px;
-            font-weight: normal; 
-            margin-top: 0px; 
-            flex-wrap: nowrap; 
-            padding-left: 0px; 
-            text-align: center;
-        }
-
-        /* 헤더 내부의 텍스트 요소들 */
-        .work-header span {
-            display: inline; 
-            margin: 0; 
-            line-height: 1.6;
-            white-space: normal; 
-        }
-        
-        .work-header .full-description {
-            margin-right: 5px; 
-            white-space: normal;
-        }
-
-        .work-visual {
-            height: 300px; /* 고정된 박스 높이 */
-            background-color: #fcfcfc;
-            display: flex;
-            justify-content: center; /* 중앙 정렬 */
-            align-items: center; /* 중앙 정렬 */
-            color: #bbb;
-            font-style: italic;
-            cursor: pointer; 
-            overflow: hidden; 
-            position: relative;
-        }
-        
-        /* 이미지 잘림 방지 (Contain) CSS */
-        .work-visual img {
-            width: 100%; 
-            height: 100%;
-            display: block; 
-            object-fit: contain; 
-           position: absolute; 
-           top: 0;
-           left: 0;
-            /* ⭐ [수정] 이미지 전환 속도 0.1초로 변경 */
-            transition: opacity 0.1s ease-in-out; 
-            /* ⭐ [추가] 초기 이미지의 불투명도를 1로 설정 */
-            opacity: 1; 
-        }
-
-
-        /* 5. 전체 화면 모달 스타일 */
-        .fullscreen-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* background-color: rgba(255, 255, 255, 0.6); <- Original */
-            background-color: rgba(255, 255, 255, 0.7); /* ⭐ [수정 2, 3] 배경을 어둡게 변경 */
-            display: none; 
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .fullscreen-modal.show {
-            display: flex;
-        }
-
-       #modal-image-container {
-            width: 90%;
-            height: 90%; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative; /* 겹치기 기준점 유지 */
-            overflow: hidden; 
-            background-color: #fff;
-        }
-        
-        /* 2. 모달 이미지 요소 (Cross-Fade + Zoom) */
-        #modal-image-container img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain; 
-            width: 100%;
-            height: 100%;
-            
-            position: absolute; /* ⭐ Cross-Fade를 위한 겹치기 복원 ⭐ */
-            top: 0;
-            left: 0;
-            margin: auto;
-
-            /* ⭐ [수정] Opacity 뿐만 아니라 Transform도 전환 대상에 추가 (0.1s로 변경) ⭐ */
-            transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out; 
-        }
-
-
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 40px;
-            /* color: white; <- Original */
-            color: #BBBBBB; /* ⭐ [수정 3] 회색으로 변경 */
-            font-size: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            opacity: 0.8;
-            transition: opacity 0.2s;
-        }
-
-        .modal-close:hover {
-            opacity: 1;
-        }
-
-        /* 이전/다음 버튼 스타일 */
-        .modal-nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: white;
-            font-size: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            padding: 10px;
-            user-select: none; 
-            opacity: 0.6;
-            transition: opacity 0.2s;
-        }
-
-        .modal-nav-btn:hover {
-            opacity: 1;
-        }
-
-        .prev-btn {
-            left: 20px;
-        }
-
-        .next-btn {
-            right: 20px;
-        }
-
-        /* 모달 캡션/푸터 스타일 */
+        /* ⭐ 정적 프로젝트 소개 텍스트 스타일 (상단) - 이미지 관련으로 삭제됨 ⭐ */
+        /* 이 섹션은 텍스트 컨테이너가 대신하므로 CSS는 비활성화하거나 삭제합니다. */
+        .project-intro-text,
+        .project-footer-text,
+        .work-item,
+        .work-pair,
+        .work-row-4,
+        .work-row-3,
+        .work-header,
+        .work-visual,
+        .fullscreen-modal,
+        #modal-image-container,
+        .modal-close,
+        .modal-nav-btn,
         .modal-caption {
-            position: absolute;
-            bottom: 0px; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            max-width: 80%; 
-            color:black; 
-            text-align: center;
-            font-size: 14px;
-            padding: 10px;
-            z-index: 1010; 
+            display: none !important; /* 이미지 갤러리/모달 관련 모든 요소 숨김/삭제 */
         }
 
-        /* 캡션 내부의 work-header 스타일 재정의 */
-        .modal-caption .work-header {
-            display: flex; 
-            justify-content: center; 
-            font-size: 14px;
-            font-weight: normal;
-            margin: 0; 
-            flex-wrap: nowrap; 
-            padding-left: 0;
-            text-align: center;
+        /* 텍스트 콘텐츠 컨테이너를 위한 스타일 (새로 추가) */
+        #text-content-container {
+            padding: 20px;
+            display: block; /* 기본적으로 보여지도록 설정 */
+            height: 100%;
         }
-        /* 모달 캡션 텍스트는 간격을 유지 */
-        .modal-caption .work-header .full-description {
-            margin: 0; 
-        }
-
-        /* JS 상호작용을 위한 숨김 클래스 */
-        .work-item.hidden {
-            display: none;
-        }
-
 
         /* 6. 모바일 레이아웃 (최대 768px) */
         @media (max-width: 768px) {
@@ -404,37 +163,6 @@
                 height: auto;
             }
 
-            .work-pair {
-                flex-direction: column; /* 모바일에서는 수직으로 쌓기 */
-                gap: 0;                 /* 모바일에서는 그룹 간격 제거 */
-                margin-bottom: 10px;    /* 모바일에서 work-pair의 하단 간격 */
-            }
-            .work-pair .work-item {
-                width: 100%; /* 모바일에서는 너비를 다시 100%로 복원 */
-            }
-
-            /* ⭐ 모바일에서 work-row-4 스타일 재정의 ⭐ */
-            .work-row-4 {
-                flex-direction: column; /* 모바일에서는 수직으로 쌓기 */
-                gap: 0;                 /* 그룹 간격 제거 */
-                margin-bottom: 10px;
-            }
-            .work-row-4 .work-item {
-                width: 100%; /* 모바일에서는 너비를 다시 100%로 복원 */
-            }
-            
-            /* ⭐ [추가 시작] 모바일 work-row-3 스타일 재정의 ⭐ */
-            .work-row-3 {
-                flex-direction: column; /* 모바일에서는 수직으로 쌓기 */
-                gap: 0;                 /* 그룹 간격 제거 */
-                margin-bottom: 10px;
-            }
-            .work-row-3 .work-item {
-                width: 100%; /* 모바일에서는 너비를 다시 100%로 복원 */
-            }
-            /* ⭐ [추가 끝] ⭐ */
-            
-            
             /* 1. 헤더 재배치 및 간소화 */
             .main-header {
                 height: auto;
@@ -520,67 +248,10 @@
                 margin-bottom: 20px; 
             }
             
-            /* 모바일 텍스트 조정 (왼쪽 정렬 유지) */
-            .project-intro-text {
-                text-align: left; 
-                margin-bottom: 10px; /* ⭐ [수정 1] 간격 축소 */
-                padding-left: 5px; 
+            /* 텍스트 컨테이너 모바일 패딩 조정 */
+            #text-content-container {
+                padding: 20px;
             }
-            /* ⭐ [추가] 데스크톱용으로 설정했던 큰 마진을 모바일에서 덮어쓰기 ⭐ */
-            .project-intro-text[data-project-id="INDEX_DEFAULT"] {
-                margin-bottom: 10px; /* 데스크톱에서 설정한 큰 마진(60px)을 모바일에서 10px로 재정의 */
-            }
-            /* 모바일 푸터 조정 */
-             .project-footer-text {
-                 margin-top: 40px; 
-                 border-top: none; 
-                 padding: 0 0 40px 0; /* 아래쪽 여백을 많이 줌 */
-             }
-
-            /* 6. Work Header 스타일 조정 (왼쪽 정렬) */
-            .work-header {
-                justify-content: center; 
-                font-size: 13px;
-                font-weight: normal; 
-                flex-wrap: wrap; 
-                text-align: center;
-                padding-left: 0;
-            }
-            
-            .work-header .full-description {
-                margin: 0; 
-                line-height: 1.5;
-                white-space: normal; 
-            }
-            
-            /* 7. 모달 내비게이션 버튼 크기 조정 */
-            .modal-nav-btn {
-                font-size: 30px; 
-            }
-            
-            /* 8. 모달 캡션 조정 */
-            .modal-caption {
-                bottom: 10px;
-                padding: 5px 10px;
-            }
-            
-            .modal-caption .work-header {
-                justify-content: center; 
-            }
-
-            /* 모바일 모달 캡션 텍스트 줄바꿈 방지 유지 */
-          .modal-caption .work-header span {
-    white-space: normal; 
-}
-            
-            /* ⭐ [수정 4-A] 모바일에서 버튼 숨김 */
-            .modal-nav-btn {
-                display: none !important; 
-            }
-        }
-
-        .fullscreen-modal .full-description {
-          color: #000 !important; /* ⭐ 흰색으로 강제 설정 ⭐ */
         }
     </style>
 </head>
@@ -633,518 +304,102 @@
                     <span class="tilte"><a href="#" data-project-id="Airway" data-display-title="Airway">Airway</a></span>
                     <span class="year">2024</span>
                 </div>
-                   
-                
-            
-               
             </div>
         
         </section>
         
         
         <section class="right-panel">
-    <div class="selected-work-list">
-        </div> <div id="text-content-container" style="padding: 20px; display: none;">
-    </div>
-</section>
-                
-             
-
-
-
-                
-                <div class="project-intro-text" data-project-id="the bottom of the wilderness">
-                <br>   <br>The bottom of the wilderness<br><br>
-                    <span class="fade-text">2025</span>
-                   
-                </div>
-
-                <div class="project-intro-text" data-project-id="Narcissus">
-                 <br>   <br>Narcissus<br><br>
-                    <span class="fade-text">2024</span><br>
-                </div>
-
-                <div class="project-intro-text" data-project-id="Eyebeam & Pulse">
-                 <br>   <br>Eyebeam & Pulse<br><br>
-                   
-                  <span class="fade-text"> 2022-2023 </span>
-                    <br>
-                </div>
-
-                <div class="project-intro-text" data-project-id="Filch">
-                <br><br>Filch<br><br>
-                    
-                  <span class="fade-text">   2022-2020</span><br>
-                 
-                </div>
-                
-                <div class="project-intro-text" data-project-id="Drawing">
-                  <br> <br> Drawings<br><br>
-                    
-                   <span class="fade-text">2020 - </span><br>
-                </div>
-
-              
-                
-               
-
-               
-                </div>
-
-           
-            
+            <div id="text-content-container" style="padding: 20px;">
+                <p>Please select a **Text** or **Note** from the index on the left to view the content.</p>
+                <p class="fade-text" style="margin-top: 20px;">(Loggia, painting n, Loggia note, Airway)</p>
+            </div>
         </section>
 
     </div>
     
-    <div id="fullscreen-modal" class="fullscreen-modal">
-        <span class="modal-close">&times;</span>
-        <div id="prev-btn" class="modal-nav-btn prev-btn">&#10094;</div>
-        <div id="modal-image-container" class="modal-content">
-        </div>
-        <div id="next-btn" class="modal-nav-btn next-btn">&#10095;</div>
-        <div id="modal-caption" class="modal-caption"></div>
-    </div>
+    <div id="fullscreen-modal" class="fullscreen-modal"></div>
+
 
     <script>
-        // 1. 이미지 데이터 정의
-        const allImageData = [
-         
-        ];
-
-        // ⭐ 1. 캐러셀 관련 전역 변수 설정 
-        const CAROUSEL_INTERVAL_MS = 3000;
-        let groupCurrentIndexMap = {}; // 각 그룹의 현재 이미지 인덱스를 저장
-        let groupCarouselTimeout = null; // setTimeout ID를 저장
-        let activeFilterId = 'INDEX_DEFAULT'; // 현재 활성화된 필터 ID (프로젝트 ID)
-        let currentFilteredImages = []; // 모달 및 캐러셀용으로 필터링된 현재 이미지 목록
-        let currentModalImageId = null; // 현재 모달에 표시된 이미지 ID
-
-        // ⭐ 헬퍼 함수: groupId를 기준으로 이미지 목록을 가져옵니다.
-        const getGroupImages = (groupId) => {
-            return allImageData.filter(item => item.groupId === groupId);
-        };
-
-        // ⭐ [추가 시작] work-item HTML을 생성하는 헬퍼 함수 정의
-        const createWorkItemHtml = (item, index) => {
-            let isMain = item.isGroupMain ? 'data-group-main="true"' : '';
-            let groupIdAttr = item.groupId ? `data-group-id="${item.groupId}"` : '';
-            let headerHtml = `<div class="work-header"><span class="full-description">${item.description}</span></div>`;
-            // groupCurrentIndexMap이 정의되어 있다고 가정합니다.
-            let activeClass = (item.groupId && typeof groupCurrentIndexMap !== 'undefined' && groupCurrentIndexMap[item.groupId] === 0) || item.isDefault ? 'active' : '';
-            let opacityStyle = activeClass ? 'opacity: 1;' : 'opacity: 0;';
-
-         return `
-            <div class="work-item" data-project-id="${item.projectId}" data-id="${item.id}" ${isMain} ${groupIdAttr}>
-                <div class="work-visual"> 
-                    <img src="${item.url}" alt="${item.description}" class="${activeClass}" style="${opacityStyle}">
-                </div>
-                ${headerHtml}
-            </div>`;
-    };
-
-const loadProjectContent = (projectId, fileExtension = 'html') => {
-    // 1. 컨테이너 설정
-    const workListContainer = document.querySelector('.selected-work-list');
-    const textContentContainer = document.getElementById('text-content-container');
-    
-    // 2. 뷰 전환: 이미지 갤러리 숨기기, 텍스트 컨테이너 보이기
-    workListContainer.style.display = 'none';
-    textContentContainer.style.display = 'block';
-    textContentContainer.innerHTML = '<p style="text-align: center; margin-top: 50px;">Loading...</p>'; // 로딩 표시
-
-    const filename = `${projectId}.${fileExtension}`; 
-    
-    // 3. 파일 로드 (Fetch API 사용)
-    fetch(filename)
-        .then(response => {
-            // 응답이 성공적인지 확인
-            if (!response.ok) {
-                // HTML 로드 실패 시 PDF 시도 (PDF는 iframe으로 처리)
-                // Loggia note나 Airway처럼 텍스트 항목 중 PDF를 사용하는 경우가 있다면 확장자를 확인
-                if (fileExtension === 'html' && (projectId === 'Loggia note' )) {
-                     console.log(`HTML not found, trying PDF for ${projectId}`);
-                     textContentContainer.innerHTML = `<iframe src="${projectId}.pdf" style="width:100%; height:80vh; border:none;"></iframe>`;
-                     return; // PDF 로드 성공으로 간주하고 중단
-                }
-                throw new Error(`Failed to load file: ${filename}. Status: ${response.status}`);
-            }
-            // 응답이 성공적이면 텍스트로 변환
-            return response.text();
-        })
-        .then(data => {
-            if (data) {
-                // 4. HTML 컨테이너에 내용 주입
-                textContentContainer.innerHTML = data; 
-            }
-        })
-        .catch(error => {
-            console.error(error);
-            // 5. 오류 처리
-            textContentContainer.innerHTML = `<p style="color: red; text-align: center; margin-top: 50px;">Error: Could not load text for project "${projectId}". Please ensure the file (${filename}) exists.</p>`;
-        });
-        
-    // 프로젝트 활성화 상태와 관계없이 스크롤 최상단으로 이동
-    document.querySelector('.right-panel').scrollTop = 0;
-};
-
-        
-        // ⭐ [추가 끝]
+        // 이미지 관련 전역 변수 및 함수 삭제/정리
+        const allImageData = []; // 이미지 데이터 빈 배열로 유지
+        // 캐러셀 관련 변수 및 함수 삭제 (stopCarousel, cycleGroupImage, startCarousel 등)
+        // 모달 관련 변수 및 함수 삭제 (openModal, updateModalContent, updateModalNavButtons 등)
 
 
         // =========================================================================
-        // ⭐ 2. 캐러셀 제어 로직 (기존 로직 유지)
+        // ⭐ 핵심: 텍스트 파일 로드 함수 (HTML/PDF)
         // =========================================================================
-        const stopCarousel = () => {
-            if (groupCarouselTimeout) {
-                clearTimeout(groupCarouselTimeout);
-                groupCarouselTimeout = null;
+        const loadProjectContent = (projectId) => {
+            const textContentContainer = document.getElementById('text-content-container');
+            
+            // 1. 로딩 상태 표시
+            textContentContainer.innerHTML = '<p style="text-align: center; margin-top: 50px;">Loading...</p>'; 
+
+            // 2. 파일 확장자 결정 (Loggia note와 Airway는 PDF 우선)
+            let filename = '';
+            let isPdf = false;
+
+            if (projectId === 'Loggia note' || projectId === 'Airway') {
+                filename = `${projectId}.pdf`;
+                isPdf = true;
+            } else {
+                filename = `${projectId}.html`;
             }
-        };
 
-        const cycleGroupImage = () => {
-            return new Promise(resolve => {
-                const groupElements = document.querySelectorAll(`[data-project-id="${activeFilterId}"][data-group-main="true"]`);
-                
-                // 모든 메인 그룹 항목을 순회합니다.
-                groupElements.forEach(mainElement => {
-                    const groupId = mainElement.dataset.groupId;
-                    if (!groupId) return;
-
-                    const groupImages = getGroupImages(groupId);
-                    if (groupImages.length <= 1) return;
-
-                    // 현재 인덱스 가져오기 (초기화되어 있을 수도 있음)
-                    let currentIndex = groupCurrentIndexMap[groupId] || 0;
-                    
-                    // 다음 인덱스 계산
-                    let nextIndex = (currentIndex + 1) % groupImages.length;
-
-                    // 1. DOM 요소 찾기 (mainElement 내의 모든 img 태그)
-                    const imgElements = mainElement.querySelectorAll('.work-visual img');
-                    if (imgElements.length === 0) return;
-                    
-                    // 현재 이미지와 다음 이미지
-                    const currentImg = imgElements[currentIndex];
-                    const nextImg = imgElements[nextIndex];
-
-                    if (currentImg && nextImg) {
-                        // 2. 다음 이미지의 로드가 완료되면 전환을 시작합니다.
-                        const tempLoader = new Image();
-                        tempLoader.src = nextImg.src;
-
-                        tempLoader.onload = () => {
-                            // 현재 이미지 숨기기
-                            currentImg.style.opacity = '0';
-                            currentImg.classList.remove('active');
-
-                            // 다음 이미지 보이기
-                            nextImg.style.opacity = '1';
-                            nextImg.classList.add('active');
-
-                            // 인덱스 업데이트
-                            groupCurrentIndexMap[groupId] = nextIndex;
-                            resolve(); // 전환 완료
-                        };
-
-                        // 오류 처리
-                        tempLoader.onerror = () => {
-                            console.error(`Error loading image: ${nextImg.src}`);
-                            // 오류 발생 시에도 다음 주기 시도를 위해 강제 해결
-                            resolve(); 
-                        };
-                    } else {
-                        // DOM 구조에 문제가 있는 경우 (예: 렌더링된 이미지가 데이터보다 적음)
-                        resolve(); 
+            // 3. PDF 처리 (iframe 사용)
+            if (isPdf) {
+                 textContentContainer.innerHTML = `<iframe src="${filename}" style="width:100%; height:80vh; border:none; background-color: white;"></iframe>`;
+                 document.querySelector('.right-panel').scrollTop = 0;
+                 return;
+            }
+            
+            // 4. HTML 파일 로드 (Fetch API 사용)
+            fetch(filename)
+                .then(response => {
+                    if (!response.ok) {
+                        // HTML 로드 실패 시 PDF 파일 시도
+                        filename = `${projectId}.pdf`;
+                        textContentContainer.innerHTML = `<iframe src="${filename}" style="width:100%; height:80vh; border:none; background-color: white;"></iframe>`;
+                        // PDF로 전환 성공으로 간주하고 오류를 던지지 않음
+                        throw new Error('Switching to PDF mode.'); 
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    if (data) {
+                        // HTML 컨테이너에 내용 주입
+                        textContentContainer.innerHTML = data; 
+                    }
+                })
+                .catch(error => {
+                    // PDF 전환 메시지는 무시하고, 실제 오류만 로그에 남김
+                    if (error.message !== 'Switching to PDF mode.') {
+                        console.error(error);
+                        textContentContainer.innerHTML = `<p style="color: red; text-align: center; margin-top: 50px;">Error: Could not load content for project "${projectId}". Please ensure the file (${filename}) exists.</p>`;
                     }
                 });
                 
-                // 그룹이 없거나 처리할 내용이 없는 경우에도 대기 없이 resolve
-                if (groupElements.length === 0) resolve(); 
-            });
-        };
-
-
-        const startCarousel = () => {
-            // INDEX_DEFAULT 뷰에서 groupId가 있는 항목이 하나라도 있는지 확인
-            const hasGroupItems = allImageData.filter(item => item.projectId === activeFilterId && item.groupId ).length > 0;
-            const shouldStart = hasGroupItems; // 그룹 항목 존재 여부만 확인하여 전환 시작
-            
-            if (!shouldStart) return;
-
-            // 재귀 루프 정의
-            const loop = () => {
-                // cycleGroupImage는 이미지 로드 + 전환 완료 후 resolve되는 Promise를 반환합니다.
-                cycleGroupImage()
-                    .then(() => {
-                        // 전환이 완료되면, 3초의 대기 시간을 가집니다.
-                        groupCarouselTimeout = setTimeout(loop, CAROUSEL_INTERVAL_MS);
-                    })
-                    .catch(error => {
-                        console.error("Carousel transition error:", error);
-                        // 오류 발생 시에도 다음 주기 시도를 위해 대기 후 재호출
-                        groupCarouselTimeout = setTimeout(loop, CAROUSEL_INTERVAL_MS);
-                    });
-            };
-
-            // 최초 실행
-            loop();
-        };
-
-
-        /** * 오른쪽 패널의 작업물 목록을 렌더링하고 상단/하단 텍스트 가시성을 업데이트합니다. */ 
-       const renderWorkList = (filterId = 'INDEX_DEFAULT') => {
-    // 1. ⭐ 기존 캐러셀 중지
-    stopCarousel();
-    activeFilterId = filterId; // 활성 필터 ID 업데이트
-
-    // ⭐ [추가] 텍스트 컨테이너 숨기기, 이미지 갤러리 보이기
-    const workListContainer = document.querySelector('.selected-work-list');
-    const textContentContainer = document.getElementById('text-content-container');
-    workListContainer.style.display = 'block';
-    textContentContainer.style.display = 'none';
-
-            // 2. 필터링된 데이터 준비 (모달 내비게이션용)
-            let filteredData;
-            // INDEX_DEFAULT는 isDefault가 true인 항목, 나머지는 projectId가 일치하는 항목을 사용
-            if (filterId === 'INDEX_DEFAULT') {
-                filteredData = allImageData.filter(item => item.isDefault);
-            } else {
-                filteredData = allImageData.filter(item => item.projectId === filterId);
-            }
-
-            // ⭐ [수정 1 반영] Loggia 등 새로 진입한 프로젝트의 모든 그룹 인덱스를 0으로 초기화
-            filteredData.forEach(item => {
-                if (item.groupId) {
-                    groupCurrentIndexMap[item.groupId] = 0;
-                }
-            });
-
-            // 3. ⭐ 메인 패널에 렌더링할 항목을 필터링합니다. (isGroupMain: true 항목만) 
-            let itemsToRenderInMain = []; 
-            // isGroupMain이 true인 항목만 렌더링 (즉, 캐러셀 그룹의 대표 이미지만)
-            const mainItems = filteredData.filter(item => item.isGroupMain === true); 
-            itemsToRenderInMain = mainItems.length > 0 ? mainItems : filteredData;
-
-            // ⭐ [수정 시작] 4. HTML 생성 (3열 그룹화 로직 적용)
-            let workItemsHtml = '';
-            const itemsPerRow = 3; // 한 줄에 3개
-            let currentRowItems = [];
-            
-            itemsToRenderInMain.forEach((item, index) => {
-                // work-item HTML 생성 함수 사용
-                const itemHtml = createWorkItemHtml(item, index);
-                
-                // 3개씩 묶기
-                currentRowItems.push(itemHtml);
-
-                if (currentRowItems.length === itemsPerRow) {
-                    // 3개가 모이면 work-row-3으로 감싸서 추가
-                    workItemsHtml += `<div class="work-row-3">${currentRowItems.join('')}</div>`;
-                    currentRowItems = [];
-                }
-            });
-
-            // ⭐ 남은 항목(1개 또는 2개)이 있다면 마지막 행을 닫아줍니다.
-            if (currentRowItems.length > 0) {
-                workItemsHtml += `<div class="work-row-3">${currentRowItems.join('')}</div>`;
-            }
-            // ⭐ [수정 끝]
-            
-            // 5. HTML 업데이트
-            const workListContainer = document.querySelector('.selected-work-list');
-            const projectIntroTexts = document.querySelectorAll('.project-intro-text');
-            const projectFooterTexts = document.querySelectorAll('.project-footer-text');
-
-            // 정적 텍스트 블록들을 분리하고 다시 추가합니다.
-            const introTexts = Array.from(projectIntroTexts);
-            const footerTexts = Array.from(projectFooterTexts);
-            
-            workListContainer.innerHTML = '';
-
-            // 상단 텍스트 다시 추가
-            introTexts.forEach(text => workListContainer.appendChild(text));
-
-            // 작업물 목록 추가
-            workListContainer.insertAdjacentHTML('beforeend', workItemsHtml);
-
-            // 하단 텍스트 다시 추가
-            footerTexts.forEach(text => workListContainer.appendChild(text));
-            
+            // 스크롤 최상단으로 이동
             document.querySelector('.right-panel').scrollTop = 0;
-
-            // 6. 상단/하단 텍스트 가시성 관리
-            projectIntroTexts.forEach(textBlock => {
-                textBlock.classList.remove('active');
-                if (textBlock.dataset.projectId === filterId) {
-                    textBlock.classList.add('active');
-                }
-            });
-            projectFooterTexts.forEach(textBlock => {
-                textBlock.classList.remove('active');
-                if (textBlock.dataset.projectId === filterId) {
-                    textBlock.classList.add('active');
-                }
-            });
-
-            // 7. 모달용으로 전체 필터링된 데이터(숨겨진 이미지 포함)를 저장합니다.
-            currentFilteredImages = filteredData;
-
-            // 8. ⭐ 캐러셀 시작
-            startCarousel();
-
-            // 9. 이벤트 리스너 재부착
-            document.querySelectorAll('.work-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    const id = item.dataset.id;
-                    openModal(id);
-                });
-            });
         };
+
 
         // =========================================================================
-        // ⭐ [최종] 전체화면 모달 전환 함수 (로딩 완료 후 즉시 전환) ⭐
-        // =========================================================================
-        const updateModalContent = (imageId) => {
-            // 주의: currentFilteredImages는 현재 그룹의 이미지 목록입니다.
-            const targetImage = currentFilteredImages.find(item => item.id === imageId);
-            if (!targetImage) return;
-
-            // 1. 새 이미지 로드를 위한 임시 객체 생성
-            const tempLoader = new Image();
-            tempLoader.alt = `${targetImage.folder}/${targetImage.fileName}`;
-            tempLoader.src = targetImage.url;
-
-            // 2. 로딩 완료 시 실행할 함수 (이전 사진을 대체)
-            tempLoader.onload = () => {
-                const container = document.getElementById('modal-image-container');
-                const modalCaption = document.getElementById('modal-caption');
-                const currentImg = container.querySelector('img.current');
-                
-                // A. 새 이미지 DOM 요소 생성
-                const newImg = document.createElement('img');
-                newImg.alt = tempLoader.alt;
-                newImg.src = tempLoader.src;
-                newImg.style.opacity = '0'; // 초기 투명하게 설정
-                newImg.classList.add('incoming'); // 임시 클래스 부여
-
-                // B. 컨테이너에 새 이미지 추가 (아래에 깔림)
-                container.appendChild(newImg);
-
-                // C. 캡션 업데이트
-                modalCaption.innerHTML = `<div class="work-header"><span class="full-description">${targetImage.description}</span></div>`;
-
-                // D. 크로스 페이드 시작
-                setTimeout(() => {
-                    if (currentImg) {
-                        currentImg.style.opacity = '0';
-                        currentImg.classList.remove('current');
-                    }
-                    newImg.style.opacity = '1';
-                    newImg.classList.remove('incoming');
-                    newImg.classList.add('current');
-                }, 10); // 전환 시작을 위해 약간의 지연 (브라우저가 DOM 변경을 인식하도록)
-
-                // E. 전환 완료 후 이전 이미지 제거
-                setTimeout(() => {
-                    if (currentImg && currentImg.parentNode === container) {
-                        currentImg.remove();
-                    }
-                }, 150); // CSS transition 시간(0.1s)보다 길게 설정
-
-                // F. 전역 ID 업데이트 및 네비게이션 버튼 업데이트
-                currentModalImageId = imageId;
-                updateModalNavButtons();
-            };
-        };
-
-
-        // ⭐ 모달 내비게이션 버튼 가시성 업데이트
-        const updateModalNavButtons = () => {
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-
-            if (allImageData.length > 0) {
-            const navigableImages = allImageData;
-                const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
-                
-                // 데스크톱에서만 버튼 표시
-                if (window.innerWidth > 768) {
-                    prevBtn.style.display = (currentIndex > 0) ? 'block' : 'none';
-                    nextBtn.style.display = (currentIndex < navigableImages.length - 1) ? 'block' : 'none';
-                } else {
-                    // 모바일에서는 항상 숨김 (CSS에서도 처리하지만 JS에서도 안전하게 처리)
-                    prevBtn.style.display = 'none';
-                    nextBtn.style.display = 'none';
-                }
-
-            } else {
-                prevBtn.style.display = 'none';
-                nextBtn.style.display = 'none';
-            }
-        };
-
-
-        // ⭐ 모달 열기 시 그룹 데이터로 필터링
-        const openModal = (imageId) => {
-            // 1. 클릭된 이미지 정보 획득
-            const clickedImage = allImageData.find(item => item.id === imageId);
-            if (!clickedImage) return;
-
-            // 2. ⭐ 캐러셀 중지
-            stopCarousel();
-
-            // 3. 모달에 사용할 이미지 리스트 결정:
-            let modalImages;
-            if (clickedImage.groupId) {
-                // groupId가 있으면, 해당 그룹의 모든 이미지를 모달 이미지로 사용
-                modalImages = getGroupImages(clickedImage.groupId); // Helper function 사용
-            } else if (activeFilterId === 'INDEX_DEFAULT') {
-                // INDEX_DEFAULT 화면에서 그룹이 아닌 항목을 클릭한 경우
-                modalImages = allImageData.filter(item => item.isDefault);
-            } else {
-                // 특정 프로젝트 화면에서 그룹이 아닌 항목을 클릭한 경우
-                modalImages = allImageData.filter(item => item.projectId === activeFilterId);
-            }
-            
-            // 4. 모달에서 내비게이션에 사용할 목록을 업데이트
-            currentFilteredImages = modalImages;
-
-            // 5. 모달 열기
-            const modal = document.getElementById('fullscreen-modal');
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden'; // 스크롤 잠금
-
-            // 6. 내용 업데이트 및 첫 이미지 표시
-            const container = document.getElementById('modal-image-container');
-            container.innerHTML = ''; // 기존 이미지 제거
-            updateModalContent(imageId);
-        };
-
-
         // ⭐ 초기 로딩 및 이벤트 핸들러 설정
+        // =========================================================================
         document.addEventListener('DOMContentLoaded', () => {
-            // 초기 렌더링 (INDEX_DEFAULT)
-            renderWorkList('INDEX_DEFAULT');
-
+            // 초기 로딩 시 기본 메시지 유지를 위해 별도의 renderWorkList 호출 없음
+            
+            // 1. 프로젝트 링크 클릭 이벤트 리스너
           document.querySelectorAll('.table-row a').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
                     const projectId = e.currentTarget.dataset.projectId;
                     
-                    // 1. 현재 항목의 `.Works` 텍스트를 확인하여 콘텐츠 유형을 결정
-                    const row = e.currentTarget.closest('.table-row');
-                    const workSpan = row.querySelector('.Works');
-                    const workType = workSpan ? workSpan.textContent.trim() : '';
-
-                    // 2. 콘텐츠 유형에 따라 다른 함수 호출
-                    if (workType === 'Texts' || workType === 'Notes') {
-                        // 텍스트/노트 항목: loadProjectContent 호출 
-                        loadProjectContent(projectId, 'html'); 
-                    } else {
-                        // 기타 항목: 기존 renderWorkList 호출 (이미지 갤러리)
-                        renderWorkList(projectId);
-                    }
+                    // 2. loadProjectContent 함수 호출 (이미지 갤러리 로직 제거)
+                    loadProjectContent(projectId);
 
                     // 3. 메뉴 항목 활성화 상태 업데이트
                    document.querySelectorAll('.table-row').forEach(row => {
@@ -1152,110 +407,18 @@ const loadProjectContent = (projectId, fileExtension = 'html') => {
                     });
                     
                     // 클릭된 항목의 부모 `.table-row`에 활성 클래스 추가
-                    row.classList.add('active-project');
+                    e.currentTarget.closest('.table-row').classList.add('active-project');
                 });
             });
 
-        
-            
-            // 3. 모달 닫기 이벤트 리스너
-            const modal = document.getElementById('fullscreen-modal');
-            const modalCloseBtn = document.querySelector('.modal-close');
-            const modalImageContainer = document.getElementById('modal-image-container');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
+            // 4. 모달 관련 이벤트 리스너 모두 삭제
 
-            const closeModal = () => {
-                modal.classList.remove('show');
-                document.body.style.overflow = 'hidden'; // 스크롤 고정 상태 복원
-                // 모달 닫기 후 캐러셀 재시작 (INDEX_DEFAULT가 활성 필터인 경우)
-                if (activeFilterId === 'INDEX_DEFAULT') {
-                    startCarousel();
-                }
-            };
-
-            modalCloseBtn.addEventListener('click', closeModal);
-            modal.addEventListener('click', (event) => {
-                if (event.target === modal) {
-                    closeModal();
-                }
-            });
-document.addEventListener('keydown', (e) => {
-                const modal = document.getElementById('fullscreen-modal');
-
-                // 모달이 활성화된 상태('show' 클래스)에만 작동
-                if (modal.classList.contains('show')) {
-                    
-                    // 1. Escape 키로 모달 닫기
-                    if (e.key === 'Escape') {
-                        closeModal();
-                        return; // 모달 닫힘 후 추가 로직 불필요
-                    }
-                    
-                    // 2. ArrowLeft / ArrowRight로 사진 전환
-                    const navigableImages = allImageData; // 전체 이미지 목록 사용
-                    const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
-
-                    if (e.key === 'ArrowLeft' || e.key === 'Left') { // 왼쪽 화살표 (이전)
-                        if (currentIndex > 0) {
-                            const prevImage = navigableImages[currentIndex - 1];
-                            updateModalContent(prevImage.id);
-                            e.preventDefault(); // 기본 스크롤 동작 방지
-                        }
-                    } else if (e.key === 'ArrowRight' || e.key === 'Right') { // 오른쪽 화살표 (다음)
-                        if (currentIndex < navigableImages.length - 1) {
-                            const nextImage = navigableImages[currentIndex + 1];
-                            updateModalContent(nextImage.id);
-                            e.preventDefault(); // 기본 스크롤 동작 방지
-                        }
-                    }
-                }
-            });
-            
-            // ⭐ 모달 이미지 영역 클릭으로 페이지 전환
-            modalImageContainer.addEventListener('click', (event) => {
-                if (currentFilteredImages.length > 1) {
-                    const rect = modalImageContainer.getBoundingClientRect();
-                    const width = rect.width;
-                    const clickX = event.clientX - rect.left;
-                   const navigableImages = allImageData;
-                    const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
-                    
-                    // 왼쪽 1/3 클릭 시 (Prev)
-                    if (currentIndex > 0 && clickX < width * 1 / 3) {
-                        const prevImage = navigableImages[currentIndex - 1];
-                        updateModalContent(prevImage.id);
-                        event.stopPropagation(); // 모달 닫힘 방지
-                    } 
-                    // 오른쪽 1/3 클릭 시 (Next)
-                    else if (currentIndex < navigableImages.length - 1 && clickX > width * 2 / 3) {
-                        const nextImage = navigableImages[currentIndex + 1];
-                        updateModalContent(nextImage.id);
-                        event.stopPropagation(); // 모달 닫힘 방지
-                    }
-                    // 중앙 1/3 클릭 시는 모달 배경 클릭으로 처리되지 않도록 stopPropagation을 추가하지 않습니다.
-                }
-            });
-
-            // ⭐ 이전 버튼 이벤트 리스너
-            prevBtn.addEventListener('click', () => {
-               const navigableImages = allImageData;
-                const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
-                if (currentIndex > 0) {
-                    const prevImage = navigableImages[currentIndex - 1];
-                    updateModalContent(prevImage.id);
-                }
-            });
-
-            // ⭐ 다음 버튼 이벤트 리스너
-            nextBtn.addEventListener('click', () => {
-               const navigableImages = allImageData;
-                const currentIndex = navigableImages.findIndex(item => item.id === currentModalImageId);
-                if (currentIndex < navigableImages.length - 1) {
-                    const nextImage = navigableImages[currentIndex + 1];
-                    updateModalContent(nextImage.id);
-                }
-            });
+            // 5. 우클릭 시 스크롤 고정 버그 방지 (데스크톱에서만 작동)
+            if (window.innerWidth > 768) {
+                document.body.style.overflow = 'hidden'; 
+            } else {
+                 document.body.style.overflow = 'visible';
+            }
         });
     </script>
 </body>
