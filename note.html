@@ -640,6 +640,12 @@
                        <div class="project-intro-text active" data-project-id="INDEX_DEFAULT">
                  <br> <br>  </div>
                 
+                <div id="text-content-container" style="padding: 20px; display: none;">
+                </div>
+
+
+
+                
                 <div class="project-intro-text" data-project-id="the bottom of the wilderness">
                 <br>   <br>The bottom of the wilderness<br><br>
                     <span class="fade-text">2025</span>
@@ -675,55 +681,10 @@
                 
                
 
-                <div class="project-footer-text" data-project-id="Loggia">
-                    <p>Photo by San Choi</p>
+               
                 </div>
 
-                <div class="project-footer-text" data-project-id="Surgical Room">
-                    <p>Photo by CYLINDER</p>
-                </div>
-
-                <div class="project-footer-text" data-project-id="South Parade">
-                    <p>Photo by South Parade</p>
-                </div>
-
-                <div class="project-footer-text" data-project-id="Hypercube">
-                    <p>Photo by San Choi</p>
-                </div>
-                
-                <div class="project-footer-text" data-project-id="The Good Neighbor">
-                    <p>Photo by Euiriok Lee</p>
-                </div>
-
-                <div class="project-footer-text" data-project-id="Cabinet">
-                    <p>Photo by SES</p>
-                </div>
-                
-                <div class="project-footer-text" data-project-id="Waiting Room">
-                    <p></p>
-                </div>
-
-                <div class="project-footer-text" data-project-id="Perigee Winter Show">
-                    <p></p>
-                </div>
-
-                <div class="project-footer-text" data-project-id="The Wild Bunch">
-                    <p></p>
-                </div>
-                
-                <div class="project-footer-text" data-project-id="Fonds">
-                    <p>Photo by Ieon Yang</p>
-                </div>
-                
-                <div class="project-footer-text" data-project-id="Room of Convexity and Concavity">
-                    <p>Photo by Ieon Yang</p>
-                </div>
-                
-                <div class="project-footer-text" data-project-id="TORQUE 1">
-                    <p>Photo by CYLINDER</p>
-                </div>
-
-            </div>
+           
             
         </section>
 
@@ -774,6 +735,53 @@
                 ${headerHtml}
             </div>`;
     };
+
+const loadProjectContent = (projectId, fileExtension = 'html') => {
+    // 1. 컨테이너 설정
+    const workListContainer = document.querySelector('.selected-work-list');
+    const textContentContainer = document.getElementById('text-content-container');
+    
+    // 2. 뷰 전환: 이미지 갤러리 숨기기, 텍스트 컨테이너 보이기
+    workListContainer.style.display = 'none';
+    textContentContainer.style.display = 'block';
+    textContentContainer.innerHTML = '<p style="text-align: center; margin-top: 50px;">Loading...</p>'; // 로딩 표시
+
+    const filename = `${projectId}.${fileExtension}`; 
+    
+    // 3. 파일 로드 (Fetch API 사용)
+    fetch(filename)
+        .then(response => {
+            // 응답이 성공적인지 확인
+            if (!response.ok) {
+                // HTML 로드 실패 시 PDF 시도 (PDF는 iframe으로 처리)
+                // Loggia note나 Airway처럼 텍스트 항목 중 PDF를 사용하는 경우가 있다면 확장자를 확인
+                if (fileExtension === 'html' && (projectId === 'Loggia note' || projectId === 'Airway')) {
+                     console.log(`HTML not found, trying PDF for ${projectId}`);
+                     textContentContainer.innerHTML = `<iframe src="${projectId}.pdf" style="width:100%; height:80vh; border:none;"></iframe>`;
+                     return; // PDF 로드 성공으로 간주하고 중단
+                }
+                throw new Error(`Failed to load file: ${filename}. Status: ${response.status}`);
+            }
+            // 응답이 성공적이면 텍스트로 변환
+            return response.text();
+        })
+        .then(data => {
+            if (data) {
+                // 4. HTML 컨테이너에 내용 주입
+                textContentContainer.innerHTML = data; 
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            // 5. 오류 처리
+            textContentContainer.innerHTML = `<p style="color: red; text-align: center; margin-top: 50px;">Error: Could not load text for project "${projectId}". Please ensure the file (${filename}) exists.</p>`;
+        });
+        
+    // 프로젝트 활성화 상태와 관계없이 스크롤 최상단으로 이동
+    document.querySelector('.right-panel').scrollTop = 0;
+};
+
+        
         // ⭐ [추가 끝]
 
 
@@ -878,10 +886,16 @@
 
 
         /** * 오른쪽 패널의 작업물 목록을 렌더링하고 상단/하단 텍스트 가시성을 업데이트합니다. */ 
-        const renderWorkList = (filterId = 'INDEX_DEFAULT') => {
-            // 1. ⭐ 기존 캐러셀 중지
-            stopCarousel();
-            activeFilterId = filterId; // 활성 필터 ID 업데이트
+       const renderWorkList = (filterId = 'INDEX_DEFAULT') => {
+    // 1. ⭐ 기존 캐러셀 중지
+    stopCarousel();
+    activeFilterId = filterId; // 활성 필터 ID 업데이트
+
+    // ⭐ [추가] 텍스트 컨테이너 숨기기, 이미지 갤러리 보이기
+    const workListContainer = document.querySelector('.selected-work-list');
+    const textContentContainer = document.getElementById('text-content-container');
+    workListContainer.style.display = 'block';
+    textContentContainer.style.display = 'none';
 
             // 2. 필터링된 데이터 준비 (모달 내비게이션용)
             let filteredData;
@@ -1106,22 +1120,32 @@
             // 초기 렌더링 (INDEX_DEFAULT)
             renderWorkList('INDEX_DEFAULT');
 
-            // 1. 메뉴 클릭 이벤트 리스너
-            document.querySelectorAll('.table-row a').forEach(link => {
+          document.querySelectorAll('.table-row a').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
                     const projectId = e.currentTarget.dataset.projectId;
-                    renderWorkList(projectId);
-
                     
+                    // 1. 현재 항목의 `.Works` 텍스트를 확인하여 콘텐츠 유형을 결정
+                    const row = e.currentTarget.closest('.table-row');
+                    const workSpan = row.querySelector('.Works');
+                    const workType = workSpan ? workSpan.textContent.trim() : '';
 
-                    // 메뉴 항목 활성화 상태 업데이트
+                    // 2. 콘텐츠 유형에 따라 다른 함수 호출
+                    if (workType === 'Texts' || workType === 'Notes') {
+                        // 텍스트/노트 항목: loadProjectContent 호출 
+                        loadProjectContent(projectId, 'html'); 
+                    } else {
+                        // 기타 항목: 기존 renderWorkList 호출 (이미지 갤러리)
+                        renderWorkList(projectId);
+                    }
+
+                    // 3. 메뉴 항목 활성화 상태 업데이트
                    document.querySelectorAll('.table-row').forEach(row => {
                         row.classList.remove('active-project'); // 모든 항목의 활성 클래스 제거
                     });
                     
                     // 클릭된 항목의 부모 `.table-row`에 활성 클래스 추가
-                    e.currentTarget.closest('.table-row').classList.add('active-project');
+                    row.classList.add('active-project');
                 });
             });
 
