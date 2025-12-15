@@ -376,10 +376,10 @@
 
             // 3. PDF 처리 (iframe 사용)
            // ✅ 수정 후 코드 (100%)
-           // loadProjectContent 함수 내부 (PDF 처리 로직)
+           
             if (isPdf) {
-                 // height는 100%로 꽉 차게, width도 100%로 꽉 차게 유지
-                 textContentContainer.innerHTML = `<iframe src="${filename}" style="width:100%; height:100%; border:none; background-color: white;"></iframe>`;
+                 // ⭐ 수정된 부분: width:100% 에 !important 추가 ⭐
+                 textContentContainer.innerHTML = `<iframe src="${filename}" style="width:100% !important; height:100% !important; border:none; background-color: white;"></iframe>`;
                  document.querySelector('.right-panel').scrollTop = 0;
                  return;
             }
