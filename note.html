@@ -141,6 +141,7 @@
     }    
 
         #text-content-container iframe {
+    /* ⭐ 수정: PDF 가로 크기를 오른쪽 레이아웃 전체로 강제 확장 ⭐ */
     width: 100% !important;
     min-width: 100%; /* 최소 너비도 100%로 설정 */
     height: 100% !important;
@@ -343,8 +344,7 @@
         </section>
         
         
-        <section span cLlass="year">
-            <div id="text-content-container" style="padding: 20px;">
+        <section class="right-panel"> <div id="text-content-container" style="padding: 20px;">
                 <p>Please select a **Text** or **Note** from the index on the left to view the content.</p>
                 <p class="fade-text" style="margin-top: 20px;">(Loggia, painting n, loggianote, Airway)</p>
             </div>
@@ -375,8 +375,8 @@
             let filename = `${projectId}.html`; // 기본은 HTML
             let isPdf = false;
             
-            // PDF 우선 파일 목록
-            const pdfProjects = ['loggianote', '돋음으로-인하기', 'loggiatext', 'Airway'];
+            // ⭐ 수정: HTML 인덱스에 있는 project-id를 기반으로 PDF 파일 목록을 정의했습니다. ⭐
+            const pdfProjects = ['loggiatext', 'asdf', 'loggianote', 'Airway']; 
 
             if (pdfProjects.includes(projectId)) {
                 filename = `${projectId}.pdf`;
@@ -388,7 +388,7 @@
                  const iframe = document.createElement('iframe');
                  iframe.src = filename;
                  
-                 // ⭐핵심 수정: 너비와 높이를 100%로 강제 지정 (CSS 우선순위 무시)
+                 // ⭐ 핵심 수정: 인라인 스타일로 너비와 높이를 100%로 강제 지정 (PDF 가로 크기 전체 차지)
                  iframe.style.width = '100%';
                  iframe.style.height = '100%';
                  iframe.style.border = 'none';
@@ -402,6 +402,7 @@
             }
             
             // 4. HTML 파일 로드 (PDF가 아닌 경우만 Fetch API 사용)
+            // HTML 파일은 이 로직으로 로드됩니다.
             fetch(filename)
                 .then(response => {
                     if (!response.ok) {
