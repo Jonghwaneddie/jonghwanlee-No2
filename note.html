@@ -131,12 +131,13 @@
         }
 #text-content-container {
         padding: 20px;
-        display: block; /* 기본적으로 보여지도록 설정 */
+        display: block; 
         height: 100%;
-           max-width: 700px; /* 텍스트 너비를 600px로 제한 (원하는 너비로 조정 가능) */
-    margin-left: auto;  /* 왼쪽 마진 자동으로 설정 */
-    margin-right: auto; /* 오른쪽 마진 자동으로 설정하여 중앙 정렬 */
-    }
+        /* max-width: 700px;  // 이 설정을 제거하거나 주석 처리 */
+        max-width: 100%; /* 부모 너비 전체를 사용하도록 100%로 설정 (사실상 제거와 동일) */
+        margin-left: 0;  /* 중앙 정렬 margin 제거 */
+        margin-right: 0; 
+    }    
 
     /* ⭐ 추가된 스타일: 로드된 텍스트의 제목과 본문 스타일 일괄 조정 ⭐ */
     #text-content-container h2 {
@@ -375,8 +376,9 @@
 
             // 3. PDF 처리 (iframe 사용)
            // ✅ 수정 후 코드 (100%)
+           // loadProjectContent 함수 내부 (PDF 처리 로직)
             if (isPdf) {
-                 // height:80vh 를 height:100% 로 변경
+                 // height는 100%로 꽉 차게, width도 100%로 꽉 차게 유지
                  textContentContainer.innerHTML = `<iframe src="${filename}" style="width:100%; height:100%; border:none; background-color: white;"></iframe>`;
                  document.querySelector('.right-panel').scrollTop = 0;
                  return;
