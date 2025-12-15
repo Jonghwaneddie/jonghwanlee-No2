@@ -374,8 +374,10 @@
             }
 
             // 3. PDF 처리 (iframe 사용)
+           // ✅ 수정 후 코드 (100%)
             if (isPdf) {
-                 textContentContainer.innerHTML = `<iframe src="${filename}" style="width:100%; height:80vh; border:none; background-color: white;"></iframe>`;
+                 // height:80vh 를 height:100% 로 변경
+                 textContentContainer.innerHTML = `<iframe src="${filename}" style="width:100%; height:100%; border:none; background-color: white;"></iframe>`;
                  document.querySelector('.right-panel').scrollTop = 0;
                  return;
             }
