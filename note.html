@@ -360,26 +360,35 @@
         const loadProjectContent = (projectId) => {
             const textContentContainer = document.getElementById('text-content-container');
             
-            // 1. 로딩 상태 표시
+          // 1. 로딩 상태 표시
             textContentContainer.innerHTML = '<p style="text-align: center; margin-top: 50px;">Loading...</p>'; 
 
-            // 2. 파일 확장자 결정 (Loggia note와 Airway는 PDF 우선)
+            // 2. 파일 확장자 결정 (이전 로직 유지)
             let filename = '';
             let isPdf = false;
-
-            if (projectId === 'loggianote', 'asdf', 'loggiatext' ) {
+            if (projectId === 'loggianote' || projectId === '돋음으로-인하기' || projectId === 'loggiatext' || projectId === 'Airway' ) {
                 filename = `${projectId}.pdf`;
                 isPdf = true;
             } else {
                 filename = `${projectId}.html`;
             }
 
-            // 3. PDF 처리 (iframe 사용)
-           // ✅ 수정 후 코드 (100%)
-           
+            // 3. PDF 처리 (iframe 생성 및 속성 강제 지정)
             if (isPdf) {
-                 // ⭐ 수정된 부분: width:100% 에 !important 추가 ⭐
-                 textContentContainer.innerHTML = `<iframe src="${filename}" style="width:100% !important; height:100% !important; border:none; background-color: white;"></iframe>`;
+                 // <iframe> 요소 직접 생성
+                 const iframe = document.createElement('iframe');
+                 iframe.src = filename;
+                 
+                 // ⭐핵심 수정: 너비를 100%로, 높이를 뷰포트 높이(vh)가 아닌 100%로 강제 설정
+                 iframe.style.width = '100%';
+                 iframe.style.height = '100%';
+                 iframe.style.border = 'none';
+                 iframe.style.backgroundColor = 'white';
+                 
+                 // 모든 내부 콘텐츠 제거 후 iframe 추가
+                 textContentContainer.innerHTML = ''; 
+                 textContentContainer.appendChild(iframe);
+
                  document.querySelector('.right-panel').scrollTop = 0;
                  return;
             }
