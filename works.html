@@ -92,8 +92,11 @@
             padding-left: 0;
             line-height: 1.4;
             text-align: justify;
+            display: none;
         }
-
+.cv-info .deep-indent.active {
+            display: block; 
+        }
         /* 3-2. 프로젝트 인덱스 테이블 스타일 (Grid 사용) */
         .project-table {
             margin-top: 20px;
@@ -1250,6 +1253,14 @@
                 }
             });
             projectFooterTexts.forEach(textBlock => {
+                textBlock.classList.remove('active');
+                if (textBlock.dataset.projectId === filterId) {
+                    textBlock.classList.add('active');
+                }
+            });
+
+            const cvTexts = document.querySelectorAll('.cv-info p');
+            cvTexts.forEach(textBlock => {
                 textBlock.classList.remove('active');
                 if (textBlock.dataset.projectId === filterId) {
                     textBlock.classList.add('active');
