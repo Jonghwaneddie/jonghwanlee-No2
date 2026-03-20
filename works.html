@@ -90,18 +90,19 @@
 }
 
         /* information 글 들여쓰기 */
-      .cv-info .deep-indent {
-    margin-left: 160px;
-    padding-left: 0;
-    line-height: 1.4;
-    text-align: justify;
-    display: none;
-    /* 텍스트가 영역을 벗어나지 않게 하고 싶다면 absolute를 사용할 수 있습니다. */
-    position: absolute; 
-    top: 0;
-    left: 0;
-    width: 100%;
-}
+     .cv-info .deep-indent {
+            margin-left: 0;       /* ⭐ 기존 160px에서 0으로 변경 (박스 자체를 밀지 않음) */
+            padding-left: 160px;  /* ⭐ 추가: 박스 안쪽에서 글자만 밀어줌 */
+            line-height: 1.4;
+            text-align: justify;
+            display: none;
+            /* 텍스트가 영역을 벗어나지 않게 하고 싶다면 absolute를 사용할 수 있습니다. */
+            position: absolute; 
+            top: 0;
+            left: 0;
+            width: 100%; /* padding을 써도 기존에 설정된 box-sizing 속성 덕분에 100% 안에서 예쁘게 맞물립니다 */
+            padding-right: 10px; /* 오른쪽 끝이 너무 딱 붙으면 이 수치를 10px~20px로 조절해보세요 */
+        }
 
 .cv-info .deep-indent.active {
     display: block;
@@ -507,7 +508,7 @@
             }
 
             /* 4. 정보 텍스트 조정 */
-            .cv-info {
+           .cv-info {
                 order: 1; 
                 margin-top: 0; 
                 margin-bottom: 30px; 
@@ -515,6 +516,8 @@
 
             .cv-info .deep-indent {
                 margin-left: 0; 
+                padding-left: 0; /* ⭐ 추가: 모바일에서는 들여쓰기(패딩) 해제 */
+                position: relative; /* ⭐ 추가: 모바일에서는 글이 겹치지 않게 원래대로 복구 */
             }
             
             /* 5. 프로젝트 인덱스 테이블 표시 및 순서 설정 */
