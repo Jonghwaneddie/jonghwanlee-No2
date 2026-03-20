@@ -81,32 +81,27 @@
             overflow-y: auto; 
         }
 
-       .cv-info {
-    position: relative;
-    /* 텍스트가 들어갈 충분한 공간을 미리 확보하여 아래 표가 밀리지 않게 합니다. */
-    /* 본인의 텍스트 길이에 맞춰 120px~150px 정도로 조절해 보세요. */
-    min-height: 120px; 
-    margin-bottom: 20px; /* 표와의 간격 */
-}
+      .cv-info {
+            position: relative;
+            height: 120px; /* ⭐ 텍스트 박스의 고정 높이 (원하시는 만큼 조절하세요) */
+            overflow-y: auto; /* ⭐ 글이 높이를 초과하면 스크롤바를 만듭니다 */
+            margin-bottom: 20px;
+        }
 
         /* information 글 들여쓰기 */
-     .cv-info .deep-indent {
-            margin-left: 0;       /* ⭐ 기존 160px에서 0으로 변경 (박스 자체를 밀지 않음) */
-            padding-left: 160px;  /* ⭐ 추가: 박스 안쪽에서 글자만 밀어줌 */
+        .cv-info .deep-indent {
+            margin-left: 0; 
+            padding-left: 160px; 
+            padding-right: 15px; /* 스크롤바와 글자가 너무 붙지 않게 여유 공간 */
             line-height: 1.4;
             text-align: justify;
             display: none;
-            /* 텍스트가 영역을 벗어나지 않게 하고 싶다면 absolute를 사용할 수 있습니다. */
-            position: absolute; 
-            top: 0;
-            left: 0;
-            width: 100%; /* padding을 써도 기존에 설정된 box-sizing 속성 덕분에 100% 안에서 예쁘게 맞물립니다 */
-            padding-right: 10px; /* 오른쪽 끝이 너무 딱 붙으면 이 수치를 10px~20px로 조절해보세요 */
+            /* ⭐ absolute 관련 코드는 모두 삭제했습니다! */
         }
 
-.cv-info .deep-indent.active {
-    display: block;
-}
+        .cv-info .deep-indent.active {
+            display: block; 
+        }
         /* 3-2. 프로젝트 인덱스 테이블 스타일 (Grid 사용) */
         .project-table {
             margin-top: 20px;
@@ -508,16 +503,17 @@
             }
 
             /* 4. 정보 텍스트 조정 */
-           .cv-info {
-                order: 1; 
+          order: 1; 
                 margin-top: 0; 
                 margin-bottom: 30px; 
+                height: auto; /* ⭐ 모바일에서는 고정 높이 해제 */
+                overflow-y: visible; /* ⭐ 모바일에서는 스크롤 해제 (자연스럽게 다 보임) */
             }
 
             .cv-info .deep-indent {
                 margin-left: 0; 
-                padding-left: 0; /* ⭐ 추가: 모바일에서는 들여쓰기(패딩) 해제 */
-                position: relative; /* ⭐ 추가: 모바일에서는 글이 겹치지 않게 원래대로 복구 */
+                padding-left: 0; /* 모바일 들여쓰기 해제 */
+                padding-right: 0; 
             }
             
             /* 5. 프로젝트 인덱스 테이블 표시 및 순서 설정 */
