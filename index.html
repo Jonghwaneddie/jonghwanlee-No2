@@ -87,14 +87,6 @@
             margin-bottom: 20px;
         }
 
-     /* 1. 텍스트 박스 전체 설정 (works.html과 위치를 맞추기 위해 높이 고정) */
-     .cv-info {
-            position: relative;
-            height: 120px; /* ⭐ 텍스트 박스의 고정 높이 (원하시는 만큼 조절하세요) */
-            overflow-y: auto; /* ⭐ 글이 높이를 초과하면 스크롤바를 만듭니다 */
-            margin-bottom: 20px;
-        }
-
         /* information 글 들여쓰기 */
         .cv-info .deep-indent {
             margin-left: 0; 
@@ -109,6 +101,7 @@
         .cv-info .deep-indent.active {
             display: block; 
         }
+
         /* 3-2. 프로젝트 인덱스 테이블 스타일 (Grid 사용) */
         .project-table {
             margin-top: 20px;
@@ -479,7 +472,7 @@
             }
 
             /* 4. 정보 텍스트 조정 */
-    .cv-info {
+          .cv-info {
                 order: 1; 
                 margin-top: 0; 
                 margin-bottom: 30px; 
@@ -492,6 +485,7 @@
                 padding-left: 0; /* 모바일 들여쓰기 해제 */
                 padding-right: 0; 
             }
+            
             /* 5. 프로젝트 인덱스 테이블 표시 및 순서 설정 */
             .project-table {
                 display: grid; 
