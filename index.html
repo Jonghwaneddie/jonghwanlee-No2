@@ -88,26 +88,19 @@
         }
 
         /* information 글 들여쓰기 */
-      .cv-info {
-    position: relative;
-    height: 120px !important;  /* works.html과 반드시 같은 수치여야 함 */
-    overflow-y: auto !important;
-    margin-bottom: 20px !important;
-}
+        .cv-info .deep-indent {
+            margin-left: 0; 
+            padding-left: 160px; 
+            padding-right: 15px; /* 스크롤바와 글자가 너무 붙지 않게 여유 공간 */
+            line-height: 1.6;
+            text-align: justify;
+            display: none;
+            /* ⭐ absolute 관련 코드는 모두 삭제했습니다! */
+        }
 
-/* 2. 텍스트 스타일 및 행간 적용 */
-.cv-info .deep-indent {
-    margin-left: 0 !important;
-    padding-left: 160px !important;
-    padding-right: 15px !important;
-    
-    /* 작가님이 원하시는 넓은 행간 적용 */
-    line-height: 2.0 !important; 
-    letter-spacing: 0.02em !important;
-    
-    text-align: justify;
-    display: block !important; /* index는 하나만 있으므로 항상 보이게 */
-}
+        .cv-info .deep-indent.active {
+            display: block; 
+        }
 
         /* 3-2. 프로젝트 인덱스 테이블 스타일 (Grid 사용) */
         .project-table {
@@ -584,8 +577,7 @@
 
         <section class="left-panel">
             <div class="cv-info">
-                <p class="indented-text deep-indent">
-                    Painting is not the imposition of a shape preconceived in the mind upon raw matter; rather, it is the drawing out of potential inherent within a world-in-the-making. The domain of painting is a world currently undergoing formation.</p>
+                <p class="indented-text deep-indent">Painting is not the imposition of a shape preconceived in the mind upon raw matter; rather, it is the drawing out of potential inherent within a world-in-the-making. The domain of painting is a world currently undergoing formation.</p>
             </div>
 
             <div class="project-table">
