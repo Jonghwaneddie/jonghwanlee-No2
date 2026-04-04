@@ -3,460 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>notes</title>
-    
-
-<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+    <title>Notes - Jonghwan Lee</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400&display=swap" rel="stylesheet">
     <style>
-        /* 기본 리셋 */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* 스크롤 고정 핵심 */
-        html, body {
-            height: 100%; /* 뷰포트 높이 전체 차지 */
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; }
+        a { color: inherit; text-decoration: none; cursor: pointer; }
         body {
-            /* Pretendard 폰트 적용 */
-            font-family: 'Pretendard', sans-serif; 
+            font-family: 'Raleway', sans-serif;
             font-size: 13px;
             color: #000;
-            display: flex;
-            flex-direction: column; /* 세로로 배치 */
-            overflow: hidden; /* 화면 전체 스크롤 방지 (데스크톱) */
-              line-height: 1.6;
-             
+            line-height: 1.6;
         }
-        .fade-text {
-            color: #BBBBBB; /* 진한 검정 (#000) 대신 연한 회색으로 변경 */
-        }
+        .fade-text { color: #bbb; }
 
-        /* 1. 헤더 */
-        .main-header {
-            position: relative;
-            padding: 10px 0;
-            height: 40px; /* 고정 높이 */
-            flex-shrink: 0;
-        }
+        .header { position: fixed; top: 0; left: 0; right: 0; padding: 0; background: #fff; z-index: 100; }
+        .header-row { height: 50px; display: flex; align-items: center; }
+        .header-title { font-size: 13px; font-weight: 300; letter-spacing: 1px; flex-shrink: 0; padding-left: 20px; }
+        .header-title a { color: inherit; text-decoration: none; }
+        .header-nav { display: flex; align-items: center; justify-content: flex-end; flex: 1; font-size: 12px; font-weight: 200; letter-spacing: 0.5px; }
+        .header-nav a { flex: 1; text-align: center; color: #999; text-decoration: none; transition: color 0.2s; }
+        .header-nav a:hover { color: #000; }
+        .hamburger { display: none; position: absolute; right: 20px; top: 12px; width: 20px; height: 16px; cursor: pointer; flex-direction: column; justify-content: space-between; }
+        .hamburger span { display: block; height: 1px; background: #000; transition: transform 0.3s, opacity 0.3s; }
+        .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+        .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #fff; z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 25px; }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a { font-size: 16px; font-weight: 200; color: #000; text-decoration: none; letter-spacing: 1px; transition: opacity 0.2s; }
+        .mobile-menu a:hover { opacity: 0.3; }
 
-        /* 공통: 상단 텍스트 스타일 */
-        .top-text {
-            position: absolute;
-            font-size: 14px;
-            top: 10px;
-            white-space: nowrap;
-        }
-
-        .top-jhl { left: 20px; }
-        .top-info { left: 180px; } 
-        .top-note { left: 360px; } 
-        .top-cv { left: 510px; } 
-        .top-works { left: calc(40% + 20px); } 
-
-        /* ⭐ 데스크톱: Contact를 오른쪽 상단 구석에 배치 ⭐ */
-        .top-contact { right: 20px; left: auto; } 
-
-        /* 2. 메인 콘텐츠 래퍼 (좌우 40:60 레이아웃) */
-        .main-content-wrapper {
-            display: flex; 
-            flex: 1; 
-            overflow: hidden; 
+        /* Main view (note index) */
+        .main-view {
+            padding: 70px 40px 60px;
+            max-width: 1100px;
         }
 
-        /* 3. 왼쪽 패널 (정보 및 인덱스) */
-        .left-panel {
-            width: 50%; 
-            height: 100%;
-            padding: 20px;
-            overflow-y: auto; 
+        .intro-text {
+            margin-bottom: 40px;
+            color: #999;
         }
 
-        .cv-info {
-            margin-top: 5px; 
-            margin-bottom: 30px;
-        }
-
-        /* information 글 들여쓰기 */
-        .cv-info .deep-indent {
-            margin-left: 160px; 
-            padding-left: 0;
-            line-height: 1.4;
-            text-align: justify;
-        }
-
-        /* 3-2. 프로젝트 인덱스 테이블 스타일 (Grid 사용) */
-        .project-table {
-            margin-top: 20px;
-        }
-.hidden-works {
-    font-size: 0; /* 폰트 크기를 0으로 만들어 텍스트를 숨깁니다. */
-    padding: 0; /* 패딩도 제거하여 공간을 차지하지 않게 합니다. */
-    line-height: 0;
-    width: 0; /* 열 너비를 0으로 강제합니다. */
-}
-
-    
         .table-row {
             display: grid;
-            grid-template-columns: 0.77fr 2.23fr 0.5fr; 
-            padding: 5px 0;
+            grid-template-columns: 60px 1fr 50px;
+            padding: 6px 0;
+            align-items: baseline;
         }
-.table-row.active-project {
-            font-weight: bold; /* 굵은 글씨 적용 */
+        .table-row.header { font-weight: bold; margin-bottom: 5px; }
+        .table-row .title a { transition: opacity 0.2s; }
+        .table-row .title a:hover { opacity: 0.4; }
+        .table-row .title a.active-link { font-weight: bold; }
+
+        /* Content view (text/pdf reader) */
+        .content-view {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #fff;
+            z-index: 200;
+            flex-direction: column;
         }
+        .content-view.active { display: flex; }
 
-        
-        /* 테이블 헤더 스타일 */
-        .table-row.header {
-            font-weight: bold;
-            margin-bottom: 5px;
+        .content-header {
+            height: 50px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
         }
-        
-        /* 4. 오른쪽 패널 (스크롤 가능한 영역) */
-        .right-panel {
-            width: 50%; 
-            height: 100%;
-            overflow-y: scroll; 
-            padding: 0px;
-            min-width: 0;
+        .content-back {
+            font-size: 14px;
+            cursor: pointer;
+            transition: opacity 0.2s;
         }
-#text-content-container {
-        padding: 0px;
-        display: block; 
-        height: 100%;
-        /* max-width: 700px;  // 이 설정을 제거하거나 주석 처리 */
-        max-width: 100%; /* 부모 너비 전체를 사용하도록 100%로 설정 (사실상 제거와 동일) */
-        margin-left: 0;  /* 중앙 정렬 margin 제거 */
-        margin-right: 0; 
-    }    
+        .content-back:hover { opacity: 0.4; }
 
-        #text-content-container iframe {
-    /* ⭐ 수정: PDF 가로 크기를 오른쪽 레이아웃 전체로 강제 확장 ⭐ */
-    width: 100% !important;
-    min-width: 100%; /* 최소 너비도 100%로 설정 */
-    height: 100% !important;
-            min-width: 0 !important;
-}
-
-    /* ⭐ 추가된 스타일: 로드된 텍스트의 제목과 본문 스타일 일괄 조정 ⭐ */
-    #text-content-container h2 {
-        font-weight: normal; /* 제목 굵은 글씨 제거 */
-    }
-
-    #text-content-container p {
-        line-height: 1.8; /* 줄 간격 늘리기 */
-        text-align: justify;
-    }
-        /* ⭐ 정적 프로젝트 소개 텍스트 스타일 (상단) - 이미지 관련으로 삭제됨 ⭐ */
-        /* 이 섹션은 텍스트 컨테이너가 대신하므로 CSS는 비활성화하거나 삭제합니다. */
-        .project-intro-text,
-        .project-footer-text,
-        .work-item,
-        .work-pair,
-        .work-row-4,
-        .work-row-3,
-        .work-header,
-        .work-visual,
-        .fullscreen-modal,
-        #modal-image-container,
-        .modal-close,
-        .modal-nav-btn,
-        .modal-caption {
-            display: none !important; /* 이미지 갤러리/모달 관련 모든 요소 숨김/삭제 */
-        }
-
-        /* 텍스트 콘텐츠 컨테이너를 위한 스타일 (새로 추가) */
-        #text-content-container {
+        .content-body {
+            flex: 1;
+            overflow-y: auto;
             padding: 20px;
-            display: block; /* 기본적으로 보여지도록 설정 */
-            height: 100%;
-     
         }
 
-        /* 6. 모바일 레이아웃 (최대 768px) */
+        .content-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .content-body .html-content {
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
         @media (max-width: 768px) {
-            /* 기본 스크롤 동작 복원 */
-            body {
-                overflow-y: visible; 
-                height: auto;
-            }
-
-            /* 1. 헤더 재배치 및 간소화 */
-            .main-header {
-                height: auto;
-                padding: 10px 20px;
-                display: flex;
-                justify-content: space-between; 
-                align-items: flex-start;
-            }
-            
-            .top-text {
-                position: static;
-                font-size: 13px;
-            }
-            
-            .top-jhl { 
-                order: 1; 
-                font-weight: bold; 
-            }
-            
-            .main-header .top-links-mobile {
-                order: 2;
-                display: flex;
-                gap: 10px;
-            }
-
-          .main-header .logo { 
-        display: none; 
-    }
-    
-    .top-info, .top-note, .top-cv, .top-contact, .top-works { 
-        display: block; /* Works도 display: block; 으로 표시되도록 추가 */
-        font-weight: normal; 
-        margin-left: 0;
-    }
-            
-            /* 2. 메인 콘텐츠를 수직으로 쌓기 */
-            .main-content-wrapper {
-                flex-direction: column;
-                overflow-y: visible; 
-                flex: none; 
-                height: auto;
-            }
-
-            /* 3. 좌우 패널 너비 100%로 설정 및 순서 명시 */
-            .left-panel {
-                order: 1; 
-                width: 100%;
-                height: auto; 
-                overflow-y: visible; 
-                flex-shrink: 0;
-                padding: 20px;
-                display: flex;
-                flex-direction: column;
-            }
-            
-            .right-panel {
-                order: 2; 
-                width: 100%;
-                height: auto; 
-                overflow-y: visible; 
-                flex-shrink: 0;
-                padding: 0px;
-                padding-top: 0; 
-                /* padding-bottom: 80px; - 푸터에서 처리 */
-            }
-
-            /* 4. 정보 텍스트 조정 */
-            .cv-info {
-                order: 1; 
-                margin-top: 0; 
-                margin-bottom: 30px; 
-            }
-
-            .cv-info .deep-indent {
-                margin-left: 0; 
-            }
-            
-            /* 5. 프로젝트 인덱스 테이블 표시 및 순서 설정 */
-            .project-table {
-                display: grid; 
-                order: 2; 
-                margin-top: 0; 
-                margin-bottom: 20px; 
-            }
-            
-            /* 텍스트 컨테이너 모바일 패딩 조정 */
-            #text-content-container {
-                padding: 20px;
-            }
+            .main-view { padding: 60px 20px 40px; }
+            .table-row { grid-template-columns: 50px 1fr 40px; font-size: 12px; }
+            .header-nav { display: none; }
+            .hamburger { display: flex; }
         }
     </style>
 </head>
 <body>
-
-    <header class="main-header">
-        
-        <div class="top-text top-jhl" id="jhl-reset"><a href="index.html">Jonghwan Lee</a></div>
-        
-        <div class="top-links-mobile"> 
-            <div class="top-text top-info"></div>
-            <div class="top-text top-note"><a href="note.html">Notes</a></div> 
-            <div class="top-text top-cv"><a href="cv.html">CV</a></div> 
-            <div class="top-text top-contact"><a href="contact.html">Contact</a></div>  
-           <div class="top-text top-works"><a href="works.html">Works</a></div>
+    <header class="header">
+        <div class="header-row">
+            <div class="header-title"><a href="index.html">Jonghwan Lee</a></div>
+            <nav class="header-nav">
+                <a href="note.html">Notes</a>
+                <a href="cv.html">CV</a>
+                <a href="works.html">Works</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
         </div>
     </header>
-
-    <div class="main-content-wrapper">
-
-        <section class="left-panel">
-            <div class="cv-info">
-                <p class="indented-text deep-indent"><br>Please select a Text or Note from the index to view the content.</p>
-            </div>
-
-            <div class="project-table">
-                <div class="table-row header">
-                    <span class="Works"></span>
-                    <span class="tilte"></span>
-                    <span class="year"></span>
-                </div>
-                
-                <div class="table-row item">
-                    <span class="Works">Texts</span>
-                    <span class="tilte"><a href="#" data-project-id="loggiatext" data-display-title="loggiatext">Trees do not touch each other but intertwine and merge together: <br> A walk in the Loggia, Soomin Lee</a></span>
-                    <span class="year">2025</span>
-                </div>
-                <div class="table-row item">
-                    <span class="Works hidden-works">Notes</span>
-                    <span class="tilte"><a href="#" data-project-id="paintingn" data-display-title="paintingn"> Painting n, Hyeokgyu Kwon </a></span>
-                    <span class="year">2023</span>
-                </div>
- <div class="table-row item">
-                    <span class="Works hidden-works">Notes</span>
-                    <span class="tilte"><a href="#" data-project-id="asdf" data-display-title="asdf"> 돋음으로-인하기, 김해수 </a></span>
-                    <span class="year">2023</span>
- </div>
-
-                
-                <div class="table-row item">
-                    <span class="Works">Notes</span>
-                    <span class="tilte"><a href="#" data-project-id="loggianote" data-display-title="loggianote">Loggia note</a></span>
-                    <span class="year">2025</span>
-                </div>
-                <div class="table-row item">
-                    <span class="Works hidden-works">Notes</span>
-                    <span class="tilte"><a href="#" data-project-id="Airway" data-display-title="Airway">Airway</a></span>
-                    <span class="year">2024</span>
-                </div>
-            </div>
-        
-        </section>
-        
-        
-        <section class="right-panel"> <div id="text-content-container" style="padding: 20px;">
-                <p></p>
-                            </div>
-        </section>
-
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="note.html" class="mobile-link">Notes</a>
+        <a href="cv.html" class="mobile-link">CV</a>
+        <a href="works.html" class="mobile-link">Works</a>
+        <a href="contact.html" class="mobile-link">Contact</a>
     </div>
-    
-    <div id="fullscreen-modal" class="fullscreen-modal"></div>
 
+    <div class="main-view" id="main-view">
+        <div class="intro-text">
+            Please select a Text or Note from the index to view the content.
+        </div>
+
+        <div class="note-table">
+            <div class="table-row item">
+                <span class="category">Texts</span>
+                <span class="title"><a href="#" data-note-id="loggiatext">Trees do not touch each other but intertwine and merge together: A walk in the Loggia, Soomin Lee</a></span>
+                <span class="year">2025</span>
+            </div>
+            <div class="table-row item">
+                <span class="category"></span>
+                <span class="title"><a href="#" data-note-id="paintingn">Painting n, Hyeokgyu Kwon</a></span>
+                <span class="year">2023</span>
+            </div>
+            <div class="table-row item">
+                <span class="category"></span>
+                <span class="title"><a href="#" data-note-id="asdf">돋음으로-인하기, 김해수</a></span>
+                <span class="year">2023</span>
+            </div>
+            <div class="table-row item">
+                <span class="category">Notes</span>
+                <span class="title"><a href="#" data-note-id="loggianote">Loggia note</a></span>
+                <span class="year">2025</span>
+            </div>
+            <div class="table-row item">
+                <span class="category"></span>
+                <span class="title"><a href="#" data-note-id="Airway">Airway</a></span>
+                <span class="year">2024</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content View -->
+    <div class="content-view" id="content-view">
+        <div class="content-header">
+            <span class="content-back" id="content-back">&larr; Back</span>
+        </div>
+        <div class="content-body" id="content-body"></div>
+    </div>
 
     <script>
-        // 이미지 관련 전역 변수 및 함수 삭제/정리
-        const allImageData = []; // 이미지 데이터 빈 배열로 유지
-        // 캐러셀 관련 변수 및 함수 삭제 (stopCarousel, cycleGroupImage, startCarousel 등)
-        // 모달 관련 변수 및 함수 삭제 (openModal, updateModalContent, updateModalNavButtons 등)
-
-
-     // =========================================================================
-// ⭐ 핵심: 텍스트 파일 로드 함수 (HTML/PDF) - 수정된 버전
-// =========================================================================
-        const loadProjectContent = (projectId) => {
-            const textContentContainer = document.getElementById('text-content-container');
-            
-            // 1. 로딩 상태 표시
-            textContentContainer.innerHTML = '<p style="text-align: center; margin-top: 50px;">Loading...</p>'; 
-
-            // 2. 파일 확장자 결정 및 PDF 여부 확인
-            let filename = `${projectId}.html`; // 기본은 HTML
-            let isPdf = false;
-            
-            // ⭐ 수정: HTML 인덱스에 있는 project-id를 기반으로 PDF 파일 목록을 정의했습니다. ⭐
-            const pdfProjects = ['loggiatext', 'asdf', 'loggianote']; 
-
-            if (pdfProjects.includes(projectId)) {
-                filename = `${projectId}.pdf`;
-                isPdf = true;
-            }
-
-            // 3. PDF 처리 (iframe 생성 및 속성 강제 지정)
-            if (isPdf) {
-                 const iframe = document.createElement('iframe');
-                 iframe.src = filename;
-                 
-                 // ⭐ 핵심 수정: 인라인 스타일로 너비와 높이를 100%로 강제 지정 (PDF 가로 크기 전체 차지)
-                 iframe.style.width = '100%';
-                 iframe.style.height = '100%';
-                 iframe.style.border = 'none';
-                 iframe.style.backgroundColor = 'white';
-                 
-                 textContentContainer.innerHTML = ''; 
-                 textContentContainer.appendChild(iframe);
-
-                 document.querySelector('.right-panel').scrollTop = 0;
-                 return; // PDF는 여기서 로드 완료 후 함수 종료
-            }
-            
-            // 4. HTML 파일 로드 (PDF가 아닌 경우만 Fetch API 사용)
-            // HTML 파일은 이 로직으로 로드됩니다.
-            fetch(filename)
-                .then(response => {
-                    if (!response.ok) {
-                        // HTML 파일이 존재하지 않는 경우
-                        textContentContainer.innerHTML = `<p style="color: red; text-align: center; margin-top: 50px;">Error: Could not load content for project "${projectId}". File "${filename}" not found.</p>`;
-                        throw new Error('File not found');
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    if (data) {
-                        textContentContainer.innerHTML = data; 
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-                
-            document.querySelector('.right-panel').scrollTop = 0;
-        };
-
-
-        // =========================================================================
-        // ⭐ 초기 로딩 및 이벤트 핸들러 설정
-        // =========================================================================
         document.addEventListener('DOMContentLoaded', () => {
-            // 초기 로딩 시 기본 메시지 유지를 위해 별도의 renderWorkList 호출 없음
-            
-            // 1. 프로젝트 링크 클릭 이벤트 리스너
-          document.querySelectorAll('.table-row a').forEach(link => {
+            const mainView = document.getElementById('main-view');
+            const contentView = document.getElementById('content-view');
+            const contentBody = document.getElementById('content-body');
+            const contentBack = document.getElementById('content-back');
+
+            const pdfProjects = ['loggiatext', 'asdf', 'loggianote'];
+
+            const openContent = (noteId) => {
+                const isPdf = pdfProjects.includes(noteId);
+                const filename = isPdf ? `${noteId}.pdf` : `${noteId}.html`;
+
+                if (isPdf) {
+                    contentBody.innerHTML = `<iframe src="${filename}"></iframe>`;
+                } else {
+                    contentBody.innerHTML = '<p style="text-align:center; margin-top:50px;">Loading...</p>';
+                    fetch(filename)
+                        .then(r => r.ok ? r.text() : Promise.reject('Not found'))
+                        .then(html => {
+                            contentBody.innerHTML = `<div class="html-content">${html}</div>`;
+                        })
+                        .catch(() => {
+                            contentBody.innerHTML = `<p style="color:red; text-align:center; margin-top:50px;">Could not load "${filename}".</p>`;
+                        });
+                }
+
+                contentView.classList.add('active');
+                mainView.style.display = 'none';
+                document.body.style.overflow = 'hidden';
+                history.pushState({ content: true }, '', '#' + noteId);
+            };
+
+            const closeContent = () => {
+                contentView.classList.remove('active');
+                mainView.style.display = '';
+                document.body.style.overflow = '';
+                contentBody.innerHTML = '';
+                if (history.state && history.state.content) {
+                    history.back();
+                }
+            };
+
+            document.querySelectorAll('[data-note-id]').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    const projectId = e.currentTarget.dataset.projectId;
-                    
-                    // 2. loadProjectContent 함수 호출 (이미지 갤러리 로직 제거)
-                    loadProjectContent(projectId);
-
-                    // 3. 메뉴 항목 활성화 상태 업데이트
-                   document.querySelectorAll('.table-row').forEach(row => {
-                        row.classList.remove('active-project'); // 모든 항목의 활성 클래스 제거
-                    });
-                    
-                    // 클릭된 항목의 부모 `.table-row`에 활성 클래스 추가
-                    e.currentTarget.closest('.table-row').classList.add('active-project');
+                    openContent(e.currentTarget.dataset.noteId);
                 });
             });
 
-            // 4. 모달 관련 이벤트 리스너 모두 삭제
+            contentBack.addEventListener('click', closeContent);
 
-            // 5. 우클릭 시 스크롤 고정 버그 방지 (데스크톱에서만 작동)
-            if (window.innerWidth > 768) {
-                document.body.style.overflow = 'hidden'; 
-            } else {
-                 document.body.style.overflow = 'visible';
-            }
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && contentView.classList.contains('active')) {
+                    closeContent();
+                }
+            });
+
+            window.addEventListener('popstate', () => {
+                if (contentView.classList.contains('active')) {
+                    contentView.classList.remove('active');
+                    mainView.style.display = '';
+                    document.body.style.overflow = '';
+                    contentBody.innerHTML = '';
+                }
+            });
+
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobile-menu');
+            hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+            document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); }));
         });
     </script>
 </body>
