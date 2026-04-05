@@ -114,43 +114,31 @@
             position: relative; overflow: hidden;
         }
 
-        /* Text page (solo intro / group artists) */
-        .gallery-text-page {
-            display: none;
-            width: 100%; height: 100%;
-            align-items: center; justify-content: center;
-            padding: 40px;
-        }
-        .gallery-text-page.active { display: flex; }
-        .gallery-text-content {
-            max-width: 600px;
-            font-size: 13px;
-            line-height: 2;
-            text-align: left;
-        }
-
         /* Image area */
         .gallery-image-area {
-            display: flex;
+            flex: 1; display: flex;
             width: 100%; height: 100%;
             align-items: center; justify-content: center;
-            position: relative;
-        }
-        .gallery-image-area.hidden { display: none; }
-
-        .gallery-image-area .placeholder-img {
-            max-width: calc(100% - 120px);
-            max-height: calc(100% - 40px);
-            width: auto; height: auto;
-            aspect-ratio: 4 / 3;
-            min-width: 400px;
-            min-height: 300px;
+            position: relative; overflow: hidden;
         }
 
         .gallery-image-area img {
             max-width: calc(100% - 120px); max-height: calc(100% - 40px);
             object-fit: contain; transition: opacity 0.15s ease-in-out;
-            display: none;
+        }
+
+        /* Info overlay (like works.html) */
+        .gallery-info-overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255,255,255,0.9); z-index: 5;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 1; transition: opacity 0.3s ease; pointer-events: none;
+        }
+        .gallery-info-overlay.hidden { opacity: 0; }
+        .gallery-info-overlay-content {
+            max-width: 500px; padding: 40px 30px;
+            font-size: 13px; line-height: 2;
+            text-align: center; color: #000; font-weight: 200;
         }
 
         .gallery-nav {
@@ -179,7 +167,7 @@
             .exhibition-overlay-year { font-size: 13px; }
             .exhibition-overlay { opacity: 1; background: rgba(255,255,255,0.15); backdrop-filter: none; }
             .exhibition-overlay-text { color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.5); font-size: 12px; }
-            .gallery-image-area .placeholder-img { max-width: calc(100% - 20px); min-width: 200px; min-height: 150px; }
+            .gallery-image-area img { max-width: calc(100% - 20px); max-height: calc(100% - 20px); }
             .gallery-nav { display: none; }
         }
     </style>
@@ -216,15 +204,12 @@
             <span class="gallery-title" id="gallery-title"></span>
             <span class="gallery-counter" id="gallery-counter"></span>
         </div>
-        <div class="gallery-body">
-            <div class="gallery-text-page" id="gallery-text-page">
-                <div class="gallery-text-content" id="gallery-text-content"></div>
-            </div>
-            <div class="gallery-image-area" id="gallery-image-area">
-                <div class="gallery-nav prev" id="gallery-prev">&#10094;</div>
-                <div class="placeholder-img" id="gallery-placeholder">Image Placeholder</div>
-                <img id="gallery-img" src="" alt="" style="display:none;">
-                <div class="gallery-nav next" id="gallery-next">&#10095;</div>
+        <div class="gallery-image-area" id="gallery-image-area">
+            <div class="gallery-nav prev" id="gallery-prev">&#10094;</div>
+            <img id="gallery-img" src="" alt="">
+            <div class="gallery-nav next" id="gallery-next">&#10095;</div>
+            <div class="gallery-info-overlay" id="gallery-info-overlay">
+                <div class="gallery-info-overlay-content" id="gallery-info-overlay-content"></div>
             </div>
         </div>
         <div class="gallery-caption" id="gallery-caption"></div>
@@ -392,7 +377,7 @@
             { id: 'cyl_6', projectId: 'South Parade', isDefault: false, folder: 'cxs', fileName: 'img3.jpg', description: 'Eye \u2166, 2023, Engraving and watercolor on panel, 2 pieces of plaster, 131\u00d7119cm', url: 'cxs/img3.jpg', isGroupMain: true },
 
             // Hypercube
-            { id: 'hyp_1', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube1.jpg', description: 'Exhibition View', url: 'hypercubeimages/hyercube1.jpg', isGroupMain: true, groupId: 'hyp_Group_A' },
+            { id: 'hyp_1', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube1.jpg', description: 'Exhibition View', url: 'hypercubeimages/hypercube1.jpg', isGroupMain: true, groupId: 'hyp_Group_A' },
             { id: 'hyp_2', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube2.jpg', description: '', url: 'hypercubeimages/hypercube2.jpg', groupId: 'hyp_Group_A' },
             { id: 'hyp_3', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube3.jpg', description: '', url: 'hypercubeimages/hypercube3.jpg', groupId: 'hyp_Group_A' },
             { id: 'hyp_4', projectId: 'Hypercube', isDefault: false, folder: 'hypercubeimages', fileName: 'hypercube4.jpg', description: '', url: 'hypercubeimages/hypercube4.jpg', groupId: 'hyp_Group_A' },
@@ -503,14 +488,14 @@
             const galleryPrev = document.getElementById('gallery-prev');
             const galleryNext = document.getElementById('gallery-next');
             const galleryImageArea = document.getElementById('gallery-image-area');
-            const galleryTextPage = document.getElementById('gallery-text-page');
-            const galleryTextContent = document.getElementById('gallery-text-content');
-            const galleryPlaceholder = document.getElementById('gallery-placeholder');
             const galleryImg = document.getElementById('gallery-img');
+            const galleryInfoOverlay = document.getElementById('gallery-info-overlay');
+            const galleryInfoOverlayContent = document.getElementById('gallery-info-overlay-content');
 
             let currentExhibition = null;
-            let currentIndex = 0; // 0-based across all "slides"
-            let totalSlides = 0;
+            let currentImages = [];
+            let currentIndex = 0;
+            let overlayShowing = false;
 
             // --- Build Grid ---
             const solos = exhibitions.filter(e => e.type === 'solo');
@@ -568,75 +553,39 @@
                 return item;
             }
 
-            // --- Gallery ---
-            // Solo: [text page] + [images...]  → totalSlides = 1 + imageCount
-            // Group: [images...] + [text page] → totalSlides = imageCount + 1
-
-            function getSlideCount(ex) {
-                return ex.imageCount + 1; // +1 for text page
+            // --- Gallery (overlay style, like works.html) ---
+            function getExhibitionImages(ex) {
+                return allImageData.filter(d => d.projectId === ex.id && !d.isDefault);
             }
 
-            function isTextSlide(ex, index) {
-                if (ex.type === 'solo') return index === 0;
-                if (ex.type === 'group') return index === ex.imageCount;
-                return false;
-            }
-
-            function getImageIndex(ex, slideIndex) {
-                // Returns 0-based image index for non-text slides
-                if (ex.type === 'solo') return slideIndex - 1;
-                return slideIndex;
+            function getOverlayHTML(ex) {
+                const info = `<div style="margin-bottom:15px; color:#999;">${ex.info}</div>`;
+                const detail = ex.type === 'solo' ? ex.description : (ex.artists || '');
+                return info + '<div>' + detail + '</div>';
             }
 
             function updateGallery() {
-                const ex = currentExhibition;
-                const total = totalSlides;
-
-                galleryCounter.textContent = `${currentIndex + 1} / ${total}`;
+                const img = currentImages[currentIndex];
+                if (!img) return;
+                const loader = new Image();
+                loader.onload = () => { galleryImg.src = loader.src; galleryImg.alt = img.description || ''; };
+                loader.src = img.url;
+                galleryCaption.textContent = img.description || '';
+                galleryCounter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
                 galleryPrev.classList.toggle('hidden', currentIndex === 0);
-                galleryNext.classList.toggle('hidden', currentIndex === total - 1);
-
-                if (isTextSlide(ex, currentIndex)) {
-                    // Show text page
-                    galleryTextPage.classList.add('active');
-                    galleryImageArea.classList.add('hidden');
-                    galleryCaption.textContent = '';
-
-                    if (ex.type === 'solo') {
-                        galleryTextContent.innerHTML = `
-                            <div style="font-size:16px; margin-bottom:20px; font-weight:bold;">${ex.title}</div>
-                            <div style="margin-bottom:15px; color:#999;">${ex.info}</div>
-                            <div>${ex.description}</div>
-                        `;
-                    } else {
-                        galleryTextContent.innerHTML = `
-                            <div style="font-size:16px; margin-bottom:20px; font-weight:bold;">${ex.title}</div>
-                            <div style="margin-bottom:15px; color:#999;">${ex.info}</div>
-                            <div>${ex.artists}</div>
-                        `;
-                    }
-                } else {
-                    // Show actual image
-                    galleryTextPage.classList.remove('active');
-                    galleryImageArea.classList.remove('hidden');
-                    const imgIdx = getImageIndex(ex, currentIndex);
-                    const images = allImageData.filter(d => d.projectId === ex.id && !d.isDefault);
-                    const imgData = images[imgIdx];
-                    if (imgData) {
-                        galleryImg.src = imgData.url;
-                        galleryImg.alt = imgData.description || ex.title;
-                        galleryImg.style.display = 'block';
-                        galleryPlaceholder.style.display = 'none';
-                        galleryCaption.textContent = imgData.description || '';
-                    }
-                }
+                galleryNext.classList.toggle('hidden', currentIndex === currentImages.length - 1);
+                if (overlayShowing) { galleryInfoOverlay.classList.remove('hidden'); }
+                else { galleryInfoOverlay.classList.add('hidden'); }
             }
 
             function openGallery(ex) {
                 currentExhibition = ex;
+                currentImages = getExhibitionImages(ex);
                 currentIndex = 0;
-                totalSlides = getSlideCount(ex);
+                overlayShowing = true;
                 galleryTitle.textContent = ex.title;
+                galleryInfoOverlayContent.innerHTML = getOverlayHTML(ex);
+                galleryInfoOverlay.classList.remove('hidden');
                 updateGallery();
                 galleryView.classList.add('active');
                 mainView.style.display = 'none';
@@ -652,8 +601,13 @@
             }
 
             function navigate(dir) {
+                if (overlayShowing && dir === 1) {
+                    overlayShowing = false;
+                    galleryInfoOverlay.classList.add('hidden');
+                    return;
+                }
                 const n = currentIndex + dir;
-                if (n >= 0 && n < totalSlides) {
+                if (n >= 0 && n < currentImages.length) {
                     currentIndex = n;
                     updateGallery();
                 }
@@ -671,9 +625,9 @@
             });
 
             // Mobile tap navigation
-            document.querySelector('.gallery-body').addEventListener('click', (e) => {
+            galleryImageArea.addEventListener('click', (e) => {
                 if (window.innerWidth > 768) return;
-                const rect = e.currentTarget.getBoundingClientRect();
+                const rect = galleryImageArea.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 if (x < rect.width / 3) navigate(-1);
                 else if (x > rect.width * 2 / 3) navigate(1);
