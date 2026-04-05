@@ -120,20 +120,7 @@
             const openContent = (noteId) => {
                 const isPdf = pdfProjects.includes(noteId);
                 const filename = isPdf ? `${noteId}.pdf` : `${noteId}.html`;
-
-                if (isPdf) {
-                    contentBody.innerHTML = `<iframe src="${filename}"></iframe>`;
-                } else {
-                    contentBody.innerHTML = '<p style="text-align:center; margin-top:50px;">Loading...</p>';
-                    fetch(filename)
-                        .then(r => r.ok ? r.text() : Promise.reject('Not found'))
-                        .then(html => {
-                            contentBody.innerHTML = `<div class="html-content">${html}</div>`;
-                        })
-                        .catch(() => {
-                            contentBody.innerHTML = `<p style="color:red; text-align:center; margin-top:50px;">Could not load "${filename}".</p>`;
-                        });
-                }
+                contentBody.innerHTML = `<iframe src="${filename}"></iframe>`;
 
                 contentView.classList.add('active');
                 mainView.style.display = 'none';
