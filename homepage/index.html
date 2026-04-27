@@ -96,7 +96,7 @@
         .exhibition-overlay-title { font-size: 1.6vw; margin-bottom: 4px; font-weight: 300; }
         .exhibition-overlay-year { font-size: 1vw; color: #333; font-weight: 200; }
 
-        .empty-cell { visibility: hidden; }
+        .empty-cell { visibility: visible; }
 
         /* ===== Gallery View ===== */
         .gallery-view {
@@ -536,7 +536,7 @@
             if (groups.length % 2 !== 0) {
                 const empty = document.createElement('div');
                 empty.className = 'exhibition-item empty-cell';
-                empty.innerHTML = '<div class="placeholder-img"></div>';
+                empty.innerHTML = '<div class="placeholder-img"><img src="line.jpeg" alt="line placeholder"></div>';
                 gridEl.appendChild(empty);
             }
 
