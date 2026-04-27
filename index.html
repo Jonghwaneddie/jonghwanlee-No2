@@ -59,12 +59,17 @@
         .placeholder-img {
             width: 100%;
             aspect-ratio: 4 / 3;
-            background: url('line.jpeg') center center / cover no-repeat;
+            background: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #999;
-            font-size: 11px;
+            overflow: hidden;
+        }
+        .placeholder-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         /* Hover overlay */
@@ -513,7 +518,7 @@
             if (solos.length % 2 !== 0) {
                 const empty = document.createElement('div');
                 empty.className = 'exhibition-item empty-cell';
-                empty.innerHTML = '<div class="placeholder-img"></div>';
+                empty.innerHTML = '<div class="placeholder-img"><img src="line.jpeg" alt="line placeholder"></div>';
                 gridEl.appendChild(empty);
             }
 
