@@ -123,11 +123,7 @@
             const openContent = (noteId) => {
                 const isPdf = pdfProjects.includes(noteId);
                 const filename = isPdf ? `${noteId}.pdf` : `${noteId}.html`;
-                if (isPdf) {
-                    contentBody.innerHTML = `<iframe src="https://docs.google.com/viewer?url=${encodeURIComponent(window.location.origin + '/' + filename)}&embedded=true" width="100%" height="100%"></iframe>`;
-                } else {
-                    contentBody.innerHTML = `<iframe src="${filename}"></iframe>`;
-                }
+                contentBody.innerHTML = `<iframe src="${filename}"></iframe>`;
 
                 contentView.classList.add('active');
                 mainView.style.display = 'none';
