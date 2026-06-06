@@ -125,21 +125,86 @@
             const contentBody = document.getElementById('content-body');
             const contentBack = document.getElementById('content-back');
 
-            const pdfProjects = ['loggiatext', 'asdf', 'loggianote', 'paintingn', 'Airway', 'story1', 'story2', 'story3', 'story4', 'story5', 'story6', 'story7', 'story8', 'story9'];
+            // Primary mapping: story list (DOM order) -> exact uploaded PDF filenames (keep filenames unchanged)
+            const storyPdfMap = [
+                '1 Boy-tree.pdf',
+                '2 Seed.pdf',
+                '3 Two sprouts.pdf',
+                '4 Root.pdf',
+                '5 Leaf orientation.pdf',
+                '6 Sway.pdf',
+                '7 Stoma.pdf',
+                '8 Flower-puddle.pdf',
+                '9 Yellow-leaf.pdf'
+            ];
 
-            const openContent = (noteId) => {
-                const isPdf = pdfProjects.includes(noteId);
-                const filename = isPdf ? `${noteId}.pdf` : `${noteId}.html`;
-                if (isPdf) {
-                    contentBody.innerHTML = `<iframe src="https://docs.google.com/viewer?url=${encodeURIComponent(window.location.origin + '/' + filename)}&embedded=true" width="100%" height="100%"></iframe>`;
+            // Extra PDF files available for fallback lookups
+            const pdfFiles = [
+                'homepage/stories/Airway.pdf',
+                'homepage/stories/asdf.pdf',
+                'homepage/stories/boytree.pdf',
+                'homepage/stories/forestnote.pdf',
+                'homepage/stories/loggianote.pdf',
+                'homepage/stories/loggiatext.pdf',
+                'homepage/stories/paintingn.pdf',
+                'homepage/stories/seed.pdf'
+            ];
+
+            const openPdf = (filename) => {
+                // If running on localhost, open the PDF directly in an iframe (Google Viewer cannot fetch localhost URLs).
+                const localHostnames = ['localhost', '127.0.0.1'];
+                const path = filename.startsWith('/') ? filename.slice(1) : filename; // normalize
+                const encodedPath = encodeURI('/' + path);
+                let src;
+                if (localHostnames.includes(window.location.hostname)) {
+                    src = encodedPath;
                 } else {
-                    contentBody.innerHTML = `<iframe src="${filename}"></iframe>`;
+                    src = `https://docs.google.com/viewer?url=${encodeURIComponent(window.location.origin + '/' + path)}&embedded=true`;
                 }
-
+                contentBody.innerHTML = `<iframe src="${src}" width="100%" height="100%"></iframe>`;
                 contentView.classList.add('active');
                 mainView.style.display = 'none';
                 document.body.style.overflow = 'hidden';
-                history.pushState({ content: true }, '', '#' + noteId);
+                history.pushState({ content: true }, '', '#' + filename);
+            };
+
+            const openHtml = (filename) => {
+                contentBody.innerHTML = `<iframe src="${filename}"></iframe>`;
+                contentView.classList.add('active');
+                mainView.style.display = 'none';
+                document.body.style.overflow = 'hidden';
+                history.pushState({ content: true }, '', '#' + filename);
+            };
+
+            // Gather story items in the "Story" section (preserve DOM order)
+            const storyItems = [];
+            document.querySelectorAll('.note-list .section-label').forEach(label => {
+                if (label.textContent.trim() === 'Story') {
+                    let el = label.nextElementSibling;
+                    while (el && !el.classList.contains('section-label')) {
+                        if (el.classList.contains('note-item')) storyItems.push(el);
+                        el = el.nextElementSibling;
+                    }
+                }
+            });
+
+            const openContent = (noteId, clickedEl) => {
+                // If clicked element is one of the story items, open mapped filename by DOM order
+                const storyIndex = storyItems.indexOf(clickedEl);
+                if (storyIndex !== -1 && storyPdfMap[storyIndex]) {
+                    openPdf(storyPdfMap[storyIndex]);
+                    return;
+                }
+
+                // Fallback: try to find a PDF file that includes noteId
+                const exactPdf = pdfFiles.find(f => f.toLowerCase().includes(`${noteId.toLowerCase()}.pdf`)) || pdfFiles.find(f => f.toLowerCase().includes(noteId.toLowerCase()));
+                if (exactPdf) {
+                    openPdf(exactPdf);
+                    return;
+                }
+
+                // Otherwise open an HTML page matching the noteId
+                openHtml(`${noteId}.html`);
             };
 
             const closeContent = () => {
@@ -155,7 +220,7 @@
             document.querySelectorAll('[data-note-id]').forEach(item => {
                 item.addEventListener('click', (e) => {
                     e.preventDefault();
-                    openContent(item.dataset.noteId);
+                    openContent(item.dataset.noteId, item);
                 });
             });
 
