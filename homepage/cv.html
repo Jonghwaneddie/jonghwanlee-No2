@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Jonghwan Lee</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Raleway', sans-serif; font-size: 13px; color: #000; line-height: 1.6; }
+        .fade-text { color: #bbb; }
+
+        .header { position: fixed; top: 0; left: 0; right: 0; padding: 0; background: #fff; z-index: 100; }
+        .header-row { height: 50px; display: flex; align-items: center; }
+        .header-title { font-size: 13px; font-weight: 300; letter-spacing: 1px; flex-shrink: 0; padding-left: 20px; }
+        .header-title a { color: inherit; text-decoration: none; }
+        .header-nav { display: flex; align-items: center; justify-content: flex-end; flex: 1; font-size: 12px; font-weight: 200; letter-spacing: 0.5px; }
+        .header-nav a { flex: 1; text-align: center; color: #999; text-decoration: none; transition: color 0.2s; }
+        .header-nav a:hover { color: #000; }
+
+        .hamburger { display: none; position: absolute; right: 20px; top: 12px; width: 20px; height: 16px; cursor: pointer; flex-direction: column; justify-content: space-between; }
+        .hamburger span { display: block; height: 1px; background: #000; transition: transform 0.3s, opacity 0.3s; }
+        .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+        .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #fff; z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 25px; }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a { font-size: 16px; font-weight: 200; color: #000; text-decoration: none; letter-spacing: 1px; transition: opacity 0.2s; }
+        .mobile-menu a:hover { opacity: 0.3; }
+
+        .content { padding: 75px 60px 60px; }
+        .bio { font-size: 12px; color: #999; line-height: 2; margin-bottom: 45px; font-weight: 200; max-width: 1050px; margin-left: auto; margin-right: auto; text-align: left; }
+        .bio .name { color: #000; font-size: 13px; font-weight: 300; }
+        .edu { font-size: 12px; color: #999; line-height: 2; margin-bottom: 45px; font-weight: 200; max-width: 1050px; margin-left: auto; margin-right: auto; text-align: left; }
+        .cv-list { max-width: 1050px; margin: 0 auto; }
+        .section-label { font-size: 13px; font-weight: 400; letter-spacing: 0.5px; padding: 25px 0 8px; }
+        .cv-item { display: flex; justify-content: space-between; align-items: baseline; padding: 5px 0; }
+        .cv-title { font-size: 13px; font-weight: 300; letter-spacing: 0.5px; }
+        .cv-venue { font-size: 11px; color: #aaa; flex-shrink: 0; margin-left: 30px; font-weight: 200; }
+
+        @media (max-width: 768px) {
+            .header-nav { display: none; }
+            .hamburger { display: flex; }
+            .content { padding: 70px 25px 40px; }
+            .bio { font-size: 11px; }
+            .cv-item { flex-direction: column; gap: 2px; }
+            .cv-venue { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-row">
+            <div class="header-title"><a href="index.html">Jonghwan Lee</a></div>
+            <nav class="header-nav">
+                <a href="note.html">Notes</a>
+                <a href="cv.html">CV</a>
+                <a href="works.html">Works</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="note.html" class="mobile-link">Notes</a>
+        <a href="cv.html" class="mobile-link">CV</a>
+        <a href="works.html" class="mobile-link">Works</a>
+        <a href="contact.html" class="mobile-link">Contact</a>
+    </div>
+
+    <div class="content">
+        <div class="bio">
+            <span class="name">Jonghwan Lee</span> (b.1994) Currently lives and works in Seoul.
+        </div>
+        <div class="edu">
+            2024 Korea National University of Arts, MFA in Fine Art, Seoul, South Korea<br>
+            2021 Seoul National University, BFA in Oriental Painting, Seoul, South Korea
+        </div>
+
+        <div class="cv-list">
+            <div class="section-label">Solo</div>
+            <div class="cv-item"><span class="cv-title">Loggia</span><span class="cv-venue">2025, Hall 1, Seoul, South Korea</span></div>
+            <div class="cv-item"><span class="cv-title">Hypercube</span><span class="cv-venue">2023, CYLINDER TWO, Seoul, South Korea</span></div>
+            <div class="cv-item"><span class="cv-title">Cabinet</span><span class="cv-venue">2023, Sahng-up gallery, Seoul, South Korea</span></div>
+
+            <div class="section-label">Group</div>
+            <div class="cv-item"><span class="cv-title">Expanding Horizons</span><span class="cv-venue">2026, Korean Cultural Center, Hong Kong</span></div>
+            <div class="cv-item"><span class="cv-title">grid 5</span><span class="cv-venue">2026, biscuit gallery, Tokyo, Japan</span></div>
+            <div class="cv-item"><span class="cv-title">Surgical Room</span><span class="cv-venue">2025, CYLINDER TWO, Seoul, South Korea</span></div>
+            <div class="cv-item"><span class="cv-title">CYLINDER x South Parade</span><span class="cv-venue">2024, South Parade, London, UK</span></div>
+            <div class="cv-item"><span class="cv-title">The Good Neighbor</span><span class="cv-venue">2023, Space 3, Seoul, South Korea</span></div>
+            <div class="cv-item"><span class="cv-title">Waiting Room</span><span class="cv-venue">2022, Suchi, Seoul, South Korea</span></div>
+            <div class="cv-item"><span class="cv-title">Perigee Winter Show 2022</span><span class="cv-venue">2022, Perigeegallery, Seoul, South Korea</span></div>
+            <div class="cv-item"><span class="cv-title">The Wild Bunch</span><span class="cv-venue">2022, Thisweekendroom, Seoul, South Korea</span></div>
+            <div class="cv-item"><span class="cv-title">Fonds</span><span class="cv-venue">2022, Osisun, Seoul, South Korea</span></div>
+            <div class="cv-item"><span class="cv-title">Room of Convexity and Concavity</span><span class="cv-venue">2022, LaLaLab, Seoul, South Korea</span></div>
+            <div class="cv-item"><span class="cv-title">TORQUE 1 / GEAR SHIFT</span><span class="cv-venue">2021, CYLINDER ONE, Seoul, South Korea</span></div>
+        </div>
+    </div>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+        document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); }));
+    </script>
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example A — Split-screen Hover</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; overflow: hidden; }
+        a { color: inherit; text-decoration: none; cursor: pointer; }
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px; color: #000; line-height: 1.6;
+        }
+
+        /* Header */
+        .main-header {
+            position: fixed; top: 0; left: 0; right: 0; height: 50px;
+            padding: 0 30px; display: flex; align-items: center;
+            justify-content: space-between; z-index: 100; background: #fff;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .top-text { font-size: 14px; white-space: nowrap; letter-spacing: -0.3px; }
+        .top-links { display: flex; gap: 24px; }
+
+        /* Split layout */
+        .split-container {
+            display: flex;
+            height: 100vh;
+            padding-top: 50px;
+        }
+
+        /* Left: title list */
+        .split-left {
+            width: 45%;
+            padding: 40px 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #bbb;
+            margin-bottom: 15px;
+            margin-top: 30px;
+        }
+        .section-label:first-child { margin-top: 0; }
+
+        .exhibition-link {
+            display: block;
+            padding: 10px 0;
+            font-size: 22px;
+            font-weight: 300;
+            letter-spacing: -0.5px;
+            color: #000;
+            transition: color 0.2s, padding-left 0.3s;
+            cursor: pointer;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        .exhibition-link:hover {
+            color: #000;
+            padding-left: 12px;
+        }
+        .exhibition-link .year {
+            font-size: 13px;
+            color: #bbb;
+            margin-left: 10px;
+            font-weight: 400;
+        }
+
+        /* Right: image preview */
+        .split-right {
+            width: 55%;
+            background: #f7f7f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-placeholder {
+            width: 80%;
+            aspect-ratio: 4 / 3;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 12px;
+            transition: opacity 0.3s ease, transform 0.4s ease;
+            opacity: 0;
+            transform: scale(0.97);
+        }
+        .preview-placeholder.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .preview-info {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            font-size: 12px;
+            color: #999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .preview-info.visible { opacity: 1; }
+
+        /* Default state message */
+        .preview-default {
+            font-size: 13px;
+            color: #ccc;
+            letter-spacing: 1px;
+        }
+
+        /* Gallery View */
+        .gallery-view {
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: #fff; z-index: 200; flex-direction: column;
+        }
+        .gallery-view.active { display: flex; }
+        .gallery-header {
+            height: 50px; padding: 0 30px; display: flex;
+            align-items: center; justify-content: space-between; flex-shrink: 0;
+        }
+        .gallery-back { font-size: 14px; cursor: pointer; transition: opacity 0.2s; }
+        .gallery-back:hover { opacity: 0.4; }
+        .gallery-title { font-size: 14px; text-align: center; flex: 1; font-weight: 300; }
+        .gallery-counter { font-size: 12px; color: #999; min-width: 60px; text-align: right; }
+
+        .gallery-body {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            position: relative;
+        }
+
+        .gallery-text-page {
+            display: none; width: 100%; height: 100%;
+            align-items: center; justify-content: center; padding: 40px;
+        }
+        .gallery-text-page.active { display: flex; }
+        .gallery-text-content { max-width: 600px; font-size: 13px; line-height: 2; }
+
+        .gallery-image-area {
+            display: flex; width: 100%; height: 100%;
+            align-items: center; justify-content: center; position: relative;
+        }
+        .gallery-image-area.hidden { display: none; }
+        .gallery-image-area .placeholder-img {
+            width: 400px; aspect-ratio: 4/3; background: #e0e0e0;
+            display: flex; align-items: center; justify-content: center;
+            color: #999; font-size: 11px;
+        }
+
+        .gallery-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            font-size: 30px; color: #ccc; cursor: pointer; padding: 20px;
+            user-select: none; transition: color 0.2s; z-index: 10;
+        }
+        .gallery-nav:hover { color: #000; }
+        .gallery-nav.prev { left: 0; }
+        .gallery-nav.next { right: 0; }
+        .gallery-nav.hidden { display: none; }
+
+        .gallery-caption {
+            padding: 15px 60px; text-align: left; font-size: 12px;
+            color: #666; min-height: 50px; flex-shrink: 0;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .split-container { flex-direction: column; overflow-y: auto; }
+            .split-left { width: 100%; padding: 30px 20px; justify-content: flex-start; }
+            .split-right { width: 100%; min-height: 300px; }
+            .exhibition-link { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="top-text"><a href="#">Jonghwan Lee</a></div>
+        <div class="top-links">
+            <div class="top-text"><a href="#">Notes</a></div>
+            <div class="top-text"><a href="#">CV</a></div>
+            <div class="top-text"><a href="#">Works</a></div>
+            <div class="top-text"><a href="#">Contact</a></div>
+        </div>
+    </header>
+
+    <div class="split-container" id="main-view">
+        <div class="split-left" id="title-list"></div>
+        <div class="split-right" id="preview-area">
+            <div class="preview-default">Hover over a title</div>
+            <div class="preview-placeholder" id="preview-box"></div>
+            <div class="preview-info" id="preview-info"></div>
+        </div>
+    </div>
+
+    <!-- Gallery -->
+    <div class="gallery-view" id="gallery-view">
+        <div class="gallery-header">
+            <span class="gallery-back" id="gallery-back">&larr; Back</span>
+            <span class="gallery-title" id="gallery-title"></span>
+            <span class="gallery-counter" id="gallery-counter"></span>
+        </div>
+        <div class="gallery-body">
+            <div class="gallery-text-page" id="gallery-text-page">
+                <div class="gallery-text-content" id="gallery-text-content"></div>
+            </div>
+            <div class="gallery-image-area" id="gallery-image-area">
+                <div class="gallery-nav prev" id="gallery-prev">&#10094;</div>
+                <div class="placeholder-img">Image Placeholder</div>
+                <div class="gallery-nav next" id="gallery-next">&#10095;</div>
+            </div>
+        </div>
+        <div class="gallery-caption" id="gallery-caption"></div>
+    </div>
+
+    <script>
+        const exhibitions = [
+            { id: 'Loggia', type: 'solo', title: 'Loggia', year: '2025', info: '2025. 7. 31 ~ 8. 23 — Hall1, Seoul', imageCount: 34 },
+            { id: 'Hypercube', type: 'solo', title: 'Hypercube', year: '2023', info: '2023. 7. 8 ~ 8. 13 — CYLINDER TWO, Seoul', imageCount: 23 },
+            { id: 'Cabinet', type: 'solo', title: 'Cabinet', year: '2023', info: '2023. 1. 17 ~ 1. 31 — Sahangup gallery, Seoul', imageCount: 14 },
+            { id: 'Expanding Horizons', type: 'group', title: 'Expanding Horizons', year: '2026', info: '2026. 3. 24 ~ 5. 30 — Korean Cultural Center, Hong Kong', imageCount: 7 },
+            { id: 'grid 5', type: 'group', title: 'grid 5', year: '2026', info: '2026. 3. 21 ~ 4. 05 — biscuit gallery, Tokyo', imageCount: 5 },
+            { id: 'Surgical Room', type: 'group', title: 'Surgical Room', year: '2025', info: '2025. 5. 17 ~ 6. 15 — CYLINDER TWO, Seoul', imageCount: 6 },
+            { id: 'South Parade', type: 'group', title: 'CYLINDER x South Parade', year: '2024', info: '2024. 6. 27 ~ 8. 3 — South Parade, London', imageCount: 6 },
+            { id: 'The Good Neighbor', type: 'group', title: 'The Good Neighbor', year: '2023', info: '2023. 5. 25 ~ 6. 10 — Art Space 3, Seoul', imageCount: 10 },
+            { id: 'The Wild Bunch', type: 'group', title: 'The Wild Bunch', year: '2022', info: 'ThisWeekendRoom, Seoul', imageCount: 4 },
+            { id: 'Fonds', type: 'group', title: 'Fonds', year: '2022', info: 'Osisun, Seoul', imageCount: 7 },
+            { id: 'Room of Convexity', type: 'group', title: 'Room of Convexity and Concavity', year: '2022', info: 'LaLaLab, Seoul', imageCount: 23 },
+            { id: 'TORQUE 1', type: 'group', title: 'TORQUE 1 / GEAR SHIFT', year: '2021', info: 'CYLINDER ONE, Seoul', imageCount: 4 },
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const titleList = document.getElementById('title-list');
+            const previewBox = document.getElementById('preview-box');
+            const previewInfo = document.getElementById('preview-info');
+            const previewDefault = document.querySelector('.preview-default');
+            const mainView = document.getElementById('main-view');
+            const galleryView = document.getElementById('gallery-view');
+            const galleryTitle = document.getElementById('gallery-title');
+            const galleryCounter = document.getElementById('gallery-counter');
+            const galleryCaption = document.getElementById('gallery-caption');
+            const galleryBack = document.getElementById('gallery-back');
+            const galleryPrev = document.getElementById('gallery-prev');
+            const galleryNext = document.getElementById('gallery-next');
+            const galleryImageArea = document.getElementById('gallery-image-area');
+            const galleryTextPage = document.getElementById('gallery-text-page');
+            const galleryTextContent = document.getElementById('gallery-text-content');
+
+            let currentEx = null, currentIndex = 0, totalSlides = 0;
+
+            const solos = exhibitions.filter(e => e.type === 'solo');
+            const groups = exhibitions.filter(e => e.type === 'group');
+
+            function addSection(label, items) {
+                const lbl = document.createElement('div');
+                lbl.className = 'section-label';
+                lbl.textContent = label;
+                titleList.appendChild(lbl);
+
+                items.forEach(ex => {
+                    const link = document.createElement('div');
+                    link.className = 'exhibition-link';
+                    link.innerHTML = `${ex.title}<span class="year">${ex.year}</span>`;
+                    link.addEventListener('mouseenter', () => {
+                        previewDefault.style.display = 'none';
+                        previewBox.textContent = ex.title;
+                        previewBox.classList.add('visible');
+                        previewInfo.textContent = ex.info;
+                        previewInfo.classList.add('visible');
+                    });
+                    link.addEventListener('mouseleave', () => {
+                        previewBox.classList.remove('visible');
+                        previewInfo.classList.remove('visible');
+                    });
+                    link.addEventListener('click', () => openGallery(ex));
+                    titleList.appendChild(link);
+                });
+            }
+
+            addSection('Solo', solos);
+            addSection('Group', groups);
+
+            function openGallery(ex) {
+                currentEx = ex;
+                currentIndex = 0;
+                totalSlides = ex.imageCount + 1;
+                galleryTitle.textContent = ex.title;
+                updateGallery();
+                galleryView.classList.add('active');
+                mainView.style.display = 'none';
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeGallery() {
+                galleryView.classList.remove('active');
+                mainView.style.display = '';
+                document.body.style.overflow = '';
+            }
+
+            function isTextSlide(ex, idx) {
+                return ex.type === 'solo' ? idx === 0 : idx === ex.imageCount;
+            }
+
+            function updateGallery() {
+                galleryCounter.textContent = `${currentIndex + 1} / ${totalSlides}`;
+                galleryPrev.classList.toggle('hidden', currentIndex === 0);
+                galleryNext.classList.toggle('hidden', currentIndex === totalSlides - 1);
+
+                if (isTextSlide(currentEx, currentIndex)) {
+                    galleryTextPage.classList.add('active');
+                    galleryImageArea.classList.add('hidden');
+                    galleryCaption.textContent = '';
+                    galleryTextContent.innerHTML = `<div style="font-size:18px;font-weight:300;margin-bottom:15px;">${currentEx.title}</div><div style="color:#999;">${currentEx.info}</div><br><div>(텍스트 추후 입력)</div>`;
+                } else {
+                    galleryTextPage.classList.remove('active');
+                    galleryImageArea.classList.remove('hidden');
+                    const imgIdx = currentEx.type === 'solo' ? currentIndex - 1 : currentIndex;
+                    galleryCaption.textContent = `Image ${imgIdx + 1} / ${currentEx.imageCount}`;
+                }
+            }
+
+            function navigate(dir) {
+                const n = currentIndex + dir;
+                if (n >= 0 && n < totalSlides) { currentIndex = n; updateGallery(); }
+            }
+
+            galleryBack.addEventListener('click', closeGallery);
+            galleryPrev.addEventListener('click', () => navigate(-1));
+            galleryNext.addEventListener('click', () => navigate(1));
+            document.addEventListener('keydown', (e) => {
+                if (!galleryView.classList.contains('active')) return;
+                if (e.key === 'Escape') closeGallery();
+                if (e.key === 'ArrowLeft') navigate(-1);
+                if (e.key === 'ArrowRight') navigate(1);
+            });
+        });
+    </script>
+</body>
+</html>

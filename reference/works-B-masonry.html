@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Works B — Masonry Grid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; }
+        a { color: inherit; text-decoration: none; cursor: pointer; }
+        body { font-family: 'Inter', sans-serif; font-size: 13px; color: #000; line-height: 1.6; }
+
+        .main-header {
+            position: fixed; top: 0; left: 0; right: 0; height: 50px;
+            padding: 0 30px; display: flex; align-items: center;
+            justify-content: space-between; z-index: 100; background: #fff;
+        }
+        .top-text { font-size: 13px; white-space: nowrap; }
+        .top-links { display: flex; gap: 24px; }
+
+        .main-view { padding: 65px 25px 50px; }
+
+        .intro-text {
+            max-width: 500px;
+            font-size: 12px; color: #999; line-height: 2;
+            margin-bottom: 30px; font-weight: 300;
+        }
+
+        .category-label {
+            font-size: 10px; text-transform: uppercase; letter-spacing: 3px;
+            color: #bbb; margin: 30px 0 12px; padding-left: 3px;
+        }
+        .category-label:first-of-type { margin-top: 0; }
+
+        /* Masonry */
+        .masonry-grid { columns: 3; column-gap: 10px; }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 10px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .placeholder-img {
+            width: 100%;
+            background: #e8e8e8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 11px;
+            font-weight: 300;
+        }
+
+        /* Different aspect ratios for visual rhythm */
+        .masonry-item:nth-child(7n+1) .placeholder-img { aspect-ratio: 3 / 4; }
+        .masonry-item:nth-child(7n+2) .placeholder-img { aspect-ratio: 4 / 3; }
+        .masonry-item:nth-child(7n+3) .placeholder-img { aspect-ratio: 1 / 1; }
+        .masonry-item:nth-child(7n+4) .placeholder-img { aspect-ratio: 3 / 2; }
+        .masonry-item:nth-child(7n+5) .placeholder-img { aspect-ratio: 2 / 3; }
+        .masonry-item:nth-child(7n+6) .placeholder-img { aspect-ratio: 5 / 4; }
+        .masonry-item:nth-child(7n+7) .placeholder-img { aspect-ratio: 4 / 5; }
+
+        /* Hover: slide-up overlay */
+        .masonry-overlay {
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 18px 14px;
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .masonry-item:hover .masonry-overlay { transform: translateY(0); }
+        .masonry-overlay-title { font-size: 14px; color: #fff; font-weight: 400; margin-bottom: 3px; }
+        .masonry-overlay-year { font-size: 11px; color: rgba(255,255,255,0.5); font-weight: 300; }
+
+        /* Gallery */
+        .gallery-view {
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: #fff; z-index: 200; flex-direction: column;
+        }
+        .gallery-view.active { display: flex; }
+        .gallery-header {
+            height: 50px; padding: 0 30px; display: flex;
+            align-items: center; justify-content: space-between; flex-shrink: 0;
+        }
+        .gallery-back { font-size: 13px; cursor: pointer; transition: opacity 0.2s; font-weight: 300; }
+        .gallery-back:hover { opacity: 0.4; }
+        .gallery-title { font-size: 13px; text-align: center; flex: 1; font-weight: 300; }
+        .gallery-counter { font-size: 11px; color: #999; min-width: 60px; text-align: right; }
+
+        .gallery-body {
+            flex: 1; display: flex; align-items: center; justify-content: center; position: relative;
+        }
+
+        .gallery-text-page {
+            display: none; width: 100%; height: 100%;
+            align-items: center; justify-content: center; padding: 40px;
+        }
+        .gallery-text-page.active { display: flex; }
+        .gallery-text-content { max-width: 500px; font-size: 13px; line-height: 2; font-weight: 300; }
+
+        .gallery-image-area {
+            display: flex; width: 100%; height: 100%;
+            align-items: center; justify-content: center; position: relative;
+        }
+        .gallery-image-area.hidden { display: none; }
+        .gallery-image-area .placeholder-img {
+            width: 420px; aspect-ratio: 4/3;
+        }
+
+        .gallery-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            font-size: 28px; color: #ccc; cursor: pointer; padding: 20px;
+            user-select: none; transition: color 0.2s; z-index: 10;
+        }
+        .gallery-nav:hover { color: #000; }
+        .gallery-nav.prev { left: 0; }
+        .gallery-nav.next { right: 0; }
+        .gallery-nav.hidden { display: none; }
+
+        .gallery-caption {
+            padding: 15px 60px; text-align: left; font-size: 11px;
+            color: #888; min-height: 45px; flex-shrink: 0; font-weight: 300;
+        }
+
+        @media (max-width: 900px) { .masonry-grid { columns: 2; } }
+        @media (max-width: 500px) {
+            .masonry-grid { columns: 1; }
+            .gallery-nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="top-text"><a href="index.html">Jonghwan Lee</a></div>
+        <div class="top-links">
+            <div class="top-text"><a href="#">Notes</a></div>
+            <div class="top-text"><a href="#">CV</a></div>
+            <div class="top-text"><a href="#">Works</a></div>
+            <div class="top-text"><a href="#">Contact</a></div>
+        </div>
+    </header>
+
+    <div class="main-view" id="main-view">
+        <div class="intro-text">
+            Every work is an experiment — not in the sense of verifying a pre-formed hypothesis, but in the sense of opening a clearing and following the path that emerges through that aperture.
+        </div>
+    </div>
+
+    <div class="gallery-view" id="gallery-view">
+        <div class="gallery-header">
+            <span class="gallery-back" id="gallery-back">&larr; Back</span>
+            <span class="gallery-title" id="gallery-title"></span>
+            <span class="gallery-counter" id="gallery-counter"></span>
+        </div>
+        <div class="gallery-body">
+            <div class="gallery-text-page" id="gallery-text-page">
+                <div class="gallery-text-content" id="gallery-text-content"></div>
+            </div>
+            <div class="gallery-image-area" id="gallery-image-area">
+                <div class="gallery-nav prev" id="gallery-prev">&#10094;</div>
+                <div class="placeholder-img">Image Placeholder</div>
+                <div class="gallery-nav next" id="gallery-next">&#10095;</div>
+            </div>
+        </div>
+        <div class="gallery-caption" id="gallery-caption"></div>
+    </div>
+
+    <script>
+        const works = [
+            { id: 'tectonic', category: 'Painting', title: 'The Respiration of Tectonic Joinery', year: '2026', imageCount: 5, description: '(설명 텍스트 추후 입력)' },
+            { id: 'wilderness', category: 'Painting', title: 'The Bottom of the Wilderness', year: '2025', imageCount: 8, description: '(설명 텍스트 추후 입력)' },
+            { id: 'tears', category: 'Painting', title: 'Tears', year: '2025', imageCount: 4, description: '(설명 텍스트 추후 입력)' },
+            { id: 'narcissus', category: 'Painting', title: 'Narcissus', year: '2023–2024', imageCount: 6, description: '(설명 텍스트 추후 입력)' },
+            { id: 'eyebeam', category: 'Painting', title: 'Eyebeam & Pulse', year: '2022–2023', imageCount: 10, description: '(설명 텍스트 추후 입력)' },
+            { id: 'filch', category: 'Painting', title: 'Filch', year: '2020–2022', imageCount: 7, description: '(설명 텍스트 추후 입력)' },
+            { id: 'drawing', category: 'Drawing', title: 'Drawing', year: '2020 –', imageCount: 5, description: '(설명 텍스트 추후 입력)' },
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainView = document.getElementById('main-view');
+            const galleryView = document.getElementById('gallery-view');
+            const galleryTitle = document.getElementById('gallery-title');
+            const galleryCounter = document.getElementById('gallery-counter');
+            const galleryCaption = document.getElementById('gallery-caption');
+            const galleryBack = document.getElementById('gallery-back');
+            const galleryPrev = document.getElementById('gallery-prev');
+            const galleryNext = document.getElementById('gallery-next');
+            const galleryImageArea = document.getElementById('gallery-image-area');
+            const galleryTextPage = document.getElementById('gallery-text-page');
+            const galleryTextContent = document.getElementById('gallery-text-content');
+
+            let currentWork = null, currentIndex = 0, totalSlides = 0, overlayShowing = false;
+
+            // Build masonry by category
+            let lastCat = '';
+            works.forEach(w => {
+                if (w.category !== lastCat) {
+                    const lbl = document.createElement('div');
+                    lbl.className = 'category-label';
+                    lbl.textContent = w.category;
+                    mainView.appendChild(lbl);
+
+                    const grid = document.createElement('div');
+                    grid.className = 'masonry-grid';
+                    grid.id = 'grid-' + w.category.toLowerCase();
+                    mainView.appendChild(grid);
+                    lastCat = w.category;
+                }
+
+                const grid = document.getElementById('grid-' + w.category.toLowerCase());
+                const item = document.createElement('div');
+                item.className = 'masonry-item';
+                item.innerHTML = `
+                    <div class="placeholder-img">${w.title}</div>
+                    <div class="masonry-overlay">
+                        <div class="masonry-overlay-title">${w.title}</div>
+                        <div class="masonry-overlay-year">${w.year}</div>
+                    </div>
+                `;
+                item.addEventListener('click', () => openGallery(w));
+                grid.appendChild(item);
+            });
+
+            function openGallery(w) {
+                currentWork = w;
+                currentIndex = 0;
+                overlayShowing = !!w.description;
+                totalSlides = w.imageCount + 1;
+                galleryTitle.textContent = w.title;
+                updateGallery();
+                galleryView.classList.add('active');
+                mainView.style.display = 'none';
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeGallery() {
+                galleryView.classList.remove('active');
+                mainView.style.display = '';
+                document.body.style.overflow = '';
+            }
+
+            function updateGallery() {
+                galleryCounter.textContent = `${currentIndex + 1} / ${totalSlides}`;
+                galleryPrev.classList.toggle('hidden', currentIndex === 0);
+                galleryNext.classList.toggle('hidden', currentIndex === totalSlides - 1);
+                if (currentIndex === 0 && overlayShowing) {
+                    galleryTextPage.classList.add('active');
+                    galleryImageArea.classList.add('hidden');
+                    galleryCaption.textContent = '';
+                    galleryTextContent.innerHTML = `<div style="font-size:15px;margin-bottom:10px;">${currentWork.title}</div><div style="color:#999;font-size:11px;">${currentWork.year}</div><br><div>${currentWork.description}</div>`;
+                } else {
+                    galleryTextPage.classList.remove('active');
+                    galleryImageArea.classList.remove('hidden');
+                    const imgIdx = overlayShowing ? currentIndex - 1 : currentIndex;
+                    galleryCaption.textContent = `Image ${imgIdx + 1} / ${currentWork.imageCount}`;
+                }
+            }
+
+            function navigate(dir) {
+                if (overlayShowing && currentIndex === 0 && dir === 1) {
+                    overlayShowing = false;
+                    updateGallery();
+                    return;
+                }
+                const n = currentIndex + dir;
+                if (n >= 0 && n < totalSlides) { currentIndex = n; updateGallery(); }
+            }
+
+            galleryBack.addEventListener('click', closeGallery);
+            galleryPrev.addEventListener('click', () => navigate(-1));
+            galleryNext.addEventListener('click', () => navigate(1));
+            document.addEventListener('keydown', (e) => {
+                if (!galleryView.classList.contains('active')) return;
+                if (e.key === 'Escape') closeGallery();
+                if (e.key === 'ArrowLeft') navigate(-1);
+                if (e.key === 'ArrowRight') navigate(1);
+            });
+        });
+    </script>
+</body>
+</html>

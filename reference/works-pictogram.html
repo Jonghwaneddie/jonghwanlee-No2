@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Works — Pictogram</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; }
+        body { font-family: 'Space Grotesk', sans-serif; font-size: 13px; color: #000; line-height: 1.6; }
+        .header { position: fixed; top: 0; left: 0; right: 0; height: 50px; padding: 0 30px; display: flex; align-items: center; justify-content: space-between; background: #fff; z-index: 10; }
+        .header-title { font-size: 14px; font-weight: 400; }
+        .header-nav { display: flex; gap: 24px; font-size: 14px; }
+        .header-nav span { color: #bbb; cursor: pointer; }
+        .content { padding: 80px 40px 60px; max-width: 900px; }
+        .intro-text { font-size: 12px; color: #999; line-height: 1.9; margin-bottom: 50px; font-weight: 300; max-width: 550px; }
+
+        .picto-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 30px 20px;
+        }
+
+        .picto-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .picto-item:hover { transform: translateY(-4px); }
+        .picto-item:hover .picto-icon { border-color: #000; }
+        .picto-item:hover .picto-label { color: #000; }
+
+        .picto-icon {
+            width: 72px;
+            height: 72px;
+            border: 1.5px solid #ccc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            transition: border-color 0.2s;
+        }
+
+        .picto-icon svg {
+            width: 30px;
+            height: 30px;
+            stroke: #666;
+            fill: none;
+            stroke-width: 1.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .picto-label {
+            font-size: 11px;
+            font-weight: 300;
+            text-align: center;
+            color: #888;
+            transition: color 0.2s;
+            line-height: 1.4;
+        }
+        .picto-year {
+            font-size: 10px;
+            color: #bbb;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-title">Jonghwan Lee</div>
+        <div class="header-nav"><span>Notes</span><span>CV</span><span>Works</span><span>Contact</span></div>
+    </div>
+    <div class="content">
+        <div class="intro-text">Every work is an experiment. This is not an experiment in the sense of verifying a pre-formed hypothesis or setting an established idea against empirical fact, but in the sense of opening a clearing and following the path that emerges through that aperture.</div>
+
+        <div class="picto-grid">
+            <!-- Tectonic Joinery: interlocking beams / structure breathing -->
+            <div class="picto-item">
+                <div class="picto-icon">
+                    <svg viewBox="0 0 30 30">
+                        <path d="M5 20 L10 10 L15 18 L20 8 L25 16"/>
+                        <path d="M8 25 L8 18"/>
+                        <path d="M22 25 L22 14"/>
+                        <path d="M15 25 L15 16"/>
+                    </svg>
+                </div>
+                <div class="picto-label">Tectonic<br>Joinery</div>
+                <div class="picto-year">2026</div>
+            </div>
+
+            <!-- Wilderness: layered ground / depth -->
+            <div class="picto-item">
+                <div class="picto-icon">
+                    <svg viewBox="0 0 30 30">
+                        <path d="M3 22 Q10 16 15 20 Q20 24 27 18"/>
+                        <path d="M3 17 Q10 11 15 15 Q20 19 27 13"/>
+                        <path d="M3 12 Q10 6 15 10 Q20 14 27 8"/>
+                    </svg>
+                </div>
+                <div class="picto-label">Wilderness</div>
+                <div class="picto-year">2025</div>
+            </div>
+
+            <!-- Tears: droplet -->
+            <div class="picto-item">
+                <div class="picto-icon">
+                    <svg viewBox="0 0 30 30">
+                        <path d="M15 5 Q15 5 10 16 Q7 21 10 24 Q12 27 15 27 Q18 27 20 24 Q23 21 20 16 Q15 5 15 5Z"/>
+                    </svg>
+                </div>
+                <div class="picto-label">Tears</div>
+                <div class="picto-year">2025</div>
+            </div>
+
+            <!-- Narcissus: reflected flower / mirror -->
+            <div class="picto-item">
+                <div class="picto-icon">
+                    <svg viewBox="0 0 30 30">
+                        <circle cx="15" cy="10" r="4"/>
+                        <path d="M15 14 L15 17"/>
+                        <path d="M11 17 L19 17"/>
+                        <circle cx="15" cy="24" r="4" opacity="0.3"/>
+                        <path d="M15 20 L15 17" opacity="0.3"/>
+                    </svg>
+                </div>
+                <div class="picto-label">Narcissus</div>
+                <div class="picto-year">2023–24</div>
+            </div>
+
+            <!-- Eyebeam & Pulse: eye + wave -->
+            <div class="picto-item">
+                <div class="picto-icon">
+                    <svg viewBox="0 0 30 30">
+                        <path d="M4 15 Q10 8 15 8 Q20 8 26 15 Q20 22 15 22 Q10 22 4 15Z"/>
+                        <circle cx="15" cy="15" r="3"/>
+                    </svg>
+                </div>
+                <div class="picto-label">Eyebeam<br>& Pulse</div>
+                <div class="picto-year">2022–23</div>
+            </div>
+
+            <!-- Filch: hand reaching / taking -->
+            <div class="picto-item">
+                <div class="picto-icon">
+                    <svg viewBox="0 0 30 30">
+                        <path d="M10 24 L10 14 Q10 10 14 10 L16 10 Q20 10 20 14 L20 18"/>
+                        <path d="M14 10 L14 7"/>
+                        <path d="M17 10 L17 6"/>
+                        <path d="M20 14 L20 8"/>
+                        <path d="M10 18 L7 16"/>
+                    </svg>
+                </div>
+                <div class="picto-label">Filch</div>
+                <div class="picto-year">2020–22</div>
+            </div>
+
+            <!-- Drawing: pencil line -->
+            <div class="picto-item">
+                <div class="picto-icon">
+                    <svg viewBox="0 0 30 30">
+                        <path d="M8 22 L22 8"/>
+                        <path d="M20 6 L24 10 L22 8"/>
+                        <path d="M8 22 L6 24 L10 22"/>
+                        <path d="M5 26 Q12 24 18 25 Q24 26 27 23"/>
+                    </svg>
+                </div>
+                <div class="picto-label">Drawing</div>
+                <div class="picto-year">2020 –</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

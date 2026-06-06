@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Works A — Split-screen Hover</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; overflow: hidden; }
+        a { color: inherit; text-decoration: none; cursor: pointer; }
+        body { font-family: 'Space Grotesk', sans-serif; font-size: 13px; color: #000; line-height: 1.6; }
+
+        .main-header {
+            position: fixed; top: 0; left: 0; right: 0; height: 50px;
+            padding: 0 30px; display: flex; align-items: center;
+            justify-content: space-between; z-index: 100; background: #fff;
+        }
+        .top-text { font-size: 14px; white-space: nowrap; letter-spacing: -0.3px; }
+        .top-links { display: flex; gap: 24px; }
+
+        /* Split */
+        .split-container { display: flex; height: 100vh; padding-top: 50px; }
+
+        .split-left {
+            width: 40%;
+            padding: 50px 35px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .intro-text {
+            font-size: 12px;
+            color: #999;
+            line-height: 1.9;
+            margin-bottom: 35px;
+            font-weight: 300;
+        }
+
+        .category-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #bbb;
+            margin-top: 25px;
+            margin-bottom: 8px;
+        }
+        .category-label:first-of-type { margin-top: 0; }
+
+        .work-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 9px 0;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: padding-left 0.3s ease, color 0.2s;
+        }
+        .work-link:hover { padding-left: 10px; }
+        .work-link-title { font-size: 16px; font-weight: 300; letter-spacing: -0.3px; }
+        .work-link-year { font-size: 12px; color: #bbb; font-weight: 400; flex-shrink: 0; margin-left: 15px; }
+
+        /* Right: preview */
+        .split-right {
+            width: 60%;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-default {
+            font-size: 12px; color: #ccc; letter-spacing: 1px; font-weight: 300;
+        }
+
+        .preview-box {
+            width: 75%;
+            aspect-ratio: 4 / 3;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 12px;
+            font-weight: 300;
+            opacity: 0;
+            transform: scale(0.96);
+            transition: opacity 0.35s ease, transform 0.4s ease;
+            position: absolute;
+        }
+        .preview-box.visible { opacity: 1; transform: scale(1); }
+
+        .preview-caption {
+            position: absolute;
+            bottom: 25px; left: 30px;
+            font-size: 11px; color: #999; font-weight: 300;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .preview-caption.visible { opacity: 1; }
+
+        /* Gallery */
+        .gallery-view {
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: #fff; z-index: 200; flex-direction: column;
+        }
+        .gallery-view.active { display: flex; }
+
+        .gallery-header {
+            height: 50px; padding: 0 30px; display: flex;
+            align-items: center; justify-content: space-between; flex-shrink: 0;
+        }
+        .gallery-back { font-size: 14px; cursor: pointer; transition: opacity 0.2s; font-weight: 300; }
+        .gallery-back:hover { opacity: 0.4; }
+        .gallery-title { font-size: 14px; text-align: center; flex: 1; font-weight: 300; }
+        .gallery-counter { font-size: 12px; color: #999; min-width: 60px; text-align: right; }
+
+        .gallery-body {
+            flex: 1; display: flex; align-items: center; justify-content: center; position: relative;
+        }
+
+        .gallery-text-page {
+            display: none; width: 100%; height: 100%;
+            align-items: center; justify-content: center; padding: 40px;
+        }
+        .gallery-text-page.active { display: flex; }
+        .gallery-text-content { max-width: 550px; font-size: 13px; line-height: 2.2; font-weight: 300; }
+
+        .gallery-image-area {
+            display: flex; width: 100%; height: 100%;
+            align-items: center; justify-content: center; position: relative;
+        }
+        .gallery-image-area.hidden { display: none; }
+        .gallery-image-area .placeholder-img {
+            width: 450px; aspect-ratio: 4/3; background: #e8e8e8;
+            display: flex; align-items: center; justify-content: center;
+            color: #999; font-size: 11px;
+        }
+
+        .gallery-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            font-size: 30px; color: #ccc; cursor: pointer; padding: 20px;
+            user-select: none; transition: color 0.2s; z-index: 10;
+        }
+        .gallery-nav:hover { color: #000; }
+        .gallery-nav.prev { left: 0; }
+        .gallery-nav.next { right: 0; }
+        .gallery-nav.hidden { display: none; }
+
+        .gallery-caption {
+            padding: 15px 60px; text-align: left; font-size: 11px;
+            color: #888; min-height: 45px; flex-shrink: 0; font-weight: 300;
+        }
+
+        @media (max-width: 768px) {
+            html, body { overflow: auto; }
+            .split-container { flex-direction: column; height: auto; }
+            .split-left { width: 100%; padding: 30px 20px; }
+            .split-right { width: 100%; min-height: 50vh; }
+            .work-link-title { font-size: 15px; }
+            .gallery-nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="top-text"><a href="index.html">Jonghwan Lee</a></div>
+        <div class="top-links">
+            <div class="top-text"><a href="#">Notes</a></div>
+            <div class="top-text"><a href="#">CV</a></div>
+            <div class="top-text"><a href="#">Works</a></div>
+            <div class="top-text"><a href="#">Contact</a></div>
+        </div>
+    </header>
+
+    <div class="split-container" id="main-view">
+        <div class="split-left" id="work-list">
+            <div class="intro-text">
+                Every work is an experiment — not in the sense of verifying a pre-formed hypothesis, but in the sense of opening a clearing and following the path that emerges through that aperture.
+            </div>
+        </div>
+        <div class="split-right">
+            <div class="preview-default">Hover over a title</div>
+            <div class="preview-box" id="preview-box"></div>
+            <div class="preview-caption" id="preview-caption"></div>
+        </div>
+    </div>
+
+    <div class="gallery-view" id="gallery-view">
+        <div class="gallery-header">
+            <span class="gallery-back" id="gallery-back">&larr; Back</span>
+            <span class="gallery-title" id="gallery-title"></span>
+            <span class="gallery-counter" id="gallery-counter"></span>
+        </div>
+        <div class="gallery-body">
+            <div class="gallery-text-page" id="gallery-text-page">
+                <div class="gallery-text-content" id="gallery-text-content"></div>
+            </div>
+            <div class="gallery-image-area" id="gallery-image-area">
+                <div class="gallery-nav prev" id="gallery-prev">&#10094;</div>
+                <div class="placeholder-img">Image Placeholder</div>
+                <div class="gallery-nav next" id="gallery-next">&#10095;</div>
+            </div>
+        </div>
+        <div class="gallery-caption" id="gallery-caption"></div>
+    </div>
+
+    <script>
+        const works = [
+            { id: 'tectonic', category: 'Painting', title: 'The Respiration of Tectonic Joinery', year: '2026', imageCount: 5, description: '(설명 텍스트 추후 입력)' },
+            { id: 'wilderness', category: '', title: 'The Bottom of the Wilderness', year: '2025', imageCount: 8, description: '(설명 텍스트 추후 입력)' },
+            { id: 'tears', category: '', title: 'Tears', year: '2025', imageCount: 4, description: '(설명 텍스트 추후 입력)' },
+            { id: 'narcissus', category: '', title: 'Narcissus', year: '2023–2024', imageCount: 6, description: '(설명 텍스트 추후 입력)' },
+            { id: 'eyebeam', category: '', title: 'Eyebeam & Pulse', year: '2022–2023', imageCount: 10, description: '(설명 텍스트 추후 입력)' },
+            { id: 'filch', category: '', title: 'Filch', year: '2020–2022', imageCount: 7, description: '(설명 텍스트 추후 입력)' },
+            { id: 'drawing', category: 'Drawing', title: 'Drawing', year: '2020 –', imageCount: 5, description: '(설명 텍스트 추후 입력)' },
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const workList = document.getElementById('work-list');
+            const previewBox = document.getElementById('preview-box');
+            const previewCaption = document.getElementById('preview-caption');
+            const previewDefault = document.querySelector('.preview-default');
+            const mainView = document.getElementById('main-view');
+            const galleryView = document.getElementById('gallery-view');
+            const galleryTitle = document.getElementById('gallery-title');
+            const galleryCounter = document.getElementById('gallery-counter');
+            const galleryCaption = document.getElementById('gallery-caption');
+            const galleryBack = document.getElementById('gallery-back');
+            const galleryPrev = document.getElementById('gallery-prev');
+            const galleryNext = document.getElementById('gallery-next');
+            const galleryImageArea = document.getElementById('gallery-image-area');
+            const galleryTextPage = document.getElementById('gallery-text-page');
+            const galleryTextContent = document.getElementById('gallery-text-content');
+
+            let currentWork = null, currentIndex = 0, totalSlides = 0, overlayShowing = false;
+
+            let lastCategory = '';
+            works.forEach(w => {
+                if (w.category && w.category !== lastCategory) {
+                    const lbl = document.createElement('div');
+                    lbl.className = 'category-label';
+                    lbl.textContent = w.category;
+                    workList.appendChild(lbl);
+                    lastCategory = w.category;
+                }
+                const link = document.createElement('div');
+                link.className = 'work-link';
+                link.innerHTML = `<span class="work-link-title">${w.title}</span><span class="work-link-year">${w.year}</span>`;
+                link.addEventListener('mouseenter', () => {
+                    previewDefault.style.display = 'none';
+                    previewBox.textContent = w.title;
+                    previewBox.classList.add('visible');
+                    previewCaption.textContent = `${w.title}, ${w.year}`;
+                    previewCaption.classList.add('visible');
+                });
+                link.addEventListener('mouseleave', () => {
+                    previewBox.classList.remove('visible');
+                    previewCaption.classList.remove('visible');
+                });
+                link.addEventListener('click', () => openGallery(w));
+                workList.appendChild(link);
+            });
+
+            function openGallery(w) {
+                currentWork = w;
+                currentIndex = 0;
+                overlayShowing = !!w.description;
+                totalSlides = w.imageCount + 1; // +1 for text page at start
+                galleryTitle.textContent = w.title;
+                updateGallery();
+                galleryView.classList.add('active');
+                mainView.style.display = 'none';
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeGallery() {
+                galleryView.classList.remove('active');
+                mainView.style.display = '';
+                document.body.style.overflow = '';
+            }
+
+            function updateGallery() {
+                galleryCounter.textContent = `${currentIndex + 1} / ${totalSlides}`;
+                galleryPrev.classList.toggle('hidden', currentIndex === 0);
+                galleryNext.classList.toggle('hidden', currentIndex === totalSlides - 1);
+
+                if (currentIndex === 0 && overlayShowing) {
+                    galleryTextPage.classList.add('active');
+                    galleryImageArea.classList.add('hidden');
+                    galleryCaption.textContent = '';
+                    galleryTextContent.innerHTML = `<div style="font-size:16px;margin-bottom:12px;">${currentWork.title}</div><div style="color:#999;font-size:12px;">${currentWork.year}</div><br><div>${currentWork.description}</div>`;
+                } else {
+                    galleryTextPage.classList.remove('active');
+                    galleryImageArea.classList.remove('hidden');
+                    const imgIdx = overlayShowing ? currentIndex - 1 : currentIndex;
+                    galleryCaption.textContent = `Image ${imgIdx + 1} / ${currentWork.imageCount}`;
+                }
+            }
+
+            function navigate(dir) {
+                if (overlayShowing && currentIndex === 0 && dir === 1) {
+                    overlayShowing = false;
+                    updateGallery();
+                    return;
+                }
+                const n = currentIndex + dir;
+                if (n >= 0 && n < totalSlides) { currentIndex = n; updateGallery(); }
+            }
+
+            galleryBack.addEventListener('click', closeGallery);
+            galleryPrev.addEventListener('click', () => navigate(-1));
+            galleryNext.addEventListener('click', () => navigate(1));
+            document.addEventListener('keydown', (e) => {
+                if (!galleryView.classList.contains('active')) return;
+                if (e.key === 'Escape') closeGallery();
+                if (e.key === 'ArrowLeft') navigate(-1);
+                if (e.key === 'ArrowRight') navigate(1);
+            });
+        });
+    </script>
+</body>
+</html>

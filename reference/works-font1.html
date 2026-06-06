@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Works — Space Grotesk (한줄)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; }
+        body { font-family: 'Space Grotesk', sans-serif; font-size: 13px; color: #000; line-height: 1.6; }
+        .header { position: fixed; top: 0; left: 0; right: 0; height: 50px; padding: 0 30px; display: flex; align-items: center; justify-content: space-between; background: #fff; z-index: 10; }
+        .header-title { font-size: 14px; font-weight: 400; }
+        .header-nav { display: flex; gap: 24px; font-size: 14px; }
+        .header-nav span { color: #bbb; cursor: pointer; }
+        .content { padding: 80px 40px 60px; max-width: 800px; }
+        .intro-text { font-size: 12px; color: #999; line-height: 1.9; margin-bottom: 40px; font-weight: 300; max-width: 550px; }
+        .work-item {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: padding-left 0.3s;
+        }
+        .work-item:hover { padding-left: 8px; }
+        .work-title { font-size: 16px; font-weight: 300; letter-spacing: -0.3px; }
+        .work-year { font-size: 12px; color: #999; font-weight: 400; flex-shrink: 0; margin-left: 20px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-title">Jonghwan Lee</div>
+        <div class="header-nav"><span>Notes</span><span>CV</span><span>Works</span><span>Contact</span></div>
+    </div>
+    <div class="content">
+        <div class="intro-text">Every work is an experiment. This is not an experiment in the sense of verifying a pre-formed hypothesis or setting an established idea against empirical fact, but in the sense of opening a clearing and following the path that emerges through that aperture.</div>
+        <div class="work-item"><span class="work-title">The Respiration of Tectonic Joinery</span><span class="work-year">2026</span></div>
+        <div class="work-item"><span class="work-title">The Bottom of the Wilderness</span><span class="work-year">2025</span></div>
+        <div class="work-item"><span class="work-title">Tears</span><span class="work-year">2025</span></div>
+        <div class="work-item"><span class="work-title">Narcissus</span><span class="work-year">2023–2024</span></div>
+        <div class="work-item"><span class="work-title">Eyebeam & Pulse</span><span class="work-year">2022–2023</span></div>
+        <div class="work-item"><span class="work-title">Filch</span><span class="work-year">2020–2022</span></div>
+        <div class="work-item"><span class="work-title">Drawing</span><span class="work-year">2020 –</span></div>
+    </div>
+</body>
+</html>

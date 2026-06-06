@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Works — Libre Franklin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;200;300;400&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Libre Franklin', sans-serif; font-size: 13px; color: #000; line-height: 1.6; }
+        .header { position: fixed; top: 0; left: 0; right: 0; height: 50px; padding: 0 30px; display: flex; align-items: center; justify-content: space-between; background: #fff; z-index: 10; }
+        .header-title { font-size: 13px; font-weight: 300; letter-spacing: 0.5px; }
+        .header-nav { display: flex; gap: 24px; font-size: 13px; color: #bbb; font-weight: 200; }
+        .content { padding: 80px 60px 60px; }
+        .intro-text { font-size: 12px; color: #999; line-height: 2; margin-bottom: 45px; font-weight: 200; max-width: 600px; margin-left: auto; margin-right: auto; text-align: center; }
+        .work-list { max-width: 700px; margin: 0 auto; }
+        .work-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 9px 0;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .work-item:hover { opacity: 0.3; }
+        .work-title { font-size: 13px; font-weight: 200; }
+        .work-year { font-size: 11px; color: #aaa; flex-shrink: 0; margin-left: 30px; font-weight: 100; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-title">Jonghwan Lee</div>
+        <div class="header-nav"><span>Notes</span><span>CV</span><span>Works</span><span>Contact</span></div>
+    </div>
+    <div class="content">
+        <div class="intro-text">Every work is an experiment. This is not an experiment in the sense of verifying a pre-formed hypothesis or setting an established idea against empirical fact, but in the sense of opening a clearing and following the path that emerges through that aperture.</div>
+        <div class="work-list">
+            <div class="work-item"><span class="work-title">The Respiration of Tectonic Joinery</span><span class="work-year">2026</span></div>
+            <div class="work-item"><span class="work-title">The Bottom of the Wilderness</span><span class="work-year">2025</span></div>
+            <div class="work-item"><span class="work-title">Tears</span><span class="work-year">2025</span></div>
+            <div class="work-item"><span class="work-title">Narcissus</span><span class="work-year">2023–2024</span></div>
+            <div class="work-item"><span class="work-title">Eyebeam & Pulse</span><span class="work-year">2022–2023</span></div>
+            <div class="work-item"><span class="work-title">Filch</span><span class="work-year">2020–2022</span></div>
+            <div class="work-item"><span class="work-title">Drawing</span><span class="work-year">2020 –</span></div>
+        </div>
+    </div>
+</body>
+</html>

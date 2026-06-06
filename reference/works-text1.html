@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Works — Raleway</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Raleway', sans-serif; font-size: 13px; color: #000; line-height: 1.6; }
+
+        /* Header */
+        .header {
+            position: fixed; top: 0; left: 0; right: 0;
+            padding: 0;
+            background: #fff; z-index: 100;
+        }
+        .header-row {
+            height: 50px;
+            display: flex;
+            align-items: center;
+        }
+        .header-title {
+            font-size: 13px; font-weight: 300; letter-spacing: 1px;
+            flex-shrink: 0;
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex: 1;
+            font-size: 12px;
+            font-weight: 200;
+            letter-spacing: 0.5px;
+            color: #999;
+        }
+        .header-nav a {
+            flex: 1;
+            text-align: center;
+        }
+        .header-nav a { color: #999; text-decoration: none; transition: color 0.2s; }
+        .header-nav a:hover { color: #000; }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            position: absolute;
+            right: 30px;
+            top: 12px;
+            width: 20px;
+            height: 16px;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .hamburger span {
+            display: block;
+            height: 1px;
+            background: #000;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+        /* Mobile menu overlay */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #fff;
+            z-index: 99;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a {
+            font-size: 16px;
+            font-weight: 200;
+            color: #000;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: opacity 0.2s;
+        }
+        .mobile-menu a:hover { opacity: 0.3; }
+
+        /* Content */
+        .content { padding: 75px 60px 60px; }
+        .intro-text {
+            font-size: 12px; color: #999; line-height: 2;
+            margin-bottom: 45px; font-weight: 200;
+            max-width: 900px; margin-left: auto; margin-right: auto; text-align: center;
+        }
+        .work-list { max-width: 1050px; margin: 0 auto; }
+        .work-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 9px 0;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .work-item:hover { opacity: 0.3; }
+        .work-title { font-size: 13px; font-weight: 300; letter-spacing: 0.5px; }
+        .work-year { font-size: 11px; color: #aaa; flex-shrink: 0; margin-left: 30px; font-weight: 200; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header { padding: 0; }
+            .header-nav { display: none; }
+            .hamburger { display: flex; }
+            .content { padding: 70px 25px 40px; }
+            .intro-text { font-size: 11px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-row">
+            <div class="header-title">Jonghwan Lee</div>
+            <nav class="header-nav">
+                <a href="#">Notes</a>
+                <a href="#">CV</a>
+                <a href="#">Works</a>
+                <a href="#">Contact</a>
+            </nav>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="#" class="mobile-link">Notes</a>
+        <a href="#" class="mobile-link">CV</a>
+        <a href="#" class="mobile-link">Works</a>
+        <a href="#" class="mobile-link">Contact</a>
+    </div>
+
+    <div class="content">
+        <div class="intro-text">Every work is an experiment. This is not an experiment in the sense of verifying a pre-formed hypothesis or setting an established idea against empirical fact, but in the sense of opening a clearing and following the path that emerges through that aperture.</div>
+        <div class="work-list">
+            <div class="work-item"><span class="work-title">The Respiration of Tectonic Joinery</span><span class="work-year">2026</span></div>
+            <div class="work-item"><span class="work-title">The Bottom of the Wilderness</span><span class="work-year">2025</span></div>
+            <div class="work-item"><span class="work-title">Tears</span><span class="work-year">2025</span></div>
+            <div class="work-item"><span class="work-title">Narcissus</span><span class="work-year">2023–2024</span></div>
+            <div class="work-item"><span class="work-title">Eyebeam & Pulse</span><span class="work-year">2022–2023</span></div>
+            <div class="work-item"><span class="work-title">Filch</span><span class="work-year">2020–2022</span></div>
+            <div class="work-item"><span class="work-title">Drawing</span><span class="work-year">2020 –</span></div>
+        </div>
+    </div>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('open');
+                mobileMenu.classList.remove('open');
+            });
+        });
+    </script>
+</body>
+</html>
