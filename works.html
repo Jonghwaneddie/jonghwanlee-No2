@@ -487,36 +487,31 @@
                     // populate
                     thumbRow.innerHTML = '';
                     const imgs = getProjectImages(projectId);
-                    const toShow = imgs.slice(0, 5);
-                    toShow.forEach((img, idx) => {
+                    // Generate 30 placeholders for scroll testing
+                    for (let i = 0; i < 30; i++) {
                         const thumb = document.createElement('div');
                         thumb.className = 'thumb';
                         thumb.textContent = '';
                         thumb.dataset.projectId = projectId;
-                        thumb.dataset.index = idx;
-                        thumb.addEventListener('click', (ev) => {
-                            ev.stopPropagation();
-                            currentProjectId = projectId;
-                            currentImages = getProjectImages(projectId);
-                            currentIndex = idx;
-                            overlayShowing = !!(workDescriptions[projectId]);
-                            galleryTitle.textContent = projectId;
-                            galleryInfoOverlayContent.innerHTML = workDescriptions[projectId] || '';
-                            if (overlayShowing) galleryInfoOverlay.classList.remove('hidden'); else galleryInfoOverlay.classList.add('hidden');
-                            updateGallery();
-                            galleryView.classList.add('active');
-                            mainView.style.display = 'none';
-                            document.body.style.overflow = 'hidden';
-                            history.pushState({ gallery: true }, '', '#' + encodeURIComponent(projectId));
-                        });
-                        thumbRow.appendChild(thumb);
-                    });
-                    if (toShow.length === 0) {
-                        for (let i = 0; i < 3; i++) {
-                            const t = document.createElement('div');
-                            t.className = 'thumb small';
-                            thumbRow.appendChild(t);
+                        thumb.dataset.index = i;
+                        if (i < imgs.length) {
+                            thumb.addEventListener('click', (ev) => {
+                                ev.stopPropagation();
+                                currentProjectId = projectId;
+                                currentImages = getProjectImages(projectId);
+                                currentIndex = i;
+                                overlayShowing = !!(workDescriptions[projectId]);
+                                galleryTitle.textContent = projectId;
+                                galleryInfoOverlayContent.innerHTML = workDescriptions[projectId] || '';
+                                if (overlayShowing) galleryInfoOverlay.classList.remove('hidden'); else galleryInfoOverlay.classList.add('hidden');
+                                updateGallery();
+                                galleryView.classList.add('active');
+                                mainView.style.display = 'none';
+                                document.body.style.overflow = 'hidden';
+                                history.pushState({ gallery: true }, '', '#' + encodeURIComponent(projectId));
+                            });
                         }
+                        thumbRow.appendChild(thumb);
                     }
                     thumbRow.classList.add('active');
                 });
