@@ -32,10 +32,17 @@
         .content { padding: 75px 60px 60px; }
         .intro-text { font-size: 12px; color: #999; line-height: 2; margin-bottom: 45px; font-weight: 200; max-width: 1050px; margin-left: auto; margin-right: auto; text-align: left; }
         .work-list { max-width: 1050px; margin: 0 auto; }
-        .work-item { display: flex; justify-content: space-between; align-items: baseline; padding: 9px 0; cursor: pointer; transition: opacity 0.2s; }
-        .work-item:hover { opacity: 0.3; }
-        .work-title { font-size: 13px; font-weight: 300; letter-spacing: 0.5px; }
-        .work-year { font-size: 11px; color: #aaa; flex-shrink: 0; margin-left: 30px; font-weight: 200; }
+        .work-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 12px 0; cursor: pointer; transition: opacity 0.2s; gap: 40px; }
+        .work-item:hover { opacity: 0.7; }
+        .work-meta { display: flex; align-items: center; gap: 12px; flex: 1 1 65%; }
+        .work-title { font-size: 14px; font-weight: 400; letter-spacing: 0.5px; }
+        .work-year { font-size: 12px; color: #aaa; flex-shrink: 0; font-weight: 200; }
+        /* Thumbnails shown vertically on the right; smaller (2/3) size */
+        .thumb-row { display: none; gap: 8px; overflow-y: auto; align-items: center; padding-bottom: 6px; -webkit-overflow-scrolling: touch; flex-direction: column; max-height: 220px; width: 100px; flex: 0 0 100px; }
+        .thumb-row.active { display: flex; }
+        .thumb { width: 92px; height: 60px; border: 1px dashed #ccc; background: #fafafa; display: flex; align-items: center; justify-content: center; color: #ccc; font-size: 11px; cursor: pointer; flex: 0 0 auto; }
+        .thumb:active { transform: scale(0.98); }
+        .thumb.small { width: 72px; height: 50px; }
 
         /* Gallery */
         .gallery-view { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #fff; z-index: 200; flex-direction: column; }
@@ -93,13 +100,34 @@
     <div class="content" id="main-view">
         <div class="intro-text">Every work is an experiment. This is not an experiment in the sense of verifying a pre-formed hypothesis or setting an established idea against empirical fact, but in the sense of opening a clearing and following the path that emerges through that aperture.</div>
         <div class="work-list">
-            <div class="work-item" data-project-id="The Respiration of Tectonic Joinery: Inhaling and Exhaling the Space"><span class="work-title">The Respiration of Tectonic Joinery</span><span class="work-year">2026</span></div>
-            <div class="work-item" data-project-id="The Bottom of the Wilderness"><span class="work-title">The Bottom of the Wilderness</span><span class="work-year">2025</span></div>
-            <div class="work-item" data-project-id="Tears"><span class="work-title">Tears</span><span class="work-year">2025</span></div>
-            <div class="work-item" data-project-id="Narcissus"><span class="work-title">Narcissus</span><span class="work-year">2023–2024</span></div>
-            <div class="work-item" data-project-id="Eyebeam & Pulse"><span class="work-title">Eyebeam & Pulse</span><span class="work-year">2022–2023</span></div>
-            <div class="work-item" data-project-id="Filch"><span class="work-title">Filch</span><span class="work-year">2020–2022</span></div>
-            <div class="work-item" data-project-id="Drawing"><span class="work-title">Drawing</span><span class="work-year">2020 –</span></div>
+            <div class="work-item" data-project-id="The Respiration of Tectonic Joinery: Inhaling and Exhaling the Space">
+                <div class="work-meta"><span class="work-title">The Respiration of Tectonic Joinery</span><span class="work-year">2026</span></div>
+                <div class="thumb-row" aria-hidden="false"></div>
+            </div>
+            <div class="work-item" data-project-id="The Bottom of the Wilderness">
+                <div class="work-meta"><span class="work-title">The Bottom of the Wilderness</span><span class="work-year">2025</span></div>
+                <div class="thumb-row" aria-hidden="false"></div>
+            </div>
+            <div class="work-item" data-project-id="Tears">
+                <div class="work-meta"><span class="work-title">Tears</span><span class="work-year">2025</span></div>
+                <div class="thumb-row" aria-hidden="false"></div>
+            </div>
+            <div class="work-item" data-project-id="Narcissus">
+                <div class="work-meta"><span class="work-title">Narcissus</span><span class="work-year">2023–2024</span></div>
+                <div class="thumb-row" aria-hidden="false"></div>
+            </div>
+            <div class="work-item" data-project-id="Eyebeam & Pulse">
+                <div class="work-meta"><span class="work-title">Eyebeam & Pulse</span><span class="work-year">2022–2023</span></div>
+                <div class="thumb-row" aria-hidden="false"></div>
+            </div>
+            <div class="work-item" data-project-id="Filch">
+                <div class="work-meta"><span class="work-title">Filch</span><span class="work-year">2020–2022</span></div>
+                <div class="thumb-row" aria-hidden="false"></div>
+            </div>
+            <div class="work-item" data-project-id="Drawing">
+                <div class="work-meta"><span class="work-title">Drawing</span><span class="work-year">2020 –</span></div>
+                <div class="thumb-row" aria-hidden="false"></div>
+            </div>
         </div>
     </div>
 
@@ -441,6 +469,58 @@
                 });
                 return result;
             };
+
+            // Show small inline preview (placeholders) when title is clicked.
+            document.querySelectorAll('.work-meta').forEach(meta => {
+                meta.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const item = meta.closest('.work-item');
+                    const projectId = item.dataset.projectId;
+                    const thumbRow = item.querySelector('.thumb-row');
+                    // close other open thumb-rows
+                    document.querySelectorAll('.thumb-row.active').forEach(r => { if (r !== thumbRow) r.classList.remove('active'); });
+                    if (!thumbRow) return;
+                    if (thumbRow.classList.contains('active')) {
+                        thumbRow.classList.remove('active');
+                        return;
+                    }
+                    // populate
+                    thumbRow.innerHTML = '';
+                    const imgs = getProjectImages(projectId);
+                    const toShow = imgs.slice(0, 5);
+                    toShow.forEach((img, idx) => {
+                        const thumb = document.createElement('div');
+                        thumb.className = 'thumb';
+                        thumb.textContent = '';
+                        thumb.dataset.projectId = projectId;
+                        thumb.dataset.index = idx;
+                        thumb.addEventListener('click', (ev) => {
+                            ev.stopPropagation();
+                            currentProjectId = projectId;
+                            currentImages = getProjectImages(projectId);
+                            currentIndex = idx;
+                            overlayShowing = !!(workDescriptions[projectId]);
+                            galleryTitle.textContent = projectId;
+                            galleryInfoOverlayContent.innerHTML = workDescriptions[projectId] || '';
+                            if (overlayShowing) galleryInfoOverlay.classList.remove('hidden'); else galleryInfoOverlay.classList.add('hidden');
+                            updateGallery();
+                            galleryView.classList.add('active');
+                            mainView.style.display = 'none';
+                            document.body.style.overflow = 'hidden';
+                            history.pushState({ gallery: true }, '', '#' + encodeURIComponent(projectId));
+                        });
+                        thumbRow.appendChild(thumb);
+                    });
+                    if (toShow.length === 0) {
+                        for (let i = 0; i < 3; i++) {
+                            const t = document.createElement('div');
+                            t.className = 'thumb small';
+                            thumbRow.appendChild(t);
+                        }
+                    }
+                    thumbRow.classList.add('active');
+                });
+            });
 
             const updateGallery = () => {
                 const img = currentImages[currentIndex];
