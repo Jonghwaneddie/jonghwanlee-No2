@@ -472,6 +472,22 @@
                 history.pushState({ gallery: true }, '', '#' + encodeURIComponent(projectId));
             };
 
+            const openGalleryAtIndex = (projectId, index) => {
+                currentProjectId = projectId;
+                currentImages = getProjectImages(projectId);
+                currentIndex = index;
+                overlayShowing = !!(workDescriptions[projectId]);
+                galleryTitle.textContent = projectId;
+                galleryInfoOverlayContent.innerHTML = workDescriptions[projectId] || '';
+                if (overlayShowing) galleryInfoOverlay.classList.remove('hidden');
+                else galleryInfoOverlay.classList.add('hidden');
+                updateGallery();
+                galleryView.classList.add('active');
+                mainView.style.display = 'none';
+                document.body.style.overflow = 'hidden';
+                history.pushState({ gallery: true }, '', '#' + encodeURIComponent(projectId));
+            };
+
             const closeGallery = () => {
                 galleryView.classList.remove('active');
                 mainView.style.display = '';
@@ -492,10 +508,29 @@
                 }
             };
 
-            document.querySelectorAll('.work-item').forEach(item => {
-                item.addEventListener('click', () => {
+            document.querySelectorAll('.work-meta').forEach(meta => {
+                meta.addEventListener('click', () => {
+                    const item = meta.closest('.work-item');
                     const projectId = item.dataset.projectId;
-                    if (projectId) openGallery(projectId);
+                    const thumbRow = item.querySelector('.thumb-row');
+                    
+                    // Toggle photo grid
+                    thumbRow.classList.toggle('active');
+                    
+                    // If first time, populate with images
+                    if (thumbRow.classList.contains('active') && thumbRow.children.length === 0) {
+                        const images = getProjectImages(projectId);
+                        images.forEach(img => {
+                            const thumb = document.createElement('div');
+                            thumb.className = 'thumb';
+                            thumb.style.backgroundImage = `url('${img.src}')`;
+                            thumb.addEventListener('click', (e) => {
+                                e.stopPropagation();
+                                openGalleryAtIndex(projectId, images.indexOf(img));
+                            });
+                            thumbRow.appendChild(thumb);
+                        });
+                    }
                 });
             });
 
