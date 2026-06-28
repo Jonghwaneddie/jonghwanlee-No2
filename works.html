@@ -37,8 +37,8 @@
         .work-meta { display: flex; align-items: center; gap: 12px; flex: 0 0 auto; }
         .work-title { font-size: 14px; font-weight: 400; letter-spacing: 0.5px; }
         .work-year { font-size: 12px; color: #aaa; flex-shrink: 0; font-weight: 200; }
-        /* Thumbnails shown horizontally 5 per row, up to 5 rows with scroll if needed */
-        .thumb-row { display: none; gap: 8px; flex-wrap: wrap; align-items: flex-start; align-content: flex-start; width: 500px; max-height: 340px; overflow-y: auto; position: absolute; right: 0; top: 0; z-index: 10; flex: 0 0 500px; }
+        /* Thumbnails shown horizontally 5 per row, flow down if needed */
+        .thumb-row { display: none; gap: 8px; flex-wrap: wrap; align-items: flex-start; align-content: flex-start; width: 500px; position: absolute; right: 0; top: 0; z-index: 10; flex: 0 0 500px; }
         .thumb-row.active { display: flex; }
         .thumb { width: 92px; height: 60px; border: 1px dashed #ccc; background: #fafafa; display: flex; align-items: center; justify-content: center; color: #ccc; font-size: 11px; cursor: pointer; flex: 0 0 auto; }
         .thumb:active { transform: scale(0.98); }
