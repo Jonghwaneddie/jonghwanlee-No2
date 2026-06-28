@@ -55,19 +55,6 @@
         .gallery-title { font-size: 13px; text-align: center; flex: 1; font-weight: 300; }
         .gallery-counter { font-size: 11px; color: #999; min-width: 60px; text-align: right; font-weight: 200; }
 
-        /* 작품 설명 영역 - 제목과 사진 사이 */
-        .gallery-description {
-            padding: 20px 60px 20px;
-            font-size: 12px;
-            color: #666;
-            font-weight: 200;
-            line-height: 2;
-            text-align: left;
-            flex-shrink: 0;
-            border-bottom: 1px solid #f0f0f0;
-            display: none;
-        }
-        .gallery-description.visible { display: block; }
 
         .gallery-image-area { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
         .gallery-image-area img { max-width: calc(100% - 120px); max-height: calc(100% - 40px); object-fit: contain; transition: opacity 0.15s ease-in-out; }
@@ -153,8 +140,6 @@
             <span class="gallery-title" id="gallery-title"></span>
             <span class="gallery-counter" id="gallery-counter"></span>
         </div>
-        <!-- 작품 설명: 제목과 사진 사이 -->
-        <div class="gallery-description" id="gallery-description"></div>
         <div class="gallery-image-area" id="gallery-image-area">
             <div class="gallery-nav prev" id="gallery-prev">&#10094;</div>
             <img id="gallery-img" src="" alt="">
@@ -371,7 +356,6 @@
             const galleryBack = document.getElementById('gallery-back');
             const galleryPrev = document.getElementById('gallery-prev');
             const galleryNext = document.getElementById('gallery-next');
-            const galleryDescription = document.getElementById('gallery-description');
             const galleryImageArea = document.getElementById('gallery-image-area');
 
             let currentImages = [];
@@ -462,15 +446,6 @@
                 galleryPrev.classList.toggle('hidden', currentIndex === 0);
                 galleryNext.classList.toggle('hidden', currentIndex === currentImages.length - 1);
 
-                // ✅ 작품 설명: 첫 번째 이미지일 때만 표시 (제목-사진 사이)
-                const desc = workDescriptions[currentProjectId];
-                if (desc && currentIndex === 0) {
-                    galleryDescription.innerHTML = desc;
-                    galleryDescription.classList.add('visible');
-                } else {
-                    galleryDescription.innerHTML = '';
-                    galleryDescription.classList.remove('visible');
-                }
             };
 
             const openGallery = (projectId) => {
@@ -489,8 +464,6 @@
                 galleryView.classList.remove('active');
                 mainView.style.display = '';
                 document.body.style.overflow = '';
-                galleryDescription.innerHTML = '';
-                galleryDescription.classList.remove('visible');
                 if (history.state && history.state.gallery) { history.back(); }
             };
 
