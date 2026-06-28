@@ -484,35 +484,32 @@
                         thumbRow.classList.remove('active');
                         return;
                     }
-                    // populate
+                    // populate with actual images
                     thumbRow.innerHTML = '';
                     const imgs = getProjectImages(projectId);
-                    // Generate 30 placeholders for scroll testing
-                    for (let i = 0; i < 30; i++) {
+                    imgs.forEach((img, idx) => {
                         const thumb = document.createElement('div');
                         thumb.className = 'thumb';
                         thumb.textContent = '';
                         thumb.dataset.projectId = projectId;
-                        thumb.dataset.index = i;
-                        if (i < imgs.length) {
-                            thumb.addEventListener('click', (ev) => {
-                                ev.stopPropagation();
-                                currentProjectId = projectId;
-                                currentImages = getProjectImages(projectId);
-                                currentIndex = i;
-                                overlayShowing = !!(workDescriptions[projectId]);
-                                galleryTitle.textContent = projectId;
-                                galleryInfoOverlayContent.innerHTML = workDescriptions[projectId] || '';
-                                if (overlayShowing) galleryInfoOverlay.classList.remove('hidden'); else galleryInfoOverlay.classList.add('hidden');
-                                updateGallery();
-                                galleryView.classList.add('active');
-                                mainView.style.display = 'none';
-                                document.body.style.overflow = 'hidden';
-                                history.pushState({ gallery: true }, '', '#' + encodeURIComponent(projectId));
-                            });
-                        }
+                        thumb.dataset.index = idx;
+                        thumb.addEventListener('click', (ev) => {
+                            ev.stopPropagation();
+                            currentProjectId = projectId;
+                            currentImages = getProjectImages(projectId);
+                            currentIndex = idx;
+                            overlayShowing = !!(workDescriptions[projectId]);
+                            galleryTitle.textContent = projectId;
+                            galleryInfoOverlayContent.innerHTML = workDescriptions[projectId] || '';
+                            if (overlayShowing) galleryInfoOverlay.classList.remove('hidden'); else galleryInfoOverlay.classList.add('hidden');
+                            updateGallery();
+                            galleryView.classList.add('active');
+                            mainView.style.display = 'none';
+                            document.body.style.overflow = 'hidden';
+                            history.pushState({ gallery: true }, '', '#' + encodeURIComponent(projectId));
+                        });
                         thumbRow.appendChild(thumb);
-                    }
+                    });
                     thumbRow.classList.add('active');
                 });
             });
