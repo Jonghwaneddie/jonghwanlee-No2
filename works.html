@@ -9,7 +9,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Raleway', sans-serif; font-size: 13px; color: #000; line-height: 1.6; }
         .fade-text { color: #bbb; }
-
+ 
         .header { position: fixed; top: 0; left: 0; right: 0; padding: 0; background: #fff; z-index: 100; }
         .header-row { height: 50px; display: flex; align-items: center; }
         .header-title { font-size: 13px; font-weight: 300; letter-spacing: 1px; flex-shrink: 0; padding-left: 20px; }
@@ -17,28 +17,28 @@
         .header-nav { display: flex; align-items: center; justify-content: flex-end; flex: 1; font-size: 12px; font-weight: 200; letter-spacing: 0.5px; }
         .header-nav a { flex: 1; text-align: center; color: #999; text-decoration: none; transition: color 0.2s; }
         .header-nav a:hover { color: #000; }
-
+ 
         .hamburger { display: none; position: absolute; right: 20px; top: 12px; width: 20px; height: 16px; cursor: pointer; flex-direction: column; justify-content: space-between; }
         .hamburger span { display: block; height: 1px; background: #000; transition: transform 0.3s, opacity 0.3s; }
         .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
         .hamburger.open span:nth-child(2) { opacity: 0; }
         .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
-
+ 
         .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #fff; z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 25px; }
         .mobile-menu.open { display: flex; }
         .mobile-menu a { font-size: 16px; font-weight: 200; color: #000; text-decoration: none; letter-spacing: 1px; transition: opacity 0.2s; }
         .mobile-menu a:hover { opacity: 0.3; }
-
+ 
         .content { padding: 75px 60px 60px; }
         .intro-text { font-size: 12px; color: #999; line-height: 2; margin-bottom: 45px; font-weight: 200; max-width: 1050px; margin-left: auto; margin-right: auto; text-align: left; }
         .work-list { max-width: 1050px; margin: 0 auto; }
-
+ 
         /* 데스크탑: 기존 레이아웃 */
         .work-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 12px 0; gap: 40px; position: relative; }
         .work-meta { display: flex; align-items: center; gap: 12px; flex: 0 0 auto; cursor: pointer; }
         .work-title { font-size: 14px; font-weight: 400; letter-spacing: 0.5px; }
         .work-year { font-size: 12px; color: #aaa; flex-shrink: 0; font-weight: 200; }
-
+ 
         /* 데스크탑 thumb-row */
         .thumb-row { display: none; gap: 8px; flex-wrap: wrap; align-items: flex-start; align-content: flex-start; width: 500px; position: absolute; right: 0; top: 0; z-index: 10; flex: 0 0 500px; pointer-events: none; padding-top: 28px; }
         .thumb-row.active { display: flex; pointer-events: auto; }
@@ -47,7 +47,7 @@
         .thumb-row-desc { width: 100%; font-size: 11px; color: #999; font-weight: 200; line-height: 1.9; margin-bottom: 12px; pointer-events: none; }
         .thumb { width: 92px; height: 60px; background-size: contain; background-position: center; background-repeat: no-repeat; display: flex; align-items: center; justify-content: center; color: #ccc; font-size: 11px; cursor: pointer; flex: 0 0 auto; pointer-events: auto; position: relative; overflow: hidden; }
         .thumb:active { transform: scale(0.98); }
-
+ 
         /* Gallery */
         .gallery-view { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #fff; z-index: 200; flex-direction: column; }
         .gallery-view.active { display: flex; }
@@ -64,7 +64,7 @@
         .gallery-nav.next { right: 0; }
         .gallery-nav.hidden { display: none; }
         .gallery-caption { padding: 15px 60px; text-align: left; font-size: 11px; color: #888; min-height: 45px; flex-shrink: 0; font-weight: 200; }
-
+ 
         /* 모바일 */
         @media (max-width: 768px) {
             .header-nav { display: none; }
@@ -74,10 +74,10 @@
             .gallery-image-area img { max-width: calc(100% - 20px); max-height: calc(100% - 20px); }
             .gallery-nav { display: none; }
             .gallery-caption { padding: 10px 25px; }
-
+ 
             /* 모바일: work-item을 세로로 쌓기 */
             .work-item { flex-direction: column; gap: 0; }
-
+ 
             /* 모바일 thumb-row: 절대위치 해제, 제목 아래에 표시 */
             .thumb-row {
                 position: relative;
@@ -110,14 +110,14 @@
             </div>
         </div>
     </header>
-
+ 
     <div class="mobile-menu" id="mobile-menu">
         <a href="note.html" class="mobile-link">Notes</a>
         <a href="cv.html" class="mobile-link">CV</a>
         <a href="works.html" class="mobile-link">Works</a>
         <a href="contact.html" class="mobile-link">Contact</a>
     </div>
-
+ 
     <div class="content" id="main-view">
         <div class="intro-text">Every work is an experiment. This is not an experiment in the sense of verifying a pre-formed hypothesis or setting an established idea against empirical fact, but in the sense of opening a clearing and following the path that emerges through that aperture.</div>
         <div class="work-list">
@@ -151,7 +151,7 @@
             </div>
         </div>
     </div>
-
+ 
     <div class="gallery-view" id="gallery-view">
         <div class="gallery-header">
             <span class="gallery-back" id="gallery-back">&larr; Back</span>
@@ -165,21 +165,12 @@
         </div>
         <div class="gallery-caption" id="gallery-caption"></div>
     </div>
-
+ 
     <script>
         const allImageData = [
-          
-
-         { id: 'TRoTJ_7', projectId: 'The Respiration of Tectonic Joinery: Inhaling and Exhaling the Space', isDefault: false, folder: 'frieze2026', fileName: 'A Dew Released Into the Breathing Air 2026.jpeg', description: 'A Dew Released Into the Breathing Air, 2026, Engraving and watercolor on panel, iron ball, 172x106cm', url: 'frieze2026/A Dew Released Into the Breathing Air 2026.jpeg', isGroupMain: true, groupId: 'Dew'},
-         { id: 'TRoTJ_8', projectId: 'The Respiration of Tectonic Joinery: Inhaling and Exhaling the Space', isDefault: false, folder: 'frieze2026', fileName: 'A Dew Released Into the Breathing Air 2026 B.jpeg', description: '', url: 'frieze2026/A Dew Released Into the Breathing Air 2026 B.jpeg', groupId: 'Dew'},
- 
-            
-            //
-
-            
-            { id: 'index_1', projectId: 'INDEX_DEFAULT', isDefault: false, folder: 'hk2026', fileName: 'img1.jpg', description: 'Viri-Nis, 2026, Engraving and watercolor on panel, iron ball, 134x84cm', url: 'hk2026/img1.jpg', isGroupMain: true, groupId: 'Viri-Nis'},
+          { id: 'index_1', projectId: 'INDEX_DEFAULT', isDefault: false, folder: 'hk2026', fileName: 'img1.jpg', description: 'Viri-Nis, 2026, Engraving and watercolor on panel, iron ball, 134x84cm', url: 'hk2026/img1.jpg', isGroupMain: true, groupId: 'Viri-Nis'},
           { id: 'index_2', projectId: 'INDEX_DEFAULT', isDefault: false, folder: 'hk2026', fileName: 'img2.jpg', description: 'Motua, 2026, Engraving and watercolor on panel, iron ball, 134x84cm', url: 'hk2026/img2.jpg', isGroupMain: true, groupId: 'Motua'},
-
+ 
          // liste2026
          { id: 'liste_1', projectId: 'The Respiration of Tectonic Joinery: Inhaling and Exhaling the Space', isDefault: false, folder: 'liste2026_1', fileName: 'A Vein in the Haze That Never Lifted, 2026, Engraving and watercolour on panel, iron ball, 194 x 134 cm.jpg', description: 'A Vein in the Haze That Never Lifted, 2026, Engraving and watercolour on panel, iron ball, 194 x 134 cm', url: 'liste2026_1/A Vein in the Haze That Never Lifted, 2026, Engraving and watercolour on panel, iron ball, 194 x 134 cm.jpg', isGroupMain: true, groupId: 'liste_1' },
          { id: 'liste_2', projectId: 'The Respiration of Tectonic Joinery: Inhaling and Exhaling the Space', isDefault: false, folder: 'liste2026_1', fileName: 'A Root That Never Knew Ground, 2026, Engraving and watercolour on panel, iron ball, 194 x 134 cm.jpg', description: 'A Root That Never Knew Ground, 2026, Engraving and watercolour on panel, iron ball, 194 x 134 cm', url: 'liste2026_1/A Root That Never Knew Ground, 2026, Engraving and watercolour on panel, iron ball, 194 x 134 cm.jpg', isGroupMain: true, groupId: 'liste_2' },
@@ -191,13 +182,15 @@
          { id: 'liste_8', projectId: 'The Respiration of Tectonic Joinery: Inhaling and Exhaling the Space', isDefault: false, folder: 'liste2026_3', fileName: 'Spreading Without Touching Ground, 2026, Engraving and watercolour on panel, iron ball, 50 x 50 cm.jpg', description: 'Spreading Without Touching Ground, 2026, Engraving and watercolour on panel, iron ball, 50 x 50 cm', url: 'liste2026_3/Spreading Without Touching Ground, 2026, Engraving and watercolour on panel, iron ball, 50 x 50 cm.jpg', isGroupMain: true, groupId: 'liste_8' },
          { id: 'liste_9', projectId: 'The Respiration of Tectonic Joinery: Inhaling and Exhaling the Space', isDefault: false, folder: 'liste2026_3', fileName: 'The Drop that Woke the Quiet, 2026, Engraving and watercolour on panel, iron ball, 50 x 50 cm.jpg', description: 'The Drop that Woke the Quiet, 2026, Engraving and watercolour on panel, iron ball, 50 x 50 cm', url: 'liste2026_3/The Drop that Woke the Quiet, 2026, Engraving and watercolour on panel, iron ball, 50 x 50 cm.jpg', isGroupMain: true, groupId: 'liste_9' },
          { id: 'liste_10', projectId: 'The Respiration of Tectonic Joinery: Inhaling and Exhaling the Space', isDefault: false, folder: 'liste2026_3', fileName: 'The Instant Before It Soaked In, 2026, Engraving and watercolour on panel, iron ball, 50 x 50 cm.jpg', description: 'The Instant Before It Soaked In, 2026, Engraving and watercolour on panel, iron ball, 50 x 50 cm', url: 'liste2026_3/The Instant Before It Soaked In, 2026, Engraving and watercolour on panel, iron ball, 50 x 50 cm.jpg', isGroupMain: true, groupId: 'liste_10' },
-
+ 
          { id: 'TRoTJ_2', projectId: 'The Respiration of Tectonic Joinery: Inhaling and Exhaling the Space', isDefault: false, folder: 'hk2026', fileName: 'img1.jpg', description: 'Viri-Nis, 2026, Engraving and watercolor on panel, iron ball, 134x84cm', url: 'hk2026/img1.jpg', isGroupMain: true, groupId: 'Viri-Nis'},
          { id: 'TRoTJ_3', projectId: 'The Respiration of Tectonic Joinery: Inhaling and Exhaling the Space', isDefault: false, folder: 'hk2026', fileName: 'img2.jpg', description: 'Motua, 2026, Engraving and watercolor on panel, iron ball, 134x84cm', url: 'hk2026/img2.jpg', isGroupMain: true, groupId: 'Motua'},
          { id: 'TRoTJ_4', projectId: 'The Respiration of Tectonic Joinery: Inhaling and Exhaling the Space', isDefault: false, folder: 'jp2026', fileName: 'img2.jpg', description: 'Coolly Flowing, Then Clinging, 2026,  Engraving and watercolor on panel, iron ball, 54x31cm', url: 'jp2026/img2.jpg', isGroupMain: true, groupId: 'Coolly Flowing, Then Clinging'},
          { id: 'TRoTJ_5', projectId: 'The Respiration of Tectonic Joinery: Inhaling and Exhaling the Space', isDefault: false, folder: 'jp2026', fileName: 'img3.jpg', description: 'A Round Point Where Stillness Stays, 2026,  Engraving and watercolor on panel, iron ball, 58x40cm', url: 'jp2026/img3.jpg', isGroupMain: true, groupId: 'A Round'},
          { id: 'TRoTJ_6', projectId: 'The Respiration of Tectonic Joinery: Inhaling and Exhaling the Space', isDefault: false, folder: 'jp2026', fileName: 'img4.jpg', description: 'A Nap Between Leaves, 2026, Engraving and watercolor on panel, iron ball, 40x31cm', url: 'jp2026/img4.jpg', isGroupMain: true, groupId: 'A Nap'},
-
+         { id: 'TRoTJ_7', projectId: 'The Respiration of Tectonic Joinery: Inhaling and Exhaling the Space', isDefault: false, folder: 'dew2026', fileName: 'img1.jpg', description: 'A Dew Released Into the Breathing Air, 2026, Engraving and watercolor on panel, iron ball, 172x106cm', url: 'dew2026/img1.jpg', isGroupMain: true, groupId: 'Dew'},
+         { id: 'TRoTJ_8', projectId: 'The Respiration of Tectonic Joinery: Inhaling and Exhaling the Space', isDefault: false, folder: 'dew2026', fileName: 'img1-1.jpg', description: '', url: 'dew2026/img1-1.jpg', groupId: 'Dew'},
+ 
          { id: 'frieze2025-1', projectId: 'The Bottom of the Wilderness', isDefault: false, folder: 'frieze2025', fileName: 'img2.jpg', description: 'The drawn Spine of the Earth , 2025, Engraving and watercolor on panel, Iron ball, 75x100cm', url:'frieze2025/img2.jpg', isGroupMain: true, groupId: '1' },
          { id: 'frieze2025-2', projectId: 'The Bottom of the Wilderness', isDefault: false, folder: 'frieze2025', fileName: 'img3.jpg', description: 'The hollowed Lungs of the Forest, 2025, Engraving and watercolor on panel, Iron ball, 35x35cm', url: 'frieze2025/img3.jpg',isGroupMain: true, groupId: '2 ' },
          { id: 'loggia_1', projectId: 'The Bottom of the Wilderness', isDefault: false, folder: '2025loggia1', fileName: 'img1.jpg', description: 'Breath of the Hollow, 2025, Engraving and Watercolor on panel, Pendulum, 400x120x120cm', url: '2025loggia1/img1.jpg', groupId: 'Breath ',isGroupMain: true },
@@ -224,12 +217,12 @@
          { id: 'loggia_33', projectId: 'The Bottom of the Wilderness', isDefault: false, folder: 'loggiaimages', fileName: 'img15.jpg', description: 'Where Color Hesitates, 2025, Engraving and watercolor on panel, 39x160cm', url: '2025loggia2/img15.jpg', isGroupMain: true, groupId: '4'},
          { id: 'loggia_34', projectId: 'The Bottom of the Wilderness', isDefault: false, folder: 'loggiaimages', fileName: 'img16.jpg', description: 'Through the Quiet Veil, 2025, Engraving and watercolor on panel, Plaster, 170x60cm', url: '2025loggia2/img16.jpg', isGroupMain: true, groupId: '5'},
          { id: 'loggia_35', projectId: 'The Bottom of the Wilderness', isDefault: false, folder: 'loggiaimages', fileName: 'img17.jpg', description: 'Beyond the Quiet Veil, 2025, Engraving and watercolor on panel, Plaster, 170x60cm', url: '2025loggia2/img17.jpg', isGroupMain: true, groupId: '6'},
-
+ 
          { id: 'sr_3', projectId: 'Tears', isDefault: false, folder: '2025surgicalroom', fileName: 'img1.jpg', description: 'As It Dissolves, 2025, Engraving and watercolour on panel, 79 x 45cm', url: '2025surgicalroom/img1.jpg', isGroupMain: true, groupId: 'Tear_A' },
          { id: 'sr_4', projectId: 'Tears', isDefault: false, folder: '2025surgicalroom', fileName: 'img2.jpg', description: 'Pale Diaphanous Droplet, 2025, Engraving and watercolour on panel_122 x 60cm', url: '2025surgicalroom/img2.jpg', isGroupMain: true, groupId: 'Tear_B' },
          { id: 'sr_5', projectId: 'Tears', isDefault: false, folder: '2025surgicalroom', fileName: 'img3.jpg', description: 'Before It falls, 2025, Engraving and watercolour on panel, 120 x 70cm', url: '2025surgicalroom/img3.jpg', isGroupMain: true, groupId: 'Tear_C' },
          { id: 'sr_6', projectId: 'Tears', isDefault: false, folder: '2025surgicalroom', fileName: 'img4.jpg', description: 'The Breathing Stillness, 2025, Engraving and watercolour on panel, 23 x 18cm', url: '2025surgicalroom/img4.jpg', isGroupMain: true, groupId: 'Tear_D' },
-
+ 
          { id: 'nar_1', projectId: 'Narcissus', isDefault: false, folder: '2024frieze1', fileName: 'img1.jpg', description: 'Each blank was a goodbye to the world beyond, 2024, Engraving and watercolor on panel, 42x33.5cm', url: '2024frieze1/img1.jpg', isGroupMain: true, groupId: 'Nar_A' },
          { id: 'nar_2', projectId: 'Narcissus', isDefault: false, folder: '2024frieze1', fileName: 'img1-1.jpg', description: '', url: '2024frieze1/img1-1.jpg', groupId: 'Nar_A' },
          { id: 'nar_3', projectId: 'Narcissus', isDefault: false, folder: '2024frieze1', fileName: 'img1-2.jpg', description: '', url: '2024frieze1/img1-2.jpg', groupId: 'Nar_A' },
@@ -274,7 +267,7 @@
          { id: 'nar_40', projectId: 'Narcissus', isDefault: false, folder: '2023hypercube', fileName: 'img15.jpg', description: 'Narcissus Ⅳ, 2023, Engraving, watercolour and graphite on panel, 28 x 23cm', url: '2023hypercube/img15.jpg', isGroupMain: true, groupId: 'Nar_31'},
          { id: 'nar_41', projectId: 'Narcissus', isDefault: false, folder: '2023artbusan', fileName: 'img2.jpg', description: ' Narcissus Ⅰ, 2023, Engraving and watercolor on panel, 30x30cm', url: '2023artbusan/img2.jpg', isGroupMain: true, groupId: 'AB_Group_2'},
          { id: 'nar_42', projectId: 'Narcissus', isDefault: false, folder: '2023artbusan', fileName: 'img3.jpg', description: 'Narcissus Ⅱ, 2023, Engraving and watercolor on panel, 30x30cm', url: '2023artbusan/img3.jpg', isGroupMain: true, groupId: 'AB_Group_3'},
-
+ 
          { id: 'EP_1', projectId: 'Eyebeam & Pulse', isDefault: false, folder: '2023pack', fileName: 'img1.jpg', description: 'Prism Ⅰ, 2023, Engraving and watercolor on panel, 57x8x8cm', url: '2023pack/img1.jpg', isGroupMain: true, groupId: 'EP_Group_A' },
          { id: 'EP_2', projectId: 'Eyebeam & Pulse', isDefault: false, folder: '2023pack', fileName: 'img2.jpg', description: 'Prism Ⅰ (casting), 2023, Plaster, 57x8x8cm', url: '2023pack/img2.jpg', isGroupMain: true, groupId: 'EP_Group_1' },
          { id: 'EP_3', projectId: 'Eyebeam & Pulse', isDefault: false, folder: '2023pack', fileName: 'img3.jpg', description: 'Prism Ⅱ, 2023, Engraving and watercolor on panel, 57x8x8cm', url: '2023pack/img3.jpg', isGroupMain: true, groupId: 'EP_Group_2' },
@@ -304,7 +297,7 @@
          { id: 'gn_6', projectId: 'Eyebeam & Pulse', isDefault: false, folder: 'good', fileName: 'img8.jpg', description: 'Eye vii, 2023, Plaster casting, 30×21cm', url: 'good/img8.jpg', groupId: 'gn_Group_3' },
          { id: 'gn_7', projectId: 'Eyebeam & Pulse', isDefault: false, folder: 'good', fileName: 'img9.jpg', description: 'Eye vii, 2023, Plaster casting, 30×21cm', url: 'good/img9.jpg', groupId: 'gn_Group_3' },
          { id: 'gn_8', projectId: 'Eyebeam & Pulse', isDefault: false, folder: 'good', fileName: 'img9-1.jpg', description: 'Eye vii, 2023, Plaster casting, 30×21cm', url: 'good/img9-1.jpg', groupId: 'gn_Group_3' },
-
+ 
          { id: 'pws_1', projectId: 'Filch', isDefault: false, folder: '2022preview', fileName: 'img1.jpg', description: 'Tear off An Image, 2022, Engraving and watercolor on panel Aluminum, Plaster, 91x116.8 cm', url: '2022preview/img1.jpg', isGroupMain: true, groupId: 'pre_Group_1' },
          { id: 'pws_2', projectId: 'Filch', isDefault: false, folder: '2022preview', fileName: 'img2.jpg', description: 'Tear off An Image(Bubble shape), 2022, Engraving and watercolor on panel, Plaster, 91x116.8 cm', url: '2022preview/img2.jpg', isGroupMain: true, groupId: 'pre_Group_2' },
          { id: 'pws_3', projectId: 'Filch', isDefault: false, folder: '2022preview', fileName: 'img3.jpg', description: 'Bush, 2022, Engraving and watercolor on panel, 27.3x34.8cm', url: '2022preview/img3.jpg', isGroupMain: true, groupId: 'pre_Group_3' },
@@ -332,7 +325,7 @@
          { id: '2020_6', projectId: 'Filch', isDefault: false, folder: '2020', fileName: 'img6.jpg', description: 'Yellowing 2020, Engraving and watercolor on panel, Graphite, 72.7x106cm', url: '2020/img6.jpg', isGroupMain: true, groupId: '2020_Group_6' },
          { id: '2020_7', projectId: 'Filch', isDefault: false, folder: '2020', fileName: 'img7.jpg', description: 'Shadow, 2020, Graphite on Paper, 72.7x53cm', url: '2020/img7.jpg', isGroupMain: true, groupId: '2020_Group_7' },
          { id: '2020_8', projectId: 'Filch', isDefault: false, folder: '2020', fileName: 'img8.jpg', description: 'Shadow, 2020, Graphite on Paper, 72.7x53cm', url: '2020/img8.jpg', isGroupMain: true, groupId: '2020_Group_8' },
-
+ 
          { id: 'dra_26', projectId: 'Drawing', isDefault: false, folder: 'd2', fileName: 'img6.jpg', description: 'Browning, 2022, Scratching and watercolor on aluminum, Graphite, Plaster, 30x22cm', url: 'd2/img6.jpg', isGroupMain: true, groupId: 'dra1_Group_7' },
          { id: 'dra_27', projectId: 'Drawing', isDefault: false, folder: 'd2', fileName: 'img7.jpg', description: 'Rock, 2022, Scratching and graghite on aluminum, 30x 20cm', url: 'd2/img7.jpg', isGroupMain: true, groupId: 'dra1_Group_8' },
          { id: 'dra_28', projectId: 'Drawing', isDefault: false, folder: 'd2', fileName: 'img8.jpg', description: 'ficta, 2022, Scratching and watercolor on aluminum, Graphite, 29.7x21cm', url: 'd2/img8.jpg', isGroupMain: true, groupId: 'dra1_Group_9' },
@@ -368,7 +361,7 @@
          { id: 'dra_24', projectId: 'Drawing', isDefault: false, folder: 'd2', fileName: 'img4.jpg', description: 'David, 2021, Scratching and watercolor on aluminum, Graphite, 29.7x21cm', url: 'd2/img4.jpg', isGroupMain: true, groupId: 'dra1_Group_5' },
          { id: 'dra_25', projectId: 'Drawing', isDefault: false, folder: 'd2', fileName: 'img5.jpg', description: 'Mazzochio, 2021, Scratching and watercolor on aluminum, Graphite, 29.7x21cm', url: 'd2/img5.jpg', isGroupMain: true, groupId: 'dra1_Group_6' },
         ];
-
+ 
         const workDescriptions = {
             'The Respiration of Tectonic Joinery: Inhaling and Exhaling the Space': `Joinery grounds a "world in the making." By honoring the wood's innate respiration, the work maintains an organic dialogue that breathes with its environment. Within this flow, the steel sphere acts as a sensory bridge: it absorbs the physical world into the painting while exhaling the world of illusion back into reality. By blurring the lines between matter and body, the painting is revealed not as an object, but as a living world in constant communion.`,
             'The Bottom of the Wilderness': `While architectural pillars support physical weight, the Pillar-Painting sustains illusory space. By standing independent of the wall, it extends the canvas's flatness into the room, anchoring a landscape where the tangible gallery and the intangible mind intersect. No longer a fixed image, this self-standing work exists as a living presence sharing our spatiotemporal ground.`,
@@ -378,7 +371,7 @@
             'Filch': ``,
             'Drawing': ``,
         };
-
+ 
         document.addEventListener('DOMContentLoaded', () => {
             const mainView = document.getElementById('main-view');
             const galleryView = document.getElementById('gallery-view');
@@ -390,11 +383,11 @@
             const galleryPrev = document.getElementById('gallery-prev');
             const galleryNext = document.getElementById('gallery-next');
             const galleryImageArea = document.getElementById('gallery-image-area');
-
+ 
             let currentImages = [];
             let currentIndex = 0;
             let currentProjectId = null;
-
+ 
             const getProjectImages = (projectId) => {
                 const items = allImageData.filter(i => i.projectId === projectId);
                 const result = [];
@@ -411,7 +404,7 @@
                 });
                 return result;
             };
-
+ 
             document.querySelectorAll('.work-meta').forEach(meta => {
                 meta.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -431,7 +424,7 @@
                     label.className = 'thumb-row-label';
                     label.innerHTML = `<span>${titleEl ? titleEl.textContent : projectId}</span><span class="year">${yearEl ? yearEl.textContent : ''}</span>`;
                     thumbRow.appendChild(label);
-
+ 
                     const desc = workDescriptions[projectId];
                     if (desc) {
                         const descEl = document.createElement('div');
@@ -439,9 +432,13 @@
                         descEl.innerHTML = '<br>' + desc;
                         thumbRow.appendChild(descEl);
                     }
-
+ 
                     const imgs = getProjectImages(projectId);
                     imgs.forEach((img, idx) => {
+                        // Only show one thumbnail per group (the main shot). Grouped detail/back
+                        // images (groupId set, isGroupMain not true) stay reachable only by
+                        // paging through the fullscreen gallery, not as their own thumbnail.
+                        if (img.groupId && !img.isGroupMain) return;
                         const thumb = document.createElement('div');
                         thumb.className = 'thumb';
                         thumb.style.backgroundImage = `url('${img.url}')`;
@@ -462,7 +459,7 @@
                     thumbRow.classList.add('active');
                 });
             });
-
+ 
             const updateGallery = () => {
                 const img = currentImages[currentIndex];
                 if (!img) return;
@@ -474,14 +471,14 @@
                 galleryPrev.classList.toggle('hidden', currentIndex === 0);
                 galleryNext.classList.toggle('hidden', currentIndex === currentImages.length - 1);
             };
-
+ 
             const closeGallery = () => {
                 galleryView.classList.remove('active');
                 mainView.style.display = '';
                 document.body.style.overflow = '';
                 if (history.state && history.state.gallery) { history.back(); }
             };
-
+ 
             const navigate = (direction) => {
                 const newIndex = currentIndex + direction;
                 if (newIndex >= 0 && newIndex < currentImages.length) {
@@ -489,18 +486,18 @@
                     updateGallery();
                 }
             };
-
+ 
             galleryBack.addEventListener('click', closeGallery);
             galleryPrev.addEventListener('click', () => navigate(-1));
             galleryNext.addEventListener('click', () => navigate(1));
-
+ 
             document.addEventListener('keydown', (e) => {
                 if (!galleryView.classList.contains('active')) return;
                 if (e.key === 'Escape') closeGallery();
                 if (e.key === 'ArrowLeft') navigate(-1);
                 if (e.key === 'ArrowRight') navigate(1);
             });
-
+ 
             galleryImageArea.addEventListener('click', (e) => {
                 if (window.innerWidth > 768) return;
                 const rect = galleryImageArea.getBoundingClientRect();
@@ -508,7 +505,7 @@
                 if (x < rect.width / 3) navigate(-1);
                 else if (x > rect.width * 2 / 3) navigate(1);
             });
-
+ 
             window.addEventListener('popstate', () => {
                 if (galleryView.classList.contains('active')) {
                     galleryView.classList.remove('active');
@@ -516,7 +513,7 @@
                     document.body.style.overflow = '';
                 }
             });
-
+ 
             const hamburger = document.getElementById('hamburger');
             const mobileMenu = document.getElementById('mobile-menu');
             hamburger.addEventListener('click', () => {
